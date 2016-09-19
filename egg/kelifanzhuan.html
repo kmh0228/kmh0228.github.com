@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{margin:0; padding:0;}
+.box{width:700px; height:400px; margin:100px auto; position:relative;}
+.box span{ position:absolute; -webkit-transform-style:preserve-3d; -webkit-transform:perspective(800px) rotateY(0deg);}
+.box span em{position:absolute; top:0; left:0; width:100%; height:100%;}
+span .front{ background:url(img/a1.jpg) no-repeat 0 0; -webkit-transform:translateZ(1px);}
+span .back{ background:url(img/a2.jpg) no-repeat 0 0; -webkit-transform:translateZ(-1px) scale(-1,1);}
+</style>
+<script>
+window.onload=function(){
+	var oBox = document.querySelector('.box');
+	var iNow = 0;
+	var C = 7;
+	var R = 4;
+	for(var i=0;i<R;i++){
+		for(var j=0;j<C;j++){
+			var oS = document.createElement('span');
+			oS.style.width = oBox.offsetWidth/C+'px';
+			oS.style.height = oBox.offsetHeight/R+'px';
+			oS.innerHTML = '<em class="front"></em><em class="back"></em>';
+			oBox.appendChild(oS);
+			oS.style.left = j*oS.offsetWidth+'px';
+			oS.style.top = i*oS.offsetHeight+'px';
+			var oFront = oS.children[0];
+			var oBack = oS.children[1];
+			oFront.style.backgroundPosition = oBack.style.backgroundPosition = '-'+oS.offsetLeft+'px -'+oS.offsetTop+'px';
+			oS.r = i;
+			oS.c = j;
+		}
+	}
+	
+	var aS = oBox.children;
+	var bOk = false;
+	oBox.onclick=function(){
+		if(bOk)return;
+		bOk = true;
+		iNow++;
+		for(var i=0;i<aS.length;i++){
+			(function(index){
+				setTimeout(function(){
+					aS[index].style.WebkitTransition = '1s all ease';
+					aS[index].style.WebkitTransform = 'perspective(800px) rotateY(180deg)';
+				},(aS[i].r+aS[i].c)*100);
+			})(i);
+		}
+		
+		function tranEnd(){
+			aS[aS.length-1].removeEventListener('transitionend',tranEnd,false);
+			for(var i=0;i<aS.length;i++){
+				aS[i].style.WebkitTransition = 'none';
+				var oFront = aS[i].children[0];
+				var oBack = aS[i].children[1];
+				oFront.style.backgroundImage = 'url(img/a'+(iNow%3+1)+'.jpg)';
+				oBack.style.backgroundImage = 'url(img/a'+((iNow+1)%3+1)+'.jpg)';
+				aS[i].style.WebkitTransform = 'perspective(800px) rotateY(0deg)';
+			}
+			bOk = false;
+		}
+		aS[aS.length-1].addEventListener('transitionend',tranEnd,false);
+	};
+};
+</script>
+</head>
+
+<body>
+<div class="box">
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

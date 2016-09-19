@@ -1,0 +1,477 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<link rel="stylesheet" href="css/base.css"/>
+<style>
+.box{ width:1068px; height:665px; border:1px solid #000; margin:0 auto;}
+.header{ height:43px; background:url(images/header.png);}
+	.header h1{ width:103px; height:32px; margin:6px 0 0 11px;}
+		.header h1 a{ display:block; height:100%; text-indent:-999px;}
+	.header .inv{ width:69px; height:39px; margin:2px 0 0 30px; cursor:pointer;}
+	.header .player{ width:69px; height:39px; margin:2px 0 0 13px; cursor:pointer;}
+	.header .dir{ width:60px; height:39px; margin:2px 0 0 19px; cursor:pointer;}
+	.header .del{ margin:16px 14px 0 0; width:12px; height:12px; cursor:pointer;}
+.main{border-left:2px solid #353537;}
+	.main .side{ width:247px; height:558px;}
+		.main .side .search{ background:#353533; height:34px; background:url(images/search.png); position:relative;}
+			.main .side .search input{ width:236px; height:30px; margin:1px; padding-left:5px; color:#fff;}
+			.main .side .search .btn{ width:21px; height:29px; position:absolute; top:3px; right:5px; cursor:pointer;}
+			.main .side .user .userTitle{ margin-left:1px; border-right:1px solid #000; border-bottom:1px solid #000; width:244px;}
+			.main .side .user .userTitle li{ float:left; height:20px; border-left:1px solid #000; border-top:1px solid #000; font-size:12px; line-height:20px; text-align:center;background:url(images/userTitle_libg.png) repeat-x; padding:0 6px;}
+			.main .side .user .userTitle li.active{ color:#active;}
+			.main .side .user .userCon{ width:243px; height:73px; border:1px solid #000; margin-left:1px;}
+			.main .side .user .userCon .userFace{ margin:10px 9px 0 7px;}
+			.main .side .user .userCon h3{color:#ff6600; height:20px; padding-top:7px; line-height:16px;}
+			.main .side .user .userCon .doudou{display:inline-block; width:19px; height:13px; background:url(images/user_doudou.png) no-repeat;}
+			.main .side .user .userCon .user_level{ height:21px;}
+			.user_level span{ padding-left:18px; line-height:20px; padding-top:3px;}
+			.user_level span.padding_none{ padding:0px;}
+			.user_level .user_levelSun{background:url(images/level_sun.png) no-repeat left bottom;}
+			.user_level .user_levelYue{background:url(images/level_yue.png) no-repeat left bottom;}
+			.user_level .user_levelXing{ background:url(images/level_xing.png) no-repeat left bottom;}
+/*movebox*/
+.move_con{ width:229px; height:460px; overflow:hidden; position:relative;}
+.move_con .scon{ position:absolute; top:0; left:0;}
+	.move_con .new_games{ width:201px; height:23px; border-bottom:2px solid #000; background:#303030 url(images/icons/icons01.png) no-repeat; line-height:20px; color:#fcba04; font-weight:bold; padding-left:28px; }
+	.move_con .new_games span{ margin-right:6px; cursor:pointer;}
+	.move_con .tbws{ height:20px; color:#e06601; padding-left:11px; line-height:20px;}
+	.move_con .tbws span{ width:20px; height:14px; background:url(images/icons/down.png); margin:3px 10px; cursor:pointer;}
+	
+	.move_con .scon li{ height:29px; border-bottom:1px solid #353334; padding-top:8px;}
+	.move_con .scon li img{ margin:0 25px;}
+	
+	.move_con .move_contxt .tit h3{ color:#ffb900; line-height:23px; padding-right:3px;}
+	.move_con .move_contxt .pr10{ padding-right:10px;}
+	.move_index{ width:13px; height:458px; border:1px solid #000; background:#0a0a0a;}
+	.move_index .in_up{ height:12px; background:url(images/icons/con_barUp.png);}
+	.move_index .in_down{ height:13px; background:url(images/icons/con_barDown.png);}
+	.move_index .in_on{ height:433px; position:relative;}
+	.move_index .wheel{ height:30px; width:100%; position:absolute; top:0; left:0; background:#403e3f; cursor:pointer;}
+	.video_con{ width:799px; height:586px; overflow:hidden; position:relative;}
+	.video_con>div{ position:absolute; top:0; left:0;}
+	.video_con .video_title{ height:38px; background:#383735 url(images/update.png) no-repeat; padding-left:65px;}
+	.video_con .video_title li{ float:left; padding-left:23px; line-height:38px;}
+	.video_con .video_title li.on,.video_con .video_title li:hover{ background:url(images/reddian.png) no-repeat 14px;}
+	.video_con .video_title li.on a,.video_con .video_title li:hover a{color:#f84540}
+	.video_con .video_title .search{ width:166px; height:23px; background:url(images/videosearch.png); margin:5px 8px 0 0; position:relative;}
+	.video_con .video_title .search .text{ width:160px; height:100%; padding-left:6px; color:#fff;}
+	.video_con .video_title .search .btn{ width:20px; height:100%; position:absolute; top:0; right:0; cursor:pointer;}
+	.video_con .video_tab{ margin-left:5px;}
+	.video_con .video_tab .tab_con_box{width:789px; height:300px; overflow:hidden;}
+	.video_con .video_tab .tab_con{	width:7890px; height:300px; overflow:hidden;}
+	.video_con .video_tab .tab_con li{ position:relative; float:left; overflow:hidden; width:789px;}	
+	.video_con .video_tab .tab_con img{ width:789px; height:300px;}
+	.video_con .video_tab .tab_con a{ display:block;}
+	.video_con .video_tab .tab_con p{ position:absolute; width:779px; height:35px; line-height:35px; background:rgba(0,0,0,0.6); bottom:0; left:0; padding-left:10px;}
+	
+	.video_con .video_tab .tab_btn li{ border:2px solid #000; border-bottom:1px solid #000; border-top:4px solid #000; float:left; width:75px; overflow:hidden;}
+	.video_con .video_tab .fi_pointer{ position:absolute; left:0px; top:-2px; width:79px; height:51px; background:url(../images/icons/pic-hover.png) no-repeat left top;}
+	.video_con .hot{ width:794; height:182px; border-bottom:1px solid #363535; margin-left:5px;}
+	.video_con .hot h3{ height:44px; font-size:14px; color:#fff; line-height:44px;}
+	.video_con .hot li{ float:left; margin-left:13px;}
+	.video_con .hot a{display:block;}	
+	.video_con .hot img{ width:146px; height:83px; margin-top:2px; margin-bottom:5px;}
+	.video_con .hot li.mar0{ margin:0;}
+	.video_con .hot li strong{ line-height:20px; color:#fff;}
+	.video_con .video_list .list{ height:40px;}
+	.video_con .video_list .list h3{ font-size:14px; line-height:40px; color:#fff;}
+	.video_con .video_list .list a{ line-height:40px; color:#ccc;}
+	.video_con .video_list .con{ border-bottom:1px solid #363535;}
+	.video_con .video_list .con li{ float:left; margin-left:39px; height:242px;}
+	.video_con .video_list .con li.mar0{  margin-left:0;}
+	.video_con .video_list .con a{ display:block; margin-top:4px; margin-bottom:2px;}
+	.video_con .video_list .con strong{ display:block; line-height:24px; color:#fff;}
+	.video_con .video_list .con .videoInfo{color:#8c8c8c;}
+	.video_index{ width:16px; height:591px; border:1px solid #000;}
+	.video_index .up{ width:16px; height:16px; background:url(images/videoup2.png);}
+	.video_index .in{ width:16px; height:559px; background:#201e1f; position:relative;}
+	.video_index .in .wheel{ width:16px; height:100px; background:#403e3f; position:absolute; top:0;  left:0;}	
+	.video_index .down{ width:16px; height:16px; background:url(images/videodown2.png)}
+</style>
+<script src="js/getByClassName.js"></script>
+<script src="js/move.js"></script>
+<script src="js/dragY.js"></script>
+<script src="js/addWheel.js"></script>
+<script>
+function $(id){return document.getElementById(id);}
+//设置滚条高度
+function setH(obj,par,con,conpar){
+	var dis=parseFloat(getStyle(conpar,'height'))-parseFloat(getStyle(con,'top'))-con.offsetHeight;
+	if(dis>=0){
+		var top=parseFloat(getStyle(conpar,'height'))-con.offsetHeight;
+		if(top>0){top=0;}
+		con.style.top=top+'px';
+	}
+	var sca=parseFloat(getStyle(conpar,'height'))/con.offsetHeight;
+	if(sca>1){sca=1}
+	obj.style.height=parseFloat(getStyle(par,'height'))*sca+'px';
+	obj.style.top=-parseFloat(getStyle(con,'top'))*sca+'px';
+}
+//滚轮事件
+function wheel(obox,obj,par,con,conpar){
+	addWheel(obox,function(down){
+		var t=parseFloat(obj.style.top);
+		if(down){
+			t+=5;
+		}else{
+			t-=5;
+		}
+		if(t<0){
+			t = 0;
+		}else if(t>parseFloat(getStyle(par,'height'))- obj.offsetHeight){
+			t=parseFloat(getStyle(par,'height'))- obj.offsetHeight;
+		}
+		obj.style.top = t +'px';
+		sca=t/(parseFloat(getStyle(par,'height'))- obj.offsetHeight);
+		con.style.top=(parseFloat(getStyle(conpar,'height'))- con.offsetHeight)*sca+'px';
+		return false;
+	});
+}
+
+window.onload=function(){
+//跳转&关闭页面
+	$('inv').onclick=function(){window.open('myhome.html')};
+	$('dir').onclick=function(){window.open('player.html')};
+	$('del').onclick=function(){window.close()};
+//拉条长度及位置设置
+	setH($('wheel_l'),$('wheel_box'),$('scon'),$('move_con'));
+//拉条
+	dragY($('wheel_l'),$('wheel_box'),$('scon'),$('move_con'));
+//滚轮
+	wheel($('movebox'),$('wheel_l'),$('wheel_box'),$('scon'),$('move_con'));
+//hot
+	var aHotBtn=$('hot_btn').getElementsByTagName('li');
+	for(var i=0;i<aHotBtn.length;i++){
+		aHotBtn[i].index=i;
+		aHotBtn[i].onmouseover=function(){
+			move($('hot_con'),{marginLeft:-this.index*789});
+			$('hot_cur').style.left=this.index*79+'px';
+		};
+	}
+
+//右侧
+//拉条长度及位置设置
+	setH($('vid_wh'),$('vid_wh_box'),$('vid_con'),$('vid_conbox'));
+//拉条
+	dragY($('vid_wh'),$('vid_wh_box'),$('vid_con'),$('vid_conbox'));
+//滚轮
+	wheel($('vid_box'),$('vid_wh'),$('vid_wh_box'),$('vid_con'),$('vid_conbox'));
+};
+
+</script>
+</head>
+<body>
+<div class="box">
+	<div class="header clear">
+    	<h1 class="fl"><a href="javascript:;">傲视影音</a></h1>
+        <div class="fl inv" id="inv"></div>
+        <div class="fl player" id="player"></div>
+        <div class="fl dir" id="dir"></div>
+        <div class="fr del" id="del"></div>
+    </div>
+    <div class="main clear">
+    	<div class="side fl">
+        	<div class="search">
+            	<input type="text">
+                <div class="btn"></div>
+            </div>
+            <div class="user">
+                <ul class="userTitle clear">
+                    	<li class="active"><a href="javascript:;">傲视影音</a></li>
+                        <li><a href="javascript:;">我的播放</a></li>
+                        <li><a href="javascript:;">直播</a></li>
+                        <li><a href="javascript:;">游戏</a></li>
+                        <li><a href="javascript:;">用户</a></li>
+                   	</ul>
+                <div class="userCon clear">
+                    	<div class="userFace fl"><img src="images/face.png" /></div>
+                        <div class="fl">
+                        	<h3>strive_chen<a href="javascript:;" class="doudou"></a></h3>
+                            <p class="user_level">
+                            	<span class="padding_none"><img src="images/level.png"/></span>
+                                <span class="user_levelSun">(0)</span>
+                                <span class="user_levelYue">(1)</span>
+                                <span class="user_levelXing">(2)</span>
+                            </p>
+                            <p class="user_help">
+                            	<span>我的硬币:<a href="javascript:;" class="user_help">1000</a></span>
+                                <span><a href="javascript:;">我要兑换</a></span>
+                            </p>
+                        </div>
+                    </div>
+            </div>
+            <div class="movebox clear" id="movebox">
+            	<div class="move_con fl" id="move_con">
+                	<div class="scon" id="scon">
+                        <div class="new_games clear">
+                            <h3 class="fl">今日有新游戏</h3>
+                            <span class="fr">+</span>
+                        </div>
+                        <ul>
+                        	<li><img src="images/liveshow/01.png" /><a href="###">四川卫视</a></li>
+                            <li><img src="images/liveshow/02.png" /><a href="###">深圳卫视</a></li>
+                            <li><img src="images/liveshow/03.png" /><a href="###">陕西卫视</a></li>
+                            <li><img src="images/liveshow/04.png" /><a href="###">无锡生活</a></li>
+                            <li><img src="images/liveshow/05.png" /><a href="###">南京综合</a></li>
+                            <li><img src="images/liveshow/06.png" /><a href="###">上视新娱乐</a></li>
+                            <li><img src="images/liveshow/07.png" /><a href="###">内蒙古卫视</a></li>
+                            <li><img src="images/liveshow/02.png" /><a href="###">深圳卫视</a></li>
+                            <li><img src="images/liveshow/01.png" /><a href="###">四川卫视</a></li>
+                            <li><img src="images/liveshow/02.png" /><a href="###">深圳卫视</a></li>
+                            <li><img src="images/liveshow/01.png" /><a href="###">四川卫视</a></li>
+                            <li><img src="images/liveshow/02.png" /><a href="###">深圳卫视</a></li>
+                            <li><img src="images/liveshow/01.png" /><a href="###">四川卫视</a></li>
+                            <li><img src="images/liveshow/02.png" /><a href="###">深圳卫视</a></li>
+                            <li><img src="images/liveshow/01.png" /><a href="###">四川卫视</a></li>
+                            <li><img src="images/liveshow/02.png" /><a href="###">深圳卫视</a></li>
+                            <li><img src="images/liveshow/01.png" /><a href="###">四川卫视</a></li>
+                            <li><img src="images/liveshow/02.png" /><a href="###">深圳卫视</a></li>
+                            <li><img src="images/liveshow/01.png" /><a href="###">四川卫视</a></li>
+                            <li><img src="images/liveshow/02.png" /><a href="###">深圳卫视</a></li>
+                            <li><img src="images/liveshow/01.png" /><a href="###">四川卫视</a></li>
+                            <li><img src="images/liveshow/02.png" /><a href="###">深圳卫视</a></li>
+                        </ul>
+                     </div>
+                </div>
+                <div class="move_index fl">
+                	<div class="in_up"></div>
+                	<div class="in_on" id="wheel_box">
+                    	<div class="wheel" id="wheel_l"></div>
+                    </div>
+                	<div class="in_down"></div>
+                </div>
+            </div>
+        </div>
+        <div class="video_box fl clear" id="vid_box">
+        	<div class="video_con fl" id="vid_conbox">
+            	<div id="vid_con">
+                    <div class="video_title clear">
+                        <ul class="fl clear">
+                            <li class="on"><a href="javascript:;">首页</a></li>
+                            <li><a href="javascript:;">电影</a></li>
+                            <li><a href="javascript:;">电视剧</a></li>
+                            <li><a href="javascript:;">动漫</a></li>
+                            <li><a href="javascript:;">综艺</a></li>
+                            <li><a href="javascript:;">音乐</a></li>
+                            <li><a href="javascript:;">卫视直播</a></li>
+                            <li><a href="javascript:;">影院大片</a></li>
+                        </ul>
+                        <div class="search fr">
+                            <input type="text" class="text">
+                            <input type="button" class="btn">
+                        </div>
+                    </div>
+                    <div class="video_tab">
+                        <div class="tab_con_box">
+                            <ul class="tab_con" id="hot_con">
+                                <li>
+                                    <a href="javascript:;"><img src="images/1.jpg" /></a>
+                                    <p class="note"><a href="javascript:;">箭在弦上（第41集大结局）</a></p>
+                                </li>
+                                <li>
+                                    <a href="javascript:;"><img src="images/2.jpg" /></a>
+                                    <p class="note"><a href="javascript:;">X女特工（第41集大结局）</a></p>
+                                </li>
+                                <li>
+                                    <a href="javascript:;"><img src="images/3.jpg" /></a>
+                                    <p class="note"><a href="javascript:;">X女特工（第41集大结局）</a></p>
+                                </li>
+                                <li>
+                                    <a href="javascript:;"><img src="images/4.jpg" /></a>
+                                    <p class="note"><a href="javascript:;">X女特工（第41集大结局）</a></p>
+                                </li>
+                                <li>
+                                    <a href="javascript:;"><img src="images/5.jpg" /></a>
+                                    <p class="note"><a href="javascript:;">X女特工（第41集大结局）</a></p>
+                                </li>
+                                <li>
+                                    <a href="javascript:;"><img src="images/6.jpg" /></a>
+                                    <p class="note"><a href="javascript:;">X女特工（第41集大结局）</a></p>
+                                </li>
+                                <li>
+                                    <a href="javascript:;"><img src="images/7.jpg" /></a>
+                                    <p class="note"><a href="javascript:;">X女特工（第41集大结局）</a></p>
+                                </li>
+                                <li>
+                                    <a href="javascript:;"><img src="images/8.jpg" /></a>
+                                    <div class="note_bg"></div>
+                                    <p class="note"><a href="javascript:;">X女特工（第41集大结局）</a></p>
+                                </li>
+                                <li>
+                                    <a href="javascript:;"><img src="images/9.jpg" /></a>
+                                    <p class="note"><a href="javascript:;">X女特工（第41集大结局）</a></p>
+                                </li>
+                                <li>
+                                    <a href="javascript:;"><img src="images/10.jpg" /></a>
+                                    <p class="note"><a href="javascript:;">X女特工（第41集大结局）</a></p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="pr">
+                            <ul class="tab_btn clear" id="hot_btn">
+                                <li><a href="javascript:;"><img src="images/small_01.jpg" /></a></li>
+                                <li><a href="javascript:;"><img src="images/small_02.jpg" /></a></li>
+                                <li><a href="javascript:;"><img src="images/small_03.jpg" /></a></li>
+                                <li><a href="javascript:;"><img src="images/small_01.jpg" /></a></li>
+                                <li><a href="javascript:;"><img src="images/small_02.jpg" /></a></li>
+                                <li><a href="javascript:;"><img src="images/small_03.jpg" /></a></li>
+                                <li><a href="javascript:;"><img src="images/small_01.jpg" /></a></li>
+                                <li><a href="javascript:;"><img src="images/small_02.jpg" /></a></li>
+                                <li><a href="javascript:;"><img src="images/small_03.jpg" /></a></li>
+                                <li><a href="javascript:;"><img src="images/small_01.jpg" /></a></li> 
+                            </ul>
+                            <div class="fi_pointer" id="hot_cur"></div>
+                       </div>
+                    </div>
+                    <div class="hot">
+                        <h3>今日焦点</h3>
+                        <ul class="clear">
+                            <li class="mar0">
+                                <a href="###">
+                                    <img src="images/av_eg.jpg" />
+                                </a>
+                                <strong>扬州发现隋炀帝真正陵寝</strong>
+                            </li>
+                            <li>
+                                <a href="###">
+                                    <img src="images/av_eg.jpg" />
+                                </a>
+                                <strong>扬州发现隋炀帝真正陵寝</strong>
+                            </li>
+                            <li>
+                                <a href="###">
+                                    <img src="images/av_eg.jpg" />
+                                </a>
+                                <strong>扬州发现隋炀帝真正陵寝</strong>
+                            </li>
+                            <li>
+                                <a href="###">
+                                    <img src="images/av_eg.jpg" />
+                                </a>
+                                <strong>扬州发现隋炀帝真正陵寝</strong>
+                            </li>
+                            <li>
+                                <a href="###">
+                                    <img src="images/av_eg.jpg" />
+                                </a>
+                                <strong>扬州发现隋炀帝真正陵寝</strong>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="video_list">
+                        <div class="list">
+                            <h3 class="fl">电影</h3>
+                            <span class="menu fr">
+                                <a href="###">华语</a> |
+                                <a href="###">好莱坞</a> |
+                                <a href="###">欧洲</a> |
+                                <a href="###">日本</a> |
+                                <a href="###">韩国</a> |
+                                <a href="###">更多&gt;&gt;</a>
+                            </span>                      
+                        </div>
+                        <ul class="con clear">
+                            <li class="mar0">
+                                <a href="###">
+                                    <img src="images/av_eg2.jpg" />
+                                </a>
+                                <strong>特殊交易</strong>
+                                <strong class="videoInfo">青涩少年情挑陪酒女郎</strong>
+                            </li>
+                            <li>
+                                <a href="###">
+                                    <img src="images/av_eg2.jpg" />
+                                </a>
+                                <strong>特殊交易</strong>
+                                <strong class="videoInfo">青涩少年情挑陪酒女郎</strong>
+                            </li>
+                            <li>
+                                <a href="###">
+                                    <img src="images/av_eg2.jpg" />
+                                </a>
+                                <strong>特殊交易</strong>
+                                <strong class="videoInfo">青涩少年情挑陪酒女郎</strong>
+                            </li>
+                            <li>
+                                <a href="###">
+                                    <img src="images/av_eg2.jpg" />
+                                </a>
+                                <strong>特殊交易</strong>
+                                <strong class="videoInfo">青涩少年情挑陪酒女郎</strong>
+                            </li>
+                            <li>
+                                <a href="###">
+                                    <img src="images/av_eg2.jpg" />
+                                </a>
+                                <strong>特殊交易</strong>
+                                <strong class="videoInfo">青涩少年情挑陪酒女郎</strong>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="video_list">
+                        <div class="list">
+                            <h3 class="fl">电影</h3>
+                            <span class="menu fr">
+                                <a href="###">华语</a> |
+                                <a href="###">好莱坞</a> |
+                                <a href="###">欧洲</a> |
+                                <a href="###">日本</a> |
+                                <a href="###">韩国</a> |
+                                <a href="###">更多&gt;&gt;</a>
+                            </span>                      
+                        </div>
+                        <ul class="con clear">
+                            <li class="mar0">
+                                <a href="###">
+                                    <img src="images/av_eg2.jpg" />
+                                </a>
+                                <strong>特殊交易</strong>
+                                <strong class="videoInfo">青涩少年情挑陪酒女郎</strong>
+                            </li>
+                            <li>
+                                <a href="###">
+                                    <img src="images/av_eg2.jpg" />
+                                </a>
+                                <strong>特殊交易</strong>
+                                <strong class="videoInfo">青涩少年情挑陪酒女郎</strong>
+                            </li>
+                            <li>
+                                <a href="###">
+                                    <img src="images/av_eg2.jpg" />
+                                </a>
+                                <strong>特殊交易</strong>
+                                <strong class="videoInfo">青涩少年情挑陪酒女郎</strong>
+                            </li>
+                            <li>
+                                <a href="###">
+                                    <img src="images/av_eg2.jpg" />
+                                </a>
+                                <strong>特殊交易</strong>
+                                <strong class="videoInfo">青涩少年情挑陪酒女郎</strong>
+                            </li>
+                            <li>
+                                <a href="###">
+                                    <img src="images/av_eg2.jpg" />
+                                </a>
+                                <strong>特殊交易</strong>
+                                <strong class="videoInfo">青涩少年情挑陪酒女郎</strong>
+                            </li>
+                        </ul>
+                    </div>
+               </div>
+            </div>
+            <div class="video_index fl">
+            	<div class="up"></div>
+            	<div class="in" id="vid_wh_box"><div class="wheel" id="vid_wh"></div></div>
+            	<div class="down"></div>
+            </div>
+        </div>
+    </div>
+	<div class="footer">
+    	<img src="images/footerme.png">
+    </div>
+</div>
+</body>
+</html>

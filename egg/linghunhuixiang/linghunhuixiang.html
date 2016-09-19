@@ -1,0 +1,995 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<link rel="stylesheet" href="css/base.css"/>
+<style>
+body{ background:#1c1a25 url(img/con_bg.jpg) no-repeat center 55px;}
+/*topnav*/
+.topnav{ height:55px; background:url(img/nav_bg.png);min-width:1000px;}
+.topnav .logo{ width:86px; height:36px; background:url(img/logo.png) no-repeat; text-indent:-999px; margin-left:14px; margin-top:6px;padding-right:13px; border-right:1px solid #cecece;}
+.topnav .icon{width:24px; height:24px; background:url(img/cyou_sprite.png) no-repeat -139px 0; margin-top:11px; margin-right:6px;}
+.topnav .txt,.topnav .col_name{ line-height:50px; color:#4a4a4a;padding-right:21px; font-weight:bold;}
+.topnav .icon2{background-position:-189px 0;}
+.topnav .icon3{ background-position:0 -104px;}
+.topnav .txt3{ padding-right:10px;}
+.topnav .column{ height:50px; padding:0 15px 0 25px; border-right:1px solid #e1e1e1; cursor:pointer;}
+.topnav .column1{ padding:0 17px 0 29px; border-left:1px solid #e1e1e1;}
+.topnav .column3{ margin-right:10px;}
+.topnav .col_name{padding-right:5px;}
+.topnav .arrowdown{ margin-top:23px; border:4px solid transparent; border-top:4px solid #676868;}
+/*head*/
+.head{ height:551px; background:url(img/header_main.jpg);}
+.head .logo{width:190px; height:100px; background:url(img/logo.gif); text-indent:-999px;}
+.head .navmenu{ width:780px; margin-right:-9px;}
+.head .subnav{ width:90px; height:110px; font-size:16px; color:#bebebe; text-align:center; cursor:pointer;}
+.head .subnav1{width:60px;}
+.head .menu{ margin-top:38px;}
+.head .spell{ margin-top:5px; font-size:10px;}
+.head .banner{ position:absolute; left:0; top:245px;}
+/*con*/
+.con{background:#1b1924 url(img/content.jpg) no-repeat;}/*里面有不用的高度*/
+/*con boards*/
+.boards .download{ width:216px; height:109px; background:url(img/sprite.png) 0 -522px;}
+.boards .download:hover{ background-position:0 -632px;}
+.boards .register{width:101px; height:109px; background:url(img/sprite.png) -216px -522px;}
+.boards .register:hover{ background-position:-216px -632px;}
+.boards .recharge{width:100px; height:109px; background:url(img/sprite.png) -317px -522px;}
+.boards .recharge:hover{ background-position:-317px -632px;}
+.boards .cash{width:100px; height:109px; background:url(img/sprite.png) -417px -522px;}
+.boards .cash:hover{ background-position:-417px -632px;}
+.boards .guild{width:100px; height:109px; background:url(img/sprite.png) -517px -522px;}
+.boards .guild:hover{ background-position:-517px -632px;}
+.boards .hotinfo{border:1px solid #443b4f; border-right:none;}
+.boards .official{ width:27px; height:63px; background:url(img/slider_main.png); position:absolute;top:10px; left:10px;}
+.boards .official:hover{ background-image:url(img/slider_h_main.png);}
+.boards .media{ width:27px; height:63px; background:url(img/slider_media.png); position:absolute;top:83px; left:10px;}
+.boards .media:hover{ background-image:url(img/slider_h_media.png);}
+.boards ul{ position:absolute; bottom:10px; right:12px;}
+.boards li{ width:15px; height:15px; float:left; border-radius:50%; margin-left:3px; background:#3a3e47; cursor:pointer;}
+.boards .sever{ width:286px; height:49px; background:#1b1924 url(img/sever.png) no-repeat 13px 7px; padding-left:97px;padding-top:17px;}
+.boards .sever1{ font-size:14px; height:14px; color:#98a2c5;}
+.boards .sever2{ font-size:14px; height:14px; color:#98a2c5; margin-top:7px;}
+.boards .red{ color:#f00000;}
+.boards .guanzhu{width:381px; height:41px; background:url(img/sprite.jpg) no-repeat 0 -220px; border:1px solid #443b4f;}
+.boards .update{ color:#adb9e0; line-height:41px; padding-left:5px; padding-right:3px;}
+.boards .num{ color:#f93d1a; text-decoration:underline;}
+.boards .icon{ width:14px; height:14px; background:url(img/sprite.jpg) no-repeat -603px -227px; margin-top:14px;}
+.boards .txt{ color:#adb9e0; line-height:41px; margin-right:14px;}
+.boards .weixin{width:41px; height:41px; margin-right:6px;}
+.boards .boke{width:41px; height:41px; margin-right:10px;}
+.boards .weibo{width:41px; height:41px; margin-right:1px;}
+.boards .weixin:hover{ background:url(img/sprite.jpg) no-repeat -398px -221px;}
+.boards .boke:hover{ background:url(img/sprite.jpg) no-repeat -442px -221px;}
+.boards .weibo:hover{ background:url(img/sprite.jpg) no-repeat -486px -221px;}
+.boards .newscolumn{ width:381px; height:57px; background:url(img/sprite.jpg) no-repeat 0 -262px; border-left:1px solid #443b4f; border-top:1px solid #322e3f; border-right:1px solid #322e3f; font:14px '黑体'; color:#fefefe; line-height:57px; text-align:center;}
+.boards .zonghe{ width:94px; cursor:pointer;}
+.boards .xinwen,.boards .gonggao{ width:95px;cursor:pointer;}
+.boards .meiti{ width:97px;cursor:pointer;}
+.boards .infobox{ width:364px; height:230px; border-left:1px solid #443b4f; background:#322e3f; padding-top:17px; padding-right:18px;}
+.boards .title>a{ display:block; width:307px; height:34px; background:url(img/sprite.jpg) no-repeat 0 -378px; margin:0 0 4px 17px; padding-left:40px; font:16px/34px '黑体'; color:#fe4100;}
+.boards dd>.link,.boards dd .time{font:14px '黑体'; color:#9ca7ca; line-height:26px;}
+.boards dd>.link{ margin-left:23px;}
+.boards dd .time{ width:37px;}
+.boards dd .icon{ margin:3px 7px 0 0; width:13px; height:13px; background:url(img/sprite.png) -98px -165px;}
+.boards dd .more{font-size:12px; color:#9ca7ca; line-height:18px;}
+/*con hot_action*/
+.hot_action{ padding-top:32px;}
+.hot_action>a{ border:1px solid #443b4f; margin-right:8px;}
+.hot_action .margin0{ margin:0px;}
+/*con gameintr*/
+.gameintr{padding-top:30px;}
+.gameintr_l{ border:1pox solid #433b4f; width:656px;}
+.gameintr_l .column{ height:59px; background:url(img/sprite.jpg) 0 -412px;}
+.gameintr_l .person1,.gameintr_l .person3,.gameintr_l .person4{ height:59px; width:131px;}
+.gameintr_l .person2{ height:59px; width:130px;}
+.gameintr_l .person5{ height:59px; width:133px;}
+.gameintr_r h2{ width:322px; height:46px;}
+.gameintr_r .icon{ width:28px; height:31px; background:url(img/sprite.jpg) -628px 0;}
+.gameintr_r .huodongtit{ color:#f3ca90; font-size:20px; margin-top:7px; margin-left:14px; height:20px; font-weight:normal;}
+.gameintr_r .pic{ border:1px solid #433b4f; margin-right:1px;}
+.gameintr_r .menu{ width:319px; height:25px; margin-left:2px; background:url(img/sprite.png) 0 -758px; margin-bottom:3px; line-height:25px;}
+.gameintr_r .submenu{ padding-left:27px;}
+.gameintr_r .status{ padding-right:9px;}
+.gameintr_r .fist{ margin-top:10px;}
+/*con morelink*/
+.morelink{ margin-top:30px;}
+.morelink_l .short{ width:215px; height:189px; background:url(img/sprite.jpg) 0 -555px;}
+.morelink_l h4{ font-size:16px; color:#dbca90; text-align:center; font-weight:normal; line-height:46px; margin-bottom:20px;}
+.morelink_l .shortlink{width:74px; height:14px; padding-left:24px; margin-bottom:14px; font-size:14px; color:#9587ab;}
+.morelink_l .pic_link{ margin-top:23px;}
+.morelink_l .arrowleft{ width:9px; height:15px; background:url(img/prev2.png); position:absolute; top:115px; left:5px;}
+.morelink_l .arrowright{ width:9px; height:15px; background:url(img/prev.png); position:absolute; top:115px; right:5px;}
+.morelink_l .coop_txt{ width:205px; height:36px; margin:5px 5px 20px 5px; background:url(img/sprite.png) -695px 0; line-height:36px; font-size:16px; color:#b1a1ca; text-align:center; cursor:pointer;}
+.morelink_l .coop_txt:hover{ background-position:-695px -37px;}
+.morelink_l .coop_pic{ width:215px; height:265px; overflow:hidden;}
+.morelink_l .coop_pic img{transition:all 1s;}
+.morelink_l .coop_pic img:hover{margin-left:-215px;}
+.morelink_c{ margin-left:19px; width:424px;}
+.morelink_c .title{ height:42px;}
+.morelink_c .icon{width:49px; height:31px; background:url(img/sprite.jpg) -607px -349px;}
+.morelink_c .jiaoliu{ color:#f3ca90; font-size:20px; padding:6px 0 0 1px;}
+.morelink_c .bian{ width:1px; height:47px; background:#433b4f;}
+.morelink_c .tit{width:104px; height:46px; font-size:14px; color:#a295b7; text-align:center; line-height:46px; border:1px solid #433b4f; border-left:none; border-bottom:none; cursor:pointer; position:relative;}
+.morelink_c .icon2{ margin:16px 3px 0 20px; width:13px; height:13px; background:url(img/more.jpg);}
+.morelink_c .more_txt{ color:#a295b7; margin-top:17px;}
+.morelink_c .list_box{ width:422px; height:256px; background:#322b3c; border:1px solid #433b4f;}
+.morelink_c .pic_link{ margin:23px 0 0 16px; border:1px solid #433b4f;}
+.morelink_c .list{ padding-top:21px; padding-left:18px;}
+.morelink_c .list>a{ font-size:14px; color:#a295b7; line-height:26px; }
+.morelink_c .title2{ height:84px;}
+.morelink_c .icon3{ width:43px; height:31px; background:url(img/sprite.jpg) -613px -381px; margin-top:37px;}
+.morelink_c .meiti{ color:#f3ca90; font-size:20px; padding:44px 0 0 1px;}
+.morelink_r{ width:322px;}
+.morelink_r .title{ height:42px;}
+.morelink_r .icon{width:28px; height:31px; background:url(img/sprite.jpg) -628px -39px;}
+.morelink_r .ziliao{ color:#f3ca90; font-size:20px; padding:7px 0 0 15px;}
+.morelink_r .gamedata_box{ width:320px; height:303px; background:#26212d; border:1px solid #4b3f5c;}
+.morelink_r ul{ padding:0 17px; margin-bottom:5px;}
+.morelink_r li{ height:26px; border-bottom:1px dashed #594f67; padding:16px 0;}
+.morelink_r .submenu{ height:26px; width:89px; background:url(img/gameback.png) no-repeat; line-height:26px; font-size:14px; color:#fff; padding-left:7px;}
+.morelink_r li>a{font-size:14px; color:#9587ab; padding:0 2px 1px 4px; border-right:1px solid #594f67; margin-top:7px;}
+.morelink_r li .fist{ padding-left:0;}
+.morelink_r li .end{ padding-right:0px; border:none;}
+.morelink_r .li_end{ border:none;}
+.morelink_r .datalink{ width:279px; height:39px; color:#b1a1ca; font-size:22px; border:3px solid #4b3f5c; line-height:39px; text-align:center; margin-left:17px;}
+.morelink_r .title2{ height:84px;}
+.morelink_r .icon3{ width:33px; height:31px; background:url(img/sprite.jpg) -623px -78px; margin-top:37px;}
+.morelink_r .shijue{ color:#f3ca90; font-size:20px; padding:44px 0 0 11px;}
+.morelink_r .tit{width:104px; height:46px; font-size:14px; color:#a295b7; text-align:center; line-height:46px; border:1px solid #433b4f; border-left:none; border-bottom:none; cursor:pointer; position:relative;}
+.morelink_r .bian{ width:1px; height:47px; background:#433b4f;}
+.morelink_r .icon2{ margin:16px 3px 0 20px; width:13px; height:13px; background:url(img/more.jpg);}
+.morelink_r .more_txt{ color:#a295b7; margin-top:17px;}
+.morelink_r .vedio_con{ width:321px; height:256px; border:1px solid #433b4f; border-right:none; background:#322b3c;}
+.morelink_r .vedio_con>a{ margin:23px 11px 0 11px;}
+/*notice*/
+.notice{ height:127px; text-align:center; background:#1b1924 url(img/game_anc.jpg) no-repeat center -13px;}
+.notice_tit{ font-size:16px; color:#908c9b; padding:3px 0 13px 0;}
+.notice_con{ font-size:16px; color:#908c9b; line-height:32px;}
+/*foot*/
+.foot{ background:#181818; min-width:1000px;}
+.foot_in{ height:110px;}
+/*下拉框新增内容*/
+.topnav .xialakuang{width:328px; height:267px; border:1px solid #bbb; position:absolute; top:50px; right:-1px; background:blue; z-index:1; display:none;}
+.topnav .xialakuang .j_icon{width:18px; height:18px; background:url(img/cyou_sprite.png) 0 -167px; margin:7px 7px 7px 22px;}
+.topnav .xialakuang .j_tit_con{ line-height:32px; font-size:12px; font-weight:bold; color:#4a4a4a;}
+.topnav .xialakuang .j_link>a{ height:33px; width:96px; border:1px solid #dbdbdb; border-left:none; background:#fcfcfc; line-height:33px; padding-left:15px; color:#333;}
+.topnav .xialakuang .j_head{ background:#f2f2f2;}
+.topnav .xialakuang .j_link>.end{ width:89px; border-right:none;}
+.topnav .xialakuang .border{ width:112px; height:1px; background:#f2f2f2; position:absolute; top:-1px; right:0px;}
+.topnav .xialakuang .borderone{ width:82px;}
+.head .tihuankuang{ width:90px; height:110px; background:url(img/nav_new_hover.jpg) no-repeat center; text-align:center; position:absolute; top:0px; left:0px; display:none;}
+.head .wid{ width:60px;}
+.head .tihuankuang .navtop{font-size:12px; line-height:24px; margin-top:26px; color:#e6e2e0;}
+.head .tihuankuang>a{ font-size:12px;line-height:24px; color:#f3ca90; text-decoration:underline; }
+/*供JS使用*/
+.topnav .cur{ background:#f2f2f2; }
+.topnav .cur .xialakuang{ display:block; }
+.head .cur .tihuankuang{ display:block;}
+.con .hotinfo .toshow{ display:none;}
+.con .hotinfo .onshow{ display:block;}
+.con .hotinfo .oncur{ background:#d0290a;}
+.boards_r .toshow{ display:none;}
+.boards_r .onshow{ display:block;}
+.boards .zonghe{ background-position:0 -321px; background-image:url(img/sprite.jpg);}
+.boards .xinwen{ background-position:-94px -321px;}
+.boards .gonggao{ background-position:-189px -321px;}
+.boards .meiti{ background-position:-284px -321px;}
+.gameintr_l .person1{ background-image:url(img/sprite.jpg); background-position:0 -471px;}
+.gameintr_l .person2{ background-position:-131px -471px;}
+.gameintr_l .person3{ background-position:-261px -471px;}
+.gameintr_l .person4{ background-position:-392px -471px;}
+.gameintr_l .person5{ background-position:-523px -471px;}
+.gameintr_l .toshow{ display:none;}
+.gameintr_l .onshow{ display:block;}
+
+.morelink_c .xian{ width:100%; height:1px; background:#322b3c; position:absolute; left:0px; bottom:-1px; display:none;}
+.morelink_c .oncur{ background:#322b3c;}
+.morelink_c .oncur .xian{ display:block;}
+.morelink_c .toshow{ display:none;}
+.morelink_c .onshow{ display:block;}
+.morelink_r .xian{ width:100%; height:1px; background:#322b3c; position:absolute; left:0px; bottom:-1px; display:none;}
+.morelink_r .oncur{ background:#322b3c;}
+.morelink_r .oncur .xian{ display:block;}
+.morelink_r .toshow{ display:none;}
+.morelink_r .onshow{ display:block;}
+</style>
+<script>
+window.onload=function(){
+	//下拉替换
+	xiala('jsxl1','column column1 fl clear cur posr','column column1 fl clear');
+	xiala('jsxl2','column fl clear posr cur','column fl clear');
+	xiala('jsxl3','column column3 fl clear cur posr','column column3 fl clear');
+	xiala('jsth1','subnav subnav1 fl cur posr','subnav subnav1 fl')
+	xiala('jsth2','subnav fl cur posr','subnav fl')
+	xiala('jsth3','subnav fl cur posr','subnav fl')
+	xiala('jsth4','subnav fl cur posr','subnav fl')
+	xiala('jsth5','subnav fl cur posr','subnav fl')
+	xiala('jsth6','subnav fl cur posr','subnav fl')
+	xiala('jsth7','subnav fl cur posr','subnav fl')
+	xiala('jsth8','subnav fl cur posr','subnav fl')
+	xiala('jsth9','subnav fl cur posr','subnav fl')
+	function xiala(id,cur,before){
+		var oXiala1=document.getElementById(id);
+		oXiala1.onmouseover=function(){
+				this.className=cur;
+		};
+		oXiala1.onmouseout=function(){
+				this.className=before;	
+		};
+	};
+	//选项卡
+	xxk('jsxxk1','className','','tocur','tocur oncur');
+	xxk('jsxxk2','','backgroundImage','none','url(img/sprite.jpg)');
+	xxk('jsxxk3','','backgroundImage','none','url(img/sprite.jpg)');
+	xxk('jsxxk4','className','','tit fl tocur','tit fl tocur oncur');
+	xxk('jsxxk5','className','','tit fl tocur','tit fl tocur oncur');
+	xxk('jsxxk6','className','','tit fl tocur','tit fl tocur oncur');
+	function xxk(id,shuxing,cs,before,now){
+		var obox=document.getElementById(id);
+		var acon=obox.getElementsByClassName('toshow');
+		var abtn=obox.getElementsByClassName('tocur');
+		for(var i=0;i<abtn.length;i++){
+			abtn[i].index=i;
+			abtn[i].onmouseover=function(){
+				for(var i=0;i<abtn.length;i++){
+					abtn[i][shuxing]=before;
+					abtn[i].style[cs]=before;
+					acon[i].style.display='none';
+				}
+				this[shuxing]=now;
+				this.style[cs]=now;
+				acon[this.index].style.display='block';	
+			};	
+		};
+	};
+}
+</script>
+</head>
+<body>
+	<div class="topnav">
+    	<div class="topnav_in mauto clear">
+        	<h1 class="fl"><a class="logo blk" href="#">畅游</a></h1>
+            <div class="fr">
+            	<div class="fl clear">
+                	<a class="fl clear" href="#">
+                    	<i class="fl icon"></i>
+                        <span class="txt fl">注册</span>
+                    </a>
+                    <a class="fl clear" href="#">
+                    	<i class="fl icon icon2"></i>
+                        <span class="txt fl">充值</span>
+                    </a>
+                    <a class="fl clear" href="#">
+                    	<i class="fl icon icon3"></i>
+                        <span class="txt txt3 fl">畅游+</span>
+                    </a>
+                </div>
+                <div class="column column1 fl clear" id="jsxl1">
+                	<span class="col_name fl">客服</span>
+                    <i class="arrowdown fl"></i>
+                    <!--JS下拉框-->
+                    <div class="xialakuang">
+                    	<div>
+                            <div class="j_head">
+                                <div class="j_title clear">
+                                    <i class="j_icon fl"></i>
+                                    <span class="j_tit_con fl">我的通行证</span>
+                                </div>
+                                <div class="j_link clear">
+                                    <a class="fl" href="#">德玛西亚</a>
+                                    <a class="fl" href="#">艾欧尼亚</a>
+                                    <a class="fl end" href="#">恕瑞玛</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="j_head">
+                                <div class="j_title clear">
+                                    <i class="j_icon fl"></i>
+                                    <span class="j_tit_con fl">我的通行证</span>
+                                </div>
+                                <div class="j_link clear">
+                                    <a class="fl" href="#">德玛西亚</a>
+                                    <a class="fl" href="#">艾欧尼亚</a>
+                                    <a class="fl end" href="#">恕瑞玛</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="j_head">
+                                <div class="j_title clear">
+                                    <i class="j_icon fl"></i>
+                                    <span class="j_tit_con fl">我的通行证</span>
+                                </div>
+                                <div class="j_link clear">
+                                    <a class="fl" href="#">德玛西亚</a>
+                                    <a class="fl" href="#">艾欧尼亚</a>
+                                    <a class="fl end" href="#">恕瑞玛</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="j_head">
+                                <div class="j_title clear">
+                                    <i class="j_icon fl"></i>
+                                    <span class="j_tit_con fl">我的通行证</span>
+                                </div>
+                                <div class="j_link clear">
+                                    <a class="fl" href="#">德玛西亚</a>
+                                    <a class="fl" href="#">艾欧尼亚</a>
+                                    <a class="fl end" href="#">恕瑞玛</a>
+                                </div>
+                            </div>
+                        </div>
+                        <i class="border borderone"></i>
+                    </div>
+                </div>
+                <div class="column fl clear posr" id="jsxl2">
+                	<span class="col_name fl">畅游全服务</span>
+                    <i class="arrowdown fl"></i>
+                    <!--JS下拉框-->
+                    <div class="xialakuang">
+                    	<div>
+                            <div class="j_head">
+                                <div class="j_title clear">
+                                    <i class="j_icon fl"></i>
+                                    <span class="j_tit_con fl">我的通行证</span>
+                                </div>
+                                <div class="j_link clear">
+                                    <a class="fl" href="#">德玛西亚</a>
+                                    <a class="fl" href="#">艾欧尼亚</a>
+                                    <a class="fl end" href="#">恕瑞玛</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="j_head">
+                                <div class="j_title clear">
+                                    <i class="j_icon fl"></i>
+                                    <span class="j_tit_con fl">我的通行证</span>
+                                </div>
+                                <div class="j_link clear">
+                                    <a class="fl" href="#">德玛西亚</a>
+                                    <a class="fl" href="#">艾欧尼亚</a>
+                                    <a class="fl end" href="#">恕瑞玛</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="j_head">
+                                <div class="j_title clear">
+                                    <i class="j_icon fl"></i>
+                                    <span class="j_tit_con fl">我的通行证</span>
+                                </div>
+                                <div class="j_link clear">
+                                    <a class="fl" href="#">德玛西亚</a>
+                                    <a class="fl" href="#">艾欧尼亚</a>
+                                    <a class="fl end" href="#">恕瑞玛</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="j_head">
+                                <div class="j_title clear">
+                                    <i class="j_icon fl"></i>
+                                    <span class="j_tit_con fl">我的通行证</span>
+                                </div>
+                                <div class="j_link clear">
+                                    <a class="fl" href="#">德玛西亚</a>
+                                    <a class="fl" href="#">艾欧尼亚</a>
+                                    <a class="fl end" href="#">恕瑞玛</a>
+                                </div>
+                            </div>
+                        </div>
+                        <i class="border"></i>
+                    </div>
+                </div>
+                <div class="column column3 fl clear" id="jsxl3">
+                	<span class="col_name fl">畅游全游戏</span>
+                    <i class="arrowdown fl"></i>
+                    <!--JS下拉框-->
+                    <div class="xialakuang">
+                    	<div>
+                            <div class="j_head">
+                                <div class="j_title clear">
+                                    <i class="j_icon fl"></i>
+                                    <span class="j_tit_con fl">我的通行证</span>
+                                </div>
+                                <div class="j_link clear">
+                                    <a class="fl" href="#">德玛西亚</a>
+                                    <a class="fl" href="#">艾欧尼亚</a>
+                                    <a class="fl end" href="#">恕瑞玛</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="j_head">
+                                <div class="j_title clear">
+                                    <i class="j_icon fl"></i>
+                                    <span class="j_tit_con fl">我的通行证</span>
+                                </div>
+                                <div class="j_link clear">
+                                    <a class="fl" href="#">德玛西亚</a>
+                                    <a class="fl" href="#">艾欧尼亚</a>
+                                    <a class="fl end" href="#">恕瑞玛</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="j_head">
+                                <div class="j_title clear">
+                                    <i class="j_icon fl"></i>
+                                    <span class="j_tit_con fl">我的通行证</span>
+                                </div>
+                                <div class="j_link clear">
+                                    <a class="fl" href="#">德玛西亚</a>
+                                    <a class="fl" href="#">艾欧尼亚</a>
+                                    <a class="fl end" href="#">恕瑞玛</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="j_head">
+                                <div class="j_title clear">
+                                    <i class="j_icon fl"></i>
+                                    <span class="j_tit_con fl">我的通行证</span>
+                                </div>
+                                <div class="j_link clear">
+                                    <a class="fl" href="#">德玛西亚</a>
+                                    <a class="fl" href="#">艾欧尼亚</a>
+                                    <a class="fl end" href="#">恕瑞玛</a>
+                                </div>
+                            </div>
+                        </div>
+                        <i class="border"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!---topnav--->
+	<div class="head mauto posr">
+    	<div class="nav clear">
+        	<h1><a class="logo blk fl" href="#">灵魂传响</a></h1>
+            <div class="navmenu fr clear">
+                <div class="subnav subnav1 fl" id="jsth1">
+                    <span class="menu blk">首页</span>
+                    <span class="spell blk">HOME</span>
+                    <div class="tihuankuang wid">
+                    	<span class="navtop blk">新告</span>
+                        <a href="#" class="blk">▶公告</a>
+                    </div>
+                </div>
+                <div class="subnav fl" id="jsth2">
+                    <span class="menu blk">新闻公告</span>
+                    <span class="spell blk">NEWS</span>
+                    <!---js新增替换框--->
+                    <div class="tihuankuang">
+                    	<span class="navtop blk">新闻公告</span>
+                        <a href="#" class="blk">▶官方公告</a>
+                    </div>
+                </div>
+                <div class="subnav fl" id="jsth3">
+                    <span class="menu blk">新闻公告</span>
+                    <span class="spell blk">NEWS</span>
+                    <div class="tihuankuang">
+                    	<span class="navtop blk">新闻公告</span>
+                        <a href="#" class="blk">▶官方公告</a>
+                    </div>
+                </div>
+                <div class="subnav fl" id="jsth4">
+                    <span class="menu blk">新闻公告</span>
+                    <span class="spell blk">NEWS</span>
+                    <div class="tihuankuang">
+                    	<span class="navtop blk">新闻公告</span>
+                        <a href="#" class="blk">▶官方公告</a>
+                    </div>
+                </div>
+                <div class="subnav fl" id="jsth5">
+                    <span class="menu blk">新闻公告</span>
+                    <span class="spell blk">NEWS</span>
+                    <div class="tihuankuang">
+                    	<span class="navtop blk">新闻公告</span>
+                        <a href="#" class="blk">▶官方公告</a>
+                    </div>
+                </div>
+                <div class="subnav fl"  id="jsth6">
+                    <span class="menu blk">新闻公告</span>
+                    <span class="spell blk">NEWS</span>
+                    <div class="tihuankuang">
+                    	<span class="navtop blk">新闻公告</span>
+                        <a href="#" class="blk">▶官方公告</a>
+                    </div>
+                </div>
+                <div class="subnav fl"  id="jsth7">
+                    <span class="menu blk">新闻公告</span>
+                    <span class="spell blk">NEWS</span>
+                    <div class="tihuankuang">
+                    	<span class="navtop blk">新闻公告</span>
+                        <a href="#" class="blk">▶官方公告</a>
+                    </div>
+                </div>
+                <div class="subnav fl"  id="jsth8">
+                    <span class="menu blk">新闻公告</span>
+                    <span class="spell blk">NEWS</span>
+                    <div class="tihuankuang">
+                    	<span class="navtop blk">新闻公告</span>
+                        <a href="#" class="blk">▶官方公告</a>
+                    </div>
+                </div>
+                <div class="subnav fl"  id="jsth9">
+                    <span class="menu blk">新闻公告</span>
+                    <span class="spell blk">NEWS</span>
+                    <div class="tihuankuang">
+                    	<span class="navtop blk">新闻公告</span>
+                        <a href="#" class="blk">▶官方公告</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="banner blk"><img src="img/img.png"/></a>
+    </div><!---head----->
+    <div class="con mauto">
+    	<div class="boards clear">
+        	<div class="boards_l fl">
+            	<div class="column clear">
+                	<a href="#" class="download fl"></a>
+                    <a href="#" class="register fl"></a> 
+                    <a href="#" class="recharge fl"></a> 
+                    <a href="#" class="cash fl"></a> 
+                    <a href="#" class="guild fl"></a>                
+                </div>
+                <div class="hotinfo posr" id="jsxxk1">
+                	<a href="#" class="toshow onshow"><img src="img/main_a1.jpg"/></a>
+                    <a href="#" class="toshow"><img src="img/self.png"/></a>
+                    <a href="#" class="toshow"><img src="img/main_a1.jpg"/></a>
+                    <a href="#" class="toshow"><img src="img/self.png"/></a>
+                    <a href="#" class="toshow"><img src="img/main_a1.jpg"/></a>
+                     <a href="#" class="toshow"><img src="img/self.png"/></a>
+                	<a class="official" href="#"></a>
+                    <a class="media" href="#"></a>
+                    <ul class="clear">
+                    	<li class="tocur oncur"></li>
+                        <li class="tocur"></li>
+                        <li class="tocur"></li>
+                        <li class="tocur"></li>
+                        <li class="tocur"></li>
+                        <li class="tocur"></li>
+                    </ul>
+                </div>            
+            </div>
+            <div class="boards_r fr">
+            	<div class="sever">
+                	<a href="#" class="sever1 blk">电信一区<span class="red">【元素殿堂】</span>欢迎进驻！</a>
+                    <a href="#" class="sever2 blk">电信一区<span class="red">【元素殿堂】</span>欢迎进驻！</a>
+                </div>
+                <div class="guanzhu clear">
+                	<div class="fl clear">
+                		<span class="update fl">距离上次更新有<a class="num" href="#">200</a>次更新</span>
+                        <a href="#" class="icon fl"></a>
+                	</div>
+                    <div class="fr">
+                    	<span class="fl txt">关注:</span>
+                        <a href="#" class="fl weixin"></a>
+                        <a href="#" class="fl boke"></a>
+                        <a href="#" class="fl weibo"></a>
+                    </div>
+                </div>
+                <div id="jsxxk2">
+                    <div class="newscolumn">
+                        <div class="zonghe fl tocur">综合</div>
+                        <div class="xinwen fl tocur">新闻</div>
+                        <div class="gonggao fl tocur">公告</div>
+                        <div class="meiti fl tocur">媒体</div>
+                    </div>
+                    <dl class="infobox toshow onshow">
+                    	<dt class="title"><a href="#">4月8日大版开启 德玛西亚即将降临</a></dt>
+                        <dd>
+                        	<a class="link" href="#">【公告】随后枪出如云</a>
+                            <span class="fr time">02/24</span>
+                        </dd>
+                        <dd>
+                        	<a class="link" href="#">【公告】随后枪出如云</a>
+                            <span class="fr time">02/24</span>
+                        </dd>
+                        <dd>
+                        	<a class="link" href="#">【公告】随后枪出如云</a>
+                            <span class="fr time">02/24</span>
+                        </dd>
+                        <dd>
+                        	<a class="link" href="#">【公告】随后枪出如云我的剑</a>
+                            <span class="fr time">02/24</span>
+                        </dd>
+                        <dd>
+                        	<a class="link" href="#">【公告】随后枪出如云剑就是我的剑</a>
+                            <span class="fr time">02/24</span>
+                        </dd>
+                        <dd>
+                        	<a class="link" href="#">【公告】随后枪出如云就是我的剑</a>
+                            <span class="fr time">02/24</span>
+                        </dd>
+                        <dd class="clear">
+                            <a class="fr more" href="#">更多信息</a>
+                            <i class="fr icon"></i>
+                        </dd>                        
+                    </dl>
+                    <dl class="infobox toshow">
+                    	<dt class="title"><a href="#">4月9日大版开启 德玛西亚即将降临</a></dt>
+                        <dd>
+                        	<a class="link" href="#">【新闻】你的剑就是我的剑</a>
+                            <span class="fr time">02/24</span>
+                        </dd>
+                        <dd>
+                        	<a class="link" href="#">【新闻】你的剑就是我的剑</a>
+                            <span class="fr time">02/24</span>
+                        </dd>
+                        <dd>
+                        	<a class="link" href="#">【新闻】你的剑就是我的剑</a>
+                            <span class="fr time">02/24</span>
+                        </dd>
+                        <dd>
+                        	<a class="link" href="#">【新闻】你的剑就是我的剑</a>
+                            <span class="fr time">02/24</span>
+                        </dd>
+                        <dd>
+                        	<a class="link" href="#">【新闻】你的剑就是我的剑</a>
+                            <span class="fr time">02/24</span>
+                        </dd>
+                        <dd>
+                        	<a class="link" href="#">【新闻】你的剑就是我的剑</a>
+                            <span class="fr time">02/24</span>
+                        </dd>
+                        <dd class="clear">
+                            <a class="fr more" href="#">更多信息</a>
+                            <i class="fr icon"></i>
+                        </dd>                        
+                    </dl>
+                    <dl class="infobox toshow">
+                    	<dt class="title"><a href="#">差点卡死了降临</a></dt>
+                        <dd>
+                        	<a class="link" href="#">【新闻】呵呵呵呵我的剑</a>
+                            <span class="fr time">02/24</span>
+                        </dd>
+                        <dd>
+                        	<a class="link" href="#">【新闻】你的是我的剑</a>
+                            <span class="fr time">02/24</span>
+                        </dd>
+                        <dd>
+                        	<a class="link" href="#">【新闻】你的的的剑就是我的剑</a>
+                            <span class="fr time">02/24</span>
+                        </dd>
+                        <dd>
+                        	<a class="link" href="#">【新闻】你的的的剑就是我的剑</a>
+                            <span class="fr time">02/24</span>
+                        </dd>
+                        <dd>
+                        	<a class="link" href="#">【新闻】你的的剑就是我的剑</a>
+                            <span class="fr time">02/24</span>
+                        </dd>
+                        <dd>
+                        	<a class="link" href="#">【新闻】你的的的剑就是我的剑</a>
+                            <span class="fr time">02/24</span>
+                        </dd>
+                        <dd class="clear">
+                            <a class="fr more" href="#">更多信息</a>
+                            <i class="fr icon"></i>
+                        </dd>                        
+                    </dl>
+                    <dl class="infobox toshow">
+                    	<dt class="title"><a href="#">4月8日大版开启 德玛西亚即将降临</a></dt>
+                        <dd>
+                        	<a class="link" href="#">【新闻】你的的的剑就是我的剑</a>
+                            <span class="fr time">02/24</span>
+                        </dd>
+                        <dd>
+                        	<a class="link" href="#">【新闻】你的的的剑就是我的剑</a>
+                            <span class="fr time">02/24</span>
+                        </dd>
+                        <dd>
+                        	<a class="link" href="#">【新闻】你的的的剑就是我的剑</a>
+                            <span class="fr time">02/24</span>
+                        </dd>
+                        <dd>
+                        	<a class="link" href="#">【新闻】你的的剑就是我的剑</a>
+                            <span class="fr time">02/24</span>
+                        </dd>
+                        <dd>
+                        	<a class="link" href="#">【新闻】你的的剑就是我的剑</a>
+                            <span class="fr time">02/24</span>
+                        </dd>
+                        <dd>
+                        	<a class="link" href="#">【新闻】你的的的的的剑就是我的剑</a>
+                            <span class="fr time">02/24</span>
+                        </dd>
+                        <dd class="clear">
+                            <a class="fr more" href="#">更多信息</a>
+                            <i class="fr icon"></i>
+                        </dd>                        
+                    </dl>                   
+            </div>
+        </div><!---boards----->
+    
+    </div><!---con.boards---->
+    	<div class="hot_action clear">
+        	<a class="fl" href="#"><img src="img/main_a2 (1).jpg"/></a>
+            <a class="fl" href="#"><img src="img/main_a2 (2).jpg"/></a>
+            <a class="fl" href="#"><img src="img/main_a2 (3).jpg"/></a>
+            <a class="fl margin0" href="#"><img src="img/main_a2.jpg"/></a>
+        </div><!---con.hot_action---->
+        <div class="gameintr clear">
+        	<div class="gameintr_l fl" id="jsxxk3">
+            	<div class="column clear">
+                	<div class="fl person1 tocur"></div>
+                    <div class="fl person2 tocur"></div>
+                    <div class="fl person3 tocur"></div>
+                    <div class="fl person4 tocur"></div>
+                    <div class="fl person5 tocur"></div>
+                </div>
+            	<div class="toshow onshow">
+                	<a class="blk" href="#"><img src="img/zhanshi.jpg"/></a>
+                </div>
+                <div class="toshow">
+                	<a class="blk" href="#"><img src="img/shenshe.jpg"/></a>
+                </div>
+                <div class="toshow">
+                	<a class="blk" href="#"><img src="img/zhanshi.jpg"/></a>
+                </div>
+                <div class="toshow">
+                	<a class="blk" href="#"><img src="img/shenshe.jpg"/></a>
+                </div>
+                <div class="toshow">
+                	<a class="blk" href="#"><img src="img/zhanshi.jpg"/></a>
+                </div>
+            </div>
+            <div class="gameintr_r fr">
+            	<h2 class="clear">
+                	<i class="icon fl"></i>
+                    <span class="fl huodongtit">活动中心</span>
+                </h2>
+                <a class="blk pic" href="#"><img src="img/1.jpg"/></a>
+                <div class="list">
+                	<a href="#" class="menu fist blk clear">
+                    	<span class="fl submenu">一个能打的都没有</span>
+                        <span class="fr status">进行中</span>
+                    </a>
+                    <a href="#" class="menu blk clear">
+                    	<span class="fl submenu">一个能打的都没有</span>
+                        <span class="fr status">进行中</span>
+                    </a>
+                    <a href="#" class="menu blk clear">
+                    	<span class="fl submenu">一个能打的都没有</span>
+                        <span class="fr status">进行中</span>
+                    </a>
+                    <a href="#" class="menu blk clear">
+                    	<span class="fl submenu">一个能打的都没有</span>
+                        <span class="fr status">进行中</span>
+                    </a>
+                    <a href="#" class="menu blk clear">
+                    	<span class="fl submenu">一个能打的都没有</span>
+                        <span class="fr status">进行中</span>
+                    </a>
+                </div>
+            </div>
+        </div><!---gameintr---->
+        <div class="morelink clear"> 
+        	<div class="morelink_l fl">
+            	<div class="short">
+                	<h4>快捷入口</h4>
+                    <div class="clear">
+                    	<a class="shortlink fl" href="#">·帐号管理</a>
+                        <a class="shortlink fl" href="#">·帐号管理</a>
+                    	<a class="shortlink fl" href="#">·帐号管理</a>
+                        <a class="shortlink fl" href="#">·帐号管理</a>
+                        <a class="shortlink fl" href="#">·帐号管理</a>
+                        <a class="shortlink fl" href="#">·帐号管理</a>
+                        <a class="shortlink fl" href="#">·帐号管理</a>
+                        <a class="shortlink fl" href="#">·帐号管理</a>
+                    </div>
+                </div>
+            	<div class="pic_link posr">
+                	<a class="blk" href="#"><img src="img/main_a3.jpg"/></a>
+                    <i class="arrowleft"></i>
+                    <i class="arrowright"></i>
+                </div>
+                <div class="cooperate">
+                	<div class="coop_txt">媒体合作专区</div>
+                    <a class="coop_pic blk" href="#"><img src="img/examen.jpg"/></a>
+                </div>
+            </div>
+            <div class="morelink_c fl">
+            	<div class="infobox">
+                	<div class="title clear">
+                    	<i class="icon fl"></i>
+                        <span class="fl jiaoliu">玩家交流</span>
+                    </div>
+                    <div class="con_box wid" id="jsxxk4">
+                    	<div class="column clear">
+                        	<i class="bian fl"></i>
+                        	<span class="tit fl tocur oncur">玩家攻略<span class="xian"></span></span>
+                            <span class="tit fl tocur">论坛热点<span class="xian"></span></span>
+                            <span class="tit fl tocur">社区精华<span class="xian"></span></span>
+                            <a class="fl more clear" href="#">
+                            	<i class="icon2 fl"></i>
+                                <span class="more_txt fl">更多信息</span>
+                            </a>
+                        </div>
+                        <div class="list_box toshow onshow">
+                        	<a class="pic_link fl" href="#"><img src="img/wj.jpg"/></a>
+                            <div class="list fl">
+                            	<a class="blk" href="#">·犯我德邦者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德邦者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德邦者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德邦者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德邦者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德邦者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德邦者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德邦者，虽远必诸</a>
+                            </div>
+                        </div>
+                        <div class="list_box toshow">
+                        	<a class="pic_link fl" href="#"><img src="img/wj.jpg"/></a>
+                            <div class="list fl">
+                            	<a class="blk" href="#">·吃了一天干吃面</a>
+                                <a class="blk" href="#">·吃了一天干吃面</a>
+                                <a class="blk" href="#">·吃了一天干吃面</a>
+                                <a class="blk" href="#">·吃了一天干吃面必诸</a>
+                                <a class="blk" href="#">·吃了一天干吃面必诸</a>
+                                <a class="blk" href="#">·犯虽远必诸</a>
+                                <a class="blk" href="#">·犯我德，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德呵呵呵邦者，虽远必诸</a>
+                            </div>
+                        </div>
+                        <div class="list_box toshow">
+                        	<a class="pic_link fl" href="#"><img src="img/wj.jpg"/></a>
+                            <div class="list fl">
+                            	<a class="blk" href="#">·犯我德者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德邦者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我邦者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德邦者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德邦者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德邦，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德邦者虽远必诸</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="infobox">
+                	<div class="title2 clear">
+                    	<i class="icon3 fl"></i>
+                        <span class="fl meiti">媒体专区</span>
+                    </div>
+                    <div class="con_box" id="jsxxk5">
+                    	<div class="column clear">
+                        	<i class="bian fl"></i>
+                        	<span class="tit fl tocur oncur">玩家攻略<span class="xian"></span></span>
+                            <span class="tit fl tocur">论坛热点<span class="xian"></span></span>
+                            <span class="tit fl tocur">社区精华<span class="xian"></span></span>
+                            <a class="fl more clear" href="#">
+                            	<i class="icon2 fl"></i>
+                                <span class="more_txt fl">更多信息</span>
+                            </a>
+                        </div>
+                        <div class="list_box toshow onshow">
+                        	<a class="pic_link fl" href="#"><img src="img/1031.jpg"/></a>
+                            <div class="list fl">
+                            	<a class="blk" href="#">·犯我德邦者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德邦者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德邦者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德邦者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德邦者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德邦者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德邦者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德邦者，虽远必诸</a>
+                            </div>
+                        </div>
+                        <div class="list_box toshow">
+                        	<a class="pic_link fl" href="#"><img src="img/1031.jpg"/></a>
+                            <div class="list fl">
+                            	<a class="blk" href="#">·吃了一天干吃面</a>
+                                <a class="blk" href="#">·吃了一天干吃面</a>
+                                <a class="blk" href="#">·吃了一天干吃面</a>
+                                <a class="blk" href="#">·吃了一天干吃面必诸</a>
+                                <a class="blk" href="#">·吃了一天干吃面必诸</a>
+                                <a class="blk" href="#">·犯虽远必诸</a>
+                                <a class="blk" href="#">·犯我德，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德呵呵呵邦者，虽远必诸</a>
+                            </div>
+                        </div>
+                        <div class="list_box toshow">
+                        	<a class="pic_link fl" href="#"><img src="img/1031.jpg"/></a>
+                            <div class="list fl">
+                            	<a class="blk" href="#">·犯我德者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德邦者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我邦者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德邦者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德邦者，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德邦，虽远必诸</a>
+                                <a class="blk" href="#">·犯我德邦者虽远必诸</a>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="morelink_r fr">
+            	<div class="gamedata">
+                	<div class="title clear">
+                    	<i class="icon fl"></i>
+                        <span class="fl ziliao">游戏资料</span>
+                    </div>
+                    <div class="gamedata_box">
+                    	<ul>
+                        	<li class="clear">
+                            	<span class="fl submenu">新手入门</span>
+                                <a class="fl fist" href="#">注册帐号</a>
+                                <a class="fl" href="#">下载游戏</a>
+                                <a class="fl end" href="#">登录游戏</a>
+                            </li>
+                            <li class="clear">
+                            	<span class="fl submenu">新手入门</span>
+                                <a class="fl fist" href="#">注册帐号</a>
+                                <a class="fl" href="#">下载游戏</a>
+                                <a class="fl end" href="#">登录游戏</a>
+                            </li>
+                            <li class="clear">
+                            	<span class="fl submenu">新手入门</span>
+                                <a class="fl fist" href="#">注册帐号</a>
+                                <a class="fl" href="#">下载游戏</a>
+                                <a class="fl end" href="#">登录游戏</a>
+                            </li>
+                            <li class="clear li_end">
+                            	<span class="fl submenu">新手入门</span>
+                                <a class="fl fist" href="#">注册帐号</a>
+                                <a class="fl" href="#">下载游戏</a>
+                                <a class="fl end" href="#">登录游戏</a>
+                            </li>
+                        </ul>
+                        <a class="datalink blk" href="#">进入资料站</a>
+                    </div>
+                </div>
+             	<div class="vedio">
+                	<div class="title2 clear">
+                    	<i class="icon3 fl"></i>
+                        <span class="fl shijue">视觉欣赏</span>
+                    </div>
+                    <div class="vedio_box" id="jsxxk6">
+                    	<div class="column clear">
+                        	<i class="bian fl"></i>
+                            <span class="tit fl tocur oncur">论坛热点<span class="xian"></span></span>
+                            <span class="tit fl tocur">社区精华<span class="xian"></span></span>
+                            <a class="fl more clear" href="#">
+                            	<i class="icon2 fl"></i>
+                                <span class="more_txt fl">更多信息</span>
+                            </a>
+                        </div>
+                        <div class="vedio_con clear toshow onshow">
+                        	<a class="blk fl" href="#"><img src="img/1 (1).jpg"/></a>
+                            <a class="blk fl" href="#"><img src="img/3.jpg"/></a>
+                            <a class="blk fl" href="#"><img src="img/1 (1).jpg"/></a>
+                            <a class="blk fl" href="#"><img src="img/2.jpg"/></a>
+                        </div>
+                        <div class="vedio_con clear toshow">
+                        	<a class="blk fl" href="#"><img src="img/2.jpg"/></a>
+                            <a class="blk fl" href="#"><img src="img/1 (1).jpg"/></a>
+                            <a class="blk fl" href="#"><img src="img/4.jpg"/></a>
+                            <a class="blk fl" href="#"><img src="img/3.jpg"/></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!---con---->
+    <div class="notice mauto">
+    	<span class="notice_tit blk">健康游戏公告</span>
+        <span class="notice_con">抵制不良游戏，成就健康人生，上单太弱，打野不抓人，这还怎么玩<br />上单太弱，打野不抓人，这还怎么玩</span>
+    </div><!---notice---->
+    <div class="foot">
+    	<div class="foot_in mauto">
+        	<img src="img/footline.png"/>
+        	<img src="img/footer.png"/>
+        </div>
+    </div>
+</body>
+</html>

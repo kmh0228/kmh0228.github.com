@@ -3,40 +3,998 @@
 <head>
 <meta charset="utf-8">
 <title>无标题文档</title>
-</head>
+<link rel="stylesheet" href="css/base.css"/>
 <style>
-@keyframes move{from:{margin-left:0;}to{ margin-left:-90px;}} ;
-*{ margin:0; padding:0;}
-.box{ width:200px; height:50px; border:1px solid #000; overflow:hidden;}
-.con{ 	height:50px; width:400px;
-	 background:repeating-linear-gradient(-45deg,blue 0,blue 10%,red 10%,red 20%);
-}
+body{ background:#000; overflow:hidden;}
+.view{width:1200px;overflow:hidden; border:1px solid #fff;}
+.index_box{width:3600px;transform:translateX(-1200px);transition:1s all ease;}
+.index1,.index2,.index0{ width:1200px;margin:0 auto; position:relative; overflow:hidden; height:650px;}
+.room{ width:1200px; height:1000px; position:absolute; left:0; bottom:0; transform:perspective(800px); transform-style:preserve-3d;}
+.left_wall,.right_wall,.back_wall,.bottom_wall{ position:absolute; left:0; bottom:0; border:1px solid #000; box-sizing:border-box;}
+.left_wall,.right_wall{ width:1000px; height:1000px;}
+.back_wall,.bottom_wall{ width:1200px; height:1000px;}
+.back_wall{ transform:translateZ(-1000px);background:rgb(200,200,200); transform-style:preserve-3d;}
+.back_wall .iteam{ position:absolute; bottom:0; left:75px; height:100px; width:100%;transform:translateZ(50px);}
+.back_wall .iteam li{ float:left; width:350px; height:100%; border:1px solid #00F; box-sizing:border-box; background:#9F3; line-height:98px; text-align:center; font-size:48px; font-weight:bold; cursor:pointer;}
+.back_wall .iteam li.cur{ background:#FF0;}
+.back_wall .iteam li:hover{ background:#C09;}
+.left_wall{ transform:translateX(-500px) translateZ(-500px) rotateY(-90deg);background:rgb(200,200,200);}
+.right_wall{ transform:translateX(700px) translateZ(-500px) rotateY(90deg);background:rgb(200,200,200);}
+.bottom_wall{ transform:translateY(500px) translateZ(-500px) rotateX(90deg); background:rgb(200,200,200);transform-style:preserve-3d;}
+.door_l,.door_r{ width:150px; height:300px; border:5px solid #000; position:absolute; bottom:0; border-bottom:none; background:#fff; transform:scale(-1,1); cursor:pointer;}
+.door_l{ right:200px;}
+.door_r{ left:200px;}
+.door_l p,.door_r p{ height:50px; border-bottom:5px solid #000; line-height:50px; font-size:36px; text-align:center;}
+.dir{ position:absolute; right:0; bottom:0; width:180px;}
+.dir li{ float:left; width:50px; height:50px; margin:5px; border-radius:10px;}
+.dir .up{ background:url(image/keyup.jpg); background-size:100%;}
+.dir .left{ background:url(image/keyleft.jpg); background-size:100%;}
+.dir .down{ background:url(image/keydown.jpg); background-size:100%;}
+.dir .right{ background:url(image/keyright.jpg); background-size:100%;}
+.dir .up,.dir .left,.dir .right,.dir .down{ border:1px solid #000; box-sizing:border-box;}
+.bottom_wall .people{width:65px; height:136px; background:url(image/people.png); position:absolute; left:400px; top:800px;transform:translateZ(65px) rotateX(-90deg);}
+.select{ width:80px; height:20px; background:yellow; position:absolute; right:20px; top:50px; font-size:12px; line-height:20px; border-radius:3px; border:1px solid #03C; text-align:center; cursor:pointer;}
+.select ul{ display:none;}
+.select li{ background:#6F9; height:25px; border:1px solid #fff; margin-top:1px; position:relative;}
+.select li:hover{ background:#F0C;}
+.select li>div{ width:100px; height:100px; border:1px solid #909;position:absolute; top:0px; left:-103px; border-radius:5px; display:none; background:#936;}
+.select li .pic input{ width:20px; height:20px; background:url(image/dibanhei.png); margin-left:5px; background-size:cover;}
+.select li .pic input.pic2{ background:url(image/floor_yellow.jpg);}
+.select li .pic_name{ padding:0; line-height:12px;}
+.menu {  margin:0 auto;width:100px; height:500px; transform:translateZ(-500px);  position:relative; transform-style:preserve-3d; cursor:pointer;}
+.menu li{ width:100px; position:absolute; left:0; top:0; height:100%; transform:perspective(800px) rotateY(0deg) translateZ(300px); transform-style:preserve-3d;}
+.menu li em { display:block; height:100%; width:2px; background:#C00; margin:0 auto;}
+.menu li .lg{ position:absolute; bottom:0; left:0; width:96px; height:96px; border:2px solid #999; box-shadow:0 0 56px 10px #fff; background:#fff; border-radius:50%; }
+.menu li .txt{ display:block;position:absolute; bottom:0; left:0; width:100px; height:56px;  border-radius:50%; text-align:center; font-size:24px;padding-top:44px; font-weight:bold; color:#000; text-shadow:0 5px 0 #999; transform:perspective(800px) translateZ(40px);}
+.menu li .lg i{ position:absolute; bottom:50px; left:-25px; border:75px solid transparent; border-bottom:75px solid #CF6;}
+.menu1{ margin:0 auto; width:100px; height:150px;  transform:translateZ(-500px) translateY(425px);position:relative; transform-style:preserve-3d;}
+.menu1 li{ width:100%; height:100%; position:absolute; left:0; top:0; text-align:center; background:red; background:rgba(153,255,153,0.9); border-radius:5px; box-shadow:0 0 5px 5px #fff; line-height:80px; font-size:32px; text-align:center;
+cursor:pointer;}
+.sort{ width:80px; height:40px; background:#0FF; font-size:24px; line-height:40px; position:absolute; left:20px; bottom:20px; cursor:pointer; text-align:center; border-radius:5px;}
+.menu2{ width:300px; height:250px;  transform:translateZ(-950px) translateY(-200px);position:absolute;bottom:0px; left:0px; transform-style:preserve-3d;}
+.menu2 li{ width:100%; height:100%; background:rgba(255,255,0,0.9); position:absolute; top:0; left:0; box-shadow:0 0 5px 0px #fff; border-radius:5px; cursor:pointer;}
+.menu2 li a{ display:block; width:100%; height:100%;}
+.menu2 li a img{ width:100%; height:100%;}
+.choose{ position:absolute; bottom:10px; left:100px; width:550px; height:80px;}
+.choose li{ float:left; height:30px; margin:2px; line-height:30px; padding:0 4px; font-size:16px; background:rgba(255,255,0,0.8); border:1px solid yellow; border-radius:5px; cursor:pointer;}
+.choose li.web{ border:1px solid red;}
+.hot{ position:absolute; bottom:80px; left:20px; width:100px; border-radius:5px; background:#9FC;}
+.hot p{ font-size:14px; line-height:24px;text-align:center; color:#f00; font-weight:bold;}
+.hot .tit{ background:#6F9; border-radius:5px; font-size:18px; color:#F00; font-weight:bold; line-height:30px;}
+.hot a{ display:block;}
+.hot a:hover{ box-shadow:0 0 5px 5px #f00 inset;}
+.hot a img{ width:90px; height:90px; margin:5px; border-radius:5px;}
+.info{ position:absolute; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.3); display:none;}
+.info .info_box{ width:800px; height:500px; margin:75px auto; background:#fff; overflow:hidden; position:relative;}
+.info .info_box ul{ position:absolute; left:0; top:0;}
+.info .info_box img{ width:800px; height:500px; float:left;}
+
+.info .info_box .con_tokl{ width:800px; height:500px; position:absolute; left:0; top:0; background:#fff;}
+.info .info_box .con_tokl span{ position:absolute;left:0; top:0; -webkit-transform-style:preserve-3d; -webkit-transform:perspective(800px) rotateY(0deg);}
+.info .info_box .con_tokl span em{position:absolute; top:0; left:0; width:100%; height:100%;}
+.info .info_box .con_tokl span .front{ background:url(image/con1.png) no-repeat 0 0; -webkit-transform:translateZ(1px);}
+.info .info_box .con_tokl span .back{ background:url(image/con6.png) no-repeat 0 0; -webkit-transform:translateZ(-1px) scale(-1,1);}
+
+.info .info_box .con_tobl{ width:800px; height:500px; position:absolute; left:0; top:0;}
+.info .info_box .con_tobl span{ position:absolute; left:0; right:0;}
+
+.info .info_box .con_tofl{ width:800px; height:500px; position:absolute; left:0; top:0;}
+.info .info_box .con_tofl .page{ width:50%; height:100%; position:absolute; top:0; background:#ccc; -webkit-transform-style:preserve-3d; -webkit-transform:perspective(800px) rotateY(0deg); z-index:2;}
+.info .info_box .con_tofl .page div{ width:100%; height:100%; position:absolute; top:0; left:0;}
+.info .info_box .con_tofl .page .front{ background:url(image/con1.png) no-repeat right; -webkit-transform:translateZ(1px);}
+.info .info_box .con_tofl .page .back{ background:url(image/con6.png) no-repeat; -webkit-transform:translateZ(-1px) scale(-1,1);}
+.info .info_box .con_tofl .page2{position:absolute; top:0; width:50%; height:100%; background:url(img/a2.jpg) no-repeat right; z-index:1;}
+
+.info .info_box .con_topl{ width:800px; height:500px; position:absolute; left:0; top:0;-webkit-transform: perspective(800px) translateX(0px);}
+
+.info .del{ position:absolute; top:43px; right:200px; width:60px; height:30px; font-size:24px; line-height:30px; text-align:center; background:#00C; cursor:pointer;}
+.info .tolast,.info .tonext{ position:absolute; top:100px; width:120px;}
+.info .tolast{ left:50px;}
+.info .tonext{ right:50px;}
+.info .tolast>div,.info .tonext>div{ line-height:50px; font-size:16px; margin-top:40px; background:#3FC; text-align:center; color:#00F; cursor:pointer;}
+.info .tolast>div{ border-radius:25px 0 0 25px;}
+.info .tonext>div{ border-radius:0 25px 25px 0;}
 </style>
 <script>
-function setC3Style(obj,sName,sValue){
-	obj.style['Webkit'+sName.charAt(0).toUpperCase()+sName.substring(1)] = sValue;
-	obj.style['Moz'+sName.charAt(0).toUpperCase()+sName.substring(1)] = sValue;
-	obj.style['ms'+sName.charAt(0).toUpperCase()+sName.substring(1)] = sValue;
-	obj.style['O'+sName.charAt(0).toUpperCase()+sName.substring(1)] = sValue;
-	obj.style[sName] = sValue;
-}
+function rnd(m,n){return parseInt(m+(n-m)*Math.random());}
 
-window.onload=function(){
-	var aIt=document.querySelectorAll('input');
-	var aDiv=document.querySelectorAll('div');
-	setC3Style(aDiv[1],'animation','move 1s linear infinite');
-	for(var i=0;i<aIt.length;i++){
-		aIt[i].onchange=function(){
-			aDiv[1].style.background='repeating-linear-gradient(-45deg,'+aIt[0].value+' 0,'+aIt[0].value+' 10%,'+aIt[1].value+' 10%,'+aIt[1].value+' 20%)';
+document.addEventListener('DOMContentLoaded',function(){
+	//转成相对布局
+	;(function(){
+		var oV=document.getElementById('view');
+		function change(){
+			var cw=document.documentElement.clientWidth;
+			var ch=document.documentElement.clientHeight;
+			var sw=cw/1202;
+			var sh=ch/652;
+			var sc=Math.min(sw,sh,1);
+			if(cw>1202*sc){
+				var marginL=(cw-1202*sc)/2;
+			}else{
+				var marginL=0;
+			}
+			var disw=1202*(1-sc)/2;
+			var dish=652*(1-sc)/2;
+			oV.style.transform='translateX('+(-disw+marginL)+'px) translateY('+(-dish)+'px) scale('+sc+','+sc+') ';
+			document.title=marginL;
+		}
+		change();
+		window.onresize=function(){
+			change();
 		};
+	})();
+	
+	var info_page=0;
+	//小人动作
+	function peo_mov(dir,people){
+		var oDir=document.getElementById(dir);
+		var oPeople=document.getElementById(people);
+		var oUp=oDir.getElementsByClassName('up')[0];
+		var oLeft=oDir.getElementsByClassName('left')[0];
+		var oDown=oDir.getElementsByClassName('down')[0];
+		var oRight=oDir.getElementsByClassName('right')[0];
+		var left=400,top=800,speed=15,img_posX=0,img_posY=0;
+		var bOk_l=true,bOk_r=true,bOk_u=true,bOk_d=true;
+		oUp.onmousedown=function(){
+			clearTimeout(document.timerout);
+			clearInterval(oUp.timer);
+			oUp.timer=setInterval(function(){
+				if(bOk_l&&bOk_r){
+				img_posY=0;
+				img_posX=(img_posX-65)%195;
+				oPeople.style.backgroundPosition=-195+img_posX+'px '+img_posY+'px';}
+				top-=speed;
+				if(top<0){top=0}
+				oPeople.style.top=top+'px';
+			},150);
+		}
+		oDown.onmousedown=function(){
+			clearTimeout(document.timerout);
+			clearInterval(oDown.timer);
+			oDown.timer=setInterval(function(){
+				if(bOk_l&&bOk_r){
+				img_posY=0;
+				img_posX=(img_posX-65)%195;
+				oPeople.style.backgroundPosition=img_posX+'px '+img_posY+'px';}
+				top+=speed;
+				if(top>932){top=932}
+				oPeople.style.top=top+'px';
+			},150);
+		}
+		oLeft.onmousedown=function(){
+			clearTimeout(document.timerout);
+			clearInterval(oLeft.timer);
+			oLeft.timer=setInterval(function(){
+				img_posY=136;
+				img_posX=(img_posX-65)%195;
+				oPeople.style.backgroundPosition=img_posX+'px '+img_posY+'px';
+				left-=speed;
+				if(left<0){left=0}
+				oPeople.style.left=left+'px';
+			},150);
+		}
+		oRight.onmousedown=function(){
+			clearTimeout(document.timerout);
+			clearInterval(oRight.timer);
+			oRight.timer=setInterval(function(){
+				img_posY=136;
+				img_posX=(img_posX-65)%195;
+				oPeople.style.backgroundPosition=-195+img_posX+'px '+img_posY+'px';
+				left+=speed;
+				if(left>1135){left=1135}
+				oPeople.style.left=left+'px';
+			},150);
+		}
+		document.addEventListener('mouseup',function(){
+			document.timerout=setTimeout(function(){
+				 clearInterval(oUp.timer);
+				 clearInterval(oLeft.timer);
+				 clearInterval(oDown.timer);
+				 clearInterval(oRight.timer);
+			},100);
+		},false);
+		document.addEventListener('keydown',function(ev){
+			switch(ev.keyCode){
+				case 37:bOk_l&&oLeft.onmousedown();bOk_l=false;break;
+				case 38:bOk_u&&oUp.onmousedown();bOk_u=false;break;
+				case 39:bOk_r&&oRight.onmousedown();bOk_r=false;break;
+				case 40:bOk_d&&oDown.onmousedown();bOk_d=false;break;
+			}
+			ev.preventDefault();
+		},false);
+		document.addEventListener('keyup',function(ev){
+			switch(ev.keyCode){
+				case 37:clearInterval(oLeft.timer);bOk_l=true;break;
+				case 38:clearInterval(oUp.timer);bOk_u=true;break;
+				case 39:clearInterval(oRight.timer);bOk_r=true;break;
+				case 40:clearInterval(oDown.timer);bOk_d=true;break;
+			}
+		},false);
 	}
-};
+	peo_mov('dir1','people1');
+	peo_mov('dir','people');
+	peo_mov('dir2','people2');
+	//壁纸选择
+	function wall_col(sel,room){
+		var oSel=document.getElementById(sel);
+		var oUl=oSel.getElementsByTagName('ul')[0];
+		var aLi=oUl.getElementsByTagName('li');
+		var aCol=oUl.getElementsByClassName('col_ch');
+		var aP1=oUl.getElementsByClassName('pic1');
+		var aP2=oUl.getElementsByClassName('pic2');
+		var aWall=document.getElementById(room).children;
+		oSel.onmouseenter=function(){
+			clearTimeout(oSel.timer);
+			oUl.style.display='block';
+		};
+		oSel.onmouseleave=function(){
+			oSel.timer=setTimeout(function(){
+				oUl.style.display='none';
+			},1000);
+		};
+		for(var i=0;i<aLi.length;i++){
+			(function(index){
+				aLi[index].onmouseenter=function(){
+					clearInterval(aLi[index].timer);
+					for(var j=0;j<aLi.length;j++){
+						aLi[j].children[0].style.display='none';
+					}
+					this.children[0].style.display='block';
+				};
+				aLi[index].onmouseleave=function(){
+					aLi[index].timer=setTimeout(function(){
+						aLi[index].children[0].style.display='none';
+					},500);
+				};
+				aCol[index].onchange=function(){
+					aWall[index].style.background=this.value;
+				};
+				aP1[index].onclick=function(){
+					aWall[index].style.background='url(image/dibanhei.png)';
+				};
+				aP2[index].onclick=function(){
+					aWall[index].style.background='url(image/floor_yellow.jpg)';
+				};
+			})(i);
+		}
+	}
+	wall_col('sel1','room1')
+	wall_col('sel','room')
+	wall_col('sel2','room2')
+	//灯效
+	;(function(){
+		var oMenu=document.getElementById('menu');
+		var aMenu=oMenu.children;
+		var aEm=oMenu.getElementsByTagName('em');
+		var aLg=oMenu.getElementsByClassName('lg');
+		var oInfo=document.getElementById('info');
+		var oInfoCon=document.getElementById('info_list');
+		var oPen_bOk=false;
+		var oPen_timerout=null;
+		function set_lg(n){
+			for(var i=0;i<aMenu.length;i++){
+				aMenu[i].style.transform='perspective(1200px) rotateY('+(i*360/aMenu.length+n)+'deg) translateZ(300px)';
+				aEm[i].style.transform=aLg[i].style.transform='rotateY('+(-i*360/aMenu.length-n)+'deg)';
+			}
+		}
+		for(var i=0;i<aMenu.length;i++){
+			(function(index){
+				aMenu[index].style.height=400+50*index+'px';
+				aMenu[index].onclick=function(){
+					if(oPen_bOk)return;
+					oInfo.style.display='block';
+					clearInterval(oMenu.timer);
+					oInfoCon.style.left=-index*800+'px';
+					document.onmousemove=null;
+					document.onmouseup=null;
+					info_page=index;
+				};
+			})(i);
+		}
+		set_lg(0);
+		var n=0;
+		oMenu.timer=setInterval(function(){
+			n-=0.5;
+			set_lg(n);
+		},30);
+		oMenu.onmouseenter=function(){
+			clearInterval(oMenu.timer);
+			clearTimeout(oMenu.timerout);
+		};
+		var leave_bOk=false;
+		oMenu.onmouseleave=function(){
+			if(leave_bOk)return;
+			oMenu.timerout=setTimeout(function(){
+				clearTimeout(oMenu.timerout);
+				clearInterval(oMenu.timer);
+				oMenu.timer=setInterval(function(){
+					n-=0.5;
+					set_lg(n);
+				},30);
+			},500);
+		};
+		var disN=0;
+		oMenu.onmousedown=function(ev){
+			leave_bOk=true;
+			var oldX=ev.clientX;
+			document.onmousemove=function(ev){
+				disN=(ev.clientX-oldX)/5;
+				if(disN>1){oPen_bOk=true;}
+				set_lg(n+disN);
+			};
+			document.onmouseup=function(){
+				leave_bOk=false;
+				oMenu.onmouseleave();
+				n+=(disN||0);
+				document.onmousemove=null;
+				document.onmouseup=null;
+				oPen_timerout=setTimeout(function(){
+					oPen_bOk=false;
+				},100);
+			};
+			return false;
+		};
+	})();
+	//页面切换事件
+	function change(room,n){
+		var oRoom=document.getElementById(room);
+		var aIteam=oRoom.getElementsByClassName('iteam')[0].children;
+		var oIndex_box=document.getElementById('index_box');
+		var left=0;
+		for(var i=0;i<aIteam.length;i++){
+			(function(index){
+				aIteam[index].onclick=function(){
+					left=-index*1200;
+					oIndex_box.style.transform='translateX('+left+'px)';
+				};
+			})(i);
+		}
+		var oDoor_l=oRoom.getElementsByClassName('door_l')[0];
+		var oDoor_r=oRoom.getElementsByClassName('door_r')[0];
+		oDoor_l&&(oDoor_l.onclick=function(){
+			left=-1200*(n-1);
+			oIndex_box.style.transform='translateX('+left+'px)';
+		});
+		oDoor_r&&(oDoor_r.onclick=function(){
+			left=-1200*(n+1);
+			oIndex_box.style.transform='translateX('+left+'px)';
+		});
+	};
+	change('room1',0);
+	change('room',1);
+	change('room2',2);
+	//灯牌
+	(function(){
+		var oMenu1=document.getElementById('menu1');
+		var aLi=oMenu1.getElementsByTagName('li');
+		var oSort=document.getElementById('sort');
+		var bOk=true;
+		oSort.onclick=function(){
+			if(oSort.innerHTML=='无序'){
+				oSort.innerHTML='有序';
+				bOk=true;
+				for(var i=0;i<aLi.length;i++){
+					aLi[i].style.width=rnd(100,150)+'px';
+					aLi[i].style.height=rnd(100,150)+'px';
+					aLi[i].style.background='rgba('+rnd(0,256)+','+rnd(0,256)+','+rnd(0,256)+',0.9)';
+					aLi[i].indexD=rnd(0,360);
+					aLi[i].indexZ=rnd(50,450);
+					aLi[i].indexY=rnd(-100,300);
+					aLi[i].indexY=i*7-50;
+					aLi[i].style.transform='perspective(1200px) translateY('+aLi[i].indexY+'px) rotateY('+aLi[i].indexD+'deg) translateZ('+aLi[i].indexZ+'px) rotateY('+aLi[i].indexD*-1+'deg)';
+				}
+			}else{
+				oSort.innerHTML='无序';
+				bOk=false;
+				for(var i=0;i<aLi.length;i++){
+					aLi[i].style.width='150px';
+					aLi[i].style.height='80px';
+					aLi[i].indexD=i*30;
+					aLi[i].indexZ=400;
+					aLi[i].indexY=i*7-50;
+					aLi[i].style.transform='perspective(1200px) translateY('+aLi[i].indexY+'px) rotateY('+aLi[i].indexD+'deg) translateZ('+aLi[i].indexZ+'px)';
+				}
+			}
+		};
+		oSort.onclick();
+		setInterval(function(){
+			for(var i=0;i<aLi.length;i++){
+				aLi[i].indexD+=0.5;
+				if(bOk){bk=aLi[i].indexD*-1}else{bk=0}
+				aLi[i].style.transform='perspective(1200px) translateY('+aLi[i].indexY+'px) rotateY('+aLi[i].indexD+'deg) translateZ('+aLi[i].indexZ+'px) rotateY('+bk+'deg)';
+			};
+		},30);
+	})();
+	//书
+	(function(){
+		var oBook=document.getElementById('menu2');
+		var aLi=oBook.children;
+		var startZ=0;
+		var aChoose=document.getElementById('choose').children;
+		var trans_bOk=false;
+		function setPos(startZ){
+			var startX=startZ*1;
+			for(var i=0; i<aLi.length;i++){
+				aLi[i].style.transform='perspective(800px) translateZ('+(startZ+100*i)+'px) translateX('+(startX+100*i)+'px)';
+			}
+		}
+		function setPosMov(startZ){
+			trans_bOk=true;
+			var n=0;
+			var startX=startZ*1;
+			for(var i=0; i<aLi.length;i++){
+				aLi[i].style.transition='0.5s all ease';
+				aLi[i].style.transform='perspective(800px) translateZ('+(startZ+100*i)+'px) translateX('+(startX+100*i)+'px)';
+				aLi[i].addEventListener('transitionend',transend,false);
+			}
+			function transend(){
+				this.removeEventListener('transitionend',transend,false);
+				this.style.transition='none';
+				n++;
+				if(n==aLi.length){trans_bOk=false;}
+			}
+		}
 
+		setPos(startZ);
+		oBook.onmousedown=function(ev){
+			if(trans_bOk)return;
+			var disN=0;
+			var oS=ev.srcElement;
+			var oldX=ev.clientX;
+			oS.parentNode.onclick=function(){document.onmouseup&&document.onmouseup();}
+			document.onmousemove=function(ev){
+				disN=(ev.clientX-oldX)/5;
+				if(disN>0.4){oS.parentNode.onclick=function(){return false;}}
+				setPos(startZ+disN);
+				console.log(oS.parentNode.onclick);
+			};
+			document.onmouseup=function(){
+				startZ+=disN;
+				document.onmousemove=null;
+				document.onmouseup=null;
+			};
+			return false;
+		};
+		for(var j=0;j<aChoose.length;j++){
+			(function(index){
+				aChoose[index].onclick=function(){
+					startZ=-index*100+370;
+					setPosMov(startZ);
+					for(var k=0;k<aLi.length;k++){
+						aLi[k].style.boxShadow='0 0 5px 0px #fff';
+					}
+					aLi[index].style.boxShadow='0 0 5px 5px red';
+				};
+			})(j);
+		}
+	})();
+	//个人信息
+	(function(){
+		var oInfo=document.getElementById('info');
+		var oInfoCon=document.getElementById('info_list');
+		var aCon=oInfoCon.children;
+		var oDel=document.getElementById('del');
+		var aTok=oInfo.getElementsByClassName('tok');
+		var aTob=oInfo.getElementsByClassName('tob');
+		var aTof=oInfo.getElementsByClassName('tof');
+		var aTop=oInfo.getElementsByClassName('top');
+		var bOk = false;
+		oInfoCon.style.width=800*aCon.length+'px';
+		
+		oDel.onclick=function(){
+			oInfo.style.display='none';
+		};
+		
+		//var info_page=0;
+		function tabk(dir){
+			if(bOk)return;
+			bOk = true;
+			var oLd_page=info_page;
+			if(dir=='last'){info_page--;}else if(dir=='next'){info_page++;};
+			if(info_page==-1){info_page=aCon.length-1;}
+			if(info_page==aCon.length){info_page=0;}
+			var l=800*info_page;
+			oInfoCon.style.left=-l+'px';
+			var oBox = document.createElement('div');
+			oBox.className='con_tokl';
+			oBox.style.left=l+'px';
+			oInfoCon.appendChild(oBox);
+			var C = 7;
+			var R = 4;
+			for(var i=0;i<R;i++){
+				for(var j=0;j<C;j++){
+					var oS = document.createElement('span');
+					oS.style.width = oBox.offsetWidth/C+'px';
+					oS.style.height = oBox.offsetHeight/R+'px';
+					oS.innerHTML = '<em class="front"></em><em class="back"></em>';
+					oBox.appendChild(oS);
+					oS.style.left = j*oS.offsetWidth+'px';
+					oS.style.top = i*oS.offsetHeight+'px';
+					var oFront = oS.children[0];
+					var oBack = oS.children[1];
+					oFront.style.backgroundPosition = oBack.style.backgroundPosition = '-'+oS.offsetLeft+'px -'+oS.offsetTop+'px';
+					oS.r = i;
+					oS.c = j;
+				}
+			}
+			var aS = oBox.children;
+			for(var i=0;i<aS.length;i++){
+				var oFront = aS[i].children[0];
+				var oBack = aS[i].children[1];
+				oFront.style.backgroundImage = 'url(image/con'+(oLd_page+1)+'.png)';
+				oBack.style.backgroundImage = 'url(image/con'+(info_page+1)+'.png)';
+			}
+			
+			for(var i=0;i<aS.length;i++){
+				(function(index){
+					setTimeout(function(){
+						aS[index].style.WebkitTransition = '1s all ease';
+						aS[index].style.WebkitTransform = 'perspective(800px) rotateY(180deg)';
+					},(aS[index].r+aS[index].c)*100);
+				})(i);
+			}
+			function tranEnd(){
+				aS[aS.length-1].removeEventListener('transitionend',tranEnd,false);
+				
+				oInfoCon.removeChild(oBox);
+				setTimeout(function(){bOk = false;},10);
+			}
+			aS[aS.length-1].addEventListener('transitionend',tranEnd,false);
+		}
+		aTok[0].onclick=function(){tabk('last');};
+		aTok[1].onclick=function(){tabk('next');};
+		
+		function tabb(dir){
+			if(bOk)return;
+			bOk = true;
+			var oLd_page=info_page;
+			if(dir=='last'){info_page--;}else if(dir=='next'){info_page++;};
+			if(info_page==-1){info_page=aCon.length-1;}
+			if(info_page==aCon.length){info_page=0;}
+			var l=800*info_page;
+			oInfoCon.style.left=-l+'px';
+			var oBox = document.createElement('div');
+			oBox.className='con_tobl';
+			oBox.style.left=l+'px';
+			oInfoCon.appendChild(oBox);
+			var R = 4;
+			var C = 7;
+			for(var i=0;i<R;i++){
+				for(var j=0;j<C;j++){
+					var oS = document.createElement('span');
+					oS.style.width = oBox.offsetWidth/C+'px';
+					oS.style.height = oBox.offsetHeight/R+'px';
+					oBox.appendChild(oS);
+					oS.style.left = j*oS.offsetWidth+'px';
+					oS.style.top = i*oS.offsetHeight+'px';
+					oS.style.backgroundPosition = '-'+oS.offsetLeft+'px -'+oS.offsetTop+'px';
+					oS.style.border='1px solid #fff';
+					oS.style.boxSizing='border-box';
+				}
+			}
+			var aS = oBox.children;
+			for(var i=0;i<aS.length;i++){
+				aS[i].style.backgroundImage = 'url(image/con'+(oLd_page+1)+'.png)';
+				aS[i].style.WebkitTransform = 'perspective(800px) translate(0,0) rotateY(0deg) rotateX(0deg) scale(1,1)';
+				aS[i].style.opacity = 1;
+			}
+			for(var i=0;i<aS.length;i++){
+				aS[i].style.WebkitTransition = '1.2s all ease';
+				var x = aS[i].offsetLeft+aS[i].offsetWidth/2-oBox.offsetWidth/2;
+				var y = aS[i].offsetTop+aS[i].offsetHeight/2-oBox.offsetHeight/2;
+				aS[i].style.WebkitTransform = 'perspective(800px) translate('+x+'px,'+y+'px) rotateY('+rnd(-360,360)+'deg) rotateX('+rnd(-360,360)+'deg) scale('+rnd(1,3)+','+rnd(1,3)+')';
+				aS[i].style.opacity = 0;
+			}
+			function tranEnd(){
+				aS[aS.length-1].removeEventListener('transitionend',tranEnd,false);
+				oInfoCon.removeChild(oBox);
+				setTimeout(function(){bOk = false;},10);
+			}
+			aS[aS.length-1].addEventListener('transitionend',tranEnd,false);
+		}
+		aTob[0].onclick=function(){tabb('last');};
+		aTob[1].onclick=function(){tabb('next');};
+		
+		function tabf(dir){
+			if(bOk)return;
+			bOk = true;
+			var oLd_page=info_page;
+			if(dir=='last'){info_page--;}else if(dir=='next'){info_page++;};
+			if(info_page==-1){info_page=aCon.length-1;}
+			if(info_page==aCon.length){info_page=0;}
+			var l=800*info_page;
+			oInfoCon.style.left=-l+'px';
+			var oBox = document.createElement('div');
+			oBox.className='con_tofl'; 
+			oBox.style.left=l+'px';
+			oBox.style.backgroundImage='url(image/con'+(oLd_page+1)+'.png)';
+			oInfoCon.appendChild(oBox);
+			var oPage = document.createElement('div');
+			oBox.appendChild(oPage);
+			oPage.className='page';
+			if(dir=='last'){
+				oPage.style.left=0;
+				oPage.style.WebkitTransformOrigin='right';
+			}else if(dir=='next'){
+				oPage.style.right=0;
+				oPage.style.WebkitTransformOrigin='left';
+			};
+			var oFront = document.createElement('div');
+			oPage.appendChild(oFront);
+			oFront.className='front';
+			if(dir=='last'){
+				oFront.style.backgroundPosition='left center';
+			}else if(dir=='next'){
+				oFront.style.backgroundPosition='right center';
+			};
+			var oBack = document.createElement('div');
+			oPage.appendChild(oBack);
+			oBack.className='back';
+			if(dir=='last'){
+				oBack.style.backgroundPosition='right center';
+			}else if(dir=='next'){
+				oBack.style.backgroundPosition='left center';
+			};
+			var oPage2 = document.createElement('div');
+			oBox.appendChild(oPage2);
+			oPage2.className='page2';
+			if(dir=='last'){
+				oPage2.style.left=0;
+				oPage2.style.backgroundPosition='left center';
+			}else if(dir=='next'){
+				oPage2.style.right=0;
+				oPage2.style.backgroundPosition='right center';
+			};
+			oFront.style.backgroundImage = 'url(image/con'+(oLd_page+1)+'.png)';
+			oBack.style.backgroundImage = 'url(image/con'+(info_page+1)+'.png)';
+			oPage2.style.backgroundImage = 'url(image/con'+(info_page+1)+'.png)';
+			oPage.style.WebkitTransition = '1s all ease';
+			setTimeout(function(){
+				if(dir=='last'){
+					oPage.style.WebkitTransform = 'perspective(800px) rotateY(180deg)';
+				}else if(dir=='next'){
+					oPage.style.WebkitTransform = 'perspective(800px) rotateY(-180deg)';
+				};
+			},0);
+			function tranEnd(){
+				oInfoCon.removeChild(oBox);
+				setTimeout(function(){bOk = false;},10);
+			}
+			oPage.addEventListener('transitionend',tranEnd,false);
+		};
+		aTof[0].onclick=function(){tabf('last');};
+		aTof[1].onclick=function(){tabf('next');};
+		
+		function tabp(dir){
+			if(bOk)return;
+			bOk = true;
+			var oLd_page=info_page;
+			if(dir=='last'){info_page--;}else if(dir=='next'){info_page++;};
+			if(info_page==-1){info_page=aCon.length-1;}
+			if(info_page==aCon.length){info_page=0;}
+			var l=800*info_page;
+			oInfoCon.style.left=-l+'px';
+			var oBox = document.createElement('div');
+			oBox.className='con_topl'; 
+			oBox.style.left=l+'px';
+			oBox.style.backgroundImage='url(image/con'+(oLd_page+1)+'.png)';
+			oInfoCon.appendChild(oBox);
+			oBox.style.WebkitTransition = '1s all ease';
+			setTimeout(function(){
+				if(dir=='last'){
+					oBox.style.WebkitTransform = 'translateX(800px)';
+				}else if(dir=='next'){
+					oBox.style.WebkitTransform = 'translateX(-800px)';
+				};
+			},0);
+			function tranEnd(){
+				oInfoCon.removeChild(oBox);
+				setTimeout(function(){bOk = false;},10);
+			}
+			oBox.addEventListener('transitionend',tranEnd,false);
+		};
+		aTop[0].onclick=function(){tabp('last');};
+		aTop[1].onclick=function(){tabp('next');};
+	})();
+},false);
 </script>
+</head>
 <body>
-update
-<input type="color" value="#FF0000">
-<input type="color" value="#CC0000"><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-<div class="box"><div class="con"></div></div>
+<div class="view" id="view">
+	<div class="index_box clear" id="index_box">
+    	<div class="index0 fl" id="index1">
+            <!--房间和墙头-->
+            <div class="room" id="room1">
+                <div class="back_wall">
+                	<ul class="iteam">
+                    	<li class="cur">我的知识</li>
+                        <li>我的主页</li>
+                        <li>我的作品</li>
+                    </ul>
+                </div>
+                <div class="left_wall"></div>
+                <div class="right_wall"><div class="door_r"><p>我的主页</p></div></div>
+                <div class="bottom_wall">
+                    <div class="people" id="people1"></div>
+                </div>
+                <!--灯牌-->
+                <ul class="menu1" id="menu1">
+                	<li>Photoshop</li>
+                    <li>HTML/CSS</li>
+                    <li>W3C</li>
+                    <li>页面优化</li>
+                    <li>BOM</li>
+                    <li>面向对象</li>
+                    <li>seaJs</li>
+                    <li>MVC</li>
+                    <li>jQuery</li>
+                    <li>bootstrap</li>
+                    <li>RequiresJs</li>
+                    <li>AngularJs</li>
+                    <li>Ajax</li>
+                    <li>jsonp</li>
+                    <li>PHP</li>
+                    <li>nodejs</li>
+                    <li>SVN</li>
+                    <li>Git</li>
+                    <li>Grunt</li>
+                    <li>Gulp</li>
+                    <li>Sass</li>
+                    <li>Less</li>
+                    <li>HTML5</li>
+                    <li>CSS3</li>
+                    <li>移动端</li>
+                    <li>正则</li>
+                    <li>算法</li>
+                    <li>canvas</li>
+                    <li>svg</li>
+                    <li>RaphaelJs</li>
+                </ul>
+                <!--经典作品-->
+                <div class="hot">
+                	<p class="tit">例子在这里</p>
+                    <div>
+                        <a href="egg/2048.html" target="_blank">
+                            <p>玩坏DOM</p>
+                            <img src="image/2048.png"/>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="egg/puyudaren/demo21.html" target="_blank">
+                            <p>玩破画布</p>
+                            <img src="image/puyu.png"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!--有无序选择-->
+            <div class="sort" id="sort">无序</div>
+            
+            
+            <!--箭头-->
+            <ul class="dir clear" id="dir1">
+                <li></li><li class="up"></li><li></li><li class="left"></li><li class="down"></li><li class="right"></li>
+            </ul>
+            <!--地板墙面选择-->
+            <div class="select" id="sel1">
+                <span>点我换壁纸</span>
+                <ul>
+                    <li>后墙
+                        <div>
+                            <div><p>选择颜色：</p><input type="color" class="col_ch"/></div>
+                            <div class="pic"><p>选择图片：</p><input type="button" class="pic1"/><input type="button" class="pic2"/></div><p class="pic_name">&nbsp;&nbsp;萝卜&nbsp;黄框</p>
+                        </div>
+                    </li>
+                    <li>左墙
+                        <div>
+                            <div><p>选择颜色：</p><input type="color" class="col_ch"/></div>
+                            <div class="pic"><p>选择图片：</p><input type="button" class="pic1"/><input type="button" class="pic2"/></div><p class="pic_name">&nbsp;&nbsp;萝卜&nbsp;黄框</p>
+                        </div>
+                    </li>
+                    <li>右墙
+                        <div>
+                            <div><p>选择颜色：</p><input type="color" class="col_ch"/></div>
+                            <div class="pic"><p>选择图片：</p><input type="button" class="pic1"/><input type="button" class="pic2"/></div><p class="pic_name">&nbsp;&nbsp;萝卜&nbsp;黄框</p>
+                        </div>
+                    </li>
+                    <li>地板
+                        <div>
+                            <div><p>选择颜色：</p><input type="color" class="col_ch"/></div>
+                            <div class="pic"><p>选择图片：</p><input type="button" class="pic1"/><input type="button" class="pic2"/></div><p class="pic_name">&nbsp;&nbsp;萝卜&nbsp;黄框</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!--子信息-->
+        </div>
+    
+		<div class="index1 fl" id="index1">
+            <!--房间和墙头-->
+            <div class="room" id="room">
+                <div class="back_wall">
+                	<ul class="iteam">
+                    	<li>我的知识</li>
+                        <li class="cur">我的主页</li>
+                        <li>我的作品</li>
+                    </ul>
+                </div>
+                <div class="left_wall"><div class="door_l"><p>我的知识</p></div></div>
+                <div class="right_wall"><div class="door_r"><p>我的作品</p></div></div>
+                <div class="bottom_wall">
+                    <div class="people" id="people"></div>
+                </div>
+                <!--灯-->
+                <ul class="menu" id="menu">
+                    <li>
+                        <em></em>
+                        <span class="lg"><i></i></span>
+                        <span class="txt">个人信息</span>
+                    </li>
+                    <li>
+                        <em></em>
+                        <span class="lg"><i></i></span>
+                        <span class="txt">专业技能</span>
+                    </li>
+                    <li>
+                        <em></em>
+                        <span class="lg"><i></i></span>
+                        <span class="txt">项目经验</span>
+                    </li>
+                    <li>
+                        <em></em>
+                        <span class="lg"><i></i></span>
+                        <span class="txt">工作经历</span>
+                    </li>
+                    <li>
+                        <em></em>
+                        <span class="lg"><i></i></span>
+                        <span class="txt">教育经历</span>
+                    </li>
+                    <li>
+                        <em></em>
+                        <span class="lg"><i></i></span>
+                        <span class="txt">自我评价</span>
+                    </li>
+                </ul>
+            </div>
+            <!--箭头-->
+            <ul class="dir clear" id="dir">
+                <li></li><li class="up"></li><li></li><li class="left"></li><li class="down"></li><li class="right"></li>
+            </ul>
+            <!--地板墙面选择-->
+            <div class="select" id="sel">
+                <span>点我换壁纸</span>
+                <ul>
+                    <li>后墙
+                        <div>
+                            <div><p>选择颜色：</p><input type="color" class="col_ch"/></div>
+                            <div class="pic"><p>选择图片：</p><input type="button" class="pic1"/><input type="button" class="pic2"/></div><p class="pic_name">&nbsp;&nbsp;萝卜&nbsp;黄框</p>
+                        </div>
+                    </li>
+                    <li>左墙
+                        <div>
+                            <div><p>选择颜色：</p><input type="color" class="col_ch"/></div>
+                            <div class="pic"><p>选择图片：</p><input type="button" class="pic1"/><input type="button" class="pic2"/></div><p class="pic_name">&nbsp;&nbsp;萝卜&nbsp;黄框</p>
+                        </div>
+                    </li>
+                    <li>右墙
+                        <div>
+                            <div><p>选择颜色：</p><input type="color" class="col_ch"/></div>
+                            <div class="pic"><p>选择图片：</p><input type="button" class="pic1"/><input type="button" class="pic2"/></div><p class="pic_name">&nbsp;&nbsp;萝卜&nbsp;黄框</p>
+                        </div>
+                    </li>
+                    <li>地板
+                        <div>
+                            <div><p>选择颜色：</p><input type="color" class="col_ch"/></div>
+                            <div class="pic"><p>选择图片：</p><input type="button" class="pic1"/><input type="button" class="pic2"/></div><p class="pic_name">&nbsp;&nbsp;萝卜&nbsp;黄框</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!--子信息-->
+            <div class="info" id="info">
+            	<div class="del" id="del">退出</div>
+            	<div class="info_box">
+                	<ul id="info_list" class="clear">
+                    	<img src="image/con1.png"/>
+                    	<img src="image/con2.png"/>
+                    	<img src="image/con3.png"/>
+                    	<img src="image/con4.png"/>
+                    	<img src="image/con5.png"/>
+                    	<img src="image/con6.png"/>
+                    </ul>
+                </div>
+                <div class="tolast">
+                	<div class="tok">颗粒翻转到上页</div>
+                	<div class="tob">爆炸到上页</div>
+                	<div class="tof">翻页到上页</div>
+                	<div class="top">滑到上页</div>
+                </div>
+                <div class="tonext">
+                	<div class="tok">颗粒翻转下页</div>
+                	<div class="tob">爆炸到下页</div>
+                	<div class="tof">翻页到下页</div>
+                	<div class="top">滑到下页</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="index2 fl" id="index2">
+            <!--房间和墙头-->
+            <div class="room" id="room2">
+                <div class="back_wall">
+                	<ul class="iteam">
+                    	<li>我的知识</li>
+                        <li>我的主页</li>
+                        <li class="cur">我的作品</li>
+                    </ul>
+                </div>
+                <div class="left_wall"><div class="door_l"><p>我的主页</p></div></div>
+                <div class="right_wall"></div>
+                <div class="bottom_wall">
+                    <div class="people" id="people2"></div>
+                </div>
+                <!--书-->
+                <ul class="menu2" id="menu2">
+					<li><a href="egg/aiqiyi/iqiyi.html" target="_blank"><img src="image/aiqiyi.png"/></a></li>
+					<li><a href="egg/linghunhuixiang/linghunhuixiang.html" target="_blank"><img src="image/linghunhuixiang.png"/></a></li>
+					<li><a href="egg/aoshiyingyin/myhome.html" target="_blank"><img src="image/aoshiyingyin.png"/></a></li>
+					<li><a href="egg/taobao/taobao.html" target="_blank"><img src="image/taobao.png"/></a></li>
+					<li><a href="egg/jingdong/jd.html" target="_blank"><img src="image/jingdong.png"/></a></li>
+					<li><a href="egg/shizhong.html" target="_blank"><img src="image/shizhong.png"/></a></li>
+					<li><a href="egg/video.html" target="_blank"><img src="image/video.png"/></a></li>
+					<li><a href="egg/danqiu.html" target="_blank"><img src="image/tantiao.png"/></a></li>
+					<li><a href="egg/tupianhuan.html" target="_blank"><img src="image/3dtupianhuan.png"/></a></li>
+                </ul>
+            </div>
+            <ul class="choose clear" id="choose">
+                <li class="web">爱奇艺(网页)</li>
+                <li class="web">灵魂回响(网页)</li>
+                <li class="web">傲视影音(网页)</li>
+                <li class="web">淘宝(网页)</li>
+                <li class="web">京东(网页)</li>
+                <li>时钟</li>
+                <li>小视频</li>
+                <li>小跳球</li>
+                <li>3D图片环</li>
+            </ul>
+            <!--箭头-->
+            <ul class="dir clear" id="dir2">
+                <li></li><li class="up"></li><li></li><li class="left"></li><li class="down"></li><li class="right"></li>
+            </ul>
+            <!--地板墙面选择-->
+            <div class="select" id="sel2">
+                <span>点我换壁纸</span>
+                <ul>
+                    <li>后墙
+                        <div>
+                            <div><p>选择颜色：</p><input type="color" class="col_ch"/></div>
+                            <div class="pic"><p>选择图片：</p><input type="button" class="pic1"/><input type="button" class="pic2"/></div><p class="pic_name">&nbsp;&nbsp;萝卜&nbsp;黄框</p>
+                        </div>
+                    </li>
+                    <li>左墙
+                        <div>
+                            <div><p>选择颜色：</p><input type="color" class="col_ch"/></div>
+                            <div class="pic"><p>选择图片：</p><input type="button" class="pic1"/><input type="button" class="pic2"/></div><p class="pic_name">&nbsp;&nbsp;萝卜&nbsp;黄框</p>
+                        </div>
+                    </li>
+                    <li>右墙
+                        <div>
+                            <div><p>选择颜色：</p><input type="color" class="col_ch"/></div>
+                            <div class="pic"><p>选择图片：</p><input type="button" class="pic1"/><input type="button" class="pic2"/></div><p class="pic_name">&nbsp;&nbsp;萝卜&nbsp;黄框</p>
+                        </div>
+                    </li>
+                    <li>地板
+                        <div>
+                            <div><p>选择颜色：</p><input type="color" class="col_ch"/></div>
+                            <div class="pic"><p>选择图片：</p><input type="button" class="pic1"/><input type="button" class="pic2"/></div><p class="pic_name">&nbsp;&nbsp;萝卜&nbsp;黄框</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!--子信息-->
+        </div>
+	</div>
+</div>
 </body>
 </html>
