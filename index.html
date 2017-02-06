@@ -29,6 +29,7 @@ var userid=parseInt(1+Math.random()*100000);
 $('.speak .inbox .seed').click(function(){
 	var val=$('.speak .inbox textarea').val();
 	if(!val){alert('你不打字，我不知道怎么回啊？');return;}
+	console.log('开始交互');
 	$.ajax({
 		type: "POST",
 		url: "http://op.juhe.cn/robot/index",
@@ -36,9 +37,11 @@ $('.speak .inbox .seed').click(function(){
 		//crossDomain:false,
 		data: "info="+val+"&key=e39580f56cacdfd35182fcb8ed32e7ee&userid="+userid,
 		success: function(msg){
+			console.log('交互成功');
 		 	alert(JSON.stringify(msg));
 		},
 		error:function(error){
+			console.log('交互失败');
 			alert(JSON.stringify(error))
 		}		
 	});
