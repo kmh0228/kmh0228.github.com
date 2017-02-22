@@ -2,51 +2,11 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>随意作</title>
+<title>kmh0228</title>
+<link rel="stylesheet" href="css/kmh0228.css"/>
 </head>
-<link rel="stylesheet" href="css/base.css"/>
-<style>
-.speak{ width:80%; margin:20px auto; background:#ccc; padding-top:10px; padding-bottom:10px; }
-.speak .info{ width:90%; margin:0 auto; height:300px; overflow-Y:scroll; border:1px solid #000;}
-.speak .inbox{ width:90%; margin:0 auto; margin-top:10px; height:50px; overflow:hidden;}
-.speak .inbox textarea{ width:80%; border:1px solid #000; box-sizing:border-box; height:50px;}
-.speak .inbox .seed{ width:16%; height:50px; background:#9C0;}
-</style>
 <body>
-<div class="speak">
-	<ul class="info">
-    	
-    </ul>
-    <div class="inbox clear">
-    	<textarea class="fl"></textarea>
-        <input type="button" class="seed fr" value="发送消息"/>
-    </div>
-</div>
+<a href="calculator.html">我的计算器</a>
+
 </body>
-<script src="js/jquery.js"></script>
-<script>
-var userid=parseInt(1+Math.random()*100000);
-$('.speak .inbox .seed').click(function(){
-	var val=$('.speak .inbox textarea').val();
-	if(!val){alert('你不打字，我不知道怎么回啊？');return;}
-	console.log('开始交互');
-	$.ajax({
-		type: "POST",
-		url: "https://op.juhe.cn/robot/index",
-		contentType:"application/json;charset=UTF-8;",
-		//crossDomain:false,
-		data: "info="+val+"&key=e39580f56cacdfd35182fcb8ed32e7ee&userid="+userid,
-		success: function(msg){
-			console.log('交互成功');
-		 	alert(JSON.stringify(msg));
-		},
-		error:function(error){
-			console.log('交互失败');
-			alert(JSON.stringify(error))
-		}		
-	});
-});
-
-
-</script>
 </html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script src="tools/Calculator.js"></script>
+<style>
+*{ margin:0; padding:0;}
+html,body{width:100%; height:100%;}
+textarea{ width:100%; height:150px; max-width:300px; margin:5px auto; display:block; resize:none; border:1px solid #000;}
+.aq{ width:100%; max-width:300px; border:1px solid transparent; overflow:hidden; margin:0 auto;}
+.aq input{ width:25%; height:30px; text-align:center; line-height:30px; font-size:24px; float:left;}
+.aq input.cur{ background:#3C6;}
+.eq{ width:150px; height:30px; text-align:center; line-height:30px; font-size:24px; margin:0 auto; display:block;}
+</style>
+</head>
+
+<body>
+    <textarea>9999999</textarea>
+    <div class="aq" id="aq">
+		<input class="cur" type="button" value="加"/>
+		<input type="button" value="减"/>
+		<input type="button" value="乘"/>
+		<input type="button" value="除"/>
+    </div>
+    <textarea>9999999</textarea>
+    <input type="button" class="eq" id="eq" value="等于"/>
+    <textarea></textarea>
+</body>
+</html>
+<script>
+var c=new Calculator();
+var aQ=document.getElementById('aq').getElementsByTagName('input');
+var textarea=document.getElementsByTagName('textarea');
+var cur=0;
+for(var i=0;i<aQ.length;i++){
+	aQ[i].index=i;
+	aQ[i].onclick=function(){
+		aQ[cur].className='';
+		this.className='cur';
+		cur=this.index;
+	}
+}
+document.getElementById('eq').onclick=function(){
+	var a=textarea[0].value;
+	var b=textarea[1].value;
+	
+	switch(cur){
+		case 0:
+		textarea[2].value=c.plus(a,b);
+		break;
+		case 1:
+		textarea[2].value=c.minus(a,b);
+		break;
+		case 2:
+		textarea[2].value=c.multiply(a,b);
+		break;
+		case 3:
+		textarea[2].value=c.divide(a,b);
+		break;
+	}
+}
+</script>
