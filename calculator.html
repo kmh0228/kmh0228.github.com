@@ -7,11 +7,13 @@
 <style>
 *{ margin:0; padding:0;}
 html,body{width:100%; height:100%;}
-textarea{ width:100%; height:150px; max-width:300px; margin:5px auto; display:block; resize:none; border:1px solid #000;}
+textarea{ width:100%; height:120px; max-width:300px; margin:5px auto; display:block; resize:none; border:1px solid #000;}
 .aq{ width:100%; max-width:300px; border:1px solid transparent; overflow:hidden; margin:0 auto;}
 .aq input{ width:25%; height:30px; text-align:center; line-height:30px; font-size:24px; float:left;}
 .aq input.cur{ background:#3C6;}
 .eq{ width:150px; height:30px; text-align:center; line-height:30px; font-size:24px; margin:0 auto; display:block;}
+p{ width:300px; margin:0 auto; line-height:24px; font-size:16px;}
+p.info1{font-weight:bold; color:#f00;}
 </style>
 </head>
 
@@ -26,6 +28,8 @@ textarea{ width:100%; height:150px; max-width:300px; margin:5px auto; display:bl
     <textarea>9999999</textarea>
     <input type="button" class="eq" id="eq" value="等于"/>
     <textarea></textarea>
+    <p class="info1">话说，9位数是上亿，咳咳！低于900位数的不要找我算！太小！</p>
+    <p class="info2" id="info2">当前计算结果长度为0</p>
 </body>
 </html>
 <script>
@@ -41,6 +45,7 @@ for(var i=0;i<aQ.length;i++){
 		cur=this.index;
 	}
 }
+var oInfo2=document.getElementById('info2');
 document.getElementById('eq').onclick=function(){
 	var a=textarea[0].value;
 	var b=textarea[1].value;
@@ -59,5 +64,6 @@ document.getElementById('eq').onclick=function(){
 		textarea[2].value=c.divide(a,b);
 		break;
 	}
+	oInfo2.innerHTML='当前计算结果长度为'+textarea[2].value.length;
 }
 </script>
