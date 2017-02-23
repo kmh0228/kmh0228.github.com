@@ -262,7 +262,7 @@ Calculator.prototype.divide=function(a,b,fix2){
 		arrB.splice(fixb,1);
 	}
 	var sum=[];
-	var fixto=fix2||fix2==0?fix2:2;
+	var fixto=fix2||fix2==0?fix2:10;
 	fixtab=fix>=fixto?0:fixto-fix;
 	fix+=fixtab;
 	for(var i=0;i<fixtab;i++){
