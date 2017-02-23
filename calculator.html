@@ -37,6 +37,9 @@ p.info0{ margin:5px auto; color:#f00; font-weight:bold;}
 .tanchuang .con span b.b2{
 	font-size:36px; color:#C00; line-height:50px; padding-left:80px;
 }
+.tanchuang .con span i{
+	 color:#F03; font-weight:bold;
+}
 .tanchuang input{
 	width:200px; height:30px; background:#6C6; margin:0 auto; display:block;
 }
@@ -60,7 +63,7 @@ p.info0{ margin:5px auto; color:#f00; font-weight:bold;}
     <p class="info0">话说，9位数是上亿，咳咳！低于900位数的不要找我算！太小！</p>
     <div class="tanchuang" id="tanchuang" style="display:none;">
     	<div class="con">
-        	<span>恭喜 你的电脑只用了 </br><b>5</b> 秒</br>时间就算出了 2的30000次方，超越了<b class="b2">90%</b>的人，真是太厉害了！</br> 快点截图晒晒，并把本文章分享给那些 手机/电脑 差的人吧！！</span>
+        	<span>恭喜 你的电脑只用了 </br><b>5</b> 秒</br>时间就算出了 <i>2</i> 的 <i>30000</i>次方，超越了<b class="b2">90%</b>的人，真是太厉害了！</br> 快点截图晒晒，并把本文章分享给那些 手机/电脑 差的人吧！！</span>
         </div>
         <input type="button" value="确定"/>
     </div>
@@ -122,7 +125,7 @@ document.getElementById('eq').onclick=function(){
 	dtime=((time2-time1)/1000).toFixed(2);
 	oInfo2.innerHTML='当前计算结果长度为'+textarea[2].value.length+' 用时<span>'+dtime+'</span>秒。';
 	if(share){
-		tanInfo.innerHTML='<span>恭喜 你的'+robot+'只用了 </br><b>'+dtime+'</b> 秒</br>时间就算出了 2的30000次方，超越了<b>'+getrand(dtime)+'</b>的人，真是太厉害了！</br> 快点截图晒晒，并把本文章分享给那些 手机/电脑 差的人吧！！</span>';
+		tanInfo.innerHTML='<span>恭喜 你的'+robot+'只用了 </br><b>'+dtime+'</b> 秒</br>时间就算出了 <i>2</i> 的 <i>30000</i>次方，超越了<b>'+getrand(dtime)+'</b>的人，真是太厉害了！</br> 快点截图晒晒，并把本文章分享给那些 手机/电脑 差的人吧！！</span>';
 		tanC.style.display='block';
 	}
 	bOk=false;
