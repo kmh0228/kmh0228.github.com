@@ -100,27 +100,30 @@ document.getElementById('eq').onclick=function(){
 	if(bOk)return;
 	bOk=true;
 	var time1=new Date().getTime();
+	textarea[2].value='正在计算中，请稍等……';
 	var a=textarea[0].value;
 	var b=textarea[1].value;
 	var share=false;
+	var result;
 	switch(cur){
 		case 0:
-		textarea[2].value=c.plus(a,b);
+		result=c.plus(a,b);
 		break;
 		case 1:
-		textarea[2].value=c.minus(a,b);
+		result=c.minus(a,b);
 		break;
 		case 2:
-		textarea[2].value=c.multiply(a,b);
+		result=c.multiply(a,b);
 		break;
 		case 3:
-		textarea[2].value=c.divide(a,b);
+		result=c.divide(a,b);
 		break;
 		case 4:
-		textarea[2].value=c.power(a,b);
+		result=c.power(a,b);
 		if(a==2&&b==30000)share=true;
 		break;
 	}
+	textarea[2].value=result;
 	var time2=new Date().getTime();
 	dtime=((time2-time1)/1000).toFixed(2);
 	oInfo2.innerHTML='当前计算结果长度为'+textarea[2].value.length+' 用时<span>'+dtime+'</span>秒。';
