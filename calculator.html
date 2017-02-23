@@ -9,41 +9,69 @@
 <meta content="black" name="apple-mobile-web-app-status-bar-style">     
 <meta content="telephone=no" name="format-detection">
 
-<title>无标题文档</title>
-<script src="tools/Calculator.js"></script>
+<title>kmh0228-calculator</title>
+<script type="text/javascript" src="tools/Calculator.js"></script>
+<script type="text/javascript" src="tools/isPC.js"></script>
 <style>
 *{ margin:0; padding:0;}
 html,body{width:100%; height:100%;}
 textarea{ width:100%; height:120px; max-width:300px; margin:5px auto; display:block; resize:none; border:1px solid #000;}
 .aq{ width:100%; max-width:300px; border:1px solid transparent; overflow:hidden; margin:0 auto;}
-.aq input{ width:25%; height:30px; text-align:center; line-height:30px; font-size:24px; float:left;}
+.aq input{ width:20%; height:30px; text-align:center; line-height:30px; font-size:24px; float:left;}
 .aq input.cur{ background:#3C6;}
 .eq{ width:150px; height:30px; text-align:center; line-height:30px; font-size:24px; margin:0 auto; display:block;}
-p{ width:300px; margin:0 auto; line-height:24px; font-size:16px;}
-p.info1{font-weight:bold; color:#f00;}
+p{ width:300px; margin:0 auto; line-height:24px; font-size:14px;}
+p.info2 span{font-weight:bold; color:#f00;}
+p.info1{ margin:5px auto; color:#006; font-weight:bold;}
+p.info0{ margin:5px auto; color:#f00; font-weight:bold;}
+.tanchuang{ width:100%; height:100%; background:rgba(255,255,255,.8); position:fixed; top:0; left:0;}
+.tanchuang .con{
+	width:288px; margin:50px auto; border:1px solid #000; background:#fff;
+}
+.tanchuang .con span{
+	font-size:24px; line-height:30px;
+}
+.tanchuang .con span b{
+	font-size:48px; color:#C00; line-height:60px; padding-left:80px;
+}
+.tanchuang .con span b.b2{
+	font-size:36px; color:#C00; line-height:50px; padding-left:80px;
+}
+.tanchuang input{
+	width:200px; height:30px; background:#6C6; margin:0 auto; display:block;
+}
 </style>
 </head>
 
 <body>
-    <textarea>9999999</textarea>
+    <textarea>2</textarea>
     <div class="aq" id="aq">
-		<input class="cur" type="button" value="加"/>
+		<input type="button" value="加"/>
 		<input type="button" value="减"/>
 		<input type="button" value="乘"/>
 		<input type="button" value="除"/>
+		<input class="cur" type="button" value="次方"/>
     </div>
-    <textarea>9999999</textarea>
-    <input type="button" class="eq" id="eq" value="等于"/>
+    <textarea>30000</textarea>
+    <input type="button" class="eq" id="eq" value="开始计算"/>
     <textarea></textarea>
-    <p class="info1">话说，9位数是上亿，咳咳！低于900位数的不要找我算！太小！</p>
-    <p class="info2" id="info2">当前计算结果长度为0</p>
+    <p class="info2" id="info2">当前计算结果长度为0 用时<span>0</span>秒</p>
+    <p class="info1">在计算2的30000次方时会触发设备性能排行，都来算算吧！</p>
+    <p class="info0">话说，9位数是上亿，咳咳！低于900位数的不要找我算！太小！</p>
+    <div class="tanchuang" id="tanchuang" style="display:none;">
+    	<div class="con">
+        	<span>恭喜 你的电脑只用了 </br><b>5</b> 秒</br>时间就算出了 2的30000次方，超越了<b class="b2">90%</b>的人，真是太厉害了！</br> 快点截图晒晒，并把本文章分享给那些 手机/电脑 差的人吧！！</span>
+        </div>
+        <input type="button" value="确定"/>
+    </div>
 </body>
 </html>
-<script>
+<script type="text/javascript">
+var robot=isPC()?'电脑':'手机';
 var c=new Calculator();
 var aQ=document.getElementById('aq').getElementsByTagName('input');
 var textarea=document.getElementsByTagName('textarea');
-var cur=0;
+var cur=4;
 for(var i=0;i<aQ.length;i++){
 	aQ[i].index=i;
 	aQ[i].onclick=function(){
@@ -53,10 +81,25 @@ for(var i=0;i<aQ.length;i++){
 	}
 }
 var oInfo2=document.getElementById('info2');
+var tanC=document.getElementById('tanchuang');
+var tanInfo=tanC.getElementsByClassName('con')[0];
+tanC.getElementsByTagName('input')[0].onclick=function(){
+	tanC.style.display='none';
+};
+
+function getrand(time){
+	if(time<3.1){return '99%';}else if(time>12.9){return '1%';}else{
+		return (100-((time-3)*10)).toFixed(0)+'%';
+	}
+}
+var bOk=false;
 document.getElementById('eq').onclick=function(){
+	if(bOk)return;
+	bOk=true;
+	var time1=new Date().getTime();
 	var a=textarea[0].value;
 	var b=textarea[1].value;
-	
+	var share=false;
 	switch(cur){
 		case 0:
 		textarea[2].value=c.plus(a,b);
@@ -70,7 +113,18 @@ document.getElementById('eq').onclick=function(){
 		case 3:
 		textarea[2].value=c.divide(a,b);
 		break;
+		case 4:
+		textarea[2].value=c.power(a,b);
+		if(a==2&&b==30000)share=true;
+		break;
 	}
-	oInfo2.innerHTML='当前计算结果长度为'+textarea[2].value.length;
+	var time2=new Date().getTime();
+	dtime=((time2-time1)/1000).toFixed(2);
+	oInfo2.innerHTML='当前计算结果长度为'+textarea[2].value.length+' 用时<span>'+dtime+'</span>秒。';
+	if(share){
+		tanInfo.innerHTML='<span>恭喜 你的'+robot+'只用了 </br><b>'+dtime+'</b> 秒</br>时间就算出了 2的30000次方，超越了<b>'+getrand(dtime)+'</b>的人，真是太厉害了！</br> 快点截图晒晒，并把本文章分享给那些 手机/电脑 差的人吧！！</span>';
+		tanC.style.display='block';
+	}
+	bOk=false;
 }
 </script>

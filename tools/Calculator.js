@@ -340,6 +340,30 @@ Calculator.prototype.divide=function(a,b,fix2){
 	if(result==''){return 0;}else{return result;}
 }
 
+//次方计算，返回a的b次方
+Calculator.prototype.power=function(a,b){
+	a=''+a;b=''+b;
+	if(!this.numRegExp.test(a)){alert(a+'不是一个数字');return '';}
+	if(!/^\d+$/.test(b)){alert(b+'不是一个正整数');return '';}
+	b=Number(b);
+	var arr=[1];
+	var json={1:a};
+	if(b==0){return 1;}
+	do{
+		var t=b-arr[0];
+		for(var i=0;i<arr.length;i++){
+			if(t>=arr[i]){
+				var newp=arr[0]+arr[i];
+				json[newp]=this.multiply(json[arr[0]],json[arr[i]]);
+				arr.unshift(newp);
+				break;
+			}
+		}
+	}while(b!=arr[0]);
+	if(b==arr[0]){return json[arr[0]];}
+};
+
+
 //把ARR格式改成每项都小于10 eg[10,2] > ][0,3]	
 Calculator.prototype.tosingle=function(arr){
 	var newarr=[];
@@ -372,8 +396,6 @@ Calculator.prototype.arrplus=function(arr){
 		if(error<length)newarr.push(num);
 		start++;
 	}
-	console.log('导出累加后的数组v');
-	console.log(newarr);
 	return newarr;
 }
 
