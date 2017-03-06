@@ -6,7 +6,23 @@
 <link rel="stylesheet" href="css/kmh0228.css"/>
 </head>
 <body>
-<a href="calculator.html">我的计算器</a>
+<a href="calculator.html" id="src">我的计算器</a>
+<ul id="list">
+<li></li>
+<li class="red">
+	<p>123</p>
+</li>
+<li></li>
+<li></li>
+<li></li>
+</ul>
+
 
 </body>
 </html>
+<script src="tools/select.js"></script>
+<script src="tools/keydown.js"></script>
+<script>
+$('#list .red p').style.background='red';
+console.log($('#list .red p').innerHTML);
+</script>

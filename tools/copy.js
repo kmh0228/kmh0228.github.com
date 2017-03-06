@@ -1,5 +1,7 @@
 // JavaScript Document
 
+//向剪切板里放东西
+
 function copy(txt) {
    if (window.clipboardData) {
     window.clipboardData.clearData();

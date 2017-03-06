@@ -3,12 +3,15 @@
 <head>
 <meta charset="utf-8">
 <title>无标题文档</title>
+<script src="tools/keydown.js"></script>
 </head>
 
 <body>
 <div id="test">456</div>
-123
-
-
+<script>
+keyDown(['Ctrl','p'],function(e){
+	alert(e);
+});
+</script>
 </body>
 </html>
