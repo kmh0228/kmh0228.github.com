@@ -237,6 +237,7 @@ Calculator.prototype.multiply=function(a,b){
 
 //两数相除，返回商,fix为保留小数位数
 Calculator.prototype.divide=function(a,b,fix2){
+	console.log(fix2);
 	a=''+a;b=''+b;
 	if(!this.numRegExp.test(a)){alert(a+'不是一个数字');return '';}
 	if(!this.numRegExp.test(b)){alert(b+'不是一个数字');return '';}
@@ -263,7 +264,7 @@ Calculator.prototype.divide=function(a,b,fix2){
 		arrB.splice(fixb,1);
 	}
 	var sum=[];
-	var fixto=fix2||fix2==0?fix2:10;
+	var fixto=fix2||Number(fix2)==0?Number(fix2):10;
 	fixtab=fix>=fixto?0:fixto-fix;
 	fix+=fixtab;
 	for(var i=0;i<fixtab;i++){

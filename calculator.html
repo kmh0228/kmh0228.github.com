@@ -19,30 +19,14 @@ textarea{ width:100%; height:120px; max-width:300px; margin:5px auto; display:bl
 .aq{ width:100%; max-width:300px; border:1px solid transparent; overflow:hidden; margin:0 auto;}
 .aq input{ width:20%; height:30px; text-align:center; line-height:30px; font-size:24px; float:left;}
 .aq input.cur{ background:#3C6;}
-.eq{ width:150px; height:30px; text-align:center; line-height:30px; font-size:24px; margin:0 auto; display:block;}
+.eq{width:100%;  max-width:300px; margin:5px auto; overflow:hidden;}
+.eq .a{ width:150px; height:30px; text-align:center; line-height:30px; font-size:24px;float:left;}
+.eq .b,.eq span{ width:50px; height:30px; text-align:center; line-height:30px; font-size:14px;float:right;}
+.eq span{ line-height:15px;  width:60px;}
 p{ width:300px; margin:0 auto; line-height:24px; font-size:14px;}
 p.info2 span{font-weight:bold; color:#f00;}
 p.info1{ margin:5px auto; color:#006; font-weight:bold;}
 p.info0{ margin:5px auto; color:#f00; font-weight:bold;}
-.tanchuang{ width:100%; height:100%; background:rgba(255,255,255,.8); position:fixed; top:0; left:0;}
-.tanchuang .con{
-	width:288px; margin:50px auto; border:1px solid #000; background:#fff;
-}
-.tanchuang .con span{
-	font-size:24px; line-height:30px;
-}
-.tanchuang .con span b{
-	font-size:48px; color:#C00; line-height:60px; padding-left:80px;
-}
-.tanchuang .con span b.b2{
-	font-size:36px; color:#C00; line-height:50px; padding-left:80px;
-}
-.tanchuang .con span i{
-	 color:#F03; font-weight:bold;
-}
-.tanchuang input{
-	width:200px; height:30px; background:#6C6; margin:0 auto; display:block;
-}
 </style>
 </head>
 
@@ -56,21 +40,15 @@ p.info0{ margin:5px auto; color:#f00; font-weight:bold;}
 		<input class="cur" type="button" value="次方"/>
     </div>
     <textarea>30000</textarea>
-    <input type="button" class="eq" id="eq" value="开始计算"/>
+    <div class="eq">
+        <input type="button" class="a" id="eq" value="开始计算"/><input id="fix" class="b" type="text" value="10"/><span>商的最大小数位:</span>
+    </div>
     <textarea></textarea>
     <p class="info2" id="info2">当前计算结果长度为0 用时<span>0</span>秒</p>
-    <p class="info1">在计算2的30000次方时会触发设备性能排行，都来算算吧！</p>
     <p class="info0">话说，9位数是上亿，咳咳！低于900位数的不要找我算！太小！</p>
-    <div class="tanchuang" id="tanchuang" style="display:none;">
-    	<div class="con">
-        	<span>恭喜 你的电脑只用了 </br><b>5</b> 秒</br>时间就算出了 <i>2</i> 的 <i>30000</i>次方，超越了<b class="b2">90%</b>的人，真是太厉害了！</br> 快点截图晒晒，并把本文章分享给那些 手机/电脑 差的人吧！！</span>
-        </div>
-        <input type="button" value="确定"/>
-    </div>
 </body>
 </html>
 <script type="text/javascript">
-var robot=isPC()?'电脑':'手机';
 var c=new Calculator();
 var aQ=document.getElementById('aq').getElementsByTagName('input');
 var textarea=document.getElementsByTagName('textarea');
@@ -84,18 +62,9 @@ for(var i=0;i<aQ.length;i++){
 	}
 }
 var oInfo2=document.getElementById('info2');
-var tanC=document.getElementById('tanchuang');
-var tanInfo=tanC.getElementsByClassName('con')[0];
-tanC.getElementsByTagName('input')[0].onclick=function(){
-	tanC.style.display='none';
-};
 
-function getrand(time){
-	if(time<3.1){return '99%';}else if(time>12.9){return '1%';}else{
-		return (100-((time-3)*10)).toFixed(0)+'%';
-	}
-}
 var bOk=false;
+var oFix=document.getElementById('fix');
 document.getElementById('eq').onclick=function(){
 	if(bOk)return;
 	bOk=true;
@@ -103,7 +72,6 @@ document.getElementById('eq').onclick=function(){
 	textarea[2].value='正在计算中，请稍等……';
 	var a=textarea[0].value;
 	var b=textarea[1].value;
-	var share=false;
 	var result;
 	switch(cur){
 		case 0:
@@ -116,21 +84,16 @@ document.getElementById('eq').onclick=function(){
 		result=c.multiply(a,b);
 		break;
 		case 3:
-		result=c.divide(a,b);
+		result=c.divide(a,b,oFix.value);
 		break;
 		case 4:
 		result=c.power(a,b);
-		if(a==2&&b==30000)share=true;
 		break;
 	}
 	textarea[2].value=result;
 	var time2=new Date().getTime();
 	dtime=((time2-time1)/1000).toFixed(2);
 	oInfo2.innerHTML='当前计算结果长度为'+textarea[2].value.length+' 用时<span>'+dtime+'</span>秒。';
-	if(share){
-		tanInfo.innerHTML='<span>恭喜 你的'+robot+'只用了 </br><b>'+dtime+'</b> 秒</br>时间就算出了 <i>2</i> 的 <i>30000</i>次方，超越了<b>'+getrand(dtime)+'</b>的人，真是太厉害了！</br> 快点截图晒晒，并把本文章分享给那些 手机/电脑 差的人吧！！</span>';
-		tanC.style.display='block';
-	}
 	bOk=false;
 }
 </script>
