@@ -237,7 +237,6 @@ Calculator.prototype.multiply=function(a,b){
 
 //两数相除，返回商,fix为保留小数位数
 Calculator.prototype.divide=function(a,b,fix2){
-	console.log(fix2);
 	a=''+a;b=''+b;
 	if(!this.numRegExp.test(a)){alert(a+'不是一个数字');return '';}
 	if(!this.numRegExp.test(b)){alert(b+'不是一个数字');return '';}
@@ -292,7 +291,7 @@ Calculator.prototype.divide=function(a,b,fix2){
 			sum.push(arr);
 			var chushu=arr.slice(0,arr.length-1).concat(arrB);
 			arrA=this.tosingle2(this.arrminute(arrA,chushu));
-		}else if(lengthA=lengthB){
+		}else if(lengthA==lengthB){
 			var eqnum=0;
 			for(var i=0;i<lengthA;i++){
 				if(arrA[lengthA-1-i]>arrB[lengthB-1-i]){
@@ -303,6 +302,7 @@ Calculator.prototype.divide=function(a,b,fix2){
 					eqnum++;
 				}else if(arrA[lengthA-1-i]<arrB[lengthB-1-i]){
 					bOk=false;
+					sum.push([0]);
 					break;
 				}
 			}
@@ -311,8 +311,10 @@ Calculator.prototype.divide=function(a,b,fix2){
 				arrA=this.tosingle2(this.arrminute(arrA,arrB));
 				bOk=false;
 			}
-			
-		}else if(lengthA<lengthB){bOk=false;}
+		}else if(lengthA<lengthB){
+			sum.push([0]);
+			bOk=false;
+		}
 	}
 	
 	
