@@ -367,6 +367,118 @@ Calculator.prototype.power=function(a,b){
 	if(b==arr[0]){return json[arr[0]];}
 };
 
+function w(arr){
+	var arr2=arr.slice(0);
+	arr2.reverse();
+	return arr2.join('');
+}
+//开平方计算，返回平方根值,fix为保留小数位数
+Calculator.prototype.sqr=function(a,fix){
+	//待完善！脑子疼，不写了
+	alert('暂不支持开方');
+	return;
+	a=''+a;
+	if(!this.numRegExp.test(a)){alert(a+'不是一个数字');return '';}
+	if(/^-/g.test(a)){alert(a+'不是一个正数');return '';}
+	var fix=fix||0;
+	var randa=a.indexOf('.');
+	var arrA=a.split('').reverse();
+	var fixtab;
+	var pushfix=0;
+	if(randa!=-1){
+		var fixa=a.length-randa-1;
+		arrA.splice(fixa,1);
+		fixtab=Math.ceil(fixa/2)>fix?Math.ceil(fixa/2):fix;
+		pushfix=fixtab*2-fixa;
+	}else{
+		fixtab=fix;
+		pushfix=fixtab*2;
+	}
+	//for(var i=0;i<pushfix;i++){
+	//	arrA.unshift("0");
+	//}
+	//把arrA后面的0干掉
+	var last;
+	do{
+		last=arrA.pop();
+	}while(last==0);
+	last&&arrA.push(last);
+	
+	var sqLength=Math.ceil(arrA.length/2);
+	var sq=[];
+	for(var i=0;i<sqLength;i++){
+		sq.push('0');
+	}
+	
+	var result=[0];
+	var rest=arrA;
+	for(var i=sqLength-1;i>-1;i--){
+		console.log('开始测试第'+i+'位');
+		console.log('当前平方值'+w(result));
+		rest=this.tosingle2(this.arrminute(arrA,result));
+		console.log('还差'+w(rest));
+		if(rest.length==0){
+			for(var j=0;j<i;j++){
+				sq[j]=0;
+			}
+			break;
+		}
+		var sq2=sq.slice(0);
+		//假定第一个数字是5
+		var t=5;
+		console.log('此位先写个5');
+		var dir=0;
+		console.log('定义数字增减方向');
+		for(;;){
+			sq2[i]=t;
+			//增加的数字为
+			var plus=[sq2[i]];
+			for(var j=0;j<i;j++){
+				plus.unshift('0');
+			}
+			console.log('增加的数字为'+w(plus));
+			//结果为
+			var add = this.arrMul(this.arrplus([sq,sq2]),plus);
+			console.log('增加的平方值为'+w(add));
+			
+			var tit='';
+			if(dir==0){tit='没定义方向';}else if(dir==-1){tit='减向'}else if(dir==1){tit='加向'}
+			console.log('之前的dir方向为'+tit);
+			if(this.contrast(rest,add)){
+				console.log(w(rest)+'>='+w(add));
+				if(dir&&dir==-1){break;}
+				t++;
+				dir=1;
+			}else{
+				console.log(w(rest)+'<'+w(add));
+				t--;
+				if(dir&&dir==1){break;}
+				dir=-1;
+			}
+		}
+		sq[i]=t;
+		result=this.tosingle(this.arrMul(sq,sq));
+	}
+	sq.splice(fixtab,0,'.');
+	sq.reverse();
+	return sq.join('');
+};
+
+//a数组*b数组的积   for sqr方法
+Calculator.prototype.arrMul=function(a,b){
+	var sum=[];
+	for(var i=0;i<a.length;i++){
+		var arr=[];
+		for(var j=0;j<i;j++){
+			arr.push(0);
+		}
+		for(var j=0;j<a.length;j++){
+			arr.push(b[i]*a[j])
+		}
+		sum.push(this.tosingle(arr))
+	}
+	return this.tosingle(this.arrplus(sum));
+};
 
 //把ARR格式改成每项都小于10 eg[10,2] > ][0,3]	
 Calculator.prototype.tosingle=function(arr){
@@ -382,7 +494,7 @@ Calculator.prototype.tosingle=function(arr){
 	}
 	if(mod!=0)newarr.push(mod);
 	return newarr;
-}
+};
 
 //把多个数组对应的加起来 arr> [[1,2][1][300]]==>[302,2]
 Calculator.prototype.arrplus=function(arr){
@@ -466,16 +578,18 @@ Calculator.prototype.arrminute=function(arr1,arr2){
 	return this.tosingle2(newarr);
 }
 
-//把两个数对比谁大谁小 > true  <= false 
+//把两个反向数组对比谁大谁小 >= true  < false  
 Calculator.prototype.contrast=function(arrA,arrB){
 	var aLength=arrA.length;
 	var bLength=arrB.length;
 	if(aLength<bLength){
 		return false;
 	}else if(aLength==bLength){
-		for(var i=0;i<aLength;i++){
+		for(var i=aLength-1;i>-1;i--){
 			if(Number(arrA[i])<Number(arrB[i])){
 				return false;
+			}else if(Number(arrA[i])>Number(arrB[i])){
+				return true;
 			}
 		}
 	}

@@ -17,12 +17,12 @@
 html,body{width:100%; height:100%;}
 textarea{ width:100%; height:120px; max-width:300px; margin:5px auto; display:block; resize:none; border:1px solid #000;}
 .aq{ width:100%; max-width:300px; border:1px solid transparent; overflow:hidden; margin:0 auto;}
-.aq input{ width:20%; height:30px; text-align:center; line-height:30px; font-size:24px; float:left;}
-.aq input.cur{ background:#3C6;}
+.aq input{ width:16%; height:30px; text-align:center; line-height:30px; font-size:24px; float:left;}
+.aq input.long{ width:18%;}
 .eq{width:100%;  max-width:300px; margin:5px auto; overflow:hidden;}
 .eq .a{ width:150px; height:30px; text-align:center; line-height:30px; font-size:24px;float:left;}
 .eq .b,.eq span{ width:50px; height:30px; text-align:center; line-height:30px; font-size:14px;float:right;}
-.eq span{ line-height:15px;  width:60px;}
+.eq span{ line-height:15px;  width:70px;}
 p{ width:300px; margin:0 auto; line-height:24px; font-size:14px;}
 p.info2 span{font-weight:bold; color:#f00;}
 p.info1{ margin:5px auto; color:#006; font-weight:bold;}
@@ -31,17 +31,18 @@ p.info0{ margin:5px auto; color:#f00; font-weight:bold;}
 </head>
 
 <body>
-    <textarea>2</textarea>
+    <textarea>998001</textarea>
     <div class="aq" id="aq">
 		<input type="button" value="加"/>
 		<input type="button" value="减"/>
 		<input type="button" value="乘"/>
 		<input type="button" value="除"/>
-		<input class="cur" type="button" value="次方"/>
+		<input class="long" type="button" value="次方"/>
+		<input class="long" style="background:#3C6" type="button" value="开方"/>
     </div>
     <textarea>30000</textarea>
     <div class="eq">
-        <input type="button" class="a" id="eq" value="开始计算"/><input id="fix" class="b" type="text" value="10"/><span>商的最大小数位:</span>
+        <input type="button" class="a" id="eq" value="开始计算"/><input id="fix" class="b" type="text" value="0"/><span>商/根的最大小数位:</span>
     </div>
     <textarea></textarea>
     <p class="info2" id="info2">当前计算结果长度为0 用时<span>0</span>秒</p>
@@ -52,12 +53,12 @@ p.info0{ margin:5px auto; color:#f00; font-weight:bold;}
 var c=new Calculator();
 var aQ=document.getElementById('aq').getElementsByTagName('input');
 var textarea=document.getElementsByTagName('textarea');
-var cur=4;
+var cur=5;
 for(var i=0;i<aQ.length;i++){
 	aQ[i].index=i;
 	aQ[i].onclick=function(){
-		aQ[cur].className='';
-		this.className='cur';
+		aQ[cur].style.background='';
+		this.style.background='#3c6';
 		cur=this.index;
 	}
 }
@@ -88,6 +89,10 @@ document.getElementById('eq').onclick=function(){
 		break;
 		case 4:
 		result=c.power(a,b);
+		break;
+		case 5:
+		textarea[1].value='';
+		result=c.sqr(a,oFix.value);
 		break;
 	}
 	textarea[2].value=result;

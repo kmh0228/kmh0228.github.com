@@ -3,15 +3,14 @@
 <head>
 <meta charset="utf-8">
 <title>无标题文档</title>
-<script src="tools/keydown.js"></script>
+<script type="text/javascript" src="tools/Calculator.js"></script>
 </head>
 
 <body>
 <div id="test">456</div>
 <script>
-keyDown(['Ctrl','p'],function(e){
-	alert(e);
-});
+var c=new Calculator();
+console.log(c.contrast([1,0,0,8,8,1],[0,0,6,1,1,1]));
 </script>
 </body>
 </html>
