@@ -1,3 +1,3 @@
 function test(){
-console.log(success);
+console.log('test success');
 }
