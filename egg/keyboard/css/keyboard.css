@@ -1,0 +1,24 @@
+.keyboard{ width:888px; overflow: hidden; background: #ccc; border-radius:4px;}
+.keyboard .s{float:left;min-height: 120px;}/*区域*/
+.keyboard .l{width:600px;}/*左区域*/
+.keyboard .m{ width:120px; margin:0 4px;}/*中区域*/
+.keyboard .r{ width:120px;}/*右区域*/
+.keyboard .rr{ width:40px;}
+.keyboard .row{margin:0;padding:0; overflow: hidden;}/*每行*/
+.keyboard .row1{ padding-bottom:2px;}
+.keyboard .row>li{ cursor:pointer;border-radius:4px; text-align:center;list-style: none; float: left; font-size: 12px; width:36px; height: 36px; border: 1px solid #fff; margin: 1px; line-height: 36px;}/*每个按键*/
+.keyboard .row>li.gw{ width:40px; height: 40px; border: none; margin: 0; cursor:auto;}/*隔位虚拟键 */
+.keyboard .row>li.gw.gw1_2{ width:20px}/*隔位虚拟键 0.5格*/
+.keyboard .row>li.gw.lights{ width:120px; overflow: hidden;}/*隔位虚拟键 3格 建立指示灯*/
+
+.keyboard .row>li.gw.lights i{ width:40px; float: left; overflow: hidden;}
+.keyboard .row>li.gw.lights i em{float: right; width:6px; height: 6px; background:#cdcd00; border:1px solid #cdcd00;margin-top:16px;}
+.keyboard .row>li.gw.lights i em.light{ background: #ff0; border: 1px solid #ff0; box-shadow: 0 0 5px 0px #ff0;}
+
+.keyboard .row>li.double{line-height: 16px; padding-top:4px; height: 32px;}/*两行内容*/
+.keyboard .row>li.w2{ width:76px;}/*2倍宽度按键*/
+.keyboard .row>li.w3_2{ width:56px;}/*1.5倍宽度按键*/
+.keyboard .row>li.w5_2{ width:96px;}/*2.5倍宽度按键*/
+.keyboard .row>li.w8{ width:316px;}/*8倍宽度按键*/
+.keyboard .row>li.h2{ height:76px; line-height: 76px;}
+

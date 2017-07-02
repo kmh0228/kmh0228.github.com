@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+input{ font-size:16px; height:26px; margin-bottom:10px;}
+.mf{ width:300px; float:left; min-height:1px; margin-left:350px;}
+.mf0{ margin-left:50px;}
+</style>
+</head>
+<body style="background:#222;">
+<div class="mf mf0">
+    <div id="mf0" style="margin:120px auto 80px;"></div>
+</div>
+<div class="mf mf">
+    <div id="mf" style="margin:120px auto 80px;"></div>
+    <span style="color:#ff0">拖拽魔方可以看到其他的面</br>点击魔方边块上的箭头扭动魔方</span>
+    <div class="cs" id="cs" style="width:300px; margin:0 auto;">
+        <input type="button" value="重置魔方"/>
+        <input type="button" value="重置位置"/>
+        <input type="button" value="随机打乱"/>
+        <input type="text" value="uu'bb'lr'f">
+        <input type="button" value="批量操作"/>
+        <input type="button" value="撤销一步"/>
+        <input type="text" value="当前步数：0" >/>
+    </div>
+</div>
+<div class="mf mf2">
+    <div id="mf2" style="margin:120px auto 80px;"></div>
+</div>
+
+
+</body>
+</html>
+<script src="Cube.min.js"></script>
+<script>
+new Cube('mf0',{borderLength:160,order:2});
+
+
+var aInt2=document.getElementById('cs').getElementsByTagName('input');
+
+var cube=new Cube('mf',{borderLength:200,turnBack:function(json){
+	aInt2[6].value='当前步数：'+this.getFoots();
+}});
+
+aInt2[6].value='当前步数：'+cube.getFoots();
+
+aInt2[0].onclick=function(){
+	cube.initColor();
+	aInt2[6].value='当前步数：0';
+};
+aInt2[1].onclick=function(){
+	cube.initL();
+};
+aInt2[2].onclick=function(){
+	cube.random();
+};
+aInt2[4].onclick=function(){
+	var value=aInt2[3].value;
+	cube.turn3s(value);
+};
+aInt2[5].onclick=function(){
+	cube.back();
+};
+</script>
