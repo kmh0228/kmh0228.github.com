@@ -12,7 +12,7 @@
 
 <style>
 
-body {
+body ,html{
 
     padding:0;
 
@@ -20,7 +20,8 @@ body {
 
     overflow:hidden;
 
-	height: 600px;
+	height: 100%;
+	width:100%;
 
 }
 
@@ -32,13 +33,15 @@ canvas {
 
 }
 
-div.btnbg {
+div.container {
 
-    position:fixed;
+    position:absolute;
 
     left:0;
 
     top:0;
+    width:100%;
+    height: 100%;
 
 }
 
@@ -48,8 +51,7 @@ div.btnbg {
 
 <canvas id="sakura"></canvas>
 
-<div class="btnbg">
-
+<div class="container">
 </div>
 
 
@@ -2234,6 +2236,20 @@ window.addEventListener('load', function(e) {
 
 })(window, 'equestAnimationFrame');
 
+</script>
+
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	
+	$.ajax({
+		url:'data/index.txt',
+		typeType:'text',
+		success:function(info){
+			alert(info);
+			var info2=JSON.parse(info);
+			console.log(info2);
+		}
+	})
 </script>
 
 </html>
