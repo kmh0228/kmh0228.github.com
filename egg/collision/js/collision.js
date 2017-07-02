@@ -206,6 +206,7 @@ QQ:1150123276
 		s.backgroundSize='cover';
 		s.border=borW+'px solid '+this.opts.borderColor;
 		s.opacity=this.opts.opa;
+		s.cursor='pointer';
 		if(this.opts.html){
 			this.opts.e.innerHTML=this.opts.html;
 			s.textAlign='center';
@@ -233,10 +234,12 @@ QQ:1150123276
 	Obj.prototype.startFoot=function(){
 		this.stopfoot=false;
 		this.opts.e.style.zIndex=1;
+		this.opts.e.style.opacity=this.opts.opa;
 	};
 	Obj.prototype.stopFoot=function(){
 		this.stopfoot=true;
 		this.opts.e.style.zIndex=999;
+		this.opts.e.style.opacity=1;
 	};
 	Obj.prototype.setPos=function(){
 		var width2=this.opts.width/2;
@@ -276,7 +279,7 @@ QQ:1150123276
 		s.fontSize=this.opts.fontSize+'px';
 	};
 	Obj.prototype.setOpa=function(n){
-		var opa=this.opts.opa=n;
+		var opa=this.opts.opa=n||this.opts.opa;
 		this.opts.e.style.opacity=n;
 	};
 	

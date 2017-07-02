@@ -39,11 +39,13 @@ div.container {
 
     left:0;
 
-    top:0;
+    bottom:0;
     width:100%;
-    height: 100%;
+    height: 40%;
 
 }
+div.container:hover{ border-top:1px dashed #ccc;}
+a{ text-decoration: none; color: #ccc;}
 
 </style>
 
@@ -51,7 +53,7 @@ div.container {
 
 <canvas id="sakura"></canvas>
 
-<div class="container">
+<div class="container" id="container">
 </div>
 
 
@@ -2239,17 +2241,41 @@ window.addEventListener('load', function(e) {
 </script>
 
 <script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="egg/collision/js/collision.min.js" type="text/javascript" charset="utf-8"></script>
 <script>
-	
+	function rand(m,n){return m+parseInt((n-m)*Math.random());}
+	var oB=new CollBox('container');
+	oB.ballRun();
+	var oC=document.getElementById('container');
+	var mxwidth=oC.offsetWidth;
+	var mxheight=oC.offsetHeight;
 	$.ajax({
 		url:'data/index.txt',
 		typeType:'text',
 		success:function(info){
-			alert(info);
 			var info2=JSON.parse(info);
-			console.log(info2);
+			for(var name in info2){
+				var one=info2[name];
+				var oA=$('<a target="_blank" href="'+(one.link||'javascript:;')+'"></a>')[0];
+				var b=Number(one.b||rand(40,60));
+				var x=rand(b,mxwidth-b);
+				var y=rand(b,mxheight-b);
+				var ball=new Ball({
+					'b':b,
+					'x':x,
+					'y':y,
+					'sx':rand(1,4),
+					'sy':rand(1,4),
+					'c':'url(egg/collision/img/paopao1.png)',
+					'opa':rand(30,50)/100,
+					'html':one.title||'',
+					'e':oA,
+					'fontSize':one.fontSize||14
+				});
+				oB.addBall(ball);
+			}
 		}
-	})
+	});
 </script>
 
 </html>
