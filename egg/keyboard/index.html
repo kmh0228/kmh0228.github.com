@@ -5,132 +5,135 @@
 <title>keyboard</title>
 <link rel="stylesheet" type="text/css" href="css/keyboard.css"/>
 <style type="text/css">
-	.keyboard{ margin: 20px auto;}
+	body{ background: #000;}
+	textarea{ display:block;width:880px; height: 100px; margin: 50px auto; font-size: 16px; color:#fff; background: #555;}
+	.keyboard{ margin: 50px auto;}
 </style>
-<script src="https://kmh0228.github.io/js/jquery.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script src="js/keyboard.min.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
+<textarea placeholder=" Please input it in English on the computer !!!"></textarea>
 <div class="keyboard">
 		<div class="s l">
 			<ul class="row row1">
-				<li>Esc</li>
-				<li class="gw"></li>
-				<li>F1</li>
-				<li>F2</li>
-				<li>F3</li>
-				<li>F4</li>
-				<li class="gw gw1_2"></li>
-				<li>F5</li>
-				<li>F6</li>
-				<li>F7</li>
-				<li>F8</li>
-				<li class="gw gw1_2"></li>
-				<li>F9</li>
-				<li>F10</li>
-				<li>F11</li>
-				<li>F12</li>
+				<li data_index="27">Esc</li>
+				<li data_index="0" class="gw"></li>
+				<li data_index="112">F1</li>
+				<li data_index="113">F2</li>
+				<li data_index="114">F3</li>
+				<li data_index="115">F4</li>
+				<li data_index="0" class="gw gw1_2"></li>
+				<li data_index="116">F5</li>
+				<li data_index="117">F6</li>
+				<li data_index="118">F7</li>
+				<li data_index="119">F8</li>
+				<li data_index="0" class="gw gw1_2"></li>
+				<li data_index="120">F9</li>
+				<li data_index="121">F10</li>
+				<li data_index="122">F11</li>
+				<li data_index="123">F12</li>
 			</ul>
 			<ul class="row">
-				<li class="double">~</br>`</li>
-				<li class="double">!</br>1</li>
-				<li class="double">@</br>2</li>
-				<li class="double">#</br>3</li>
-				<li class="double">$</br>4</li>
-				<li class="double">%</br>5</li>
-				<li class="double">^</br>6</li>
-				<li class="double">&</br>7</li>
-				<li class="double">*</br>8</li>
-				<li class="double">(</br>9</li>
-				<li class="double">)</br>0</li>
-				<li class="double">—</br>-</li>
-				<li class="double">+</br>=</li>
-				<li class="w2">Backspace</li>
+				<li data_index="192" class="double">~</br>`</li>
+				<li data_index="49" class="double">!</br>1</li>
+				<li data_index="50" class="double">@</br>2</li>
+				<li data_index="51" class="double">#</br>3</li>
+				<li data_index="52" class="double">$</br>4</li>
+				<li data_index="53" class="double">%</br>5</li>
+				<li data_index="54" class="double">^</br>6</li>
+				<li data_index="55" class="double">&</br>7</li>
+				<li data_index="56" class="double">*</br>8</li>
+				<li data_index="57" class="double">(</br>9</li>
+				<li data_index="48" class="double">)</br>0</li>
+				<li data_index="189" class="double">—</br>-</li>
+				<li data_index="187" class="double">+</br>=</li>
+				<li data_index="8" class="w2">Backspace</li>
 			</ul>
 			<ul class="row">
-				<li class="w3_2">Tab</li>
-				<li>Q</li>
-				<li>W</li>
-				<li>E</li>
-				<li>R</li>
-				<li>T</li>
-				<li>Y</li>
-				<li>U</li>
-				<li>I</li>
-				<li>O</li>
-				<li>P</li>
-				<li class="double">{</br>[</li>
-				<li class="double">}</br>]</li>
-				<li class="double w3_2">|</br>\</li>
+				<li data_index="9" class="w3_2">Tab</li>
+				<li data_index="81">Q</li>
+				<li data_index="87">W</li>
+				<li data_index="69">E</li>
+				<li data_index="82">R</li>
+				<li data_index="84">T</li>
+				<li data_index="89">Y</li>
+				<li data_index="85">U</li>
+				<li data_index="73">I</li>
+				<li data_index="79">O</li>
+				<li data_index="80">P</li>
+				<li data_index="219" class="double">{</br>[</li>
+				<li data_index="221" class="double">}</br>]</li>
+				<li data_index="220" class="double w3_2">|</br>\</li>
 			</ul>
 			<ul class="row">
-				<li class="w2">Caps Lock</li>
-				<li>A</li>
-				<li>S</li>
-				<li>D</li>
-				<li>F</li>
-				<li>G</li>
-				<li>H</li>
-				<li>J</li>
-				<li>K</li>
-				<li>L</li>
-				<li class="double">:</br>;</li>
-				<li class="double">"</br>'</li>
-				<li class="w2">Enter</li>
+				<li data_index="20" class="w2">Caps Lock</li>
+				<li data_index="65">A</li>
+				<li data_index="83">S</li>
+				<li data_index="68">D</li>
+				<li data_index="70">F</li>
+				<li data_index="71">G</li>
+				<li data_index="72">H</li>
+				<li data_index="74">J</li>
+				<li data_index="75">K</li>
+				<li data_index="76">L</li>
+				<li data_index="186" class="double">:</br>;</li>
+				<li data_index="222" class="double">"</br>'</li>
+				<li data_index="13" class="w2">Enter</li>
 			</ul>
 			<ul class="row">
-				<li class="w5_2">Shift</li>
-				<li>Z</li>
-				<li>X</li>
-				<li>C</li>
-				<li>V</li>
-				<li>B</li>
-				<li>N</li>
-				<li>M</li>
-				<li class="double">&lt;</br>,</li>
-				<li class="double">&gt;</br>.</li>
-				<li class="double">?</br>/</li>
-				<li class="w5_2">Shift</li>
+				<li data_index="16" class="w5_2">Shift</li>
+				<li data_index="90">Z</li>
+				<li data_index="88">X</li>
+				<li data_index="67">C</li>
+				<li data_index="86">V</li>
+				<li data_index="66">B</li>
+				<li data_index="78">N</li>
+				<li data_index="77">M</li>
+				<li data_index="188" class="double">&lt;</br>,</li>
+				<li data_index="190" class="double">&gt;</br>.</li>
+				<li data_index="191" class="double">?</br>/</li>
+				<li data_index="16" class="w5_2">Shift</li>
 			</ul>
 			<ul class="row">
-				<li>Ctrl</li>
-				<li>Win</li>
-				<li>Alt</li>
-				<li class="w8">space</li>
-				<li>Alt</li>
-				<li>Win</li>
-				<li>嘿嘿</li>
-				<li>Ctrl</li>
+				<li data_index="17">Ctrl</li>
+				<li data_index="91">Win</li>
+				<li data_index="18">Alt</li>
+				<li data_index="32" class="w8">space</li>
+				<li data_index="18">Alt</li>
+				<li data_index="92">Win</li>
+				<li data_index="93">嘿嘿</li>
+				<li data_index="17">Ctrl</li>
 			</ul>
 		</div>
 		<div class="s m">
 			<ul class="row row1">
-				<li class="double">Primt Sc</br>SysRq</li>
-				<li class="double">Scroll</br>Lock</li>
-				<li class="double">Pause</br>Break</li>
+				<li data_index="44" class="double">Primt Sc</br>SysRq</li>
+				<li data_index="145" class="double">Scroll</br>Lock</li>
+				<li data_index="19" class="double">Pause</br>Break</li>
 			</ul>
 			<ul class="row">
-				<li>Insert</li>
-				<li>Home</li>
-				<li class="double">Page</br>Up</li>
+				<li data_index="45">Insert</li>
+				<li data_index="36">Home</li>
+				<li data_index="33" class="double">Page</br>Up</li>
 			</ul>
 			<ul class="row">
-				<li>Delete</li>
-				<li>End</li>
-				<li class="double">Page</br>Down</li>
+				<li data_index="46">Delete</li>
+				<li data_index="35">End</li>
+				<li data_index="34" class="double">Page</br>Down</li>
 			</ul>
 			<ul class="row">
-				<li class="gw"></li>
+				<li data_index="0" class="gw"></li>
 			</ul>
 			<ul class="row">
-				<li class="gw"></li>
-				<li>↑</li>
-				<li class="gw"></li>
+				<li data_index="0" class="gw"></li>
+				<li data_index="38">↑</li>
+				<li data_index="0" class="gw"></li>
 			</ul>
 			<ul class="row">
-				<li>←</li>
-				<li>↓</li>
-				<li>→</li>
+				<li data_index="37">←</li>
+				<li data_index="40">↓</li>
+				<li data_index="39">→</li>
 			</ul>
 		</div>
 		<div class="s r">
@@ -142,44 +145,51 @@
 				</li>
 			</ul>
 			<ul class="row">
-				<li class="double">Num<br/>Lock</li>
-				<li>/</li>
-				<li>*</li>
+				<li data_index="144" class="double">Num<br/>Lock</li>
+				<li data_index="111">/</li>
+				<li data_index="106">*</li>
 			</ul>			
 			<ul class="row">
-				<li class="double">7</br>Home</li>
-				<li class="double">8</br>↑</li>
-				<li class="double">9</br>PgUp</li>
+				<li data_index="103" class="double">7</br>Home</li>
+				<li data_index="104" class="double">8</br>↑</li>
+				<li data_index="105" class="double">9</br>PgUp</li>
 			</ul>			
 			<ul class="row">
-				<li class="double">4</br>←</li>
-				<li class="double">5</br></li>
-				<li class="double">6</br>→</li>
+				<li data_index="100" class="double">4</br>←</li>
+				<li data_index="101" class="double">5</br></li>
+				<li data_index="102" class="double">6</br>→</li>
 			</ul>			
 			<ul class="row">
-				<li class="double">1</br>End</li>
-				<li class="double">2</br>↓</li>
-				<li class="double">3</br>PgDn</li>
+				<li data_index="97" class="double">1</br>End</li>
+				<li data_index="98" class="double">2</br>↓</li>
+				<li data_index="99" class="double">3</br>PgDn</li>
 			</ul>			
 			<ul class="row">
-				<li class="w2 double">0<br/>Ins</li>
-				<li class="double">.</br>Del</li>
+				<li data_index="96" class="w2 double">0<br/>Ins</li>
+				<li data_index="110" class="double">.</br>Del</li>
 			</ul>			
 		</div>
 		<div class="s rr">
 			<ul class="row row1">
-				<li class="gw"></li>
+				<li data_index="0" class="gw"></li>
 			</ul>
 			<ul class="row">
-				<li>-</li>
+				<li data_index="109">-</li>
 			</ul>			
 			<ul class="row">
-				<li class="h2">+</li>
+				<li data_index="107" class="h2">+</li>
 			</ul>			
 			<ul class="row">
-				<li class="h2">Enter</li>
+				<li data_index="13" class="h2">Enter</li>
 			</ul>			
 		</div>
 </div>
 </body>
+<script type="text/javascript">
+	$('textarea').focus();
+	$(window).click(function(){
+		$('textarea').focus();
+	});
+	$('.keyboard').keyboard();
+</script>
 </html>

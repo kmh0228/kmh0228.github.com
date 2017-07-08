@@ -1,4 +1,4 @@
-.keyboard{ width:888px; overflow: hidden; background: #ccc; border-radius:4px;}
+.keyboard{ width:888px; overflow: hidden; background: none; border-radius:4px; position: relative; border:none; padding: 10px;}
 .keyboard .s{float:left;min-height: 120px;}/*区域*/
 .keyboard .l{width:600px;}/*左区域*/
 .keyboard .m{ width:120px; margin:0 4px;}/*中区域*/
@@ -12,7 +12,7 @@
 .keyboard .row>li.gw.lights{ width:120px; overflow: hidden;}/*隔位虚拟键 3格 建立指示灯*/
 
 .keyboard .row>li.gw.lights i{ width:40px; float: left; overflow: hidden;}
-.keyboard .row>li.gw.lights i em{float: right; width:6px; height: 6px; background:#cdcd00; border:1px solid #cdcd00;margin-top:16px;}
+.keyboard .row>li.gw.lights i em{float: right; width:6px; height: 6px; background:#ccc; border:1px solid #cdcd00;margin-top:16px;}
 .keyboard .row>li.gw.lights i em.light{ background: #ff0; border: 1px solid #ff0; box-shadow: 0 0 5px 0px #ff0;}
 
 .keyboard .row>li.double{line-height: 16px; padding-top:4px; height: 32px;}/*两行内容*/
