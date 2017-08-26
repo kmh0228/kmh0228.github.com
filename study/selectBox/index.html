@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+		</style>
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+		<style type="text/css">
+			.box:after{content: ''; display: block; clear: both;}
+			div{ float:left; margin: 5px; margin-bottom:20px;}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="box box1"></div>
+			<div class="box box2"></div>
+			<div class="box box3"></div>
+			<div class="box box4"></div>
+			<div class="box box5"></div>
+			<div class="box box6"></div>
+			<div class="box box7"></div>
+			<div class="box box8"></div>
+			<div class="box box9"></div>
+			<div class="box box10"></div>
+		</div>
+	</body>
+</html>
+<script src="js/SelectBox.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+//默认样式
+new SelectBox($('.box1'),['内容','内容','内容']);
+
+//数据改为json 回掉弹出
+new SelectBox($('.box2'),[
+					{name:'张三',id:'12岁'},
+					{name:'李四',id:'8岁'},
+					{name:'王五',id:'6岁'}
+				],function(result){
+					console.log(result.name+' '+result.id);
+				});
+//如果数据里不是name和id ,则需要加两个参数
+new SelectBox($('.box3'),[
+					{html:'张三',value:'12岁'},
+					{html:'李四',value:'8岁'},
+					{html:'王五',value:'6岁'}
+				],function(result){
+					console.log(result.name+' '+result.id);
+				},{
+						dataName:'html',//option的html
+						dataId:'value',//option的value											
+				});
+				
+//更改样式
+var data=[
+			{name:'张三',id:'12岁'},
+			{name:'李四',id:'8岁'},
+			{name:'王五',id:'6岁'},
+			{name:'赵六',id:'6岁'}
+		],
+		fnBack=function(result){
+				console.log(result.name+' '+result.id);
+		};
+
+new SelectBox($('.box4'),data,fnBack,
+					{
+						color:'red',//输入框字体颜色
+						optionColor:'pink',//下拉框字体颜色
+						arrowColor:'red',//箭头颜色
+						borderColor:'red',//边线颜色
+						borderWidth:1,//边线宽度
+						arrowBorderWidth:1,//箭头左侧分割线宽度。如果为0则不显示
+						placeholder:'红色，不让你输入',//默认提示
+						allowInput:false,//是否允许输入	
+						width:200
+					});
+
+new SelectBox($('.box5'),data,fnBack,
+					{
+						color:'yellow',//输入框字体颜色
+						optionColor:'yellow',//下拉框字体颜色
+						arrowColor:'yellow',//箭头颜色
+						backgroundColor:'#fff',//背景色颜色
+						borderColor:'yellow',//边线颜色
+						hoverColor:'green',//下拉框HOVER颜色	
+						borderWidth:3,//边线宽度
+						arrowBorderWidth:0,//箭头左侧分割线宽度。如果为0则不显示
+						borderRadius:5,//边线圆角						
+						placeholder:'黄色 box5',//默认提示
+					});
+
+new SelectBox($('.box6'),data,fnBack,
+					{
+						color:'#fff',//输入框字体颜色
+						optionColor:'#fff',//下拉框字体颜色
+						arrowColor:'#fff',//箭头颜色
+						backgroundColor:'#000',//背景色颜色
+						borderColor:'#666',//边线颜色
+						hoverColor:'#999',//下拉框HOVER颜色	
+						borderWidth:1,//边线宽度
+						arrowBorderWidth:0,//箭头左侧分割线宽度。如果为0则不显示
+						borderRadius:5,//边线圆角						
+						placeholder:'box6',//默认提示
+					});
+
+new SelectBox($('.box7'),data,fnBack,
+					{
+						color:'blue',//输入框字体颜色
+						optionColor:'blue',//下拉框字体颜色
+						arrowColor:'blue',//箭头颜色
+						backgroundColor:'#fff',//背景色颜色
+						borderColor:'blue',//边线颜色
+						hoverColor:'green',//下拉框HOVER颜色	
+						borderWidth:1,//边线宽度
+						arrowBorderWidth:0,//箭头左侧分割线宽度。如果为0则不显示
+						borderRadius:5,//边线圆角						
+						placeholder:'不会配色',//默认提示
+					});
+
+new SelectBox($('.box8'),data,fnBack,
+					{
+						color:'#000',//输入框字体颜色
+						optionColor:'#000',//下拉框字体颜色
+						arrowColor:'green',//箭头颜色
+						backgroundColor:'#eee',//背景色颜色
+						borderColor:'green',//边线颜色
+						hoverColor:'green',//下拉框HOVER颜色	
+						borderWidth:1,//边线宽度
+						arrowBorderWidth:0,//箭头左侧分割线宽度。如果为0则不显示
+						borderRadius:5,//边线圆角						
+						placeholder:'下一个是最全的',//默认提示
+						defalut:'firstData',//默认显示内容。如果是'firstData',则默认显示第一个
+						allowInput:true,//是否允许输入						
+						width:200,//宽
+						height:26,//高
+					});
+
+new SelectBox($('.box9'),data,fnBack,
+					{
+						color:'#000',//输入框字体颜色
+						optionColor:'#000',//下拉框字体颜色
+						arrowColor:'green',//箭头颜色
+						backgroundColor:'#eee',//背景色颜色
+						borderColor:'green',//边线颜色
+						hoverColor:'green',//下拉框HOVER颜色	
+						borderWidth:1,//边线宽度
+						arrowBorderWidth:2,//箭头左侧分割线宽度。如果为0则不显示
+						borderRadius:5,//边线圆角						
+						placeholder:'请输入文字',//默认提示
+						defalut:'firstData',//默认显示内容。如果是'firstData',则默认显示第一个
+						allowInput:true,//是否允许输入						
+						width:130,//宽
+						height:26,//高
+					});
+
+//最全参数
+new SelectBox($('.box10'),data,fnBack,
+					{
+						dataName:'name',//option的html
+						dataId:'id',//option的value						
+						fontSize:'14',//字体大小
+						optionFontSize:'14',//下拉框字体大小
+						textIndent:4,//字体缩进						
+						color:'#000',//输入框字体颜色
+						optionColor:'#000',//下拉框字体颜色
+						arrowColor:'green',//箭头颜色
+						backgroundColor:'#eee',//背景色颜色
+						borderColor:'green',//边线颜色
+						hoverColor:'green',//下拉框HOVER颜色	
+						borderWidth:1,//边线宽度
+						arrowBorderWidth:0,//箭头左侧分割线宽度。如果为0则不显示
+						borderRadius:5,//边线圆角						
+						placeholder:'请输入文字',//默认提示
+						defalut:'firstData',//默认显示内容。如果是'firstData',则默认显示第一个
+						allowInput:true,//是否允许输入						
+						width:130,//宽
+						height:26,//高
+						optionMaxHeight:500//下拉框最大高度
+					});
+
+
+</script>

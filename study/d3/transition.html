@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body id="body">
+		
+		<div id="start" style="width:100px; height: 100px;">
+		    123
+		</div>
+		
+	</body>
+</html>
+<script src="d3.3.10.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+d3.select("body")
+    .style("background", "green").transition().delay(3000).style('background','red');
+</script>

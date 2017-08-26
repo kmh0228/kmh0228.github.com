@@ -1,0 +1,18 @@
+Thu Jul 27 18:00:50 2017 OpenVPN 2.3.7 i686-w64-mingw32 [SSL (OpenSSL)] [LZO] [PKCS11] [IPv6] built on Jul  9 2015
+Thu Jul 27 18:00:50 2017 library versions: OpenSSL 1.0.1p 9 Jul 2015, LZO 2.08
+Enter Management Password:
+Thu Jul 27 18:01:01 2017 Control Channel Authentication: using 'vpn-TCP-1194-tls.key' as a OpenVPN static key file
+Thu Jul 27 18:01:01 2017 Attempting to establish TCP connection with [AF_INET]210.12.79.55:1194 [nonblock]
+Thu Jul 27 18:01:02 2017 TCP connection established with [AF_INET]210.12.79.55:1194
+Thu Jul 27 18:01:02 2017 TCPv4_CLIENT link local: [undef]
+Thu Jul 27 18:01:02 2017 TCPv4_CLIENT link remote: [AF_INET]210.12.79.55:1194
+Thu Jul 27 18:01:02 2017 WARNING: this configuration may cache passwords in memory -- use the auth-nocache option to prevent this
+Thu Jul 27 18:01:03 2017 [Raysdata OpenVPN Server] Peer Connection Initiated with [AF_INET]210.12.79.55:1194
+Thu Jul 27 18:01:05 2017 do_ifconfig, tt->ipv6=0, tt->did_ifconfig_ipv6_setup=0
+Thu Jul 27 18:01:05 2017 open_tun, tt->ipv6=0
+Thu Jul 27 18:01:05 2017 TAP-WIN32 device [以太网 2] opened: \\.\Global\{E9D90483-1517-457D-8A4D-BEE682048536}.tap
+Thu Jul 27 18:01:05 2017 Set TAP-Windows TUN subnet mode network/local/netmask = 10.0.8.0/10.0.8.29/255.255.255.0 [SUCCEEDED]
+Thu Jul 27 18:01:05 2017 Notified TAP-Windows driver to set a DHCP IP/netmask of 10.0.8.29/255.255.255.0 on interface {E9D90483-1517-457D-8A4D-BEE682048536} [DHCP-serv: 10.0.8.254, lease-time: 31536000]
+Thu Jul 27 18:01:05 2017 Successful ARP Flush on interface [11] {E9D90483-1517-457D-8A4D-BEE682048536}
+Thu Jul 27 18:01:10 2017 Initialization Sequence Completed
+Thu Jul 27 18:40:00 2017 SIGTERM[hard,] received, process exiting

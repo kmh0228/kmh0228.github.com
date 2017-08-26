@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html ng-app="mk"><!-- ng-app 定义开启augular的区间，一个页面只能有一个-->
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+<div ng-controller="common">
+		<div ng-controller="controlname">
+			<p>{{num.name}},angular</p><!--这样写内容会先加载出来在解析-->
+			<input ng-model='num.name'/><!-- ng-model 通常给表单，实现双向数据绑定    -->
+		</div>
+<br/>
+<br/>
+<br/>
+		<div ng-controller="controlname2">
+			<p>{{num.name}},angular</p><!--这样写内容会先加载出来在解析-->
+			<input ng-model='num.name'/><!-- ng-model 通常给表单，实现双向数据绑定    -->
+			<button ng-click="commonclick()"></button>
+		</div>
+
+</div>
+
+		<hello></hello>
+		
+	</body>
+<script src="../js/angular.js" type="text/javascript" charset="utf-8"></script>	
+<script type="text/javascript">
+	//定义模块区域
+	//                     模块名称,依赖的模块,模块参数（可不写） 
+	var mk=angular.module("mk",[]);
+	
+	//在模块里定义控制器 处理数据    $rootScope 根目录的作用域 可用于全部
+	mk.controller('controlname',function($scope,$rootScope){
+		$scope.num={name:'age'};
+	});
+	
+	mk.controller('controlname2',function($scope){
+		$scope.num={name:'age'};
+	});
+	
+	mk.controller('common',function($scope){
+		$scope.commonclick=function(){alert(0);};
+	});
+	
+	//创建指令   自定义标签 在模块里定义directive指令 修改自定义标签 
+	mk.directive('hello',function(){
+		return {
+			restrict:'E',
+			template:'<div>hello，我的第一个指令</div>',
+			replace:true
+		};
+	})
+	
+	
+</script>
+
+
+</html>

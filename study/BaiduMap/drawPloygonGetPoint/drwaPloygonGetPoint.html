@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=5XiOug3semCW2Fau6g3GKZ7P7UtBzWyf "></script>
+
+<script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+<link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
+
+<script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.js"></script>
+<link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.css" />
+</head>
+<style>
+body{ width:1300px;}
+textarea{ width:250px; height:550px; float:left;}
+input { float:left;  width:50px; margin:10px;margin-top:200px; height: 50px; white-space: inherit;}
+#container{ float:left; height:100%; width:970px;}
+
+</style>
+<body>
+<textarea id="text"></textarea>
+<input type="button" value="获取坐标" onclick="change()"/>
+<div id="container" style="height:700px;"></div>
+</body>
+</html>
+<script>
+	map = new BMap.Map("container");    // 创建Map实例
+	map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
+	//map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
+	map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+	map.enableScrollWheelZoom(true);   //让地图随滚轮缩放
+
+	
+	var overlays = [];
+	var overlaycomplete = function(e){
+        overlays.push(e.overlay);
+    };
+    var styleOptions = {
+        strokeColor:"red",    //边线颜色。
+        fillColor:"red",      //填充颜色。当参数为空时，圆形将没有填充效果。
+        strokeWeight: 3,       //边线的宽度，以像素为单位。
+        strokeOpacity: 0.8,	   //边线透明度，取值范围0 - 1。
+        fillOpacity: 0.6,      //填充的透明度，取值范围0 - 1。
+        strokeStyle: 'solid' //边线的样式，solid或dashed。
+    }
+    //实例化鼠标绘制工具
+    var drawingManager = new BMapLib.DrawingManager(map, {
+        isOpen: false, //是否开启绘制模式
+        enableDrawingTool: true, //是否显示工具栏
+        drawingToolOptions: {
+            anchor: BMAP_ANCHOR_TOP_RIGHT, //位置
+            offset: new BMap.Size(5, 5), //偏离值
+        },
+        circleOptions: styleOptions, //圆的样式
+        polylineOptions: styleOptions, //线的样式
+        polygonOptions: styleOptions, //多边形的样式
+        rectangleOptions: styleOptions //矩形的样式
+    });  
+	 //添加鼠标绘制工具监听事件，用于获取绘制结果
+    drawingManager.addEventListener('overlaycomplete', overlaycomplete);
+    
+    function change(){
+    	var html='';
+    	for(var i=0;i<overlays.length;i++){
+    		var pointsarr=overlays[i].getPath();
+	    	var length=pointsarr.length;
+	    	html+='('+(i+1)+')';
+	    	for(var j=0;j<length;j++){
+	    		html+=pointsarr[j].lng+','+pointsarr[j].lat+',';
+	    	}
+	    	html+='\n\r';
+    	}
+    	document.getElementsByTagName('textarea')[0].value=html;
+    }
+	
+	
+</script>

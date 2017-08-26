@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="d3.3.10.js" type="text/javascript" charset="utf-8"></script>
+		<title></title>
+	</head>
+	<body>
+		<div id="container">
+		    
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var data;//=[1,5,2,6,3,4,8],
+
+	//读取文件 text json html xml csv等文件
+	//数据交互  csv
+	//         url  转换数据     成功回掉函数
+	d3.csv('data.csv',type,function(data2){
+		console.log(data2);
+		data=data2;
+	});
+	
+	function type(d){
+		d.value=+d.value;
+		return d;
+	}
+	
+	
+		bar_width=50,
+		bar_padding=5,
+		svg_width=(bar_width+bar_padding)*data.length,
+		svg_height=500;
+	
+	var svg=d3.select("#container").append('svg').attr('width',svg_width).attr('height',svg_height);
+	
+	var scale=d3.scale.linear()//建立缩放比例
+		.domain([0,d3.max(data)])
+		.range([0,svg_height]);
+	
+	//d3的数据绑定 update是数据与DOM对应的部分，enter是数据有而没有DOM的部分 exit是有DOM而没有数据的部分
+	
+	var gs=svg.selectAll('g')//选择所有的g，此时没有
+		.data(data)//与数据进行绑定
+		.enter()//有数据而没有g的部分
+		.append('g')//添加g
+		.attr('transform',function(d,i){//添加平移量
+			return 'translate('+i*(bar_width+bar_padding)+','+(svg_height-scale(d))+')';
+		});
+	
+	gs.append('rect')//像很多g里添加矩形 rect
+	.attr({//设置宽高
+		width:bar_width,
+		height:function(n){return scale(n);}
+	})
+	.style({'fill':'steelblue'});//设置颜色
+	
+	gs.append('text')//添加文字
+	.text(function(d){return d})//设置文字内容
+	.attr({//设置偏移量
+		x:bar_width/2,
+		y:15,
+		'text-anchor':'end'//对齐方式
+	});
+	
+</script>

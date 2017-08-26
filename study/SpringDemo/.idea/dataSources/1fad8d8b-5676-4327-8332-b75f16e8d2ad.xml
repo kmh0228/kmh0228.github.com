@@ -1,0 +1,2567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="@10.55.45.51">
+  <database-model serializer="dbm" rdbms="ORACLE" format-version="4.4">
+    <root id="1"/>
+    <schema id="2" parent="1" name="RAYS">
+      <ObjectId>135</ObjectId>
+      <IntrospectionTimestamp>2017-08-23.10:45:27</IntrospectionTimestamp>
+      <CreatedTimestamp>2017-06-08.17:57:58</CreatedTimestamp>
+      <ModifiedTimestamp>2017-08-23.00:00:16</ModifiedTimestamp>
+      <CommentsHash>160149230402477</CommentsHash>
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="PUBLIC">
+      <ObjectId>1</ObjectId>
+    </schema>
+    <schema id="4" parent="1" name="SYS">
+      <ObjectId>0</ObjectId>
+    </schema>
+    <schema id="5" parent="1" name="SYSTEM">
+      <ObjectId>5</ObjectId>
+    </schema>
+    <schema id="6" parent="1" name="OUTLN">
+      <ObjectId>9</ObjectId>
+    </schema>
+    <schema id="7" parent="1" name="DIP">
+      <ObjectId>14</ObjectId>
+    </schema>
+    <schema id="8" parent="1" name="ORACLE_OCM">
+      <ObjectId>21</ObjectId>
+    </schema>
+    <schema id="9" parent="1" name="DBSNMP">
+      <ObjectId>30</ObjectId>
+    </schema>
+    <schema id="10" parent="1" name="APPQOSSYS">
+      <ObjectId>31</ObjectId>
+    </schema>
+    <schema id="11" parent="1" name="WMSYS">
+      <ObjectId>32</ObjectId>
+    </schema>
+    <schema id="12" parent="1" name="EXFSYS">
+      <ObjectId>42</ObjectId>
+    </schema>
+    <schema id="13" parent="1" name="CTXSYS">
+      <ObjectId>43</ObjectId>
+    </schema>
+    <schema id="14" parent="1" name="XDB">
+      <ObjectId>45</ObjectId>
+    </schema>
+    <schema id="15" parent="1" name="ANONYMOUS">
+      <ObjectId>46</ObjectId>
+    </schema>
+    <schema id="16" parent="1" name="ORDSYS">
+      <ObjectId>53</ObjectId>
+    </schema>
+    <schema id="17" parent="1" name="ORDDATA">
+      <ObjectId>54</ObjectId>
+    </schema>
+    <schema id="18" parent="1" name="ORDPLUGINS">
+      <ObjectId>55</ObjectId>
+    </schema>
+    <schema id="19" parent="1" name="SI_INFORMTN_SCHEMA">
+      <ObjectId>56</ObjectId>
+    </schema>
+    <schema id="20" parent="1" name="MDSYS">
+      <ObjectId>57</ObjectId>
+    </schema>
+    <schema id="21" parent="1" name="OLAPSYS">
+      <ObjectId>60</ObjectId>
+    </schema>
+    <schema id="22" parent="1" name="MDDATA">
+      <ObjectId>64</ObjectId>
+    </schema>
+    <schema id="23" parent="1" name="SPATIAL_WFS_ADMIN_USR">
+      <ObjectId>66</ObjectId>
+    </schema>
+    <schema id="24" parent="1" name="SPATIAL_CSW_ADMIN_USR">
+      <ObjectId>69</ObjectId>
+    </schema>
+    <schema id="25" parent="1" name="SYSMAN">
+      <ObjectId>71</ObjectId>
+    </schema>
+    <schema id="26" parent="1" name="MGMT_VIEW">
+      <ObjectId>73</ObjectId>
+    </schema>
+    <schema id="27" parent="1" name="FLOWS_FILES">
+      <ObjectId>74</ObjectId>
+    </schema>
+    <schema id="28" parent="1" name="APEX_PUBLIC_USER">
+      <ObjectId>75</ObjectId>
+    </schema>
+    <schema id="29" parent="1" name="APEX_030200">
+      <ObjectId>77</ObjectId>
+    </schema>
+    <schema id="30" parent="1" name="OWBSYS">
+      <ObjectId>78</ObjectId>
+    </schema>
+    <schema id="31" parent="1" name="OWBSYS_AUDIT">
+      <ObjectId>79</ObjectId>
+    </schema>
+    <schema id="32" parent="1" name="SCOTT">
+      <ObjectId>83</ObjectId>
+    </schema>
+    <schema id="33" parent="1" name="HR">
+      <ObjectId>84</ObjectId>
+    </schema>
+    <schema id="34" parent="1" name="OE">
+      <ObjectId>85</ObjectId>
+    </schema>
+    <schema id="35" parent="1" name="IX">
+      <ObjectId>86</ObjectId>
+    </schema>
+    <schema id="36" parent="1" name="SH">
+      <ObjectId>87</ObjectId>
+    </schema>
+    <schema id="37" parent="1" name="PM">
+      <ObjectId>88</ObjectId>
+    </schema>
+    <schema id="38" parent="1" name="BI">
+      <ObjectId>89</ObjectId>
+    </schema>
+    <schema id="39" parent="1" name="DM_ORACLE_REALTIME">
+      <ObjectId>90</ObjectId>
+    </schema>
+    <schema id="40" parent="1" name="KETTLE">
+      <ObjectId>91</ObjectId>
+    </schema>
+    <schema id="41" parent="1" name="DM_ORACLE_GL">
+      <ObjectId>92</ObjectId>
+    </schema>
+    <schema id="42" parent="1" name="HWTEST">
+      <ObjectId>93</ObjectId>
+    </schema>
+    <schema id="43" parent="1" name="DMSP">
+      <ObjectId>94</ObjectId>
+    </schema>
+    <schema id="44" parent="1" name="CIM">
+      <ObjectId>96</ObjectId>
+    </schema>
+    <schema id="45" parent="1" name="TSMSYS">
+      <ObjectId>103</ObjectId>
+    </schema>
+    <schema id="46" parent="1" name="WKSYS">
+      <ObjectId>104</ObjectId>
+    </schema>
+    <schema id="47" parent="1" name="WKPROXY">
+      <ObjectId>105</ObjectId>
+    </schema>
+    <schema id="48" parent="1" name="WK_TEST">
+      <ObjectId>106</ObjectId>
+    </schema>
+    <schema id="49" parent="1" name="FLOWS_030000">
+      <ObjectId>107</ObjectId>
+    </schema>
+    <schema id="50" parent="1" name="PC8_DOMAIN">
+      <ObjectId>108</ObjectId>
+    </schema>
+    <schema id="51" parent="1" name="PC8_MM_REP">
+      <ObjectId>109</ObjectId>
+    </schema>
+    <schema id="52" parent="1" name="PC8_DA">
+      <ObjectId>110</ObjectId>
+    </schema>
+    <schema id="53" parent="1" name="PC8">
+      <ObjectId>111</ObjectId>
+    </schema>
+    <schema id="54" parent="1" name="iscv209">
+      <ObjectId>112</ObjectId>
+    </schema>
+    <schema id="55" parent="1" name="SG_DMSP">
+      <ObjectId>113</ObjectId>
+    </schema>
+    <schema id="56" parent="1" name="BASEDATA">
+      <ObjectId>120</ObjectId>
+    </schema>
+    <schema id="57" parent="1" name="ISCV209">
+      <ObjectId>121</ObjectId>
+    </schema>
+    <schema id="58" parent="1" name="MOIA">
+      <ObjectId>131</ObjectId>
+    </schema>
+    <schema id="59" parent="1" name="GJ_DMSP">
+      <ObjectId>134</ObjectId>
+    </schema>
+    <schema id="60" parent="1" name="XS$NULL">
+      <ObjectId>2147483638</ObjectId>
+    </schema>
+    <table id="61" parent="2" name="CK_T_JC_XL_ZD">
+      <ObjectId>247932</ObjectId>
+      <CreatedTimestamp>2017-06-14.18:24:14</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-14.18:32:35</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="62" parent="2" name="RAYS_COMMON_PARAM">
+      <ObjectId>247741</ObjectId>
+      <CreatedTimestamp>2017-06-12.09:51:25</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-12.09:59:33</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="63" parent="2" name="RAYS_C_DISTANTCE">
+      <ObjectId>248953</ObjectId>
+      <CreatedTimestamp>2017-06-26.15:06:15</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-26.17:49:15</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="64" parent="2" name="RAYS_JG_PRE_DEL">
+      <ObjectId>249122</ObjectId>
+      <CreatedTimestamp>2017-06-28.10:21:39</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-30.17:38:46</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="65" parent="2" name="RAYS_LIGHTS_DETAIL">
+      <ObjectId>247922</ObjectId>
+      <CreatedTimestamp>2017-06-14.10:48:03</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-15.17:12:48</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="66" parent="2" name="RAYS_LIGHTS_JG">
+      <ObjectId>247921</ObjectId>
+      <CreatedTimestamp>2017-06-14.10:32:04</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-14.10:32:04</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="67" parent="2" name="RAYS_LIGHTS_LINE">
+      <ObjectId>248095</ObjectId>
+      <CreatedTimestamp>2017-06-16.10:10:46</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-28.11:35:46</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="68" parent="2" name="RAYS_LIGHTS_TOP">
+      <ObjectId>248021</ObjectId>
+      <CreatedTimestamp>2017-06-15.14:20:28</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-15.14:20:28</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="69" parent="2" name="RAYS_LIGHTS_WAIT_10">
+      <ObjectId>248018</ObjectId>
+      <CreatedTimestamp>2017-06-15.09:26:15</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-15.09:26:19</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="70" parent="2" name="RAYS_LINE_DESC">
+      <ObjectId>247924</ObjectId>
+      <CreatedTimestamp>2017-06-14.11:49:36</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-14.11:51:34</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="71" parent="2" name="RAYS_LINE_FEATURE_MONTH">
+      <ObjectId>248099</ObjectId>
+      <CreatedTimestamp>2017-06-16.14:16:10</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-19.14:10:43</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="72" parent="2" name="RAYS_LINE_FEATURE_MONTH_TMP">
+      <ObjectId>248309</ObjectId>
+      <CreatedTimestamp>2017-06-19.10:50:46</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-27.13:02:09</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="73" parent="2" name="RAYS_LINE_ROAD">
+      <ObjectId>250069</ObjectId>
+      <CreatedTimestamp>2017-07-06.09:42:16</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-06.09:42:16</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="74" parent="2" name="RAYS_LINE_UP_DOWN">
+      <ObjectId>250864</ObjectId>
+      <CreatedTimestamp>2017-07-14.09:47:21</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-14.11:10:48</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="75" parent="2" name="RAYS_MAP_DISTRICT">
+      <ObjectId>251884</ObjectId>
+      <CreatedTimestamp>2017-07-24.14:13:42</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-24.14:48:17</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="76" parent="2" name="RAYS_MAP_LDISTRICT">
+      <ObjectId>251885</ObjectId>
+      <CreatedTimestamp>2017-07-24.14:47:11</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-24.14:47:11</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="77" parent="2" name="RAYS_MAP_N">
+      <ObjectId>250705</ObjectId>
+      <CreatedTimestamp>2017-07-12.11:29:28</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-31.17:56:06</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="78" parent="2" name="RAYS_MAP_R">
+      <ObjectId>250701</ObjectId>
+      <CreatedTimestamp>2017-07-12.11:23:21</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-12.11:39:45</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="79" parent="2" name="RAYS_MAP_ROAD">
+      <ObjectId>250071</ObjectId>
+      <CreatedTimestamp>2017-07-06.10:20:10</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-12.11:36:27</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="80" parent="2" name="RAYS_MAP_R_LNAME">
+      <ObjectId>250698</ObjectId>
+      <CreatedTimestamp>2017-07-12.10:38:27</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-13.11:06:20</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="81" parent="2" name="RAYS_MAP_R_NAME">
+      <ObjectId>250699</ObjectId>
+      <CreatedTimestamp>2017-07-12.10:44:14</CreatedTimestamp>
+      <ModifiedTimestamp>2017-08-14.10:54:29</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="82" parent="2" name="RAYS_MAP_R_ZONE">
+      <ObjectId>250700</ObjectId>
+      <CreatedTimestamp>2017-07-12.10:46:27</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-12.11:40:44</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="83" parent="2" name="RAYS_SPEED_LINE_LOG">
+      <ObjectId>247483</ObjectId>
+      <CreatedTimestamp>2017-06-09.17:38:19</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-10.16:35:36</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="84" parent="2" name="RAYS_SPEED_ORG_LOG">
+      <ObjectId>247473</ObjectId>
+      <CreatedTimestamp>2017-06-09.15:52:35</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-09.15:52:35</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="85" parent="2" name="RAYS_STATION_UP_TOP10">
+      <ObjectId>248641</ObjectId>
+      <CreatedTimestamp>2017-06-23.16:41:30</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-23.16:41:30</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="86" parent="2" name="RAYS_TEST_DATE">
+      <ObjectId>248026</ObjectId>
+      <CreatedTimestamp>2017-06-15.16:26:51</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-15.16:26:51</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="87" parent="2" name="RAYS_TMP">
+      <ObjectId>248951</ObjectId>
+      <CreatedTimestamp>2017-06-26.14:29:54</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-24.10:14:57</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="88" parent="2" name="RAYS_TMP_ZD">
+      <ObjectId>247930</ObjectId>
+      <CreatedTimestamp>2017-06-14.17:28:16</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-14.17:28:16</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="89" parent="2" name="RAYS_TRANSFER_MODEL_COUNT">
+      <ObjectId>248373</ObjectId>
+      <CreatedTimestamp>2017-06-20.11:08:39</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-20.18:29:50</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="90" parent="2" name="RAYS_TRANSFER_MODEL_COUNT_MON">
+      <ObjectId>248549</ObjectId>
+      <CreatedTimestamp>2017-06-22.09:53:01</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-22.16:42:27</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="91" parent="2" name="RAYS_XL_JG">
+      <ObjectId>248020</ObjectId>
+      <CreatedTimestamp>2017-06-15.10:43:17</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-05.18:29:25</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="92" parent="2" name="RAYS_ZD_DISTRICT">
+      <ObjectId>254327</ObjectId>
+      <CreatedTimestamp>2017-08-17.14:57:54</CreatedTimestamp>
+      <ModifiedTimestamp>2017-08-22.12:32:36</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="93" parent="2" name="TEST">
+      <ObjectId>247345</ObjectId>
+      <CreatedTimestamp>2017-06-08.17:57:58</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-08.18:09:06</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="94" parent="2" name="XIANWANG_TRAFFIC_ZONE">
+      <ObjectId>254457</ObjectId>
+      <CreatedTimestamp>2017-08-18.14:33:05</CreatedTimestamp>
+      <ModifiedTimestamp>2017-08-18.14:33:05</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="95" parent="2" name="sq_od">
+      <ObjectId>251139</ObjectId>
+      <CreatedTimestamp>2017-07-17.16:34:42</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-17.17:40:59</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="96" parent="2" name="sq_up_down">
+      <ObjectId>251137</ObjectId>
+      <CreatedTimestamp>2017-07-17.16:25:43</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-17.16:25:43</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <routine id="97" parent="2" name="FUN_GET_WEEK_ZWGF">
+      <ObjectId>247838</ObjectId>
+      <RoutineKind>function</RoutineKind>
+      <CreatedTimestamp>2017-06-13.13:36:36</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-13.14:03:12</ModifiedTimestamp>
+    </routine>
+    <routine id="98" parent="2" name="FUN_GET_WEEK_ZWGF_WEEKEND">
+      <ObjectId>248024</ObjectId>
+      <RoutineKind>function</RoutineKind>
+      <CreatedTimestamp>2017-06-15.15:43:37</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-15.17:18:20</ModifiedTimestamp>
+    </routine>
+    <routine id="99" parent="2" name="FUN_GET_ZWGF">
+      <ObjectId>247839</ObjectId>
+      <RoutineKind>function</RoutineKind>
+      <CreatedTimestamp>2017-06-13.14:25:48</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-13.14:25:48</ModifiedTimestamp>
+    </routine>
+    <routine id="100" parent="2" name="FUN_GET_ZWGF_WEEKEND">
+      <ObjectId>248023</ObjectId>
+      <RoutineKind>function</RoutineKind>
+      <CreatedTimestamp>2017-06-15.15:34:10</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-15.15:34:10</ModifiedTimestamp>
+    </routine>
+    <synonym id="101" parent="2" name="ODS_DD_DM_DDB_DD_PD_SS">
+      <ObjectId>250866</ObjectId>
+      <CreatedTimestamp>2017-07-14.09:58:49</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-14.09:58:49</ModifiedTimestamp>
+      <TargetObjectName>ODS_DD_DM_DDB_DD_PD_SS</TargetObjectName>
+    </synonym>
+    <synonym id="102" parent="2" name="ODS_DD_DM_DDB_DD_PD_TEMP">
+      <ObjectId>250867</ObjectId>
+      <CreatedTimestamp>2017-07-14.09:59:03</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-14.09:59:03</ModifiedTimestamp>
+      <TargetObjectName>ODS_DD_DM_DDB_DD_PD_TEMP</TargetObjectName>
+    </synonym>
+    <column id="103" parent="61" name="CKXLZDID">
+      <Position>1</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="104" parent="61" name="CKXLZDIDO">
+      <Position>2</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="105" parent="61" name="FLAG_NEW">
+      <Position>3</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="106" parent="61" name="CKXLID">
+      <Position>4</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="107" parent="61" name="CKZWID">
+      <Position>5</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="108" parent="61" name="SXXBS">
+      <Position>6</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="109" parent="61" name="ZM">
+      <Position>7</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="110" parent="61" name="ZMJC">
+      <Position>8</Position>
+      <DataType>VARCHAR2(100)|0</DataType>
+    </column>
+    <column id="111" parent="61" name="XLZDXH">
+      <Position>9</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="112" parent="61" name="XLZDLX">
+      <Position>10</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="113" parent="61" name="XLZDZT">
+      <Position>11</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="114" parent="61" name="JXIAZJL">
+      <Position>12</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="115" parent="61" name="JSHANGZJL">
+      <Position>13</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="116" parent="61" name="JSHOUZJL">
+      <Position>14</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="117" parent="61" name="CKJGID">
+      <Position>15</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="118" parent="61" name="ZWID">
+      <Position>16</Position>
+      <DataType>VARCHAR2(36)|0</DataType>
+    </column>
+    <column id="119" parent="61" name="ZWH">
+      <Position>17</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="120" parent="61" name="XLID">
+      <Position>18</Position>
+      <DataType>VARCHAR2(36)|0</DataType>
+    </column>
+    <column id="121" parent="61" name="XLDM">
+      <Position>19</Position>
+      <DataType>VARCHAR2(50)|0</DataType>
+    </column>
+    <column id="122" parent="61" name="XLSXXID">
+      <Position>20</Position>
+      <DataType>VARCHAR2(36)|0</DataType>
+    </column>
+    <column id="123" parent="61" name="XLSXXMC">
+      <Position>21</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="124" parent="61" name="ARRIVAL_RADIUS">
+      <Position>22</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="125" parent="61" name="DEPARTURE_RADIUS">
+      <Position>23</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="126" parent="61" name="RUNNING_TIME">
+      <Position>24</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="127" parent="61" name="SUM_RUNNING_TIME">
+      <Position>25</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="128" parent="61" name="BUS_OUT_TYPE">
+      <Position>26</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="129" parent="61" name="XGLX">
+      <Position>27</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="130" parent="61" name="XGSJ">
+      <Position>28</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="131" parent="61" name="SHENGXIAOSJ">
+      <Position>29</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="132" parent="61" name="SHIXIAOSJ">
+      <Position>30</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="133" parent="61" name="SJBB">
+      <Position>31</Position>
+      <DataType>VARCHAR2(10)|0</DataType>
+    </column>
+    <column id="134" parent="61" name="ZDID">
+      <Position>32</Position>
+      <DataType>VARCHAR2(36)|0</DataType>
+    </column>
+    <column id="135" parent="61" name="PUBLISHTIME">
+      <Position>33</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="136" parent="61" name="ZDJD">
+      <Position>34</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="137" parent="61" name="ZDWD">
+      <Position>35</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="138" parent="61" name="FWJ">
+      <Position>36</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="139" parent="61" name="CKXLFWID">
+      <Position>37</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="140" parent="61" name="ZH">
+      <Position>38</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="141" parent="61" name="BZ">
+      <Position>39</Position>
+      <DataType>VARCHAR2(100)|0</DataType>
+    </column>
+    <column id="142" parent="61" name="JDXH">
+      <Position>40</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="143" parent="61" name="XZQH">
+      <Position>41</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="144" parent="61" name="HLWZ">
+      <Position>42</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="145" parent="61" name="ZFLWZ">
+      <Position>43</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="146" parent="61" name="FX">
+      <Position>44</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="147" parent="61" name="SFJYSPD">
+      <Position>45</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="148" parent="61" name="SFJYLED">
+      <Position>46</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="149" parent="61" name="ZWXH">
+      <Position>47</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="150" parent="61" name="ZHZXH">
+      <Position>48</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="151" parent="61" name="BZQXH">
+      <Position>49</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="152" parent="61" name="JJJL">
+      <Position>50</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="153" parent="61" name="LKJL">
+      <Position>51</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="154" parent="61" name="ZDXS">
+      <Position>52</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="155" parent="61" name="QDD">
+      <Position>53</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="156" parent="61" name="ZDBM">
+      <Position>54</Position>
+      <DataType>VARCHAR2(50)|0</DataType>
+    </column>
+    <column id="157" parent="61" name="SFZTFCZD">
+      <Position>55</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="158" parent="61" name="SFQSBZ">
+      <Position>56</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="159" parent="61" name="SFQXBZ">
+      <Position>57</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="160" parent="61" name="SFSJQN">
+      <Position>58</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="161" parent="61" name="EJSTAPOS">
+      <Position>59</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="162" parent="61" name="ZWZJID">
+      <Position>60</Position>
+      <DataType>VARCHAR2(20)|0</DataType>
+    </column>
+    <column id="163" parent="61" name="FLAG">
+      <Position>61</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="164" parent="61" name="ACTION_FLAG">
+      <Position>62</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="165" parent="61" name="VAL_TIME">
+      <Position>63</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="166" parent="61" name="UNVAL_TIME">
+      <Position>64</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="167" parent="61" name="UPDATETIME">
+      <Position>65</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="168" parent="62" name="ID">
+      <Position>1</Position>
+      <DataType>NUMBER(*)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="169" parent="62" name="VAL">
+      <Position>2</Position>
+      <DataType>VARCHAR2(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="170" parent="62" name="DEMO">
+      <Position>3</Position>
+      <DataType>VARCHAR2(100)|0</DataType>
+    </column>
+    <index id="171" parent="62" name="SYS_C0031672">
+      <ObjectId>247742</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2017-06-12.09:51:25</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-12.09:51:25</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="172" parent="62" name="SYS_C0031672">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2017-06-12.09:51:25</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0031672</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="173" parent="63" name="A_ID">
+      <Position>1</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="174" parent="63" name="B_ID">
+      <Position>2</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="175" parent="63" name="DISTANCE">
+      <Position>3</Position>
+      <DataType>NUMBER(10,2)|0</DataType>
+    </column>
+    <column id="176" parent="64" name="XLDM">
+      <Position>1</Position>
+      <DataType>NVARCHAR2(50)|0</DataType>
+    </column>
+    <column id="177" parent="64" name="XLMC">
+      <Position>2</Position>
+      <DataType>NVARCHAR2(100)|0</DataType>
+    </column>
+    <column id="178" parent="64" name="LINEJGID">
+      <Position>3</Position>
+      <DataType>NUMBER(18)|0</DataType>
+    </column>
+    <column id="179" parent="64" name="CONID">
+      <Position>4</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="180" parent="64" name="CON_MANE">
+      <Position>5</Position>
+      <DataType>VARCHAR2(56)|0</DataType>
+    </column>
+    <column id="181" parent="64" name="COMID">
+      <Position>6</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="182" parent="64" name="COM_NAME">
+      <Position>7</Position>
+      <DataType>VARCHAR2(56)|0</DataType>
+    </column>
+    <column id="183" parent="65" name="XLDM">
+      <Position>1</Position>
+      <DataType>VARCHAR2(10)|0</DataType>
+    </column>
+    <column id="184" parent="65" name="SXXBS">
+      <Position>2</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="185" parent="65" name="LIGHT_ID">
+      <Position>3</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <column id="186" parent="65" name="ORDER_ID">
+      <Position>4</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="187" parent="65" name="LNG">
+      <Position>5</Position>
+      <DataType>NUMBER(10,6)|0</DataType>
+    </column>
+    <column id="188" parent="65" name="LAT">
+      <Position>6</Position>
+      <DataType>NUMBER(10,6)|0</DataType>
+    </column>
+    <column id="189" parent="65" name="WAIT_TIME">
+      <Position>7</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <index id="190" parent="65" name="RAYS_LIGHTS_DETAIL_MAIN_INDEX">
+      <ObjectId>247923</ObjectId>
+      <CreatedTimestamp>2017-06-14.10:49:14</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-14.10:49:14</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>XLDM
+SXXBS</ColNames>
+    </index>
+    <index id="191" parent="65" name="RAYS_LIGHTS_DETAIL_LIGHT_INDEX">
+      <ObjectId>248027</ObjectId>
+      <CreatedTimestamp>2017-06-15.17:12:48</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-15.17:12:48</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>LIGHT_ID</ColNames>
+    </index>
+    <column id="192" parent="66" name="CKJGID">
+      <Position>1</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <column id="193" parent="66" name="LIGHT_COUNT">
+      <Position>2</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="194" parent="66" name="LINE_COUNT">
+      <Position>3</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="195" parent="66" name="LINE_LENGTH">
+      <Position>4</Position>
+      <DataType>NUMBER(10,2)|0</DataType>
+    </column>
+    <column id="196" parent="66" name="WAIT_TIME">
+      <Position>5</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="197" parent="67" name="COM_NAME">
+      <Position>1</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="198" parent="67" name="CON_MANE">
+      <Position>2</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="199" parent="67" name="MC">
+      <Position>3</Position>
+      <DataType>NVARCHAR2(303)|0</DataType>
+    </column>
+    <column id="200" parent="67" name="LIGHT_ID">
+      <Position>4</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <column id="201" parent="67" name="LENGTH">
+      <Position>5</Position>
+      <DataType>NUMBER(10,2)|0</DataType>
+    </column>
+    <column id="202" parent="67" name="LIGHT_COUNT">
+      <Position>6</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="203" parent="67" name="SUMT">
+      <Position>7</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="204" parent="67" name="WAIT_TIME">
+      <Position>8</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="205" parent="67" name="ZB">
+      <Position>9</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <index id="206" parent="67" name="RAYS_LIGHTS_LINE_LIGHT_ID">
+      <ObjectId>248096</ObjectId>
+      <CreatedTimestamp>2017-06-16.10:11:40</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-28.11:35:46</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>LIGHT_ID</ColNames>
+    </index>
+    <column id="207" parent="68" name="LIGHT_ID">
+      <Position>1</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <column id="208" parent="68" name="LNG">
+      <Position>2</Position>
+      <DataType>NUMBER(10,6)|0</DataType>
+    </column>
+    <column id="209" parent="68" name="LAT">
+      <Position>3</Position>
+      <DataType>NUMBER(10,6)|0</DataType>
+    </column>
+    <column id="210" parent="68" name="AVGT">
+      <Position>4</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="211" parent="68" name="MAXT">
+      <Position>5</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="212" parent="68" name="MINT">
+      <Position>6</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="213" parent="69" name="XLDM">
+      <Position>1</Position>
+      <DataType>VARCHAR2(60)|0</DataType>
+    </column>
+    <column id="214" parent="69" name="SXXBS">
+      <Position>2</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="215" parent="69" name="LIGHT_ID">
+      <Position>3</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <column id="216" parent="69" name="ORDER_ID">
+      <Position>4</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="217" parent="69" name="LNG">
+      <Position>5</Position>
+      <DataType>NUMBER(10,6)|0</DataType>
+    </column>
+    <column id="218" parent="69" name="LAT">
+      <Position>6</Position>
+      <DataType>NUMBER(10,6)|0</DataType>
+    </column>
+    <column id="219" parent="69" name="TIME_S">
+      <Position>7</Position>
+      <DataType>VARCHAR2(10)|0</DataType>
+    </column>
+    <column id="220" parent="69" name="WAIT_TIME">
+      <Position>8</Position>
+      <DataType>NUMBER(10,2)|0</DataType>
+    </column>
+    <index id="221" parent="69" name="RAYSLIGHTS_WAIT_10_INDEX">
+      <ObjectId>248019</ObjectId>
+      <CreatedTimestamp>2017-06-15.09:26:19</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-15.09:26:19</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>XLDM
+SXXBS</ColNames>
+    </index>
+    <column id="222" parent="70" name="XLDM">
+      <Position>1</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <column id="223" parent="70" name="SXXBS">
+      <Position>2</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="224" parent="70" name="CROSS_COUNT">
+      <Position>3</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="225" parent="70" name="LIGHT_COUNT">
+      <Position>4</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="226" parent="70" name="STATION_COUNT">
+      <Position>5</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="227" parent="70" name="LENGTH">
+      <Position>6</Position>
+      <DataType>NUMBER(10,2)|0</DataType>
+    </column>
+    <index id="228" parent="70" name="RAYS_LINE_DESC_MAIN_INDEX">
+      <ObjectId>247925</ObjectId>
+      <CreatedTimestamp>2017-06-14.11:49:36</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-14.11:51:34</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>XLDM
+SXXBS</ColNames>
+    </index>
+    <column id="229" parent="71" name="YEAR_MONTH">
+      <Position>1</Position>
+      <DataType>NUMBER(*)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="230" parent="71" name="LINE_NO">
+      <Position>2</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="231" parent="71" name="DIRECTION">
+      <Position>3</Position>
+      <DataType>NUMBER(*)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="232" parent="71" name="CROSS_COUNT">
+      <Position>4</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="233" parent="71" name="LIGHT_COUNT">
+      <Position>5</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="234" parent="71" name="STATION_COUNT">
+      <Position>6</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="235" parent="71" name="LENGTH">
+      <Position>7</Position>
+      <DataType>NUMBER(10,2)|0</DataType>
+    </column>
+    <column id="236" parent="71" name="STATION_SOTP_COUNT">
+      <Position>8</Position>
+      <Comment>平均停站次数</Comment>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="237" parent="71" name="STATION_SOTP_TIME">
+      <Position>9</Position>
+      <Comment>平均停站次数时长</Comment>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="238" parent="71" name="LIGHT_SOTP_COUNT">
+      <Position>10</Position>
+      <Comment>平均红绿灯（路口）停站次数</Comment>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="239" parent="71" name="LIGHT_SOTP_TIME">
+      <Position>11</Position>
+      <Comment>平均红绿灯（路口）停站时长</Comment>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="240" parent="71" name="CONGESTION_SOTP_COUNT">
+      <Position>12</Position>
+      <Comment>拥堵停靠次数</Comment>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="241" parent="71" name="CONGESTION_SOTP_TIME">
+      <Position>13</Position>
+      <Comment>拥堵停靠时长</Comment>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="242" parent="71" name="CONVOY">
+      <Position>14</Position>
+      <DataType>VARCHAR2(15)|0</DataType>
+    </column>
+    <column id="243" parent="71" name="COMPANY">
+      <Position>15</Position>
+      <DataType>VARCHAR2(15)|0</DataType>
+    </column>
+    <column id="244" parent="71" name="AVG_POINT">
+      <Position>16</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <index id="245" parent="71" name="SYS_C0031726">
+      <ObjectId>248100</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2017-06-16.14:16:10</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-16.14:16:10</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>YEAR_MONTH
+LINE_NO
+DIRECTION</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="246" parent="71" name="SYS_C0031726">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2017-06-16.14:16:10</ModifiedTimestamp>
+      <ColNames>YEAR_MONTH
+LINE_NO
+DIRECTION</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0031726</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="247" parent="72" name="YEAR_MONTH">
+      <Position>1</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="248" parent="72" name="LINE_NO">
+      <Position>2</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <column id="249" parent="72" name="STATION_SOTP_COUNT">
+      <Position>3</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="250" parent="72" name="LIGHT_SOTP_COUNT">
+      <Position>4</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="251" parent="72" name="CONGESTION_SOTP_COUNT">
+      <Position>5</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="252" parent="72" name="DIRECTION">
+      <Position>6</Position>
+      <DataType>NUMBER(1)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="253" parent="73" name="XLDM">
+      <Position>1</Position>
+      <DataType>CHAR(5)|0</DataType>
+    </column>
+    <column id="254" parent="73" name="SXXSB">
+      <Position>2</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="255" parent="73" name="RID">
+      <Position>3</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <column id="256" parent="73" name="OID">
+      <Position>4</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="257" parent="73" name="SN">
+      <Position>5</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <column id="258" parent="73" name="EN">
+      <Position>6</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <index id="259" parent="73" name="RAYS_LINE_ROAD_INDEX">
+      <ObjectId>250070</ObjectId>
+      <CreatedTimestamp>2017-07-06.09:42:16</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-06.09:42:16</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>XLDM
+SXXSB</ColNames>
+    </index>
+    <column id="260" parent="74" name="DATE_TIME">
+      <Position>1</Position>
+      <DataType>NUMBER(8)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="261" parent="74" name="LINE_NO">
+      <Position>2</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="262" parent="74" name="UP">
+      <Position>3</Position>
+      <DataType>NUMBER(10)|0</DataType>
+    </column>
+    <column id="263" parent="74" name="DOWN">
+      <Position>4</Position>
+      <DataType>NUMBER(10)|0</DataType>
+    </column>
+    <index id="264" parent="74" name="SYS_C0032226">
+      <ObjectId>250865</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2017-07-14.09:47:21</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-14.11:10:48</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>DATE_TIME
+LINE_NO</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="265" parent="74" name="SYS_C0032226">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2017-07-14.09:47:21</ModifiedTimestamp>
+      <ColNames>DATE_TIME
+LINE_NO</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0032226</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="266" parent="75" name="DISTRICT_ID">
+      <Position>1</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="267" parent="75" name="NAME">
+      <Position>2</Position>
+      <DataType>VARCHAR2(255)|0</DataType>
+    </column>
+    <column id="268" parent="75" name="EFF_DATE">
+      <Position>3</Position>
+      <DataType>DATE|0</DataType>
+    </column>
+    <column id="269" parent="75" name="EXP_DATE">
+      <Position>4</Position>
+      <DataType>DATE|0</DataType>
+    </column>
+    <column id="270" parent="75" name="EDITDATE">
+      <Position>5</Position>
+      <DataType>DATE|0</DataType>
+    </column>
+    <column id="271" parent="76" name="ID">
+      <Position>1</Position>
+      <DataType>VARCHAR2(13)|0</DataType>
+    </column>
+    <column id="272" parent="76" name="DISTRICT_ID">
+      <Position>2</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="273" parent="76" name="EFF_DATE">
+      <Position>3</Position>
+      <DataType>DATE|0</DataType>
+    </column>
+    <column id="274" parent="76" name="EXP_DATE">
+      <Position>4</Position>
+      <DataType>DATE|0</DataType>
+    </column>
+    <column id="275" parent="76" name="EDITDATE">
+      <Position>5</Position>
+      <DataType>DATE|0</DataType>
+    </column>
+    <column id="276" parent="77" name="MAPID">
+      <Position>1</Position>
+      <DataType>VARCHAR2(8)|0</DataType>
+    </column>
+    <column id="277" parent="77" name="ID">
+      <Position>2</Position>
+      <DataType>VARCHAR2(13)|0</DataType>
+    </column>
+    <column id="278" parent="77" name="KIND_NUM">
+      <Position>3</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="279" parent="77" name="KIND">
+      <Position>4</Position>
+      <DataType>VARCHAR2(23)|0</DataType>
+    </column>
+    <column id="280" parent="77" name="CROSS_FLAG">
+      <Position>5</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="281" parent="77" name="LIGHT_FLAG">
+      <Position>6</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="282" parent="77" name="CROSS_LID">
+      <Position>7</Position>
+      <DataType>VARCHAR2(254)|0</DataType>
+    </column>
+    <column id="283" parent="77" name="MAINNODEID">
+      <Position>8</Position>
+      <DataType>VARCHAR2(13)|0</DataType>
+    </column>
+    <column id="284" parent="77" name="SUBNODEID">
+      <Position>9</Position>
+      <DataType>VARCHAR2(254)|0</DataType>
+    </column>
+    <column id="285" parent="77" name="SUBNODEID2">
+      <Position>10</Position>
+      <DataType>VARCHAR2(254)|0</DataType>
+    </column>
+    <column id="286" parent="77" name="ADJOIN_MID">
+      <Position>11</Position>
+      <DataType>VARCHAR2(8)|0</DataType>
+    </column>
+    <column id="287" parent="77" name="ADJOIN_NID">
+      <Position>12</Position>
+      <DataType>VARCHAR2(13)|0</DataType>
+    </column>
+    <column id="288" parent="77" name="NODE_LID">
+      <Position>13</Position>
+      <DataType>VARCHAR2(120)|0</DataType>
+    </column>
+    <column id="289" parent="77" name="EDITDATE">
+      <Position>14</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <column id="290" parent="77" name="COORDINATES">
+      <Position>15</Position>
+      <DataType>CLOB|0</DataType>
+    </column>
+    <index id="291" parent="77" name="N_ID_INDEX">
+      <ObjectId>250712</ObjectId>
+      <CreatedTimestamp>2017-07-12.11:39:16</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-31.17:56:05</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>ID</ColNames>
+    </index>
+    <column id="292" parent="78" name="MAPID">
+      <Position>1</Position>
+      <Comment>图符号</Comment>
+      <DataType>VARCHAR2(8)|0</DataType>
+      <DefaultExpression>NULL</DefaultExpression>
+    </column>
+    <column id="293" parent="78" name="ID">
+      <Position>2</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <column id="294" parent="78" name="KIND_NUM">
+      <Position>3</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="295" parent="78" name="KIND">
+      <Position>4</Position>
+      <DataType>VARCHAR2(30)|0</DataType>
+    </column>
+    <column id="296" parent="78" name="WIDTH">
+      <Position>5</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="297" parent="78" name="DIRECTION">
+      <Position>6</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="298" parent="78" name="TOLL">
+      <Position>7</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="299" parent="78" name="CONST_ST">
+      <Position>8</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="300" parent="78" name="UNDCONCRID">
+      <Position>9</Position>
+      <DataType>VARCHAR2(13)|0</DataType>
+    </column>
+    <column id="301" parent="78" name="SNODEID">
+      <Position>10</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <column id="302" parent="78" name="ENODEID">
+      <Position>11</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <column id="303" parent="78" name="FUNCCLASS">
+      <Position>12</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="304" parent="78" name="LENGTH">
+      <Position>13</Position>
+      <DataType>NUMBER(6,3)|0</DataType>
+    </column>
+    <column id="305" parent="78" name="DETAILCITY">
+      <Position>14</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="306" parent="78" name="THROUGH">
+      <Position>15</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="307" parent="78" name="UNTHRUCRID">
+      <Position>16</Position>
+      <DataType>VARCHAR2(13)|0</DataType>
+    </column>
+    <column id="308" parent="78" name="OWNERSHIP">
+      <Position>17</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="309" parent="78" name="ROAD_COND">
+      <Position>18</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="310" parent="78" name="SPECIAL">
+      <Position>19</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="311" parent="78" name="ADMINCODEL">
+      <Position>20</Position>
+      <DataType>VARCHAR2(6)|0</DataType>
+    </column>
+    <column id="312" parent="78" name="ADMINCODER">
+      <Position>21</Position>
+      <DataType>VARCHAR2(6)|0</DataType>
+    </column>
+    <column id="313" parent="78" name="UFLAG">
+      <Position>22</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="314" parent="78" name="ONEWAYCRID">
+      <Position>23</Position>
+      <DataType>VARCHAR2(13)|0</DataType>
+    </column>
+    <column id="315" parent="78" name="ACCESSCRID">
+      <Position>24</Position>
+      <DataType>VARCHAR2(13)|0</DataType>
+    </column>
+    <column id="316" parent="78" name="SPEEDCLASS">
+      <Position>25</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="317" parent="78" name="LANENUMS2E">
+      <Position>26</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="318" parent="78" name="LANENUME2S">
+      <Position>27</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="319" parent="78" name="LANENUM">
+      <Position>28</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="320" parent="78" name="VEHCL_TYPE">
+      <Position>29</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <column id="321" parent="78" name="ELEVATED">
+      <Position>30</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="322" parent="78" name="STRUCTURE">
+      <Position>31</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="323" parent="78" name="USEFEECRID">
+      <Position>32</Position>
+      <DataType>VARCHAR2(13)|0</DataType>
+    </column>
+    <column id="324" parent="78" name="USEFEETYPE">
+      <Position>33</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="325" parent="78" name="SPDLMTS2E">
+      <Position>34</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="326" parent="78" name="SPDLMTE2S">
+      <Position>35</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="327" parent="78" name="SPDSRCS2E">
+      <Position>36</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="328" parent="78" name="SPDSRCE2S">
+      <Position>37</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="329" parent="78" name="DC_TYPE">
+      <Position>38</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="330" parent="78" name="NOPASSCRID">
+      <Position>39</Position>
+      <DataType>VARCHAR2(13)|0</DataType>
+    </column>
+    <column id="331" parent="78" name="EDITDATE">
+      <Position>40</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <column id="332" parent="78" name="COORDINATES">
+      <Position>41</Position>
+      <DataType>CLOB|0</DataType>
+    </column>
+    <index id="333" parent="78" name="R_ID_INDEX">
+      <ObjectId>250713</ObjectId>
+      <CreatedTimestamp>2017-07-12.11:39:43</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-12.11:39:43</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>ID</ColNames>
+    </index>
+    <column id="334" parent="79" name="MAPID">
+      <Position>1</Position>
+      <DataType>VARCHAR2(8)|0</DataType>
+      <DefaultExpression>NULL</DefaultExpression>
+    </column>
+    <column id="335" parent="79" name="ID">
+      <Position>2</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <column id="336" parent="79" name="KIND_NUM">
+      <Position>3</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="337" parent="79" name="KIND">
+      <Position>4</Position>
+      <DataType>VARCHAR2(30)|0</DataType>
+    </column>
+    <column id="338" parent="79" name="WIDTH">
+      <Position>5</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="339" parent="79" name="DIRECTION">
+      <Position>6</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="340" parent="79" name="TOLL">
+      <Position>7</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="341" parent="79" name="CONST_ST">
+      <Position>8</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="342" parent="79" name="UNDCONCRID">
+      <Position>9</Position>
+      <DataType>VARCHAR2(13)|0</DataType>
+    </column>
+    <column id="343" parent="79" name="SNODEID">
+      <Position>10</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <column id="344" parent="79" name="ENODEID">
+      <Position>11</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <column id="345" parent="79" name="FUNCCLASS">
+      <Position>12</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="346" parent="79" name="LENGTH">
+      <Position>13</Position>
+      <DataType>NUMBER(6,3)|0</DataType>
+    </column>
+    <column id="347" parent="79" name="DETAILCITY">
+      <Position>14</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="348" parent="79" name="THROUGH">
+      <Position>15</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="349" parent="79" name="UNTHRUCRID">
+      <Position>16</Position>
+      <DataType>VARCHAR2(13)|0</DataType>
+    </column>
+    <column id="350" parent="79" name="OWNERSHIP">
+      <Position>17</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="351" parent="79" name="ROAD_COND">
+      <Position>18</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="352" parent="79" name="SPECIAL">
+      <Position>19</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="353" parent="79" name="ADMINCODEL">
+      <Position>20</Position>
+      <DataType>VARCHAR2(6)|0</DataType>
+    </column>
+    <column id="354" parent="79" name="ADMINCODER">
+      <Position>21</Position>
+      <DataType>VARCHAR2(6)|0</DataType>
+    </column>
+    <column id="355" parent="79" name="UFLAG">
+      <Position>22</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="356" parent="79" name="ONEWAYCRID">
+      <Position>23</Position>
+      <DataType>VARCHAR2(13)|0</DataType>
+    </column>
+    <column id="357" parent="79" name="ACCESSCRID">
+      <Position>24</Position>
+      <DataType>VARCHAR2(13)|0</DataType>
+    </column>
+    <column id="358" parent="79" name="SPEEDCLASS">
+      <Position>25</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="359" parent="79" name="LANENUMS2E">
+      <Position>26</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="360" parent="79" name="LANENUME2S">
+      <Position>27</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="361" parent="79" name="LANENUM">
+      <Position>28</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="362" parent="79" name="VEHCL_TYPE">
+      <Position>29</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <column id="363" parent="79" name="ELEVATED">
+      <Position>30</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="364" parent="79" name="STRUCTURE">
+      <Position>31</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="365" parent="79" name="USEFEECRID">
+      <Position>32</Position>
+      <DataType>VARCHAR2(13)|0</DataType>
+    </column>
+    <column id="366" parent="79" name="USEFEETYPE">
+      <Position>33</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="367" parent="79" name="SPDLMTS2E">
+      <Position>34</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="368" parent="79" name="SPDLMTE2S">
+      <Position>35</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="369" parent="79" name="SPDSRCS2E">
+      <Position>36</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="370" parent="79" name="SPDSRCE2S">
+      <Position>37</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="371" parent="79" name="DC_TYPE">
+      <Position>38</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="372" parent="79" name="NOPASSCRID">
+      <Position>39</Position>
+      <DataType>VARCHAR2(13)|0</DataType>
+    </column>
+    <column id="373" parent="79" name="EDITDATE">
+      <Position>40</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <column id="374" parent="79" name="COORDINATES">
+      <Position>41</Position>
+      <DataType>CLOB|0</DataType>
+    </column>
+    <index id="375" parent="79" name="RAYS_MAP_ROAD_INDEX">
+      <ObjectId>250074</ObjectId>
+      <CreatedTimestamp>2017-07-06.10:21:14</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-06.10:21:14</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>ID</ColNames>
+    </index>
+    <column id="376" parent="80" name="MAPID">
+      <Position>1</Position>
+      <DataType>VARCHAR2(8)|0</DataType>
+    </column>
+    <column id="377" parent="80" name="ID">
+      <Position>2</Position>
+      <DataType>VARCHAR2(13)|0</DataType>
+    </column>
+    <column id="378" parent="80" name="ROUTE_ID">
+      <Position>3</Position>
+      <DataType>VARCHAR2(13)|0</DataType>
+    </column>
+    <column id="379" parent="80" name="NAME_KIND">
+      <Position>4</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="380" parent="80" name="NAME_TYPE">
+      <Position>5</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="381" parent="80" name="SEQ_NM">
+      <Position>6</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="382" parent="80" name="EDITDATE">
+      <Position>7</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <index id="383" parent="80" name="R_LNAME_ID_INDEX">
+      <ObjectId>250711</ObjectId>
+      <CreatedTimestamp>2017-07-12.11:38:54</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-12.11:38:54</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>ID</ColNames>
+    </index>
+    <index id="384" parent="80" name="R_LNAME_ROUTE_ID_INDEX">
+      <ObjectId>250793</ObjectId>
+      <CreatedTimestamp>2017-07-13.11:06:18</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-13.11:06:18</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>ROUTE_ID</ColNames>
+    </index>
+    <column id="385" parent="81" name="ROUTE_ID">
+      <Position>1</Position>
+      <DataType>VARCHAR2(13)|0</DataType>
+    </column>
+    <column id="386" parent="81" name="ROUTE_KIND">
+      <Position>2</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="387" parent="81" name="PATHNAME">
+      <Position>3</Position>
+      <DataType>VARCHAR2(60)|0</DataType>
+    </column>
+    <column id="388" parent="81" name="PATHPY">
+      <Position>4</Position>
+      <DataType>VARCHAR2(160)|0</DataType>
+    </column>
+    <column id="389" parent="81" name="PRENAME">
+      <Position>5</Position>
+      <DataType>VARCHAR2(6)|0</DataType>
+    </column>
+    <column id="390" parent="81" name="PREPY">
+      <Position>6</Position>
+      <DataType>VARCHAR2(20)|0</DataType>
+    </column>
+    <column id="391" parent="81" name="BASENAME">
+      <Position>7</Position>
+      <DataType>VARCHAR2(60)|0</DataType>
+    </column>
+    <column id="392" parent="81" name="BASEPY">
+      <Position>8</Position>
+      <DataType>VARCHAR2(160)|0</DataType>
+    </column>
+    <column id="393" parent="81" name="STTPNAME">
+      <Position>9</Position>
+      <DataType>VARCHAR2(15)|0</DataType>
+    </column>
+    <column id="394" parent="81" name="STTPPY">
+      <Position>10</Position>
+      <DataType>VARCHAR2(30)|0</DataType>
+    </column>
+    <column id="395" parent="81" name="SURNAME">
+      <Position>11</Position>
+      <DataType>VARCHAR2(6)|0</DataType>
+    </column>
+    <column id="396" parent="81" name="SURPY">
+      <Position>12</Position>
+      <DataType>VARCHAR2(20)|0</DataType>
+    </column>
+    <column id="397" parent="81" name="WAVNAME">
+      <Position>13</Position>
+      <DataType>VARCHAR2(160)|0</DataType>
+    </column>
+    <column id="398" parent="81" name="LANGUAGE">
+      <Position>14</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="399" parent="81" name="STTPLOC">
+      <Position>15</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="400" parent="81" name="EDITDATE">
+      <Position>16</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <index id="401" parent="81" name="R_NAME_ROUTE_ID_INDEX">
+      <ObjectId>250714</ObjectId>
+      <CreatedTimestamp>2017-07-12.11:40:16</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-12.11:40:16</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>ROUTE_ID</ColNames>
+    </index>
+    <index id="402" parent="81" name="R_NAME_PATHNAME_INDEX">
+      <ObjectId>254033</ObjectId>
+      <CreatedTimestamp>2017-08-14.10:54:29</CreatedTimestamp>
+      <ModifiedTimestamp>2017-08-14.10:54:29</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>PATHNAME</ColNames>
+    </index>
+    <column id="403" parent="82" name="MAPID">
+      <Position>1</Position>
+      <DataType>VARCHAR2(8)|0</DataType>
+    </column>
+    <column id="404" parent="82" name="ID">
+      <Position>2</Position>
+      <DataType>VARCHAR2(13)|0</DataType>
+    </column>
+    <column id="405" parent="82" name="ZONEID">
+      <Position>3</Position>
+      <DataType>VARCHAR2(13)|0</DataType>
+    </column>
+    <column id="406" parent="82" name="SIDE">
+      <Position>4</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="407" parent="82" name="ZTYPE">
+      <Position>5</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="408" parent="82" name="EDITDATE">
+      <Position>6</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <index id="409" parent="82" name="R_ZONE_ID_INDEX">
+      <ObjectId>250715</ObjectId>
+      <CreatedTimestamp>2017-07-12.11:40:39</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-12.11:40:39</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>ID</ColNames>
+    </index>
+    <column id="410" parent="83" name="DATE_TIME">
+      <Position>1</Position>
+      <DataType>DATE|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="411" parent="83" name="LINE_NO">
+      <Position>2</Position>
+      <DataType>VARCHAR2(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="412" parent="83" name="DIRECTION">
+      <Position>3</Position>
+      <DataType>NUMBER(1)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="413" parent="83" name="SPEED">
+      <Position>4</Position>
+      <Comment>速度</Comment>
+      <DataType>NUMBER(4,1)|0</DataType>
+    </column>
+    <column id="414" parent="83" name="CONGESTION">
+      <Position>5</Position>
+      <Comment>指数</Comment>
+      <DataType>NUMBER(4,1)|0</DataType>
+    </column>
+    <column id="415" parent="83" name="DISTANCE_LV1">
+      <Position>6</Position>
+      <Comment>畅通距离</Comment>
+      <DataType>NUMBER(6,1)|0</DataType>
+    </column>
+    <column id="416" parent="83" name="DISTANCE_LV2">
+      <Position>7</Position>
+      <DataType>NUMBER(6,1)|0</DataType>
+    </column>
+    <column id="417" parent="83" name="DISTANCE_LV3">
+      <Position>8</Position>
+      <DataType>NUMBER(6,1)|0</DataType>
+    </column>
+    <column id="418" parent="83" name="DISTANCE_LV4">
+      <Position>9</Position>
+      <DataType>NUMBER(6,1)|0</DataType>
+    </column>
+    <column id="419" parent="83" name="DISTANCE_LV5">
+      <Position>10</Position>
+      <Comment>严重拥堵距离</Comment>
+      <DataType>NUMBER(6,1)|0</DataType>
+    </column>
+    <column id="420" parent="83" name="CONVOY">
+      <Position>11</Position>
+      <DataType>VARCHAR2(15)|0</DataType>
+    </column>
+    <column id="421" parent="83" name="COMPANY">
+      <Position>12</Position>
+      <DataType>VARCHAR2(15)|0</DataType>
+    </column>
+    <index id="422" parent="83" name="SYS_C0031633">
+      <ObjectId>247485</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2017-06-09.17:38:19</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-10.16:07:38</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>DATE_TIME
+LINE_NO
+DIRECTION</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="423" parent="83" name="SYS_C0031633">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2017-06-09.17:38:19</ModifiedTimestamp>
+      <ColNames>DATE_TIME
+LINE_NO
+DIRECTION</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0031633</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="424" parent="84" name="DATE_TIME">
+      <Position>1</Position>
+      <DataType>DATE|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="425" parent="84" name="ORG_ID">
+      <Position>2</Position>
+      <DataType>VARCHAR2(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="426" parent="84" name="SPEED">
+      <Position>3</Position>
+      <DataType>NUMBER(4,1)|0</DataType>
+    </column>
+    <column id="427" parent="84" name="CONGESTION">
+      <Position>4</Position>
+      <DataType>NUMBER(4,1)|0</DataType>
+    </column>
+    <column id="428" parent="84" name="DISTANCE_LV1">
+      <Position>5</Position>
+      <DataType>NUMBER(6,1)|0</DataType>
+    </column>
+    <column id="429" parent="84" name="DISTANCE_LV2">
+      <Position>6</Position>
+      <DataType>NUMBER(6,1)|0</DataType>
+    </column>
+    <column id="430" parent="84" name="DISTANCE_LV3">
+      <Position>7</Position>
+      <DataType>NUMBER(6,1)|0</DataType>
+    </column>
+    <column id="431" parent="84" name="DISTANCE_LV4">
+      <Position>8</Position>
+      <DataType>NUMBER(6,1)|0</DataType>
+    </column>
+    <column id="432" parent="84" name="DISTANCE_LV5">
+      <Position>9</Position>
+      <DataType>NUMBER(6,1)|0</DataType>
+    </column>
+    <index id="433" parent="84" name="SYS_C0031625">
+      <ObjectId>247474</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2017-06-09.15:52:35</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-09.15:52:35</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>DATE_TIME
+ORG_ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="434" parent="84" name="SYS_C0031625">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2017-06-09.15:52:35</ModifiedTimestamp>
+      <ColNames>DATE_TIME
+ORG_ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0031625</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="435" parent="85" name="DATE_TIME">
+      <Position>1</Position>
+      <DataType>NUMBER(8)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="436" parent="85" name="NAME">
+      <Position>2</Position>
+      <DataType>VARCHAR2(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="437" parent="85" name="UP">
+      <Position>3</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="438" parent="85" name="PERCENT">
+      <Position>4</Position>
+      <Comment>全网占比,没乘100</Comment>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <index id="439" parent="85" name="SYS_C0031860">
+      <ObjectId>248642</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2017-06-23.16:41:30</CreatedTimestamp>
+      <ModifiedTimestamp>2017-06-23.16:41:30</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>DATE_TIME
+NAME</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="440" parent="85" name="SYS_C0031860">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2017-06-23.16:41:30</ModifiedTimestamp>
+      <ColNames>DATE_TIME
+NAME</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0031860</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="441" parent="86" name="DATE_TIME">
+      <Position>1</Position>
+      <DataType>DATE|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="442" parent="87" name="DATE_TIME">
+      <Position>1</Position>
+      <DataType>DATE|0</DataType>
+    </column>
+    <column id="443" parent="87" name="NAME">
+      <Position>2</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <column id="444" parent="87" name="SEX">
+      <Position>3</Position>
+      <DataType>NUMBER(1)|0</DataType>
+    </column>
+    <column id="445" parent="87" name="AGE">
+      <Position>4</Position>
+      <DataType>NUMBER(4)|0</DataType>
+    </column>
+    <column id="446" parent="87" name="MONEY">
+      <Position>5</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="447" parent="87" name="TS">
+      <Position>6</Position>
+      <DataType>TIMESTAMP(6)|0</DataType>
+    </column>
+    <column id="448" parent="88" name="CKZDID">
+      <Position>1</Position>
+      <DataType>VARCHAR2(60)|0</DataType>
+    </column>
+    <column id="449" parent="88" name="CKZDIDO">
+      <Position>2</Position>
+      <DataType>VARCHAR2(60)|0</DataType>
+    </column>
+    <column id="450" parent="88" name="UUID">
+      <Position>3</Position>
+      <DataType>VARCHAR2(60)|0</DataType>
+    </column>
+    <column id="451" parent="88" name="CENTROIDX">
+      <Position>4</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="452" parent="88" name="CENTROIDY">
+      <Position>5</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="453" parent="88" name="NAME">
+      <Position>6</Position>
+      <DataType>VARCHAR2(128)|0</DataType>
+    </column>
+    <column id="454" parent="88" name="MARK">
+      <Position>7</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="455" parent="88" name="DATAID">
+      <Position>8</Position>
+      <DataType>VARCHAR2(128)|0</DataType>
+    </column>
+    <column id="456" parent="88" name="LINENAME">
+      <Position>9</Position>
+      <DataType>VARCHAR2(128)|0</DataType>
+    </column>
+    <column id="457" parent="88" name="STATIONINDEX">
+      <Position>10</Position>
+      <DataType>NUMBER(5)|0</DataType>
+    </column>
+    <column id="458" parent="88" name="NODEINDEX">
+      <Position>11</Position>
+      <DataType>NUMBER(10)|0</DataType>
+    </column>
+    <column id="459" parent="88" name="COMPANY">
+      <Position>12</Position>
+      <DataType>VARCHAR2(10)|0</DataType>
+    </column>
+    <column id="460" parent="88" name="PICTURE">
+      <Position>13</Position>
+      <DataType>VARCHAR2(100)|0</DataType>
+    </column>
+    <column id="461" parent="88" name="REGIONALISM">
+      <Position>14</Position>
+      <DataType>NUMBER(10)|0</DataType>
+    </column>
+    <column id="462" parent="88" name="RINGPOSITION">
+      <Position>15</Position>
+      <DataType>NUMBER(10)|0</DataType>
+    </column>
+    <column id="463" parent="88" name="ISINMAINROAD">
+      <Position>16</Position>
+      <DataType>NUMBER(10)|0</DataType>
+    </column>
+    <column id="464" parent="88" name="DIRECTION">
+      <Position>17</Position>
+      <DataType>NUMBER(10)|0</DataType>
+    </column>
+    <column id="465" parent="88" name="STAPOS">
+      <Position>18</Position>
+      <DataType>NUMBER(10)|0</DataType>
+    </column>
+    <column id="466" parent="88" name="ISVIDEO">
+      <Position>19</Position>
+      <DataType>NUMBER(1)|0</DataType>
+    </column>
+    <column id="467" parent="88" name="UPDATETIME">
+      <Position>20</Position>
+      <DataType>DATE|0</DataType>
+    </column>
+    <column id="468" parent="88" name="STATIONNUM">
+      <Position>21</Position>
+      <DataType>NUMBER(10)|0</DataType>
+    </column>
+    <column id="469" parent="88" name="ISLED">
+      <Position>22</Position>
+      <DataType>NUMBER(1)|0</DataType>
+    </column>
+    <column id="470" parent="88" name="USERNAME">
+      <Position>23</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="471" parent="88" name="CZBH">
+      <Position>24</Position>
+      <DataType>VARCHAR2(255)|0</DataType>
+    </column>
+    <column id="472" parent="88" name="FXJ">
+      <Position>25</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="473" parent="88" name="UPDATE_NUM">
+      <Position>26</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="474" parent="88" name="ISCITYAREA">
+      <Position>27</Position>
+      <DataType>NUMBER(1)|0</DataType>
+    </column>
+    <column id="475" parent="88" name="PREDISTANCE">
+      <Position>28</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="476" parent="88" name="NEXTDISTANCE">
+      <Position>29</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="477" parent="88" name="TOPDISTANCE">
+      <Position>30</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="478" parent="88" name="PID">
+      <Position>31</Position>
+      <DataType>VARCHAR2(20)|0</DataType>
+    </column>
+    <column id="479" parent="88" name="STATIONTYPE">
+      <Position>32</Position>
+      <DataType>VARCHAR2(3)|0</DataType>
+    </column>
+    <column id="480" parent="88" name="SYNCTIME">
+      <Position>33</Position>
+      <DataType>VARCHAR2(60)|0</DataType>
+    </column>
+    <column id="481" parent="88" name="PUSHDATE">
+      <Position>34</Position>
+      <DataType>VARCHAR2(60)|0</DataType>
+    </column>
+    <column id="482" parent="88" name="BUSSTATIONID">
+      <Position>35</Position>
+      <DataType>VARCHAR2(60)|0</DataType>
+    </column>
+    <column id="483" parent="88" name="ICSUBSTATIONNUM">
+      <Position>36</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="484" parent="88" name="DIRTAG">
+      <Position>37</Position>
+      <DataType>VARCHAR2(60)|0</DataType>
+    </column>
+    <column id="485" parent="88" name="BRIDGEUP">
+      <Position>38</Position>
+      <DataType>VARCHAR2(60)|0</DataType>
+    </column>
+    <column id="486" parent="88" name="FRISTSTATION">
+      <Position>39</Position>
+      <DataType>VARCHAR2(60)|0</DataType>
+    </column>
+    <column id="487" parent="88" name="BRIDGEDOWN">
+      <Position>40</Position>
+      <DataType>VARCHAR2(60)|0</DataType>
+    </column>
+    <column id="488" parent="88" name="LASTSTATION">
+      <Position>41</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="489" parent="88" name="BZSTATIONNUM">
+      <Position>42</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="490" parent="88" name="APPROACHDISTANCE">
+      <Position>43</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="491" parent="88" name="DEPARTDISTANCE">
+      <Position>44</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="492" parent="88" name="SECTIONTIME">
+      <Position>45</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="493" parent="88" name="ICSTATIONNUM">
+      <Position>46</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="494" parent="88" name="SPEEDLIMIT">
+      <Position>47</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="495" parent="88" name="PRICEKM">
+      <Position>48</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="496" parent="88" name="LINEID">
+      <Position>49</Position>
+      <DataType>VARCHAR2(128)|0</DataType>
+    </column>
+    <column id="497" parent="88" name="CHECKNUM">
+      <Position>50</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="498" parent="88" name="XGSJ">
+      <Position>51</Position>
+      <DataType>VARCHAR2(60)|0</DataType>
+    </column>
+    <column id="499" parent="88" name="FLAG_NEW">
+      <Position>52</Position>
+      <DataType>VARCHAR2(60)|0</DataType>
+    </column>
+    <column id="500" parent="88" name="XLSXXID">
+      <Position>53</Position>
+      <DataType>VARCHAR2(60)|0</DataType>
+    </column>
+    <column id="501" parent="88" name="SXXBS">
+      <Position>54</Position>
+      <DataType>VARCHAR2(60)|0</DataType>
+    </column>
+    <column id="502" parent="88" name="CKXLID">
+      <Position>55</Position>
+      <DataType>VARCHAR2(60)|0</DataType>
+    </column>
+    <column id="503" parent="88" name="CKZWID">
+      <Position>56</Position>
+      <DataType>VARCHAR2(60)|0</DataType>
+    </column>
+    <column id="504" parent="89" name="DATETIME">
+      <Position>1</Position>
+      <Comment>日期</Comment>
+      <DataType>DATE|0</DataType>
+    </column>
+    <column id="505" parent="89" name="ORDERNO">
+      <Position>2</Position>
+      <Comment>序号</Comment>
+      <DataType>NUMBER(2)|0</DataType>
+    </column>
+    <column id="506" parent="89" name="TRANSFERMODEL">
+      <Position>3</Position>
+      <Comment>换乘方式</Comment>
+      <DataType>VARCHAR2(30)|0</DataType>
+    </column>
+    <column id="507" parent="89" name="TOTALCOUNT">
+      <Position>4</Position>
+      <Comment>出行链人次</Comment>
+      <DataType>NUMBER(12)|0</DataType>
+    </column>
+    <column id="508" parent="89" name="RATES">
+      <Position>5</Position>
+      <Comment>人次占比</Comment>
+      <DataType>VARCHAR2(10)|0</DataType>
+    </column>
+    <column id="509" parent="89" name="TOTALDISTANCE">
+      <Position>6</Position>
+      <Comment>总乘距(km)</Comment>
+      <DataType>NUMBER(12,2)|0</DataType>
+    </column>
+    <column id="510" parent="89" name="TOTALTIME">
+      <Position>7</Position>
+      <Comment>总乘时(min)</Comment>
+      <DataType>NUMBER(12,2)|0</DataType>
+    </column>
+    <column id="511" parent="89" name="AVGDISTANCE">
+      <Position>8</Position>
+      <Comment>平均乘距(km)</Comment>
+      <DataType>NUMBER(8,2)|0</DataType>
+    </column>
+    <column id="512" parent="89" name="AVGTIME">
+      <Position>9</Position>
+      <Comment>平均乘时(min)</Comment>
+      <DataType>NUMBER(8,2)|0</DataType>
+    </column>
+    <column id="513" parent="90" name="DATETIME">
+      <Position>1</Position>
+      <Comment>日期(取年月)</Comment>
+      <DataType>DATE|0</DataType>
+    </column>
+    <column id="514" parent="90" name="ORDERNO">
+      <Position>2</Position>
+      <Comment>序号</Comment>
+      <DataType>NUMBER(2)|0</DataType>
+    </column>
+    <column id="515" parent="90" name="TRANSFERMODEL">
+      <Position>3</Position>
+      <Comment>换乘方式</Comment>
+      <DataType>VARCHAR2(30)|0</DataType>
+    </column>
+    <column id="516" parent="90" name="TOTALCOUNT">
+      <Position>4</Position>
+      <Comment>出行链人次</Comment>
+      <DataType>NUMBER(16)|0</DataType>
+    </column>
+    <column id="517" parent="90" name="RATES">
+      <Position>5</Position>
+      <Comment>人次占比</Comment>
+      <DataType>VARCHAR2(20)|0</DataType>
+    </column>
+    <column id="518" parent="90" name="TOTALDISTANCE">
+      <Position>6</Position>
+      <Comment>总乘距(km)</Comment>
+      <DataType>NUMBER(16,2)|0</DataType>
+    </column>
+    <column id="519" parent="90" name="TOTALTIME">
+      <Position>7</Position>
+      <Comment>总乘时(min)</Comment>
+      <DataType>NUMBER(16,2)|0</DataType>
+    </column>
+    <column id="520" parent="90" name="AVGDISTANCE">
+      <Position>8</Position>
+      <Comment>平均乘距(km)</Comment>
+      <DataType>NUMBER(12,2)|0</DataType>
+    </column>
+    <column id="521" parent="90" name="AVGTIME">
+      <Position>9</Position>
+      <Comment>平均乘时(min)</Comment>
+      <DataType>NUMBER(12,2)|0</DataType>
+    </column>
+    <column id="522" parent="91" name="XLDM">
+      <Position>1</Position>
+      <DataType>NVARCHAR2(50)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="523" parent="91" name="XLMC">
+      <Position>2</Position>
+      <DataType>NVARCHAR2(100)|0</DataType>
+    </column>
+    <column id="524" parent="91" name="LINEJGID">
+      <Position>3</Position>
+      <DataType>NUMBER(18)|0</DataType>
+    </column>
+    <column id="525" parent="91" name="CONID">
+      <Position>4</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="526" parent="91" name="CON_MANE">
+      <Position>5</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="527" parent="91" name="COMID">
+      <Position>6</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="528" parent="91" name="COM_NAME">
+      <Position>7</Position>
+      <DataType>VARCHAR2(200)|0</DataType>
+    </column>
+    <column id="529" parent="91" name="PX_2">
+      <Position>8</Position>
+      <DataType>VARCHAR2(20)|0</DataType>
+    </column>
+    <column id="530" parent="91" name="PX_3">
+      <Position>9</Position>
+      <DataType>VARCHAR2(20)|0</DataType>
+    </column>
+    <column id="531" parent="91" name="PX_4">
+      <Position>10</Position>
+      <DataType>VARCHAR2(20)|0</DataType>
+    </column>
+    <index id="532" parent="91" name="SYS_C0032067">
+      <ObjectId>249965</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2017-07-05.18:29:25</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-05.18:29:25</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>XLDM</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="533" parent="91" name="SYS_C0032067">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2017-07-05.18:29:25</ModifiedTimestamp>
+      <ColNames>XLDM</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0032067</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="534" parent="92" name="CKXLZDID">
+      <Position>1</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="535" parent="92" name="WGS84_LONG">
+      <Position>2</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="536" parent="92" name="WGS84_LAT">
+      <Position>3</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="537" parent="92" name="BAIDU_LONG">
+      <Position>4</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="538" parent="92" name="BAIDU_LAT">
+      <Position>5</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="539" parent="92" name="DISTRICT_ID">
+      <Position>6</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="540" parent="92" name="B_GEO_5">
+      <Position>7</Position>
+      <DataType>CHAR(5)|0</DataType>
+    </column>
+    <column id="541" parent="92" name="B_GEO_6">
+      <Position>8</Position>
+      <DataType>CHAR(6)|0</DataType>
+    </column>
+    <column id="542" parent="92" name="B_GEO_7">
+      <Position>9</Position>
+      <DataType>CHAR(7)|0</DataType>
+    </column>
+    <index id="543" parent="92" name="ZD_DISTRICT_CKXLZDID_INDEX">
+      <ObjectId>254901</ObjectId>
+      <CreatedTimestamp>2017-08-22.12:30:24</CreatedTimestamp>
+      <ModifiedTimestamp>2017-08-22.12:30:24</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>CKXLZDID</ColNames>
+    </index>
+    <index id="544" parent="92" name="ZD_DISTRICT_BAIDU_LONG_INDEX">
+      <ObjectId>254906</ObjectId>
+      <CreatedTimestamp>2017-08-22.12:32:27</CreatedTimestamp>
+      <ModifiedTimestamp>2017-08-22.12:32:27</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>BAIDU_LONG</ColNames>
+    </index>
+    <index id="545" parent="92" name="ZD_DISTRICT_BAIDU_LAT_INDEX">
+      <ObjectId>254907</ObjectId>
+      <CreatedTimestamp>2017-08-22.12:32:36</CreatedTimestamp>
+      <ModifiedTimestamp>2017-08-22.12:32:36</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>BAIDU_LAT</ColNames>
+    </index>
+    <index id="546" parent="92" name="ZD_DISTRICT_DISTRICT_ID_INDEX">
+      <ObjectId>254902</ObjectId>
+      <CreatedTimestamp>2017-08-22.12:30:41</CreatedTimestamp>
+      <ModifiedTimestamp>2017-08-22.12:30:41</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>DISTRICT_ID</ColNames>
+    </index>
+    <index id="547" parent="92" name="ZD_DISTRICT_B_GEO_5_INDEX">
+      <ObjectId>254903</ObjectId>
+      <CreatedTimestamp>2017-08-22.12:30:57</CreatedTimestamp>
+      <ModifiedTimestamp>2017-08-22.12:30:57</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>B_GEO_5</ColNames>
+    </index>
+    <index id="548" parent="92" name="ZD_DISTRICT_B_GEO_6_INDEX">
+      <ObjectId>254904</ObjectId>
+      <CreatedTimestamp>2017-08-22.12:31:07</CreatedTimestamp>
+      <ModifiedTimestamp>2017-08-22.12:31:07</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>B_GEO_6</ColNames>
+    </index>
+    <index id="549" parent="92" name="ZD_DISTRICT_B_GEO_7_INDEX">
+      <ObjectId>254905</ObjectId>
+      <CreatedTimestamp>2017-08-22.12:31:16</CreatedTimestamp>
+      <ModifiedTimestamp>2017-08-22.12:31:16</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>B_GEO_7</ColNames>
+    </index>
+    <column id="550" parent="93" name="XLDM">
+      <Position>1</Position>
+      <DataType>VARCHAR2(10)|0</DataType>
+    </column>
+    <column id="551" parent="94" name="ZONENUM">
+      <Position>1</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="552" parent="94" name="ZONENAME">
+      <Position>2</Position>
+      <DataType>VARCHAR2(128)|0</DataType>
+    </column>
+    <column id="553" parent="94" name="SHAPE_LENG">
+      <Position>3</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="554" parent="94" name="SHAPE_AREA">
+      <Position>4</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="555" parent="94" name="TAZ_ZQ">
+      <Position>5</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="556" parent="94" name="REMARK">
+      <Position>6</Position>
+      <DataType>VARCHAR2(128)|0</DataType>
+    </column>
+    <column id="557" parent="94" name="REGION">
+      <Position>7</Position>
+      <DataType>VARCHAR2(128)|0</DataType>
+    </column>
+    <column id="558" parent="94" name="MI_PRINX">
+      <Position>8</Position>
+      <DataType>NUMBER(*)|0</DataType>
+    </column>
+    <column id="559" parent="94" name="COORDINATES">
+      <Position>9</Position>
+      <DataType>CLOB|0</DataType>
+    </column>
+    <column id="560" parent="95" name="MODEL">
+      <Position>1</Position>
+      <DataType>VARCHAR2(20)|0</DataType>
+    </column>
+    <column id="561" parent="95" name="DAY">
+      <Position>2</Position>
+      <DataType>NUMBER(8)|0</DataType>
+    </column>
+    <column id="562" parent="95" name="TIME">
+      <Position>3</Position>
+      <DataType>NUMBER(6)|0</DataType>
+    </column>
+    <column id="563" parent="95" name="STATION_UP">
+      <Position>4</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <column id="564" parent="95" name="STATION_DOWN">
+      <Position>5</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+    </column>
+    <column id="565" parent="95" name="OD">
+      <Position>6</Position>
+      <DataType>NUMBER(10)|0</DataType>
+    </column>
+    <index id="566" parent="95" name="SQ_OD_INDEX">
+      <ObjectId>251140</ObjectId>
+      <CreatedTimestamp>2017-07-17.17:40:57</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-17.17:40:57</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>MODEL
+DAY
+TIME</ColNames>
+    </index>
+    <column id="567" parent="96" name="day">
+      <Position>1</Position>
+      <DataType>NUMBER(8)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="568" parent="96" name="time">
+      <Position>2</Position>
+      <DataType>NUMBER(6)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="569" parent="96" name="station">
+      <Position>3</Position>
+      <DataType>VARCHAR2(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="570" parent="96" name="up">
+      <Position>4</Position>
+      <DataType>NUMBER(10)|0</DataType>
+    </column>
+    <column id="571" parent="96" name="down">
+      <Position>5</Position>
+      <DataType>NUMBER(10)|0</DataType>
+    </column>
+    <index id="572" parent="96" name="SYS_C0032266">
+      <ObjectId>251138</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2017-07-17.16:25:43</CreatedTimestamp>
+      <ModifiedTimestamp>2017-07-17.16:25:43</ModifiedTimestamp>
+      <TablespaceName>RAYSDATA</TablespaceName>
+      <ColNames>day
+time
+station</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="573" parent="96" name="SYS_C0032266">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2017-07-17.16:25:43</ModifiedTimestamp>
+      <ColNames>day
+time
+station</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0032266</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <argument id="574" parent="97">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DataType>VARCHAR2|0</DataType>
+    </argument>
+    <argument id="575" parent="97" name="DT">
+      <DataType>DATE|0</DataType>
+    </argument>
+    <argument id="576" parent="98">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DataType>VARCHAR2|0</DataType>
+    </argument>
+    <argument id="577" parent="98" name="DT">
+      <DataType>DATE|0</DataType>
+    </argument>
+    <argument id="578" parent="99">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DataType>NUMBER|0</DataType>
+    </argument>
+    <argument id="579" parent="99" name="DT">
+      <DataType>DATE|0</DataType>
+    </argument>
+    <argument id="580" parent="100">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DataType>NUMBER|0</DataType>
+    </argument>
+    <argument id="581" parent="100" name="DT">
+      <DataType>DATE|0</DataType>
+    </argument>
+  </database-model>
+</dataSource>

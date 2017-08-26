@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=5XiOug3semCW2Fau6g3GKZ7P7UtBzWyf "></script>
+</head>
+<style>
+body{ width:1300px; font-size: 12px;}
+textarea{ width:250px; height:550px; float:left;}
+.btn{float:left;}
+input { display:block; width:50px; margin:10px;margin-top:20px; height:60px; font-size:12px; white-space:inherit;}
+.order{ width:50px; margin: 10px;}
+.order input,.order select,.order p {width:100%; height:20px; text-align: center; margin:0; margin-top:10px; line-height: 20px;}
+#container{ float:left; height:100%; width:970px;}
+
+</style>
+<body>
+<textarea id="text">116.554019,39.965782,
+116.4788,40.000301,
+116.411986,40.04521,
+117.005559,39.761179,
+116.692502,40.282579,
+116.392969,40.00222,
+116.709496,40.170397,
+117.227849,39.387623,
+116.855569,40.363378,
+116.63058,40.318541,
+116.152664,40.117042,
+116.248108,39.959174,
+116.636438,39.905946,
+116.281641,40.058477,
+</textarea>
+<div class="btn">
+	<div class="order" id="order">
+		<p>图形大小</p>
+		<select>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3" selected>3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+		</select>
+		<p>图形样式</p>
+		<select>			
+			<option value="圆形" selected>圆形</option>
+			<option value="星形">星形</option>
+			<option value="方形">方形</option>
+			<option value="菱形">菱形</option>
+			<option value="水滴状">水滴状</option>
+		</select>
+		<p>图形颜色</p>
+		<input type="text" value="#d340c3">
+	</div>
+
+
+	<input type="button" value="GIS坐标添加" onclick="change('GIS')"/>
+	<input type="button" value="百度坐标添加" onclick="change('baidu')"/>
+	<input type="button" value="清除覆盖物" onclick="change('gaode')" />
+</div>
+<div id="container" style="height:700px;"></div>
+</body>
+</html>
+<script src="js/Bustool.js"></script>
+<script src="js/MyLight.js"></script>
+<script src="js/messageOverlay.js"></script>
+<script>
+	map = new BMap.Map("container");    // 创建Map实例
+	map.centerAndZoom(new BMap.Point(116.404, 39.915), 12);  // 初始化地图,设置中心点坐标和地图级别
+	//map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
+	map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+	map.enableScrollWheelZoom(true);   //让地图随滚轮缩放
+	map.addControl(new BMap.NavigationControl(map));
+	
+	
+	var busTool=new Bustool(map);
+	
+	//第一种方法同步添加8000多个点。
+	
+	var oR=document.getElementById('order');
+	var ints=oR.getElementsByTagName('input');
+	var sele=oR.getElementsByTagName('select');
+	
+	function addIcon(points){
+
+		var types={
+					'圆形':BMAP_POINT_SHAPE_CIRCLE,
+					'星形':BMAP_POINT_SHAPE_STAR,
+					'方形':BMAP_POINT_SHAPE_SQUARE	,
+					'菱形':BMAP_POINT_SHAPE_RHOMBUS,
+					'水滴状':BMAP_POINT_SHAPE_WATERDROP
+		};
+		
+       var options = {
+            size: Number(sele[0].value),
+            shape: types[sele[1].value],
+            color: ints[0].value
+        }
+
+        
+        
+        console.log(JSON.stringify(options));
+        var pointCollection = new BMap.PointCollection(points, options);  // 初始化PointCollection
+        pointCollection.addEventListener('click', function (e) {
+          alert('单击点的坐标为：' + e.point.lng + ',' + e.point.lat);  // 监听点击事件
+        });
+        map.addOverlay(pointCollection);  // 添加Overlay
+	}
+	
+	
+	
+	
+	var click_bOk=false;
+	function change(type){
+		if(click_bOk)return;
+		click_bOk=true;
+		//map.clearOverlays();
+		var points=[];
+		var srcvalue=document.getElementById('text').value.replace(/[\n\s]/g,'');
+		var arr=srcvalue.split(',');
+		if(arr[arr.length-1]==''){arr.pop()}
+		for(var i=0;i<arr.length;i+=2){
+			var point=new BMap.Point(arr[i],arr[i+1]);
+			points.push(point);
+		}
+		if(type=='GIS'){
+			busTool.toBaiduPoint(points,function(arrpoints){
+				addIcon(arrpoints);
+				click_bOk=false;
+			});
+		}else if(type=='baidu'){
+			addIcon(points);
+			click_bOk=false;
+		}else if(type=='gaode'){
+			map.clearOverlays();
+			click_bOk=false;
+		}else{
+			click_bOk=false;
+		}
+	}
+	
+</script>

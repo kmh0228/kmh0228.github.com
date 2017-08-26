@@ -1,0 +1,11 @@
+
+
+
+/*
+ 
+ * 
+ *  npm install -g karma
+ * 
+ * 
+ * 
+ * */

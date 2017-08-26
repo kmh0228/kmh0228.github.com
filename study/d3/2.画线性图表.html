@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#container{background: #ccc; width:500px; height: 300px; margin: 20px auto;}
+			path{ fill:none; stroke: steelblue; stroke-width: 2;}
+			.domain,.tick line{ stroke: red; stroke-width: 1;}/*设置坐标线和刻度颜色*/
+		</style>
+		<script src="d3.3.10.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="container"></div>
+	</body>
+</html>
+<script type="text/javascript">
+	var width=500,
+		height=300,
+		margin={left:20,top:20,right:20,bottom:20},
+		g_width=width-margin.left-margin.right,
+		g_height=height-margin.top-margin.bottom;
+	
+	
+	var svg=d3.select("#container").append('svg').attr('width',width).attr('height',height);
+	
+	var g=svg .append('g').attr('transform','translate('+margin.left+','+margin.top+')');
+	
+	var data=[1,5,9,3,4,5,1];
+	
+	var scale_x=d3.scale.linear()
+		.domain([0,data.length-1])
+		.range([0,g_width]);
+	
+	var scale_y=d3.scale.linear()
+		.domain([0,d3.max(data)])
+		.range([g_height,0]);
+	
+	var line_gen=d3.svg.line()
+		.x(function(d,i){
+			return scale_x(i);
+		})
+		.y(function(d){
+			return scale_y(d);
+		})
+		.interpolate('cardinal');
+	
+	var path=g.append('path').attr('d',line_gen(data));
+	
+	var x_axis=d3.svg.axis().scale(scale_x);//定义x轴规则
+	var y_axis=d3.svg.axis().scale(scale_y).orient('left');//定义y轴规则
+	
+	var g_x=g.append('g').call(x_axis)//添加x轴
+		.attr('transform','translate(0,'+g_height+')');
+	
+	var g_y=g.append('g').call(y_axis)//添加y轴
+			.append('text').text('单位/卡路里')//加文字
+			.attr('transform','rotate(-90)')//旋转
+			.attr('text-anchor','end')//对齐方式
+			.attr('dy','1em');//y方向平移
+</script>
