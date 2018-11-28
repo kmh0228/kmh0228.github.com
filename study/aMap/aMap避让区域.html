@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>基本地图展示</title>
+    <style type="text/css">
+    	html,body,#container{width:100%;height: 100%; margin: 0; padding: 0;}
+    	#container{height:85%;}
+    	input[type="text"]{width:300px;}
+    	#del{ width:650px;}
+    </style>
+    <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
+    <script src="https://webapi.amap.com/maps?v=1.4.8&key=a9881b4a475f1947512e743d0464d1b6&plugin=AMap.Driving"></script>
+    <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+</head>
+<body>
+<div>起点: <input id="start" type="text" value="116.45562048551511,39.96010966312194"> &nbsp;&nbsp;&nbsp;
+ 终点: <input id="end" type="text" value="116.4843903544163,39.98469001027942"></div>
+<div>避让区域:<input type="text" id="del" value="116.462219,39.974258,116.476981,39.967812"></div>
+<input type="button" value="开始索引" id="btn"/>
+<div id="container"></div>
+<script>
+    var map = new AMap.Map('container', {
+        resizeEnable: true,
+        zoom:11,
+        center: [116.397428, 39.90923]
+    });
+    
+    var oStart = document.getElementById('start');
+    var oEnd = document.getElementById('end');
+    var oDel = document.getElementById('del');
+    var oBtn = document.getElementById('btn');
+    var rectangle;
+    var driving = new AMap.Driving({
+	        map: map,
+	        extensions:'all',
+	        policy:AMap.DrivingPolicy.LEAST_DISTANCE,
+	        //panel:opts.panel,
+	        showTraffic:false,
+	        isOutline:false
+	   }); 
+    
+    oBtn.onclick = function(){
+    	rectangle&&map.remove([rectangle]);
+    	driving.clear();
+    	var starts = oStart.value.split(',');
+    	var ends = oEnd.value.split(',');
+    	var dels = oDel.value.split(',');
+    	console.log(dels);
+    	rectangle = new AMap.Rectangle({map:map,bounds:new AMap.Bounds([dels[0],dels[3]],[dels[2],dels[1]])});
+		map.add([rectangle]);
+		driving.setAvoidPolygons([[[dels[0],dels[1]],[dels[2],dels[1]],[dels[2],dels[3]],[dels[0],dels[3]]]]);
+ 		driving.search(new AMap.LngLat(starts[0],starts[1]),new AMap.LngLat(ends[0],ends[1]));
+    };
+    
+
+</script>
+</body>
+</html>

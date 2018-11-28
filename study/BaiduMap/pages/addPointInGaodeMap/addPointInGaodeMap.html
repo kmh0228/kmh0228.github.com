@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=a9881b4a475f1947512e743d0464d1b6"></script>
+</head>
+<style>
+body{ width:1300px;}
+textarea{ width:250px; height:550px; float:left;}
+.btn{float:left;}
+input { display:block; width:50px; margin:10px;margin-top:200px; height:60px; font-size:12px; white-space:inherit;}
+
+#container{ float:left; height:100%; width:970px;}
+
+</style>
+<body>
+<textarea id="text">116.22708,39.912985,
+116.32708,39.922985</textarea>
+<div class="btn">
+<input type="button" value="(高德坐标)添加" onclick="change('gaode')"/>
+<!--<input style="margin-top:20px" type="button" value="(百度坐标)添加" onclick="change('baidu')"/>-->
+</div>
+<div id="container" style="height:700px;"></div>
+</body>
+</html>
+<script>
+	var map = new AMap.Map('container',{
+		resizeEnable: true,
+		zoom: 12,
+		center: [116.404, 39.915]
+	});
+	
+	
+	
+	function change(type){
+		map.clearMap();
+		var points=[];
+		var srcvalue=document.getElementById('text').value.replace(/[\n\s]/g,'');
+		var arr=srcvalue.split(',');
+		if(arr[arr.length-1]==''){arr.pop()}
+		for(var i=0;i<arr.length;i+=2){
+			var point=new AMap.LngLat(arr[i],arr[i+1]);
+			points.push(point);
+		}
+		if(type=='gaode'){
+			for(var i=0;i<points.length;i++){
+					(function(index){
+						
+		var marker = new AMap.Marker({
+            icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+            position: [points[index].lng, points[index].lat]
+        })
+		marker.setMap(map);
+		marker.setTitle(points[index].lng+' , '+points[index].lat);
+					})(i);
+			}
+		}
+	}
+	
+</script>

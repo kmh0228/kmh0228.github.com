@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			input{ margin: 2px;}
+			textarea{ width:800px;height: 400px; margin: 10px 2px;}
+			input[type="text"]{width:400px;}
+		</style>
+	</head>
+	<body>
+		<div>
+			介绍:
+			<input type="text" value="出行规律分析-月" id="jieshao"/>
+		</div>
+
+		<div>
+			接口名:
+			<input type="text" value="getTraveMonth" id="jiekou" />
+		</div>
+		<div>
+			类名:
+			<input type="text" value="TraveMonth" id="cla" />
+		</div>
+		<div>
+			请求的参数:
+			<input type="text" id="qingqiu" value="date" />
+		</div>
+		<div>
+			返回的参数:
+			<input type="text" id="return" value="type,num,pre,sumDis,sumTime,avgDis,avgTime" />
+		</div>
+		<div class="btns" id="btns">
+			<input type="button" value="第一步">
+			<input type="button" value="第二步">
+			<input type="button" value="第三步">
+			<input type="button" value="第四步">
+			<input type="button" value="第五步">
+			<input type="button" value="第六步">
+		</div>
+		<textarea id="textArea"></textarea>
+	</body>
+</html>
+<script type="text/javascript">
+	
+	var oBtn = document.getElementById('btns');
+	var aBtn = oBtn.getElementsByTagName('input');
+	var length = aBtn.length;
+	var oText = document.getElementById('textArea');
+	
+	for(var i=0;i<length;i++){
+		(function(index){
+			aBtn[index].addEventListener('click',function(){
+				showFoot(index);
+			});
+		})(i);
+	}
+	
+function ucfirst(str){
+var str = str.toLowerCase();
+var strarr = str.split(' ');
+var result = '';
+for(var i in strarr){
+result += strarr[i].substring(0,1).toUpperCase()+strarr[i].substring(1)+' ';
+}
+return result;
+}
+
+	
+	function showFoot(index){
+		var val = '';
+		var jieshao = document.getElementById('jieshao').value;
+		var jiekou = document.getElementById('jiekou').value;
+		var cla = document.getElementById('cla').value;
+		var qingqiu =document.getElementById('qingqiu').value;
+		var fanhui = document.getElementById('return').value;
+		
+		var qingqius = qingqiu?qingqiu.split(','):[];
+		var qingqiusLength = qingqius.length;
+		
+		var fanhuis = fanhui.split(',');
+		var fanhuisLength = fanhuis.length;
+		
+		
+		var date = new Date();
+		var year = date.getFullYear();
+		var month = date.getMonth()+1;
+		var da = date.getDate();
+		
+		
+		switch(index){
+			case 0:
+				val +='第一步：\r\n\
+在ReceiveService文件中添加如下代码\r\n\
+\r\n\
+    //查询 '+jieshao+'  by 赵明强 '+year+'/'+month+'/'+da+'\r\n\
+    @POST\r\n\
+    @Path("'+jiekou+'")\r\n\
+    @Produces(MediaType.APPLICATION_JSON)\r\n\
+    @Consumes(MediaType.APPLICATION_JSON)\r\n\
+    //@Consumes("application/json;charset=utf8")\r\n\
+    public void '+jiekou+' (@Suspended final AsyncResponse asyncResponse ,final CommonQuery data) {\r\n\
+        long start=System.currentTimeMillis();\r\n';
+        
+        for(var i=0; i<qingqiusLength;i++){
+        	val += '        String '+qingqius[i]+' = data.get'+ucfirst(qingqius[i])+'();\r\n';
+        }        
+        
+	val += '\r\n\
+       '+cla+'Result listInfo=null;\r\n\
+        try {\r\n\
+            listInfo = reportManager.get'+cla+'('+qingqiu+');\r\n\
+            log.info("get'+cla+'.count="+listInfo.getLines().size()+",usetime="+(System.currentTimeMillis()-start));\r\n\
+        } catch (Exception e) {\r\n\
+            e.printStackTrace();\r\n\
+            log.error("get'+cla+' error",e);\r\n\
+            asyncResponse.resume(new HttpBussinessException(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage()));\r\n\
+            return;\r\n\
+        }\r\n\
+        asyncResponse.resume(listInfo);\r\n\
+    }';
+			break;
+			case 1:
+				val +='第二步\r\n\
+在jersey>model文件夹里建立两个java文件\r\n\
+名称:'+cla+'\r\n\
+内容:\r\n\
+\r\n\
+package com.raysdata.bjbus.webservice.jersey.model;\r\n\
+\r\n\
+import javax.xml.bind.annotation.XmlElement;\r\n\
+import javax.xml.bind.annotation.XmlRootElement;\r\n\
+\r\n\
+/**\r\n\
+ *\r\n\
+ * Created by 赵明强 on '+year+'/'+month+'/'+da+'\r\n\
+ * 用于于接收sql查询的'+jieshao+'\r\n\
+ */\r\n\
+@XmlRootElement\r\n\
+public class '+cla+' implements java.io.Serializable {\r\n';
+
+for(var i=0;i<fanhuisLength;i++){
+	val +='    private String '+fanhuis[i]+';\r\n';
+}
+ 
+ val += '\r\n\
+    public '+cla+'() {\r\n\
+    }\r\n\
+\r\n\
+    public '+cla+'(';
+
+for(var i=0;i<fanhuisLength;i++){
+	if(!i){
+		val +='String '+fanhuis[i];
+	}else{
+		val +=', String '+fanhuis[i];
+	}	
+}
+
+val+=') {\r\n';
+
+for(var i=0;i<fanhuisLength;i++){
+	val+='        this.'+fanhuis[i]+' = '+fanhuis[i]+';\r\n';
+}
+
+val+='    }\r\n\
+\r\n';
+
+for(var i=0;i<fanhuisLength;i++){
+	val+='    @XmlElement(name="'+fanhuis[i]+'")\r\n\
+    public String get'+ucfirst(fanhuis[i])+'() {\r\n\
+        return '+fanhuis[i]+';\r\n\
+    }\r\n\
+    public void set'+ucfirst(fanhuis[i])+'(String '+fanhuis[i]+') {\r\n\
+        this.'+fanhuis[i]+' = '+fanhuis[i]+';\r\n\
+    }\r\n\
+\r\n';
+}
+ 
+val +='\r\n\
+    @Override\r\n\
+    public String toString() {\r\n\
+        return "'+cla+'{" +\r\n';
+       
+for(var i=0;i<fanhuisLength;i++){
+	if(!i){
+		val += '                "'+fanhuis[i]+'=\'" + '+fanhuis[i]+' + \'\\\'\' +\r\n';
+	}else{
+		val += '                ",'+fanhuis[i]+'=\'" + '+fanhuis[i]+' + \'\\\'\' +\r\n';		
+	}
+}
+       
+val += '                \'}\';\r\n\
+    }\r\n\
+}\r\n';
+		
+			break;			
+			case 2:
+			val +='第三步\r\n\
+在jersey>model文件夹里再建立一个java文件\r\n\
+名称:'+cla+'Result\r\n\
+内容:\r\n\
+\r\n\
+package com.raysdata.bjbus.webservice.jersey.model;\r\n\
+\r\n\
+import javax.xml.bind.annotation.XmlElement;\r\n\
+import javax.xml.bind.annotation.XmlRootElement;\r\n\
+import java.util.ArrayList;\r\n\
+import java.util.List;\r\n\
+\r\n\
+/**\r\n\
+ * Created by 赵明强 on '+year+'/'+month+'/'+da+'.\r\n\
+ * 返回给前端的 '+jieshao+'\r\n\
+ */\r\n\
+@XmlRootElement\r\n\
+public class '+cla+'Result implements java.io.Serializable {\r\n\
+    private List<'+cla+'> lines=new ArrayList<>();\r\n\
+    @XmlElement\r\n\
+    public List<'+cla+'> getLines() {\r\n\
+        return lines;\r\n\
+    }\r\n\
+\r\n\
+    public void setLines(List<'+cla+'> lines) {\r\n\
+        this.lines = lines;\r\n\
+    }\r\n\
+\r\n\
+    @Override\r\n\
+    public String toString() {\r\n\
+        return "{" +\r\n\
+                "lines=" + lines +\r\n\
+                \'}\';\r\n\
+    }\r\n\
+}\r\n';
+			break;
+			case 3:
+			val +='第四步\r\n\
+在manager>ReportManager 里添加如下代码\r\n\
+\r\n\
+    /**\r\n\
+     * 赵明强\r\n\
+     * 获取'+jieshao+'信息\r\n\
+     * @param :\r\n\
+     * @return list\r\n\
+     */\r\n\
+    public '+cla+'Result '+jiekou+'(';
+    	
+    for(var i=0;i<qingqiusLength;i++){
+    	if(!i){
+    		val+='String '+qingqius[i];
+    	}else{
+    		val+=',String '+qingqius[i];
+    	}
+    }
+    
+    
+    val+=') {\r\n\
+        Map<String, String> map = null;\r\n\
+        //Map<String, String> map =redisManager.getHashObj(Global.REDIS_KEY_COMPANY);\r\n\
+        '+cla+'Result result=new '+cla+'Result();\r\n\
+        List<'+cla+'> list = reportMapper.get'+cla+'('+qingqiu+');\r\n\
+        if (list==null){\r\n\
+            list=new ArrayList<>();\r\n\
+        }\r\n\
+        result.setLines(list);\r\n\
+        //redisManager.saveRedisHashList(list2,Global.REDIS_KEY_COMPANY);\r\n\
+        return result;\r\n\
+\r\n\
+    }';
+
+			break;
+			case 4:
+			val +='第五步\r\n\
+在mapper_reprot>ReportMapper 里添加如下代码\r\n\
+\r\n\
+public List<'+cla+'> get'+cla+'(';
+
+for(var i=0;i<qingqiusLength;i++){
+    	if(!i){
+    		val+='String '+qingqius[i];
+    	}else{
+    		val+=',String '+qingqius[i];
+    	}
+    }
+
+val+=');';
+			break;
+			case 5:
+val +='第六步\r\n\
+在resources > .. > model_report > ReportMapper.xml 里添加如下代码,分两部分\r\n\
+\r\n\
+第一部分\r\n\
+\r\n\
+    <resultMap id="'+cla+'" type="com.raysdata.bjbus.webservice.jersey.model.'+cla+'">\r\n';
+    
+    for(var i=0;i<fanhuisLength;i++){
+    	val += '        <result column="'+fanhuis[i]+'" property="'+fanhuis[i]+'" jdbcType="VARCHAR" />\r\n';
+    }
+val +='	</resultMap>\r\n\
+\r\n\
+第二部分\r\n\
+\r\n\
+    <select id="get'+cla+'" resultMap="'+cla+'" parameterType="java.lang.String">\r\n\
+        SQL语句\r\n\
+    </select>';
+			break;
+			
+		}
+		
+		oText.value = val;
+	}
+	
+	
+</script>

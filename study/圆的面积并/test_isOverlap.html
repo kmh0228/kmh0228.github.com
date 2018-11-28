@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.area{
+				position:relative;
+				height: 650px;
+				background: #fff;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="squire">
+			方形:&nbsp;
+			x:<input type="text" value="100" >
+			y:<input type="text" value="40" >
+			r:<input type="text" value="50" >
+		</div>
+		<div id="circle">圆形:&nbsp;
+			x:<input type="text" value="100" >
+			y:<input type="text" value="200" >
+			r:<input type="text" value="100" >			
+		</div>
+		
+		<div class="result">
+			<input id="result" type="text">
+		</div>
+		
+		<div class="area" id="area"></div>
+		
+	</body>
+</html>
+<script src="required.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	;require([
+		'dist/circle',
+		'dist/squire',
+		'dist/isOverlap'
+	],function(
+		circle,
+		squire,
+		isOverlap
+	){
+		var sqOpts = document.getElementById('squire').getElementsByTagName('input');
+		var ciOpts = document.getElementById('circle').getElementsByTagName('input');
+		var resObj = document.getElementById('result');
+		var areObj = document.getElementById('area');
+		
+		document.onclick = function(){
+			
+			var cir = circle({
+				x:ciOpts[0].value,
+				y:ciOpts[1].value,
+				r:ciOpts[2].value
+			});
+			
+			var sq = squire({
+				x:sqOpts[0].value,
+				y:sqOpts[1].value,
+				r:sqOpts[2].value
+			});
+			
+			var result = isOverlap(sq,cir);
+			
+			resObj.value = result;
+			
+			areObj.innerHTML = '';
+			cir.drawIn(area);
+			sq.drawIn(area);
+		}
+		
+	});
+</script>

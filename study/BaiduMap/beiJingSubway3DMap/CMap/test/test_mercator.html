@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+</html>
+<script src="../build/required.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	requirejs([
+			'../tools/mercator'
+		],function(
+			mercator
+		){
+			var lon30 = mercator(30,{s:15,e:45,type:'lon'});
+			var lat30 = mercator(30,{s:15,e:45,type:'lat'});
+			
+			document.write('30在经度15和45的占比:'+lon30+'<br/>30在纬度15和45的占比:'+lat30);
+			
+		});
+</script>

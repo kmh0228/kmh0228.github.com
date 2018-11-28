@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../fileReader.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<input type="file" value="选择文件" id="file"/>
+		<input type="button" id="btn" value="打印文件" />
+	</body>
+</html>
+<script type="text/javascript">
+	
+	var oFile = document.getElementById('file');
+	
+	document.getElementById('btn').onclick = function(){
+		var file = oFile.files[0];
+		
+		fileReader(file,{
+			load:function(f){
+				console.log(f);
+				//f = f.replace(/^data:[^;]*;/, 'data:attachment/file;');
+				setTimeout(function(){window.location.href = f;},1000);
+			}
+		});
+	};
+	
+	fileReader
+	
+</script>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.dragIn{
+				width:800px;
+				height: 600px;
+				margin: 50px auto;
+				border:1px solid #ccc;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="dragIn" class="dragIn">
+		    
+		</div>
+	</body>
+</html>
+<script src="../dragFileIn.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var file;
+	dragFileIn(document.getElementById('dragIn'),{
+		drop:function(files){
+			console.log(files);
+			file = files[0];
+		}
+	});
+	
+</script>

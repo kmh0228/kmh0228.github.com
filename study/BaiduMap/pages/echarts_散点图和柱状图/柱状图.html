@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="his" style="width:1000px; height: 600px; margin: 100px auto;">
+		    
+		</div>
+	</body>
+</html>
+<script src="require.js" type="text/javascript" charset="utf-8"></script>
+<script src="echarts/echarts.js" type="text/javascript" charset="utf-8"></script>
+<script src="barScatterHis.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+	require(['echarts/echarts'],function(n){
+		alert(n);
+	});
+	
+	   require(
+			[
+			"echarts",
+			//"echarts/chart/scatter",
+			"echarts/chart/line",
+			"echarts/chart/bar",
+			"echarts/chart/scatter"
+			//,
+			//"js/jedate/jedate"
+			],
+			function (echarts) {
+				
+				
+				new BarScatterHis(echarts,'his');
+
+				
+				
+			});
+
+</script>

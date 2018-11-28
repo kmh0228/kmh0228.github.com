@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		滚动滚轮测试
+	</body>
+</html>
+<script src="../build/required.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	
+	requirejs(['../tools/addWheel'],function(
+		addWheel
+	){
+		
+		addWheel(document,function(dir){
+			document.body.innerHTML += dir + '<br/>';
+		});
+		
+		
+	});
+	
+	
+</script>

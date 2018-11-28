@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0;
+				padding: 0;
+			}
+			canvas{
+				width:100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		
+	</body>
+</html>
+<script src="three.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	
+	//  场景       相机          渲染器
+	var scene , camera , renderer;
+	
+	scene = new THREE.Scene();
+	//								  现场 可视区角度  /     长宽比                          / 近面 / 远面
+	camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
+	renderer = new THREE.WebGLRenderer();
+	
+	renderer.setSize(window.innerWidth,window.innerHeight);
+	document.body.appendChild(renderer.domElement);
+
+
+	var geometry = new THREE.BoxGeometry(1,1,1);						//正方体
+	var material = new THREE.MeshBasicMaterial({color:0x00ff00});		//材质
+	var cube = new THREE.Mesh(geometry,material);						//网格
+	scene.add(cube);
+	camera.position.z = 5;
+	
+	function animate(){
+		requestAnimationFrame(animate);
+		cube.rotation.x += 0.01;
+		cube.rotation.y += 0.01;
+		renderer.render(scene,camera);
+	}
+	animate();
+	
+	
+	
+</script>

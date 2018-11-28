@@ -22,12 +22,7 @@
 		margin={left:50,top:30,right:20,bottom:20},//内容偏移量
 		g_width=width-margin.left-margin.right,//内容宽度
 		g_height=height-margin.top-margin.bottom;//内容高度
-		
-	
-	for(var name in d3){
-		document.write(name+'<br/>');
-	}
-	
+			
 	//d3 兼容性不好 IE9+
 	var svg=d3.select('#container')//选择容器
 	.append("svg")//向里面添加svg元素
@@ -58,6 +53,13 @@
 	.append('path')
 	.attr("d",line_gen(data));//赋予规则，兵在规则里添加数据
 	
+	g.on('mouseover',function(){
+		document.title = 1;
+	});
 	
+	g.on('mouseout',function(){
+		document.title = 2;
+	});
+
 	
 </script>

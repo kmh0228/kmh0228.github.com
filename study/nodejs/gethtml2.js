@@ -19,9 +19,9 @@ var cheerio=require('cheerio');
 function cheeriotest(html){
 	var $=cheerio.load(html);
 	var title=$('title');
-	//console.log(title.text());
+	console.log(title.text());
 	var as=$('a');
 	as.each(function(i,e){
-		//console.log($(e).attr('href'));
+		console.log($(e).attr('href'));
 	});
 }

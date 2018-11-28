@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!--
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">     
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">     
+<meta content="yes" name="apple-mobile-web-app-capable">     
+<meta content="black" name="apple-mobile-web-app-status-bar-style">     
+<meta content="telephone=no" name="format-detection">
+-->
+<title>kmh0228-calculator</title>
+<script type="text/javascript" src="Calculator.js"></script>
+<style>
+*{ margin:0; padding:0;}
+html,body{width:100%; height:100%; background: #333; font-size: 16px;}
+input{ border: none; outline: none; background: none;}
+.tit{ width:80%; height: 30px; margin:30px auto 10px; color:#1BAEBD;}
+input.text{ width:80%; height:30px; margin:20px auto; display:block; border:1px solid #ccc; background: rgba(255,255,255,0.5); border-radius:5px;}
+.aq ,.eq{ width:80%; overflow:hidden; margin:20px auto;}
+.aq>input,.eq>input{ width:40px; height:30px; text-align:center; line-height:30px; float:left; border-radius: 5px; font-weight: bold; color:#222; margin-right: 10px; cursor: pointer;}
+
+.eq>input{ width:80px; color:#00FFFF; background: #2E568A;}
+
+p{ width:80%; margin:0 auto; line-height:24px; font-size:14px;}
+p.info2 span{font-weight:bold; color:#f00;}
+p.info1{ margin:5px auto; color:#006; font-weight:bold;}
+p.info0{ margin:5px auto; color:#f00; font-weight:bold;}
+</style>
+</head>
+
+<body>
+	<div class="tit">想知道你的 身份证号 和 她/他的身份证号 想乘 会出现 5201314 吗？ 来算算吧</div>
+    <input type="text" class="text" value="16543154315646846546541315646313154641315461321"/>
+    <div class="aq" id="aq">
+		<input type="button" value="加"/>
+		<input type="button" value="减"/>
+		<input type="button" style="background:#3C6" value="乘"/>
+		<input type="button" value="除"/>
+		<input type="button" value="次方"/>
+    </div>
+    <input type="text" class="text" value="151345463153468745645132154651321543512354546465"/>
+    <div class="eq">
+        <input type="button" id="eq" value="开始计算"/>
+    </div>
+    <input type="text" class="text" value=""/>
+    <p class="info2" id="info2">当前计算结果长度为<span>0</span>位 用时<span>0</span>秒</p>
+    <p class="info0">话说，9位数是上亿，咳咳！低于900位数的不要找我算！太小！</p>
+</body>
+</html>
+<script type="text/javascript">
+var c=new Calculator();
+var aQ=document.getElementById('aq').getElementsByTagName('input');
+var textarea=document.getElementsByClassName('text');
+var cur=2;
+for(var i=0;i<aQ.length;i++){
+	aQ[i].index=i;
+	aQ[i].onclick=function(){
+		aQ[cur].style.background='';
+		this.style.background='#3c6';
+		cur=this.index;
+	}
+}
+var oInfo2=document.getElementById('info2');
+var bOk=false;
+var oFix=document.getElementById('fix');
+document.getElementById('eq').onclick=function(){
+	if(bOk)return;
+	bOk=true;
+	var time1=new Date().getTime();
+	textarea[2].value='正在计算中，请稍等……';
+	var a=textarea[0].value;
+	var b=textarea[1].value;
+	var result;
+	switch(cur){
+		case 0:
+		result=c.plus(a,b);
+		break;
+		case 1:
+		result=c.minus(a,b);
+		break;
+		case 2:
+		result=c.multiply(a,b);
+		break;
+		case 3:
+		result=c.divide(a,b);
+		break;
+		case 4:
+		result=c.power(a,b);
+		break;
+		case 5:
+		textarea[1].value='';
+		result=c.sqr(a,oFix.value);
+		break;
+	}
+	textarea[2].value=result;
+	var time2=new Date().getTime();
+	dtime=((time2-time1)/1000).toFixed(2);
+	oInfo2.innerHTML='当前计算结果长度为<span>'+textarea[2].value.length+'</span>位 用时<span>'+dtime+'</span>秒。';
+	bOk=false;
+}
+</script>

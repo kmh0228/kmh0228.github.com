@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>DataBox</title>
+		<style type="text/css">
+			input{ margin: 100px;}
+		</style>
+	</head>
+	<body>
+		
+		<input type="text" id="dateBox"/>
+		<input type="text" id="dateBox2"/>
+		<input type="text" id="dateBox3"/>
+		<input type="text" id="dateBox4"/>
+		
+	</body>
+</html>
+<script src="../required.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	requirejs(['../DateBox'],function(DateBox){
+		new DateBox('dateBox',{type:'M'});
+		
+		new DateBox('dateBox2',{type:'y-d'});
+		
+		new DateBox('dateBox3',{type:'h-m'});
+
+		new DateBox('dateBox4');
+
+	});
+</script>

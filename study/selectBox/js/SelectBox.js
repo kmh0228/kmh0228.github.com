@@ -26,6 +26,7 @@
 						width:130,//宽
 						height:26,//高
 						optionMaxHeight:500//下拉框最大高度
+						iwidth:height//右侧下拉按钮的宽度,默认跟高度一样
 						
 			方法  changeList(data,opts) 改变数据,data为数据，opts为参数{retur:false;//是否阻止在建立数据后调用回掉函数}
 				changeFnBack(fn)  改变回掉函数
@@ -60,6 +61,7 @@ function SelectBox(obj,data,fn,opts){
 	var width=this.width=opts.width||130;
 	var height=this.height=opts.height||26;
 	var optionMaxHeight=opts.optionMaxHeight||350;
+	var iwidth=opts.iwidth||height;
 
 	var borderWidth=this.borderWidth=opts.borderWidth||1;
 	var borderRadius=opts.borderRadius||0;
@@ -90,9 +92,9 @@ function SelectBox(obj,data,fn,opts){
 	$input.css({'color':color,'width':'100%','height':'100%','font-size':fontSize+'px','text-indent':textIndent+'px','border':'none','background':'none','outline':'none'});
 	var overlay=obj.find('.overlay');
 	overlay.css({'position':'absolute','top':0,'right':0,'width':'100%','height':'0'});
-	obj.find('i').css({'width':height,'height':'100%','position':'absolute','top':0,'right':0,'border-left':arrowBorderWidth+'px solid '+borderColor,'cursor':'pointer'});
-	var arrBorder=parseInt(height/4);
-	var arrMarTop=parseInt(height*3/8);
+	obj.find('i').css({'width':iwidth,'height':'100%','position':'absolute','top':0,'right':0,'border-left':arrowBorderWidth+'px solid '+borderColor,'cursor':'pointer'});
+	var arrBorder=parseInt(iwidth/4);
+	var arrMarTop=parseInt(height/2-iwidth/8);
 	obj.find('i em').css({'display':'block','width':'0px','border':arrBorder+'px solid transparent','border-top':arrBorder+'px solid '+arrowColor,'margin':arrMarTop+'px auto'});
 	obj.find('ul').css({'position':'absolute','color':optionColor,'font-size':optionFontSize+'px','width':'100%','left':-borderWidth,'top':height+borderWidth,'border-left':borderWidth+'px solid '+borderColor,'border-right':borderWidth+'px solid '+borderColor,'border-bottom':borderWidth+'px solid '+borderColor,'background':backgroundColor,'z-index':999,'display':'none','max-height':optionMaxHeight+'px','overflow-Y':'auto','border-radius':borderRadius+'px'});	
 	
@@ -141,6 +143,7 @@ SelectBox.prototype.addEvent=function(){
 	$(document).on('click',function(e){
 		var src=e.srcElement||e.target;
 		if(!obj.has(src).length){
+			//console.log('0');
 			$ul.hide();
 		}
 	});
@@ -179,6 +182,7 @@ SelectBox.prototype.addEvent=function(){
 			clearInterval($this.timer);
 			$this.off('blur');
 			$this.off('keydown');
+			//$ul.hide();
 		};
 		$this.on('blur',toblur);
 

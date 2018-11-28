@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<input type="button" name="btn" id="btn" value="导出excel" />
+		
+		<table border="1" cellspacing="0" cellpadding="0" id="table">
+			<tr><th>Header</th><th>Header</th><th>Header</th></tr>
+			<tr><td>Data</td><td>Data</td><td>Data</td></tr>
+			<tr><td>Data</td><td>Data</td><td>Data</td></tr>
+		</table>
+		
+	</body>
+</html>
+<script src="../exportExcel.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	document.getElementById('btn').onclick = function(){
+		
+		method5('table');
+		
+	};
+</script>

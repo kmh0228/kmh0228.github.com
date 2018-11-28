@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>基本地图展示</title>
+    <style type="text/css">
+    	html,body,#container{width:100%;height: 100%;}
+    </style>
+    <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
+    <script src="https://webapi.amap.com/maps?v=1.4.8&key=a9881b4a475f1947512e743d0464d1b6&plugin=AMap.Driving"></script>
+    <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+</head>
+<body>
+<div id="container"></div>
+
+<script>
+    var map = new AMap.Map('container', {
+        resizeEnable: true,
+        zoom:11,
+        center: [116.397428, 39.90923]
+    });
+    
+    var start = [116.35,39.915];
+    var end = [116.45,39.915];
+    
+    var lngl = 116.39,lngr = 116.41;
+    var latl = 39.9, latr = 39.93;
+    
+    var points = [start,end,[lngl,latl],[lngl,latr],[lngr,latl],[lngr,latr]];
+    var markers = [];
+    for(var i = 0 ;i<points.length;i++){
+    	markers.push(new AMap.Marker({
+	    	icon:'https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png',
+	    	position:points[i]
+		}));
+	}
+	map.add(markers);
+	
+	 var driving = new AMap.Driving({
+        map: null,
+        extensions:'all'
+    }); 
+
+    driving.setAvoidPolygons([[[lngl,latl],[lngl,latr],[lngr,latl],[lngr,latr]]]);
+
+    driving.search(new AMap.LngLat(start[0],start[1]),new AMap.LngLat(end[0],end[1]),{},function(status,result){
+    	var html = '';
+    	var steps = result.routes[0].steps;
+    	for(var i = 0;i<steps.length;i++){
+    		var paths = steps[i].path;
+    		for(var j = 0 ; j<paths.length;j++){
+    			html += paths[j].lng + ',' + paths[j].lat + ',';
+    		}
+    	}
+    	console.log(html);
+    });
+    
+    
+
+</script>
+</body>
+</html>

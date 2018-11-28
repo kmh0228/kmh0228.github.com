@@ -14,7 +14,7 @@
 <script src="js/kmh.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 	var kmh=new Kmh('canvas');
-	var kmhPhyon=new KmhPhyon([{x:20,y:50},
+	var phyonPoints = [{x:20,y:50},
 								{x:50,y:45},
 								{x:60,y:20},
 								{x:100,y:20},
@@ -22,11 +22,24 @@
 								{x:140,y:50},
 								{x:142,y:70},
 								{x:18,y:70}
-							]);
+							];
+	var kmhPhyon=new KmhPhyon(phyonPoints);
 	kmh.push(kmhPhyon);
-	var kmhCircle = new KmhCircle({x:40,y:70});
-	var kmhCircle2 = new KmhCircle({x:120,y:70});
+	var x1 = 40, x2 = 120;
+	var kmhCircle = new KmhCircle({x:x1,y:70});
+	var kmhCircle2 = new KmhCircle({x:x2,y:70});
 	kmh.push(kmhCircle);
 	kmh.push(kmhCircle2);
 	kmh.draw();
+	
+	setInterval(function(){
+		for(var i = 0;i<phyonPoints.length;i++){
+			phyonPoints[i].x += 1;
+		}
+		kmhPhyon.points = phyonPoints;
+		kmhCircle.center = {x:++x1,y:70};
+		kmhCircle2.center = {x:++x2,y:70};
+		kmh.draw();
+	},30);
+	
 </script>

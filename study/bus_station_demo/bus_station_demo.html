@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>OD数据分析</title>
+<script type="text/javascript" src="echarts/echarts.js"></script>
+<script type="text/javascript" src="js/require.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=5XiOug3semCW2Fau6g3GKZ7P7UtBzWyf "></script>
+<script type="text/javascript" src="js/Bustool.js"></script>
+<script type="text/javascript" src="js/station_demo.js"></script>
+<style>
+*{margin: 0; padding: 0;}
+.title{ height: 30px; line-height: 30px; font-size: 14px; background: rgba(0,0,0,0.3); position:absolute;top:0; left:0; width: 100%; text-indent: 10px; color: #fff;}
+html,body,.container,#container_map{ width: 100%; height: 100%;}
+</style>
+</head>
+<body>
+<div class="container">
+	<div id="container_map" style="height:100%;"></div>
+	<div class="title">
+		***站OD数据分析
+	</div>
+</div>
+</body>
+</html>
+<script>
+	
+//参数：
+		var dir=0;//0是正向，1是反向
+		var data={"od":[{"name":"北京西站","count":500,"lon":116.3277207767,"lat":39.900877713},{"name":"东直门","count":236,"lon":116.4402606259,"lat":39.9473367014},{"name":"北京南站","count":164,"lon":116.3854616694,"lat":39.8710639664},{"name":"积水潭","count":162,"lon":116.3797457428,"lat":39.9546636521},{"name":"前门","count":138,"lon":116.4043972659,"lat":39.906523578},{"name":"天通苑北","count":123,"lon":116.4194314555,"lat":40.0899841562},{"name":"西直门","count":90,"lon":116.3593968158,"lat":39.9475000812},{"name":"天宫院","count":89,"lon":116.326409693,"lat":39.6761928524},{"name":"苹果园","count":88,"lon":116.1844709105,"lat":39.9324908888},{"name":"天通苑","count":84,"lon":116.413233203,"lat":40.0815860097}],"station":{"name":"北京站","lon":116.4336116915,"lat":39.9110557814}};
+		var colors=['#A20000', '#FF0000', '#FF8900', '#FFCC00','#FCED03'];//线条颜色
+		var circleMinR=10;//线圈最小半径
+		var circleMaxR=20;//线圈最大半径
+		
+		station_demo (dir,data,colors,circleMaxR,circleMinR);
+			
+</script>

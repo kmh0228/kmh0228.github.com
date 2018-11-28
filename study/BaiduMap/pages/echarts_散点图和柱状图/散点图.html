@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="his" style="width:1000px; height: 600px; margin: 100px auto;">
+		    
+		</div>
+	</body>
+</html>
+
+<script src="echarts.common.min.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+
+
+
+				
+var echart = echarts.init(document.getElementById('his'));
+	
+				
+
+var data = [
+    [[28604,77,17096869,'提示信息','类别1'],[31163,77.4,27662440,'提示信息','类别1']],
+    [[44056,81.8,23968973,'提示信息','类别2'],[43294,81.7,35939927,'提示信息','类别2']]
+];
+
+var option = {
+    backgroundColor: new echarts.graphic.RadialGradient(0.3, 0.3, 0.8, [{
+        offset: 0,
+        color: '#f7f8fa'
+    }, {
+        offset: 1,
+        color: '#cdd0d5'
+    }]),
+    title: {
+        text: '1990 与 2015 年各国家人均寿命与 GDP'
+    },
+    legend: {
+        right: 10,
+        data: ['1990', '2015']
+    },
+    xAxis: {
+        splitLine: {
+            lineStyle: {
+                type: 'dashed'
+            }
+        }
+    },
+    yAxis: {
+        splitLine: {
+            lineStyle: {
+                type: 'dashed'
+            }
+        },
+        scale: true
+    },
+    series: [{
+        name: '1990',
+        data: data[0],
+        type: 'scatter',
+        symbolSize: function (data) {
+            return Math.sqrt(data[2]) / 5e2;
+        },
+        label: {
+            emphasis: {
+                show: true,
+                formatter: function (param) {
+                    return param.data[3];
+                },
+                position: 'top'
+            }
+        },
+        itemStyle: {
+            normal: {
+                shadowBlur: 10,
+                shadowColor: 'rgba(120, 36, 50, 0.5)',
+                shadowOffsetY: 5,
+                color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
+                    offset: 0,
+                    color: 'rgb(251, 118, 123)'
+                }, {
+                    offset: 1,
+                    color: 'rgb(204, 46, 72)'
+                }])
+            }
+        }
+    }, {
+        name: '2015',
+        data: data[1],
+        type: 'scatter',
+        symbolSize: function (data) {
+            return Math.sqrt(data[2]) / 5e2;
+        },
+        label: {
+            emphasis: {
+                show: true,
+                formatter: function (param) {
+                    return param.data[3];
+                },
+                position: 'top'
+            }
+        },
+        itemStyle: {
+            normal: {
+                shadowBlur: 10,
+                shadowColor: 'rgba(25, 100, 150, 0.5)',
+                shadowOffsetY: 5,
+                color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
+                    offset: 0,
+                    color: 'rgb(129, 227, 238)'
+                }, {
+                    offset: 1,
+                    color: 'rgb(25, 183, 207)'
+                }])
+            }
+        }
+    }]
+};			
+	
+	
+	
+	
+	
+	
+	echart.setOption(option);
+				
+				
+
+</script>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#ThreeContainer{width:1000px; height: 800px; margin: 20px auto;}
+			span{color:#fff;}
+		</style>
+	</head>
+	<body style="background: #000;">
+		<span>X轴倾斜</span></label><input id="x" type="number" value="60">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span>Z轴倾斜</span></label><input id="z" type="number" value="20">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span>透视距离</span></label><input id="per" type="number" value="800">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span>地图距离</span></label><input id="translateZ" type="number" value="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<div id="ThreeContainer"></div>
+	</body>
+	<script src="../build/required.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		
+	requirejs(['../build/ThreeContainer.js'],function(ThreeContainer){
+		var threeContainer = new ThreeContainer('ThreeContainer');
+		threeContainer.setHTML('<img src="../images/t0175497b4af8017cf3.jpg" style="width:100%; height:100%"/>');
+
+		
+		var inputs = document.getElementsByTagName('input');
+		
+		inputs[0].oninput = inputs[1].oninput = function(){
+			var x = inputs[0].value;
+			var z = inputs[1].value;
+			threeContainer.setRotate({
+				xR:x,zR:z
+			});
+		};
+		
+		inputs[2].oninput = function(){
+			var per = inputs[2].value;
+			threeContainer.setPer(per);
+		}
+		
+		inputs[3].oninput = function(){
+			var per = inputs[3].value;
+			threeContainer.setTranslateZ(per);
+		}
+		
+	});
+		
+
+	</script>
+	
+</html>

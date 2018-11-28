@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>getExcel</title>
+	</head>
+	<body>
+	</body>
+</html>
+<script src="../bus_station_demo/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="gb32touft-8.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	
+	$.get('a.txt',function(data){
+		console.log(data);
+	});
+	
+	var tabTool=new GB2312UTF8();
+ /* var Utf8=tabTool.Gb2312ToUtf8("你aaa好aaaaa");
+  var Gb2312=tabTool.Utf8ToGb2312(Utf8);
+  alert(Gb2312);
+*/	
+	
+	$.ajax({
+		type:"get",
+		url:"b.txt",
+		success:function(data){
+			console.log(data.replace(/\r\n/g,';'));
+		}
+	});
+	
+	
+</script>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{ padding: 50px;}
+			.oldNum input[type=number]{ width:40px;}
+			.oldNum .btn{ cursor: pointer;}
+			.param{ margin: 20px 0;}
+			.newNum input[type=text]{ width:40px;}
+		</style>
+	</head>
+	<body>
+		<div class="oldNum">
+			<div>请输入上一次的双色球码号</div>
+			<input class="redNum" type="number" max="33" min="1" value="9" />
+			<input class="redNum" type="number" max="33" min="1" value="13" />
+			<input class="redNum" type="number" max="33" min="1" value="14" />
+			<input class="redNum" type="number" max="33" min="1" value="19" />
+			<input class="redNum" type="number" max="33" min="1" value="22" />
+			<input class="redNum" type="number" max="33" min="1" value="25" />
+			<input class="greenNum" type="number" max="16" min="1" value="2" />
+			<input class="btn" type="button" value="开始计算" onclick="startCalc();"/>
+			<input class="btn" type="button" value="停止计算" onclick="stopCalc();"/>
+			<input class="btn" type="button" value="重新计算" onclick="reStartCalc();"/>
+		</div>
+		<div class="param">
+			获取随机数频率(毫秒/次):<input style="width:40px; margin-right:50px;" type="number" id="oneTime" value="100"/>			
+			扭曲时空误差:<input id="dis" type="number" id="oneTime" value="3" style="width:40px;"/>			
+		</div>
+		<div>计算结果如下，已用时<span id="time">00:00:00</span>秒</div>
+		<div class="newNum">
+			<input class="redNum" type="text" max="33" min="1" value="-" />
+			<input class="redNum" type="text" max="33" min="1" value="-" />
+			<input class="redNum" type="text" max="33" min="1" value="-" />
+			<input class="redNum" type="text" max="33" min="1" value="-" />
+			<input class="redNum" type="text" max="33" min="1" value="-" />
+			<input class="redNum" type="text" max="33" min="1" value="-" />
+			<input class="greenNum" type="text" max="16" min="1" value="-" />
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	
+	var oldValueObjs = document.getElementsByClassName('oldNum')[0].getElementsByTagName('input');
+	var newValueObjs = document.getElementsByClassName('newNum')[0].getElementsByTagName('input');
+	var oOneTime = document.getElementById('oneTime');
+	var oTime = document.getElementById('time');
+	var oDis = document.getElementById('dis');
+	
+	function random(a,b){
+		return a+parseInt((b-a)*Math.random());
+	}
+	function getJsonMax(json){
+		var maxValue={key:'-',value:'-'};
+		var num = 0;
+		for(var name in json){
+			if(!num){
+				maxValue={key:name,value:json[name]};
+			}else{
+				if(json[name]<maxValue.value){
+					maxValue={key:name,value:json[name]};
+				}
+			}
+			num++;
+		}
+		return maxValue;
+	}
+	var data;
+	var time = 0;
+	var timer;
+	function startCalc(){
+		if(!data){
+			data = {};
+		}
+		var times = parseInt(oOneTime.value);
+		var dis = parseInt(oDis.value);
+		for(var i=0;i<6;i++){
+			if(!oldValueObjs[i].value){
+				alert('请输入历史数据');return;
+			}
+			data[oldValueObjs[i].value] = {};
+		}
+		data[oldValueObjs[6].value+'g'] = {};
+		clearInterval(timer);
+		timer = setInterval(function(){
+			var sN = random(1,34);
+			var sN2 = random(1,34);
+			if(data[sN]){
+				data[sN][sN2]?data[sN][sN2]++:data[sN][sN2]=1;
+			}
+			var bN = random(1,17);
+			var bN2 = random(1,17);
+			if(data[bN+'g']){
+				data[bN+'g'][bN2]?data[bN+'g'][bN2]++:data[bN+'g'][bN2]=1;
+			}
+			time += times;
+			showResult();
+		},times);
+	}
+	
+	function showResult(){
+		var timeM = parseInt(time/1000);
+		oTime.innerHTML = parseInt(timeM/3600)+':'+ parseInt(timeM%3600/60)+':'+parseInt(timeM%60);
+		for(var i=0;i<6;i++){
+			newValueObjs[i].value = getJsonMax(data[oldValueObjs[i].value]).key;
+		}
+		newValueObjs[6].value = getJsonMax(data[oldValueObjs[6].value+'g']).key;
+	}
+	
+	function stopCalc(){
+		clearInterval(timer);
+	}
+	function reStartCalc(){
+		time = 0;
+		data = {};
+		stopCalc();
+		startCalc();
+	}
+	
+</script>

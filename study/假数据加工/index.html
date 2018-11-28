@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>假数据加工</title>
+		<style type="text/css">
+			input{ margin: 2px;}
+			textarea{ width:800px;height: 400px; margin: 10px 2px;}
+			input[type="text"]{width:800px;}
+		</style>
+	</head>
+	<body>
+		<div>
+			假数据数量:
+			<input type="text" value="50" id="num"/>
+		</div>
+		<div>
+			一级标题:
+			<input type="text" value="lines" id="oneMenu"/>
+		</div>
+		<div>
+			二级标题:
+			<input type="text" id="twoMenu" value="type,num,pre,sumDis,sumTime,avgDis,avgTime" />
+		</div>
+		<div>
+			二级标题翻译(可不填):
+			<input type="text" value="type,num,pre,sumDis,sumTime,avgDis,avgTime" />
+		</div>
+		<div>
+			二级标题类型:
+			<input type="text" id="twoMenuType" value="lineName,companyName,convoyName,sumDis,sumTime,avgDis,avgTime" />
+		</div>
+		<span style="color:red;">lineName:线路名称, companyName:分公司名称, convoyName:车队名称, sNum:0-1的小数, num:0-100的整数, bNum:100-1000的整数</span>
+		<div class="btns">
+			<input type="button" value="生成" id="btn">
+		</div>
+		<textarea id="textArea"></textarea>
+	</body>
+</html>
+<script type="text/javascript">
+	
+	var oBtn = document.getElementById('btn');
+	var oText = document.getElementById('textArea');
+		
+	function random(start,end){
+		return parseInt( Math.random()*(end - start)) + start;
+	}
+	function getRV(arr){
+		var length = arr.length;
+		return arr[random(-1,length-1)];
+	}
+		
+	function typeToStr (type){
+		switch(type){
+			case 'lineName':
+				return getRV(['1路','2路','3路','4路','5路']);
+			break;
+			case 'companyName':
+				return getRV(['客一','客二','客三','客四','客五']);
+			break;
+			case 'convoyName':
+				return getRV(['第一车队','第二车队','第三车队','第四车队','第五车队']);
+			break;
+			case 'sNum':
+				return random(0,100)/100;
+			break;
+			case 'num':
+				return random(0,100);
+			break;
+			case 'bNum':
+				return random(100,1000);
+			break;
+			
+			default:return '-';
+		}
+	}
+	
+	oBtn.onclick = function (){
+		var val = '';
+		
+		var num = Number(document.getElementById('num').value);
+		var oneMenu = document.getElementById('oneMenu').value;
+		var twoMenu = document.getElementById('twoMenu').value;
+		var twoMenuType = document.getElementById('twoMenuType').value;
+		
+		var twoMenus = twoMenu.split(',');
+		var twoMenuTypes = twoMenuType.split(',');
+
+		var twoMenuLength = twoMenus.length;
+		if(twoMenuLength != twoMenuTypes.length){alert('二级菜单和菜单类型长度不一致');}
+		
+		val += '{"' + oneMenu + '":[';
+		
+		for(var i = 0; i < num; i++){
+			if(i)val += ',';
+			val += '{';
+			
+			for(var j = 0; j < twoMenuLength; j++){
+				if(j)val += ',';
+				val += '"' + twoMenus[j] + '":"' + typeToStr(twoMenuTypes[j]) + '"';
+			}
+			
+			val += '}';
+		}
+		
+		val += ']}';
+		
+		oText.value = val;
+	}
+	
+	
+</script>

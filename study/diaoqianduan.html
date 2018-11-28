@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+</html>
+<script type="text/javascript">
+	
+	//1
+	var q1 = (function(){
+		return typeof arguments;
+	})();
+	document.write('1. ' + q1 + '<br/>');
+	
+	//2
+	var f = function g(){
+		return 23;
+	}
+	var q2 = 'error';// typeof g();
+	document.write('2. ' + q2 + '<br/>');
+	
+	//3
+	var q3 = (function(x){
+		delete x;
+		return x;
+	})(1);
+	document.write('3. '+q3 + '<br/>');
+	
+	//4
+	var y = 1 , x = y = typeof x;
+	document.write('4. ' + x + '<br/>');
+	
+	//5
+	var q5 = (function f(f){
+		return typeof f();
+	})(function(){return 1;});
+	document.write('5. ' + q5 + '<br/>');
+	
+	//6
+	var foo = {
+		bar:function(){return this.baz;},
+		baz:1
+	};
+	var q6 = (function(){
+		return typeof arguments[0]();
+	})(foo.bar);
+	document.write('6. ' + q6 + '<br/>');
+	
+	//7
+	var q7 = typeof (f = foo.bar)();
+	document.write('7. ' + q7 + '<br/>');
+	
+	//8
+	var f2 = (function f(){return "1";},function g(){return '2';})();
+	var q8 = typeof f2;
+	document.write('8. ' + q8 + '<br/>');
+	
+	//9
+	var q9 = 1;
+	if(function f3(){}){
+		q9 += typeof f3;
+	}
+	document.write('9. ' + q9 + '</br>');
+	
+	//10
+	var x10 = [typeof x10,typeof y10][1];
+	var q10 = typeof typeof x10;
+	document.write('10. ' + q10 + '</br>');
+	
+	//11
+	var q11 = (function(foo11){
+		return typeof foo11.bar;
+	})({foo11:{bar:1}});
+	document.write('11. ' + q11 + '</br>');
+	
+	//12
+	var q12 = (function f12(){
+		function f12(){return 1;}
+		return f12();
+		function f12(){return 2;}
+	})();
+	document.write('12. ' + q12 + '<br/>');
+	
+	//13
+	function f13(){ return f13;}
+	var q13 = new f13() instanceof f13;
+	document.write('13. ' + q13 + '<br/>');
+	
+	//14
+	with (function(x,undefined){}){
+		var q14 = length;
+	};
+	document.write('14. ' + q14 + '<br/>');
+	
+	
+</script>

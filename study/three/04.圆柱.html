@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0;
+				padding: 0;
+			}
+			canvas{
+				width:100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		
+	</body>
+</html>
+<script src="three.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	
+	//  场景       相机          渲染器
+	var scene , camera , renderer;
+	
+	scene = new THREE.Scene();
+	//								  现场 可视区角度  /     长宽比                          / 近面 / 远面
+	camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
+	renderer = new THREE.WebGLRenderer();
+	
+	renderer.setSize(window.innerWidth,window.innerHeight);
+	document.body.appendChild(renderer.domElement);
+
+
+	var geometry = new THREE.CylinderGeometry( 1, 1, 1, 10 );
+	geometry.translate(-1,-1,1);
+	var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+	var cylinder = new THREE.Mesh( geometry, material );
+	scene.add( cylinder );
+	camera.position.z = 5;
+	
+	function animate(){
+		cylinder.rotation.x += 0.01;
+		cylinder.rotation.y += 0.01;
+		renderer.render(scene,camera);
+	}
+	animate();
+	
+	
+</script>

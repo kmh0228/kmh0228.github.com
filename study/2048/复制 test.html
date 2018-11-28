@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style type="text/css">
+    	div{ height:50px;}
+    </style>
+ </head>
+<body>
+	
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+</body>
+</html>
+<script type="text/javascript">
+	var arr = ['rgb(42,87,131)', 'rgb(71,118,164)', 'rgb(103,152,193)', 'rgb(139,186,220)', 'rgb(185,221,241)'];
+	var divs = document.getElementsByTagName('div');
+	for(var i = 0 ;i<5;i++){
+		divs[i].style.background = arr[i];
+	}
+
+</script>

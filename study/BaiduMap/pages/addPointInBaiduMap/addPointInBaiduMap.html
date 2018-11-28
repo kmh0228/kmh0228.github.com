@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=5XiOug3semCW2Fau6g3GKZ7P7UtBzWyf "></script>
+</head>
+<style>
+body{ width:1300px;}
+textarea{ width:250px; height:550px; float:left;}
+.btn{float:left;}
+input { display:block; width:50px; margin:10px;margin-top:200px; height:60px; font-size:12px; white-space:inherit;}
+
+#container{ float:left; height:100%; width:970px;}
+
+</style>
+<body>
+<textarea id="text">116.22708,39.912985,
+116.32708,39.922985</textarea>
+<div class="btn">
+<input type="button" value="(高德坐标)添加" onclick="change('gaode')"/>
+<input style="margin-top:20px" type="button" value="(GIS)添加" onclick="change('gis')"/>
+<input style="margin-top:20px" type="button" value="(百度坐标)添加" onclick="change('baidu')"/>
+</div>
+<div id="container" style="height:700px;"></div>
+</body>
+</html>
+<script src="js/Bustool.js"></script>
+<script>
+	map = new BMap.Map("container");    // 创建Map实例
+	map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
+	map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
+	map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+	map.enableScrollWheelZoom(true);   //让地图随滚轮缩放
+	var busTool=new Bustool(map);
+	function change(type){
+		map.clearOverlays();
+		var points=[];
+		var srcvalue=document.getElementById('text').value.replace(/[\n\s]/g,'');
+		var arr=srcvalue.split(',');
+		if(arr[arr.length-1]==''){arr.pop()}
+		for(var i=0;i<arr.length;i+=2){
+			var point=new BMap.Point(arr[i],arr[i+1]);
+			points.push(point);
+		}
+		if(type=='gaode'){
+			busTool.toBaiduPoint(points,function(arrpoints){
+				for(var i=0;i<arrpoints.length;i++){
+					(function(index){
+						var marker=new BMap.Marker(arrpoints[index]);
+						map.addOverlay(marker);
+						var label=new BMap.Label(points[index].lng+' , '+points[index].lat,{offset:new BMap.Size(20,-10)});
+						marker.setLabel(label);
+						label.hide();
+						marker.addEventListener('mouseover',function(){
+							label.show();
+						});
+						marker.addEventListener('mouseout',function(){
+							label.hide();
+						});
+					})(i);
+				}
+			},{from:3});
+		}else if(type=='baidu'){
+			for(var i=0;i<points.length;i++){
+					(function(index){
+						var marker=new BMap.Marker(points[index]);
+						map.addOverlay(marker);
+						var label=new BMap.Label(points[index].lng+' , '+points[index].lat,{offset:new BMap.Size(20,-10)});
+						marker.setLabel(label);
+						label.hide();
+						marker.addEventListener('mouseover',function(){
+							label.show();
+						});
+						marker.addEventListener('mouseout',function(){
+							label.hide();
+						});
+					})(i);
+			}
+		}else if(type=='gis'){
+			busTool.toBaiduPoint(points,function(arrpoints){
+				for(var i=0;i<arrpoints.length;i++){
+					(function(index){
+						var marker=new BMap.Marker(arrpoints[index]);
+						map.addOverlay(marker);
+						var label=new BMap.Label(points[index].lng+' , '+points[index].lat,{offset:new BMap.Size(20,-10)});
+						marker.setLabel(label);
+						label.hide();
+						marker.addEventListener('mouseover',function(){
+							label.show();
+						});
+						marker.addEventListener('mouseout',function(){
+							label.hide();
+						});
+					})(i);
+				}
+			});
+		}
+	}
+	
+</script>

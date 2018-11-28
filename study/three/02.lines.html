@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.box{
+				width:800px; height: 600px; margin: 50px auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box" class="box">
+		    
+		</div>
+	</body>
+</html>
+<script src="three.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	//创建场景
+	var scene, camera, renderer;
+	
+	scene = new THREE.Scene();
+	
+	camera = new THREE.PerspectiveCamera(45,800/600,1,500);
+	camera.position.set(0,0,100);
+	camera.lookAt(new THREE.Vector3(0,0,0));
+	
+	renderer = new THREE.WebGLRenderer();
+	renderer.setSize(800,600);
+	document.getElementById('box').appendChild(renderer.domElement);
+	
+	//创建线
+	var material = new THREE.LineBasicMaterial({color:0x0000ff}); //材质
+	var geometry = new THREE.Geometry();							//几何形状
+	geometry.vertices.push(new THREE.Vector3(-10,0,0));
+	geometry.vertices.push(new THREE.Vector3(0,10,0));
+	geometry.vertices.push(new THREE.Vector3(10,0,0));
+	
+	var line = new THREE.Line(geometry,material);
+	
+	//添加
+	scene.add(line);
+	renderer.render(scene,camera);
+		
+	
+</script>

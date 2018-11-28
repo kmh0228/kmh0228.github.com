@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="../fileReader.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../downLoad.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<input type="file" id="file" value="选择文件" />
+		<input type="button" id="btn" value="下载" />
+	</body>
+</html>
+<script type="text/javascript">
+	var oFile = document.getElementById('file');
+	document.getElementById('btn').onclick = function(){
+		var file = oFile.files[0];
+		fileReader(file,{
+			load:function(fileData){
+				downLoad(fileData);
+			}
+		});
+	};
+	
+</script>

@@ -14,6 +14,13 @@
 </html>
 <script src="js/collision.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
+	
+	var speed = 0.4;
+	var sx = ((Math.random()-0.5)>0)*speed * (((Math.random()-0.5)>0)-0.5) * 2;
+	var sy = (((Math.random()-0.5)>0)-0.5) * 2 * (speed - sx);
+	console.log(sx + sy);
+	
+	
 	function rand(m,n){return m+parseInt((n-m)*Math.random());}
 	var says=['撞三次改颜色','谁撞我','不想活了','来啊互相伤害','我要废了你','撞50次改大小','再撞下试试','试试就试试','窗前明月光','撞的心发慌','举头天花板','低头一肥皂'];
 	var saysLength=says.length;
@@ -24,7 +31,7 @@
 
 	var oB=new CollBox('container');
 	oB.ballRun();
-	for(var i=0;i<3;i++){
+	for(var i=0;i<30;i++){
 		var b=rand(40,60);
 		var x=rand(b,mxwidth-b);
 		var y=rand(b,mxheight-b);

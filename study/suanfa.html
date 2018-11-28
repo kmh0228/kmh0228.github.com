@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			span.s{
+				font-size: 10px; color:red;
+			}
+			span.r{
+				color:red; font-weight: bold;
+			}
+			textarea{
+				width:100%;
+				height:500px;
+			}
+		</style>
+	</head>
+	<body>
+		让你们算算这概率:</br>
+		给其他人的不说，单看两个人的，36个鬼， 一个300+幸运(按300算)得到9个鬼，一个200+幸运(按200算)得到27个鬼。</br>
+		将这36个鬼按概率分给他们，每个人得到的概率分别是3/5,2/5。</br>
+		下面我们算一下300幸运的得到9个及以下的概率。</br></br>
+		<span class="s">C9 36 代表排列组合数9是上标36是下标     ^ 代表次方，后面是多少次方</span></br>
+		得到9个:C9 36 * （3/5）^9 * （2/5）^27;</br>
+		得到8个:C8 36 * （3/5）^8 * （2/5）^28;</br>
+		得到7个:C7 36 * （3/5）^7 * （2/5）^29;</br>
+		得到6个:C6 36 * （3/5）^6 * （2/5）^30;</br>
+		得到5个:C5 36 * （3/5）^5 * （2/5）^31;</br>
+		得到4个:C4 36 * （3/5）^4 * （2/5）^32;</br>
+		得到3个:C3 36 * （3/5）^3 * （2/5）^33;</br>
+		得到2个:C2 36 * （3/5）^2 * （2/5）^34;</br>
+		得到1个:C1 36 * （3/5）^1 * （2/5）^35;</br>
+		得到0个:C0 36 * （3/5）^0 * （2/5）^36;</br></br>
+		得到9个及以下的概率是将上面的10个结果相加，计算得:<span class="r" id="result"></span></br>
+		看看这概率，有<span class="r" id="result_g"></span>的概率超过9个鬼,然而被你们算法一算，中枪了</br>
+		并且这种天然低幸运的人有很多，天然高幸运的人也不少。说你算法有问题，你还不信。</br>
+		计算的代码给你放下面。自己看。</br></br>
+		<textarea>
+	//a阶乘到b
+	function CS(a,b){
+		var r = 1;
+		for(var i = a;i>=b;i--){
+			r*=i;
+		}
+		return r;
+	}
+	//排列组合数 a下标，b上标
+	function C(a,b){
+		return CS(a,a-b+1)/CS(b,1);
+	}
+	
+	var sum = 36;		//总数
+	var select = 9;		//概率计算的数
+	var sc = 3/5;		//概率
+	//获得n个的概率
+	function oneP(n){
+		return C(sum,n)*Math.pow(sc,n)*Math.pow((1-sc),sum-n);
+	}
+	
+	var result = 0;
+	//循环获得select个到0个的概率加和
+	for(var i = select;i>=0;i--){
+		var oneR = oneP(i);
+		result += oneR;
+	}
+	//结果
+	var resultD = result*100 + '%';
+	var resultG = (1-result)*100 + '%';
+	document.getElementById('result').innerHTML = resultD;
+	document.getElementById('result_g').innerHTML = resultG;
+		</textarea>
+		
+		
+	</body>
+</html>
+<script type="text/javascript">
+	//a阶乘到b
+	function CS(a,b){
+		var r = 1;
+		for(var i = a;i>=b;i--){
+			r*=i;
+		}
+		return r;
+	}
+	//排列组合数 a下标，b上标
+	function C(a,b){
+		return CS(a,a-b+1)/CS(b,1);
+	}
+	
+	var sum = 36;		//总数
+	var select = 9;		//概率计算的数
+	var sc = 3/5;		//概率
+	//获得n个的概率
+	function oneP(n){
+		return C(sum,n)*Math.pow(sc,n)*Math.pow((1-sc),sum-n);
+	}
+	
+	var result = 0;
+	//循环获得select个到0个的概率加和
+	for(var i = select;i>=0;i--){
+		var oneR = oneP(i);
+		result += oneR;
+	}
+	//结果
+	var resultD = result*100 + '%';
+	var resultG = (1-result)*100 + '%';
+	document.getElementById('result').innerHTML = resultD;
+	document.getElementById('result_g').innerHTML = resultG;
+</script>

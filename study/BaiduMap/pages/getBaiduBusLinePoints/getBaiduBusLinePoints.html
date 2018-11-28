@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{margin:0 10px;}
+			*{ margin: 0; padding:0;}
+			.searchBox,.resultPoints,.resultPoints2{
+				height:30px;
+				width:100%;
+				margin:5px 0;
+			}
+			.searchBox input{
+				height:24px;
+				line-height: 24px;
+				margin: 3px;
+			}
+			.searchBox .text{
+				width:300px;
+			}
+			.searchBox .btn{
+				padding: 0 5px;
+				cursor:pointer;
+			}
+			.map{
+				border:1px solid #ccc;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="searchBox">
+			线路名称:
+			<input type="text" value="123路(古楼公交场站-思明区政府)" placeholder="输入查询线路名称" class="text"/>
+			&nbsp;&nbsp;
+			<input type="button" value="画线路&获取线路点" class="btn" />
+		</div>
+		<textarea class="resultPoints" placeholder="线路百度坐标点..."></textarea>
+		<textarea class="resultPoints2" placeholder="站点百度坐标点..."></textarea>
+		<div class="map" id="container_map">
+			
+		</div>
+	</body>
+</html>
+<script src="js/required.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	requirejs([
+		'./js/mapInit',
+		'./js/addBaiduMapBusLine',
+		'./js/jquery'
+	],function(
+		mapInit,
+		addBaiduMapBusLine
+	){
+		$('#container_map').height($(window).height()-140);
+		var map = mapInit({
+			load:function(map){
+				$('.searchBox .btn').click(function(){
+					addBaiduMapBusLine({
+						map:map,
+						lineName:$('.searchBox .text').val(),
+						usePoints:function(points){
+							var html = '';
+							var length = points.length;
+							for(var i = 0 ;i<length;i++){
+								html += points[i].lng+','+points[i].lat+';';
+							}
+							$('.resultPoints').val(html);
+						},
+						useStations:function(stations){
+							console.log(stations);
+							var html2 = '';
+							var length = stations.length;
+							for(var i = 0 ;i<length;i++){
+								html2 += stations[i].BB + ':' + stations[i].point.lng+','+stations[i].point.lat+';';
+							}
+							$('.resultPoints2').val(html2);
+						}
+					});
+				});
+			}
+		});
+	});
+</script>

@@ -1,6 +1,6 @@
 // JavaScript Document
 
-//inputChange函数，由于input框数值改变是触发
+//inputChange函数，由于input框数值改变是触发,obj为jquery对象
 
 function inputChange(obj,fn){
 	var oldval=obj.val();
@@ -8,8 +8,8 @@ function inputChange(obj,fn){
 		clearInterval(obj.timer);
 		obj.timer=setInterval(function(){
 			var newval=obj.val();
-			if(newval=='')return;
-			if(newval!=oldval){
+			//if(newval=='')return;
+			if(!(newval===oldval)){
 				oldval=newval;
 				fn&&fn(newval);
 			}
