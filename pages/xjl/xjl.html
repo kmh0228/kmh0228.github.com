@@ -26,6 +26,7 @@
     <script type="text/javascript" src="../../js/jquery.js"></script>
     <script src="../../js/clipboard.js-master/clipboard.js-master/dist/clipboard.min.js"></script>
     <script type="text/javascript" src="./xjlData.js"></script>
+    <script type="text/javascript" src="./errCorrect.js"></script>
     <script type="text/javascript" src="http://www.16163.com/zt/qnm/xjl/index_files/data-keju.js"></script>
 </head>
 <body>
@@ -86,8 +87,14 @@
     //$(window).resize(function(){setConHeight();});
     //表单筛选事件
     inputChange($('#searchBtn'),function(val){
-        /*添加模糊处理的地方*/
         $('.con_list li').hide();
+        if(val&&errCorrect[val]){
+            var arr=errCorrect[val];
+            var length = arr.length;
+            for(var i=0;i<length;i++){
+                $('.question:contains("'+arr[i]+'")').parent().show();
+            }
+        }
         $('.question:contains("'+val+'")').parent().show();
     });
     //复制粘贴时间处理
