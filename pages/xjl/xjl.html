@@ -6,20 +6,72 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>行酒令答题器</title>
     <style>
+        *{ margin: 0; padding:0;}
         html,body{height:100%; margin: 0; padding: 0;}
         body{ background:#ccc;}
-        .container{ background: #bbb; width:800px; margin:0px auto; height: 100%;}
+        .container{ background: #bbb; width:800px; margin:0px auto; height: 100%; overflow: hidden;}
+        .title{ font-size: 24px; font-weight: bold; margin-top:10px; text-indent: 15px;}
+        .subtitle{font-size:12px; text-indent: 50px; line-height: 14px;}
+        .inputs input{ font-size: 18px; display: block; width:80%; height: 30px; line-height: 30px; margin: 10px auto 0; border-radius: 5px; text-indent: 10px;}
+        .con{ background: #ccc; width:700px; margin: 20px auto; border-radius: 5px; overflow:auto;}
+        .con li{ list-style: none; overflow: hidden; padding:2px 6px; border:1px solid #bbb; border-radius: 5px;}
+        .con li span{width:310px; float:left;word-wrap : break-word;}
+        .con li .icon{float:left; width:0;height:0;border-top:6px solid transparent; border-bottom:6px solid transparent; border-left:8px solid blue; margin: 2px 4px;}
+        .con li button{width:42px; float:right;}
+
     </style>
     <script type="text/javascript" src="../../js/jquery.js"></script>
     <script type="text/javascript" src="./xjlData.js"></script>
 </head>
 <body>
     <div class="container">
-        
+        <div class="title">行酒令答题器</div>
+        <p class="subtitle">author:塞上曲 - 流魂灬</p>
+        <div class="inputs">
+            <input type="text" value="" placeholder="请输入行酒令问题"/>
+        </div>
+        <ul class="con">
+             <li class="con_item"><span class="wx">wx</span><i class="icon"></i><span class="da">da</span><button>复制</button></li>
+        </ul>
     </div>
 </body>
 </html>
 <script>
+    //监控表单输入方法
+    function inputChange(obj,fn){
+		var oldval=obj.val();
+		obj.on('focus',function(){
+			clearInterval(obj.timer);
+			obj.timer=setInterval(function(){
+				var newval=obj.val();
+				if(!(newval===oldval)){
+					oldval=newval;
+					fn&&fn(newval);
+				}
+			},30);
+		});
+		obj.on('blur',function(){
+			clearInterval(obj.timer);
+		});
+    }
+    //建立列表方法
+    function createList(arr){
+        var arrLength = arr.length;
+        var html = '';
+        for(var i=0; i<arrLength;i++){
+            html += '<li class="con_item"><span class="wx">'+arr[i].wx+'</span><i class="icon"></i><span class="da">'+arr[i].da+'</span><button>复制</button></li>';
+        }
+        $('.con').html(html);
+    }
+    //初始化建立全部列表
+    createList(xjlData);
+    //初始化.con的高度
+    function setConHeight(){
+        var windowHeight = $(window).height();
+        $('.con').height(windowHeight-140);
+    }
+    setConHeight();
+    $(window).resize(function(){setConHeight();});
 
     
 
