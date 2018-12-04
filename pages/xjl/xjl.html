@@ -11,28 +11,37 @@
         body{ background:#ccc;}
         .container{ background: #bbb; width:800px; margin:0px auto; height: 100%; overflow: hidden;}
         .title{ font-size: 24px; font-weight: bold; margin-top:10px; text-indent: 15px;}
-        .subtitle{font-size:12px; text-indent: 50px; line-height: 14px;}
+        .subtitle_autor,.copyContent{font-size:12px; text-indent: 50px; line-height: 14px;}
         .inputs input{ font-size: 18px; display: block; width:80%; height: 30px; line-height: 30px; margin: 10px auto 0; border-radius: 5px; text-indent: 10px;}
-        .con{ background: #ccc; width:700px; margin: 20px auto; border-radius: 5px; overflow:auto;}
-        .con li{ list-style: none; overflow: hidden; padding:2px 6px; border:1px solid #bbb; border-radius: 5px;}
-        .con li span{width:310px; float:left;word-wrap : break-word;}
+        .con{ background: #ccc; width:700px; padding:10px 0; margin: 10px auto; border-radius: 5px;}
+        .con_list{ overflow:auto; height: 100%;}
+        .con li{ cursor: pointer; list-style: none; overflow: hidden; padding:2px 6px; border:1px solid #bbb; border-radius: 5px;}
+        .con li:nth-child(odd){ background: #ddd;}
+        .con li span{width:300px; float:left;word-wrap : break-word;}
         .con li .icon{float:left; width:0;height:0;border-top:6px solid transparent; border-bottom:6px solid transparent; border-left:8px solid blue; margin: 2px 4px;}
-        .con li button{width:42px; float:right;}
+        .con li button{width:42px; float:right; height:100%;}
 
     </style>
     <script type="text/javascript" src="../../js/jquery.js"></script>
+    <script src="../../js/clipboard.js-master/clipboard.js-master/dist/clipboard.min.js"></script>
     <script type="text/javascript" src="./xjlData.js"></script>
+    <script type="text/javascript" src="http://www.16163.com/zt/qnm/xjl/index_files/data-keju.js"></script>
 </head>
 <body>
     <div class="container">
         <div class="title">行酒令答题器</div>
-        <p class="subtitle">author:塞上曲 - 流魂灬</p>
-        <div class="inputs">
-            <input type="text" value="" placeholder="请输入行酒令问题"/>
+        <div class="subtitle" style="overflow:hidden;">
+            <p class="subtitle_autor" style="float:left;">author:塞上曲 - 流魂灬(2018-12-04)</p>
+            <p class="copyContent" style="float:right; color:red;">点击一行，即可复制成功！去游戏中粘贴即可！</p>
         </div>
-        <ul class="con">
-             <li class="con_item"><span class="wx">wx</span><i class="icon"></i><span class="da">da</span><button>复制</button></li>
-        </ul>
+        <div class="inputs">
+            <input id="searchBtn" type="text" value="" placeholder="请输入行酒令问题"/>
+        </div>
+        <div class="con">
+            <ul class="con_list">
+               <li class="con_item"><span class="wx">wx</span><i class="icon"></i><span class="da">da</span><button>复制</button></li>                
+            </ul>
+        </div>
     </div>
 </body>
 </html>
@@ -59,20 +68,30 @@
         var arrLength = arr.length;
         var html = '';
         for(var i=0; i<arrLength;i++){
-            html += '<li class="con_item"><span class="wx">'+arr[i].wx+'</span><i class="icon"></i><span class="da">'+arr[i].da+'</span><button>复制</button></li>';
+            html += '<li data-clipboard-text="'+arr[i].opt1+'" class="con_item"><span class="question">'+arr[i].question+'</span><i class="icon"></i><span class="opt1">'+arr[i].opt1+'</span><button>复制</button></li>';
         }
-        $('.con').html(html);
+        $('.con_list').html(html);
     }
     //初始化建立全部列表
-    createList(xjlData);
+    var sumList = xjlData.concat(a.xlinfo);
+    createList(sumList);
     //初始化.con的高度
     function setConHeight(){
         var windowHeight = $(window).height();
         $('.con').height(windowHeight-140);
     }
     setConHeight();
-    $(window).resize(function(){setConHeight();});
-
-    
+    //$(window).resize(function(){setConHeight();});
+    //表单筛选事件
+    inputChange($('#searchBtn'),function(val){
+        /*添加模糊处理的地方*/
+        $('.con_list li').hide();
+        $('.question:contains("'+val+'")').parent().show();
+    });
+    //复制粘贴时间处理
+    var t = new ClipboardJS('.con_list li');
+    t.on('success',function(txt){
+        $('.copyContent').html('复制成功！：'+txt.text);
+    });
 
 </script>

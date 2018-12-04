@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../js/clipboard.js-master/clipboard.js-master/dist/clipboard.min.js"></script>
+</head>
+<body>
+        <div>hello</div>
+            <button class="btn" data-clipboard-action="copy" data-clipboard-target="div">Copy</button>
+            <input type="text">
+    
+</body>
+</html>
+<script>
+    alert(Clipboard);
+var clipboard = new ClipboardJS('.btn');
+ 
+     clipboard.on('success', function(e) {
+         console.log(e);
+     });
+ 
+     clipboard.on('error', function(e) {
+         console.log(e);
+     });
+
+
+
+</script>
