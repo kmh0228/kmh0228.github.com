@@ -30,6 +30,7 @@
     <script type="text/javascript" src="./xjlData.js"></script>
     <script type="text/javascript" src="https://www.16163.com/zt/qnm/xjl/index_files/data-keju.js"></script>
     <script src="../../tools/getHref.js" type="text/javascript"></script>
+    <script src="../../tools/keydown.js" type="text/javascript"></script>
 </head>
 <body>
     <div class="container">
@@ -104,7 +105,7 @@
         for(var name in hrefInfo){
             val = val.replace(new RegExp(name,'g'),hrefInfo[name]);
         }
-        console.log(val);
+
         $('.con_list li').hide();
         $('.pinyin:contains("'+val+'")').parent().show();
     });
@@ -113,5 +114,12 @@
     t.on('success',function(txt){
         $('.copyContent').html('复制成功！：'+txt.text);
     });
+
+    //回车复制第一条事件
+    keyDown($('#searchBtn')[0],['ENTER'],function(){
+        $('.con_list li:visible').eq(0).trigger("click");
+    });
+
+
 
 </script>

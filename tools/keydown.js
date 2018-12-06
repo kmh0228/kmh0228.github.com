@@ -29,6 +29,7 @@ var codeToKey= {
 	"X":88,
 	"Y":89,
 	"Z":90,
+	'ENTER':13
 }
 
 var keyKey={
