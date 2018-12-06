@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>用JS实现汉字转拼音</title>
+    <meta charset="utf-8" />
+    <script type="text/javascript" src="../wordToPinyin.js"></script>
+</head>
+<body>
+请输入：<input type="text" id="J_input" /><br/><br/>
+<input type="button" id="J_btn" value="转化"/><br/><br/>
+输出是：<span id="J_output">...</span>
+
+<script>
+
+var btn = document.getElementById('J_btn'),
+    input = document.getElementById('J_input'),
+    output = document.getElementById('J_output');
+    
+btn.addEventListener('click', function(e){
+
+    var inputV = input.value,
+        str = wordToPinyin(inputV);
+        
+    output.innerHTML = str;
+}, false);
+</script>
+</body>
+</html>
