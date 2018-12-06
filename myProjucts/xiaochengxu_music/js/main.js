@@ -1,3 +1,4 @@
+import './config'
 let ctx   = canvas.getContext('2d')
 
 /**
@@ -7,7 +8,7 @@ export default class Main {
   constructor() {
     // 维护当前requestAnimationFrame的id
     this.aniId    = 0
-
+    
     this.restart()
   }
 
@@ -25,6 +26,10 @@ export default class Main {
     //ctx.fillStyle = '#fff';
     
 
+  }
+
+  add(obj){
+    obj.add();
   }
 
  
