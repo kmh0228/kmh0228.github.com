@@ -37,18 +37,21 @@
 			'sy':rand(1,4),
 			'c':'url(img/paopao'+rand(1,6)+'.png)',
 			'opa':rand(60,100)/100,
-			'html':i,
-			'callBack':function(n){
+			'html':says[i],
+			'callBack':function(n,e){
 				//this.setB(rand(30,50));
 				//this.setM();
 				this.setOpa(rand(60,100)/100);
 				if(n%3==0){this.setC('url(img/paopao'+rand(1,6)+'.png)')};//撞三次改变下图片
 				if(n%50==0){
 					this.setB(rand(40+parseInt((n>1000?1000:n)/50),60+parseInt((n>1000?1000:n)/50)));
-				}//撞50次改大小
-				//this.setHTML(says[rand(0,saysLength)]);
+				}
+				//内容互换
+				var car = this.opts.html;
+				e&&this.setHTML(e.opts.html);
+				e&&e.setHTML(car);
 			},
-			'click':function(){window.open('https://www.baidu.com');}
+			//'click':function(){window.open('https://www.baidu.com');} //点击跳转
 		});
 		oB.addBall(ball);
 	}

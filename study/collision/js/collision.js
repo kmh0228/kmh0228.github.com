@@ -39,7 +39,7 @@ QQ:1150123276
 				html:小球内部的内容，不填则不会改变DOM本身的内容。
 				fontSize:字体大小，默认12;
 				opa:小球透明度，默认1；
-				callBack:function  碰撞时的回掉函数，参数为碰撞的总次数，方法中this指向此球对象
+				callBack:function  碰撞时的回掉函数，参数为碰撞的总次数，方法中this指向此球对象，第一个参数是碰撞了多少次了，第二个参数是与他碰的球，计算过的小球不存在第二个参数
 				click:click 点击时的链接地址
 			}
 		小球方法：
@@ -125,7 +125,7 @@ QQ:1150123276
 					if(isColl(balls[i],balls[j])){
 						coll(balls[i],balls[j],function() {
 							balls[i].collNum++;
-							balls[i].opts.callBack.call(balls[i],balls[i].collNum);
+							balls[i].opts.callBack.call(balls[i],balls[i].collNum,balls[j]);
 							balls[j].collNum++;
 							balls[j].opts.callBack.call(balls[j],balls[j].collNum);
 						});
