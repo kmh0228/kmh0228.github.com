@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="author" content="智能社 - zhinengshe.com" />
+<meta name="copyright" content="智能社 - zhinengshe.com" />
+<meta name="description" content="智能社是一家专注于web前端开发技术的公司，目前主要提供JavaScript培训和HTML5培训两项服务，同时还推出了大量javascript基础知识教程，智能课堂为你带来全新的学习方法和快乐的学习体验。" />
+</title>
+<style>
+</style>
+<script src="ajax.js"></script>
+<script>
+window.onload=function(){
+	var oUser = document.getElementById('username');
+	var oPass = document.getElementById('password');
+	var oBtn = document.getElementById('btn1');
+	var oBtn2 = document.getElementById('btn2');
+	oBtn.onclick=function(){
+		ajax({
+			url:'http://localhost:8081',
+			data:{
+				act:'log',
+				user:oUser.value,
+				pass:oPass.value
+			},
+			success:function(str){
+				alert(str);
+			},
+			error:function(){
+				alert('失败');
+			}
+		});
+	};
+	oBtn2.onclick=function(){
+		ajax({
+			url:'http://localhost:8081',
+			data:{
+				act:'reg',
+				user:oUser.value,
+				pass:oPass.value
+			},
+			success:function(str){
+				alert(str);
+			},
+			error:function(){
+				alert('失败');
+			}
+		});
+	};
+};
+</script>
+</head>
+
+<body>
+<label for="username">用户名:</label>
+<input type="text" id="username" />
+<br />
+<label for="password">密&nbsp;码:</label>
+<input type="text" id="password" />
+<br />
+<input type="button" value="登录" id="btn1" />
+<input type="button" value="注册" id="btn2" />
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
