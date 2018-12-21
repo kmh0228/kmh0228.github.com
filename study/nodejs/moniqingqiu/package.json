@@ -1,0 +1,11 @@
+{
+  "name": "moniqingqiu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "moniqingqiu.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "kmh0228",
+  "license": "ISC"
+}

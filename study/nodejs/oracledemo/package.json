@@ -1,0 +1,14 @@
+{
+  "name": "oracledemo",
+  "version": "1.0.0",
+  "description": "链接oracle插件，需要下载oracle客户端的base和sdk",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "kmh0228",
+  "license": "ISC",
+  "dependencies": {
+    "oracledb": "^3.0.1"
+  }
+}
