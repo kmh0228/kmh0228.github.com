@@ -23,7 +23,7 @@
     <view class="card">
       <view class="card_l">
         <view>
-          <icon/><text>今日工作</text>
+          <icon/><text>今日作</text>
         </view>
       </view>
     </view>
