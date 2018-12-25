@@ -1,4 +1,5 @@
 ;var wordToPinyin;
+;var wordToShouzimu;
 ;(function(){
     //拼音和汉字的对应关系
     var PinYin = {
@@ -431,6 +432,20 @@
         return pinyin;
     }
 
-
-
+    // 汉字转首字母
+    wordToShouzimu = function(word) {
+        var wordLength = word.length;
+        var shouzimu = '';
+        var reg = new RegExp('[a-zA-Z0-9\- ]');
+        for (var i = 0; i < wordLength; i++) {
+            var val = word.substr(i, 1);
+            var name = arraySearch(val);
+            if (reg.test(val)) {
+                shouzimu += val;
+            } else if (name !== false) {
+                shouzimu += name[0];
+            }
+        }
+        return shouzimu;
+    }
 })();
