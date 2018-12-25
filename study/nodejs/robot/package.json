@@ -7,5 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "kmh",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "robotjs": "^0.5.1"
+  }
 }
