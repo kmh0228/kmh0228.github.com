@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+		    <p v-if="seen">显示的内容</p>
+		    <ul>
+		    	<li v-for="item in list">{{item}}</li>
+		    </ul>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	
+	var app = new Vue({
+		el:'#app',
+		data:{
+			seen:true,
+			list:['a','b','c','d']
+		}
+	});
+	
+	setTimeout(function(){
+		app.seen = false;
+		app.list.push('wocao');
+	},5000);
+	
+	
+</script>

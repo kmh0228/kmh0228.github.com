@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app" v-on:click="cclick">
+		    <a href="www.baidu.com" v-on:click.prevent="prev"/>跳转页面</a>
+		    <div>
+		    	{{message}}
+		    </div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	
+	//在绑定指令的时候加修饰符表达特殊含义
+	//click.prevent   代表阻止事件的默认的默认动作
+	
+	var app = new Vue({
+		el:"#app",
+		data:{
+			message:'message',
+			
+		},
+		methods:{
+			cclick:function(){
+				this.message += ' 点击了容器';
+			},
+			
+			prev:function(){
+				this.message += ' 点击了按钮';
+			}
+			
+		}
+		
+	});
+</script>

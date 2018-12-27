@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			双大括号插入
+		    <div>
+		    	{{subHTML}}
+		    </div>
+		    v-html插入(不可以用来拼组件)
+		    <div v-html="subHTML">
+		    	
+		    </div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	
+	var app = new Vue({
+		el:'#app',
+		data:{
+			
+			subHTML:'<b>加粗的内容</b>'
+			
+		}
+	});
+	
+</script>

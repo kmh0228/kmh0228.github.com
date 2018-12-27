@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+		    {{message}}
+		   </br>
+		   <!--v-bind:缩写成：----><!--v-on缩写成@-->
+		   <input value="改变按钮颜色"
+		   	:style="'background:'+btnColor+';'"
+		   	@click="changeColor"				
+		   	type="button"
+		   	/>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	
+	var app = new Vue({
+		el:'#app',
+		data:{
+			message:'meaages',
+			title:'this is a title',
+			btnColor:'#f00'
+		},
+		methods:{
+			changeColor:function(){
+				var rand = function(){
+					return parseInt(Math.random()*255);
+				};
+				this.btnColor = 'rgb('+rand()+','+rand()+','+rand()+')';
+			}
+		}
+	});
+	
+</script>

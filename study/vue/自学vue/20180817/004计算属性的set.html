@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+		    {{message}}
+		   </br>
+		   {{tishi}}
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	
+	var app = new Vue({
+		el:'#app',
+		data:{
+			message:'这是个message',
+			changeNum:0
+		},
+		computed:{
+			
+			tishi:{
+				get:function(){
+					return 'message更改了'+this.changeNum+'次';
+				},
+				set:function(newValue){
+					this.changeNum = newValue;
+				}
+			}
+		}
+		
+	});
+		var i=0;
+		setInterval(function(){
+			app.tishi = i;
+			i++;
+		},1000);
+	
+	
+</script>

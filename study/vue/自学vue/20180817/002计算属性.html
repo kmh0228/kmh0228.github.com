@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+		    {{message}}
+		   </br>
+		   {{reverseMessage}}
+		  </br>
+		  {{reverseMessage2}}
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	
+	var app = new Vue({
+		el:'#app',
+		data:{
+			message:'message'
+		},
+		//computed 这里放着计算属性，绑定方法和普通的属性一个鸟样
+		computed:{
+			reverseMessage:function(){	//一定要放在function里面。要不然找不到this
+				return this.message.split('').reverse().join('');
+			},
+			//计算属性和方法的区别是方法每次调用会重新计算，而计算属性在其依赖的对象不改变的时候不会改变
+		}
+	});
+	
+</script>

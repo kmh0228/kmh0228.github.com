@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div>
+				<input value="点击" type="button" v-on:click="something" />
+			</div>
+		    {{message}}
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	
+	//除了v-for之外其他的v-都是指令
+	
+	var app = new Vue({
+		el:'#app',
+		data:{
+			message:'message'
+		},
+		methods:{
+			something:function(){
+				this.message += ' 点了一下';
+			}
+		}
+	});
+	
+</script>

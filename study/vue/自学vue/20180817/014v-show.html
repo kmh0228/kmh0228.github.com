@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			{{message}}
+			<input type="button" value="showanhidetext" @click="tab"/>
+			<div v-show="showText">
+				this is text
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	//show 和 if 的区别在于show只是更改dom的display样式,不能用在template，if则是添加和删除dom,可以用在template
+	var app = new Vue({
+		el:'#app',
+		data:{
+			message:'message',
+			showText:true
+		},
+		methods:{
+			tab:function(){
+				this.showText = !this.showText;
+			}
+		}
+	});
+	
+	//v-for的优先级比v-if高
+	
+</script>

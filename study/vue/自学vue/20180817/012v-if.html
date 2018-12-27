@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			var component = Vue.component('comp',{
+				props:['show'],
+				template:'<div>{{#if show}}\
+				    <div v-html="{{#if show}}..{{/if}}"></div>\
+				    {{/if}}</div>'
+			});
+			
+		</script>
+	</head>
+	<body>
+		<div id="app">
+		    {{message}}
+		    <input value="tab" type="button" @click="tab"/>
+		    <comp v-bind:show="show"></comp>
+		    <div v-if="show">v-if</div>
+		    <div v-else>v-else</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	
+	var app = new Vue({
+		el:'#app',
+		data:{
+			message:'message',
+			show:true
+		},
+		methods:{
+			tab:function(){
+				this.show = !this.show;
+			}
+		}
+	});
+	
+</script>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+		    {{message}}
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	
+	var app = new Vue({
+		el:'#app',
+		data:{
+			message:'this is a content'
+		},
+		//创建完成之后的回调函数，this只想这个实例，钩子不能使用箭头函数
+		created:function(){
+			document.write('</br>app实例已经创建完成，这里的message是' + this.message);
+		}
+		//其他的钩子
+		//beforeCreate: 组件实例刚创建，还没有计算属性的时候
+		//created:组件实例已经创建完成，属性已经绑定，但是DOM还没有生成，实例上的$el还不存在
+		//beforeMount  模板挂载之前
+		//mounted      模板挂载之后
+		//beforeUpdate 组件更新之前
+		//update       组件更新之后
+		//activated		组件被激活时调用 for keep-alive
+		//deactivated	组件被移除时调用 for keep-alive
+		//beforeDestroy 组件销毁前调用
+		//destroyed    	组件销毁后调用
+		
+	});
+	
+</script>

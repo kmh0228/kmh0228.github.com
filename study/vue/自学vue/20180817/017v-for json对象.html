@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+		    {{message}}<br />
+		    value in zhangsan
+		    <ul>
+		    	<li v-for="value in zhangsan">{{value}}</li>
+		    </ul>
+		    <br />
+		    (value,key) in zhangsan
+		    <ul>
+		    	<li v-for="(value,key) in zhangsan">{{key}}:{{value}}</li>
+		    </ul>
+		    <br />
+		    (value,key,index) in zhangsan
+		    <ul>
+		    	<li v-for="(value,key,index) in zhangsan">{{index}}.{{key}}:{{value}}</li>
+		    </ul>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	
+	var app = new Vue({
+		el:'#app',
+		data:{
+			message:'message',
+			zhangsan:{
+				name:'zhangsan',
+				sex:'man',
+				age:18
+			}
+		}
+	});
+	
+</script>

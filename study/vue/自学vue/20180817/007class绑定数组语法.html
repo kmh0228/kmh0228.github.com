@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.red{
+				color:red;
+			}
+			.bold{
+				font-weight: bold;
+			}
+			.big{
+				font-size: 40px;
+			}
+		</style>
+		<script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+		    {{message}}
+		    <input value="tab.red" type="button" v-on:click="tabRedClass"/>
+		    <input value="tab.big" type="button" v-on:click="tabBigClass" />
+		    <div v-bind:class="textClass">
+		    	this is a message , it is a biudefao zi
+		    </div>
+		    <div>
+		    	
+		    </div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	
+	var app = new Vue({
+		el:'#app',
+		data:{
+			message:'messgae',
+			isRed:true,
+			isBig:true
+		},
+		computed:{
+			textClass:function(){
+				return [{
+						red:this.isRed
+					},'bold',{
+						big:this.isBig
+					}]
+				}
+		},
+		methods:{
+			tabRedClass:function(){
+				this.isRed = !this.isRed;
+			},
+			tabBigClass:function(){
+				this.isBig = !this.isBig;
+			}			
+		}
+	});
+	
+</script>

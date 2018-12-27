@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!--绑定元素的属性-->
+		    <span v-bind:title="message">
+		    	message
+		    </span>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	
+	var app = new Vue({
+		el:'#app',
+		data:{
+			message:'页面加载于' + new Date().toLocaleDateString()
+		}
+	});
+	
+	setTimeout(function(){
+		app.message = '新的提示';
+	},5000);
+	
+</script>

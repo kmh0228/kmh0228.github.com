@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+		    <span>{{message}}</span>
+		   </br>
+		   <input type="button" value="逆转消息" v-on:click="reverseMessage"/>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	
+	var app = new Vue({
+		el:'#app',
+		//这里放着数据
+		data:{
+			message:'hello,world!'
+		},
+		//这里放着方法
+		methods:{
+			reverseMessage:function(){
+				this.message = this.message.split('').reverse().join('');
+			}
+		}
+	});
+	
+</script>

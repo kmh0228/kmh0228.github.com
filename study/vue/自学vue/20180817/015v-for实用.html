@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+		    {{message}}
+		    <br />
+		    item in list
+		    <ul>
+		    	<li v-for="item in list">{{item.name}}</li>
+		    </ul><br />
+		    {item,index}in list2
+		    <br />
+		    <ul>
+		    	<li v-for="(item, index) in list2">{{index}}&nbsp;&nbsp;{{item.name}}</li>
+		    </ul>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	
+	var app = new Vue({
+		el:'#app',
+		data:{
+			message:'message',
+			list:[{name:'zhangsan',age:14},
+					{name:'lisi',age:15},
+					{name:'zhaowu',age:16}],
+			list2:[{name:'zhangsan',age:14},
+					{name:'lisi',age:15},
+					{name:'zhaowu',age:16}]
+		}
+	});
+	
+</script>

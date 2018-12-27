@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.bold{
+				font-weight: bold;
+			}
+			.red{
+				color:red
+			}
+		</style>
+		<script type="text/javascript">
+			//在组件中用的class名将被重叠
+			var component = Vue.component('zujian',{
+				props:['name','age'],
+				template:'<li class="bold">{{name}}今年{{age}}岁</li>'
+			});
+			
+		</script>
+	</head>
+	<body>
+		
+		<div id="app">
+			
+			<ul>
+				<zujian class="red" v-for="item in list" v-bind:name="item.name" v-bind:age="item.age"></zujian>
+			</ul>
+		    
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	
+	var app = new Vue({
+		el:'#app',
+		data:{
+			message:'message',
+			list:[{
+				name:'zhaoshang',
+				age:14
+			},{
+				name:'lisi',
+				age:18
+			},{
+				name:'wangermazi',
+				age:16
+			}]
+		}
+	});
+	
+	
+</script>

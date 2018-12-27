@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			//定义一个组件 需要在页面之前加载
+			Vue.component('todo-item',{
+				props:['value'],						//从父级接受的参数
+				template:'<li>这是一{{value}}内容</li>',			//这里写html元素
+			});
+
+		</script>
+	</head>
+	<body>
+		<div id="app">
+			<ul>
+				<todo-item v-for="item in message" v-bind:value=item></todo-item>
+			</ul>		    
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var app = new Vue({
+		el:'#app',
+		data:{
+			message:['a','b','c','d']
+		}
+	});
+	
+	
+	
+	
+	
+</script>

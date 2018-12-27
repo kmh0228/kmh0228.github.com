@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+		    {{message}}
+		    <div v-bind:style="textStyle">
+		    	this is a test message,it is biudefao
+		    </div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	
+	var app = new Vue({
+		el:'#app',
+		data:{
+			message:'message',
+			textStyle:{
+				color:'red',
+				'font-weight':'bold',
+				'font-size':'24px'
+			}
+		}
+	});
+	
+</script>

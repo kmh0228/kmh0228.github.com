@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+		    <div>
+		    	{{message}}
+		    </div>
+		    <div v-once>
+		    	{{message2}}
+		    </div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	
+	var app = new Vue({
+		el:'#app',
+		data:{
+			message:'双大括号插值', //双大括号插值法
+			message2:'v-once指令让插值不改变，慎用'
+		}
+	});
+	
+	
+	var timeout = setTimeout(function(){
+		app.message += '-数据改变';
+		app.message2 += '-数据改变';
+	},3000);
+	
+</script>

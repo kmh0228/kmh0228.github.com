@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<input value="tab" type="button" @click="tab()"/>
+		    <div v-if="message == 'A'">this is a</div>
+		    <div v-else-if="message == 'B'">this is b</div>
+		    <div v-else-if="message == 'C'">this is c</div>		    
+		    <div v-else>this is other</div>		    
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	
+	var app = new Vue({
+		el:'#app',
+		data:{
+			num:0,
+			message:'A'
+		},
+		methods:{
+			tab:function(){
+				this.num++;
+				this.message = ['A','B','C','other'][this.num%4];
+			}
+		}
+	});
+	
+</script>

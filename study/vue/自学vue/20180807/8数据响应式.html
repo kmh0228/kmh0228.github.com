@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			
+			<div>这是a={{a}}</div>
+			<div>这是b={{b.name}}</div>
+			<div>这是c={{c}}</div>
+			
+			<input type="button" value="改变a" v-on:click="a='点击后的a'" />
+			<input type="button" value="改变c" v-on:click="c='点击后的c'" />
+		    
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	
+	//c没有给初始值，会报错
+	
+	var data = {
+			
+			a:'原始a',
+			b:{name:'原始b'}
+			
+	};
+	
+	Object.freeze(data.b);
+	
+	var app = new Vue({
+		el:'#app',
+		data:data
+	});
+	
+	setTimeout(function(){
+		
+		app.a = '新的a';
+		app.b.name = '新的b';
+		app.c = '新的c';
+		
+	},3000);
+	
+</script>
