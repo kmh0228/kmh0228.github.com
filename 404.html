@@ -3,10 +3,21 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>404</title>
+		<style>
+		.box{ overflow: hidden;}
+		.c1,.c2{
+			height:30px; background: #ccc; width:180px; float:left;
+		}
+		.c2{
+			background: #333;
+			width:calc(100% - 180px)
+		}
+		</style>
 	</head>
 	<body>
-		<div>
-			没有找到页面！
+		<div class="box">
+			<div class="c1"></div>
+			<div class="c2"></div>
 		</div>
 	</body>
 </html>
