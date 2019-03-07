@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+</body>
+</html>
+<script>
+    // 'number' 'string' 'function' 'array' 'json' 'boolean' 'undefined' 'null' 'object'
+    function getType(data){
+        var type = typeof data;
+		if(type == 'object'){
+			if(data === null){
+				type = 'null';
+			}else if(data.constructor == Array){
+				type = 'array'
+			}else if(data.toString() == '[object Object]'){
+                if(data.constructor == Object){
+                    type = 'json';
+                }
+			};
+		}
+		return type;
+    }
+
+    
+    function logType(data){
+        document.body.innerHTML += getType(data) + '</br>';
+    }
+    function abc(){}
+    var per = new abc();
+    logType(0);
+    logType('123');
+    logType({});
+    logType();
+    logType([]);
+    logType(function(){});
+    logType(per);
+    logType(true);
+
+</script>
