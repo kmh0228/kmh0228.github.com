@@ -1,4 +1,4 @@
-function uniteMoudle(factory,name){
+(function(factory,name){
 	if(typeof exports === 'object' && typeof module !== 'undefined'){
 		var result = factory();
 		export default result;		//webpack模块
@@ -7,8 +7,6 @@ function uniteMoudle(factory,name){
 	}else{
 		window[name] = factory();	//js引入
 	}
-}
-
-uniteMoudle(function(){
-	return '此模块导出的东西'
+})(function(){
+	return '模块内容'; 
 },'myPlugin');
