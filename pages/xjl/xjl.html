@@ -50,8 +50,6 @@
 </body>
 </html>
 <script>
-
-var ws = new WebSocket('ws://152.136.79.68:8081');
     //监控表单输入方法
     function inputChange(obj,fn){
 		var oldval=obj.val();
@@ -111,4 +109,5 @@ var ws = new WebSocket('ws://152.136.79.68:8081');
         $('.con_list li:visible').eq(0).trigger("click");
     });
 
+var ws = new WebSocket('wss://152.136.79.68:8081');
 </script>
