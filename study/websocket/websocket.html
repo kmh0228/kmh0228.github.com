@@ -11,13 +11,63 @@
 </body>
 </html>
 <script>
-var ws = new WebSocket('wss://152.136.79.68:8080');
-ws.onmessage = function(event){
-    document.body.innerHTML += event.data;
-};
-// ws.onclose = function(event){
-//     document.body.innerHTML += '断开链接';
-// };
+
+try{
+    var ws3 = new WebSocket('ws://liunian.我爱你:8080');
+    ws3.onmessage = function(event){
+        document.body.innerHTML += event.data;
+    };
+    ws3.onclose = function(event){
+        document.body.innerHTML += '断开链接';
+    };
+    ws3.onerror = function(event){
+        console.log('ws');
+        console.log(event);
+    };
+}catch(err){
+    console.log('ws err');
+    console.log(err);
+}
+
+try{
+    var ws = new WebSocket('wss://liunian.我爱你:8080');
+    ws.onmessage = function(event){
+        document.body.innerHTML += event.data;
+    };
+    ws.onclose = function(event){
+        document.body.innerHTML += '断开链接';
+    };
+    ws.onerror = function(event){
+        console.log('wss');
+        console.log(event);
+    };
+}catch(err){
+    console.log('wss err');
+    console.log(err);
+}
+
+try{
+    var ws = new WebSocket('wss://liunian.我爱你:8080/', {
+        protocolVersion: 8,
+        origin: 'wss://liunian.我爱你:8080',
+        rejectUnauthorized: false //重要，自签名证书只能这样设了。CA颁发的受信任证书就不需要了
+    });
+    ws.onmessage = function(event){
+        document.body.innerHTML += event.data;
+    };
+    ws.onclose = function(event){
+        document.body.innerHTML += '断开链接';
+    };
+    ws.onerror = function(event){
+        console.log('wss + origin');
+        console.log(event);
+    };
+}catch(err){
+    console.log('wss origin err');
+    console.log(err);
+}
+
+
 
 </script>
 
