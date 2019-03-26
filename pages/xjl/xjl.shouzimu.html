@@ -122,10 +122,6 @@
     });
 
 
-    var ws = new WebSocket('wss://liunian.我爱你:8081', {
-        protocolVersion: 8,
-        origin: 'wss://liunian.我爱你:8081',
-        rejectUnauthorized: false //重要，自签名证书只能这样设了。CA颁发的受信任证书就不需要了
-    });
+    var ws = new WebSocket('wss://liunian.我爱你:8081');
 
 </script>

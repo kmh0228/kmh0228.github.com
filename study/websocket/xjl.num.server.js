@@ -1,13 +1,13 @@
 var https=require('https');
 var ws=require('ws');
 var fs=require('fs');
-var keypath='/path/to/private.pem';
-var certpath='/path/to/file.crt';
+var keypath='/path/to/server.key';
+var certpath='/path/to/server.pem';
 
 var options = {
   key: fs.readFileSync(keypath),
   cert: fs.readFileSync(certpath),
-  passphrase:'idpbg1230.'//如果秘钥文件有密码的话，用这个属性设置密码
+  passphrase:'123456'//如果秘钥文件有密码的话，用这个属性设置密码
 };
  
 var server=https.createServer(options, function (req, res) {//要是单纯的https连接的话就会返回这个东西
