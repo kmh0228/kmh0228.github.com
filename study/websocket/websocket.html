@@ -30,14 +30,14 @@ try{
 }
 
 try{
-    var ws = new WebSocket('wss://liunian.我爱你:8080');
-    ws.onmessage = function(event){
+    var ws2 = new WebSocket('wss://liunian.我爱你:8080');
+    ws2.onmessage = function(event){
         document.body.innerHTML += event.data;
     };
-    ws.onclose = function(event){
+    ws2.onclose = function(event){
         document.body.innerHTML += '断开链接';
     };
-    ws.onerror = function(event){
+    ws2.onerror = function(event){
         console.log('wss');
         console.log(event);
     };
