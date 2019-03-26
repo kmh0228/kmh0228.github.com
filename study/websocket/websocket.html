@@ -11,7 +11,7 @@
 </body>
 </html>
 <script>
-var ws = new WebSocket('ws://152.136.79.68:8080');
+var ws = new WebSocket('wss://152.136.79.68:8080');
 ws.onmessage = function(event){
     document.body.innerHTML += event.data;
 };
