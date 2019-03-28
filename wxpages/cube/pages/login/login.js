@@ -42,7 +42,6 @@ Page({
         }
       })
     }
-    console.log(this.data)
   },
   getUserInfo: function(e) {
     console.log(e)
