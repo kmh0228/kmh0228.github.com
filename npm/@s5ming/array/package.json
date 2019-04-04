@@ -1,0 +1,12 @@
+{
+  "name": "@s5ming/array",
+  "version": "1.0.0",
+  "description": "关于数组的一些处理方法",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "s5ming",
+  "license": "ISC",
+  "keywords":["array","forEach"]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "@s5ming/timer",
+  "version": "1.0.2",
+  "description": "关于计时器的工具",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "timer",
+    "interval",
+    "timeout"
+  ],
+  "author": "s5ming",
+  "license": "ISC",
+  "dependencies": {
+    "@s5ming/json": "^1.0.1"
+  }
+}

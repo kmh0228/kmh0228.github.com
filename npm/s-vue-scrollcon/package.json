@@ -1,0 +1,21 @@
+{
+  "name": "s-vue-scrollcon",
+  "version": "1.0.4",
+  "description": "带有滚动条的容器",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "scroll",
+    "scrollcon"
+  ],
+  "author": "s5ming",
+  "license": "ISC",
+  "dependencies": {
+    "@s5ming/array": "^1.0.0",
+    "@s5ming/events": "^1.0.0",
+    "s-getstyle": "^1.0.1",
+    "s-vue-scrollbar": "^1.0.0"
+  }
+}

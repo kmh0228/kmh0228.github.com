@@ -1,0 +1,16 @@
+{
+  "name": "@s5ming/get-data-type",
+  "version": "1.0.0",
+  "description": "获取数据类型",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "type",
+    "dataType",
+    "数据类型"
+  ],
+  "author": "s5ming",
+  "license": "ISC"
+}
