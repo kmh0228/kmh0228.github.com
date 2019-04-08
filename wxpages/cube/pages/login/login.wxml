@@ -1,13 +1,18 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="userinfo">
+  <view class="userinfo clear">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    <block wx:else class="clear">
+      <view class="fl half">
+        <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+        <br/><text style="display:block;" class="userinfo-nickname">{{userInfo.nickName}}</text>
+      </view>
+      <view class="fl half">
+        <button class="play-btn" bindtap="bindViewTap">我是一个进入游戏的按钮(点我)</button>
+      </view>
     </block>
   </view>
   <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+    <text class="user-motto">welcome {{userInfo.nickName}} , 今天天气不错！</text>
   </view>
 </view>

@@ -1,5 +1,15 @@
 /**index.wxss**/
 .userinfo {
+/**  display: flex;
+  flex-direction: column;
+  align-items: center;
+  **/
+  height:80%;
+}
+.half{
+  width:50%;
+  overflow:hidden;
+  text-align:center;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,10 +22,20 @@
   border-radius: 50%;
 }
 
+.play-btn{
+  height: 88rpx;
+  width:168rpx;
+  text-align:center;
+  line-height:44rpx;
+  margin: 40rpx;
+  border-radius: 20%;
+}
+
 .userinfo-nickname {
   color: #aaa;
 }
 
 .usermotto {
-  margin-top: 200px;
+  height:20%;
+  text-align:center;
 }

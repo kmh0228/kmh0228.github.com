@@ -1,13 +1,20 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+<view class="container fm_container">
+  <view class="game_area"><!--游戏区域-->
+    <view class="game_area_game clear">
+      <view class="game_steerwheel_box fl"  style="width:{{halfwidth}}px;">
+        <view class="game_steerwheel" style="width:{{halfwidth*0.4}}px; height:{{halfwidth*0.4}}px; margin:{{halfwidth*0.3}}px auto 0;">
+        </view>
+      </view>
+      <view class="game_cube_box fr"  style="width:{{halfwidth}}px;">
+        <view class="game_cube" id="cube" style="width:{{halfwidth*0.6}}px; height:{{halfwidth*0.6}}px; margin:{{halfwidth*0.2}}px auto 0;">
+          <import src="../../components/cube/cube.wxml" />
+          <template name="cube"></template>
+        </view>
+      </view>
+    </view>
+    <view class="game_area_mask" style="height:{{wheight}}px;display:none;">
+    
+    </view>
   </view>
 </view>

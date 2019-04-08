@@ -1,0 +1,4 @@
+<!--index.wxml-->
+<template class="cube_container" name="cube">
+  this is cube components
+</template>

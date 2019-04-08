@@ -1,14 +1,18 @@
 {
   "pages":[
-    "pages/login/login",
     "pages/index/index",
+    "pages/login/login",
+    
     "pages/logs/logs"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#000",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "方魔",
     "navigationBarTextStyle":"white",
-    "pageOrientation":"auto"
+    "pageOrientation":"landscape",
+    "enablePullDownRefresh":false,
+    "onReachBottomDistance":0,
+    "disableScroll":true
   }
 }

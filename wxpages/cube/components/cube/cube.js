@@ -1,9 +1,9 @@
  //index.js
 //获取应用实例
 const app = getApp()
-require('../../components/cube/cube.js')
+const Cube = require('../../utils/cube.wx.js')
 
-Page({
+Component({
   //数据
   data: {
     log:'',
@@ -30,6 +30,8 @@ Page({
           wwidth:width,
           halfwidth:width>(height*2)?height:width/2
         })
+        //创建魔方
+        _this.cube = new Cube(wx.createSelectorQuery().select('#cube'));
       }
     })
   },
