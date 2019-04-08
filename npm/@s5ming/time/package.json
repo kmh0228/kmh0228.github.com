@@ -1,14 +1,13 @@
 {
-  "name": "@s5ming/events",
-  "version": "1.0.1",
-  "description": "事件处理的方法集,绑定,解绑等...",
+  "name": "@s5ming/time",
+  "version": "1.0.0",
+  "description": "关于时间的一些方法",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "event",
-    "events"
+    "time"
   ],
   "author": "s5ming",
   "license": "ISC"

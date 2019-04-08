@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script src="http://kmh0228.github.io/js/jquery.js"></script>
+<script>
+/*
+获取access_token  https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=LnKXXtRaCxd3pRNfdu93R4tK&client_secret=0ddKdUr1Xhvv8vfhNnBxsxPGiQHrjuC9
+*/
+
+    $.ajax({
+        url:'https://aip.baidubce.com/rest/2.0/ocr/v1/general_basic?access_token=24.c026fad511a64302ee79074abd2736d4.2592000.1556954174.282335-15936858',
+        headers:{
+            "Content-Type":"application/x-www-form-urlencoded"
+        },
+        type:'POST',
+        data:{
+            url:'./test.png'
+        },
+        success:function(res){
+            console.log(res)
+        }
+    })
+</script>

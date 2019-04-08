@@ -1,14 +1,14 @@
 {
-  "name": "@s5ming/events",
+  "name": "@s5ming/url",
   "version": "1.0.1",
-  "description": "事件处理的方法集,绑定,解绑等...",
-  "main": "index.js",
+  "description": "关于url的操作",
+  "main": "url.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "event",
-    "events"
+    "url",
+    "href"
   ],
   "author": "s5ming",
   "license": "ISC"
