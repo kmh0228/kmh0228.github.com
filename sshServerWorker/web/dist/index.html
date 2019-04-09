@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://kmh0228.github.io/js/jquery.js"></script>
+</head>
+<body>
+    this is index page
+</body>
+</html>
+<script>
+$.ajax({
+    url:'localhost/api/proxy',
+    data:{test:'test'},
+    type:'POST',
+    success:function(data){
+        console.log(data)
+    }
+});
+</script>
