@@ -1,24 +1,26 @@
 ;
-var httpProxy = require('http-proxy');
-var proxyserver = httpProxy.createProxyServer({});
-proxyserver.on('error', function(err, req, res){
-    res.writeHead(500, {
-        'content-type': 'text/plain'
-    });
-    res.end('can not link server :'+params.url);
-});
+var http = require('http');
+var querystring = require('querystring');
 
-var proxy = function(req,res,params){
-    proxyserver.on('proxyReq', function(proxyReq, req, res, options) {
-        proxyReq.setHeader('X-Special-Proxy-Header', 'foobar');
-    });
-    //转发请求
-    try{
-        proxyserver.web(req, res, {
-            target: params.url
+var proxy = function(res,params){
+    console.log(querystring.stringify(params.reqData));
+    var request = http.request({
+        hostname:params.hostname,
+        post:params.post || 80,
+        path:params.path || '/',//+querystring.stringify(params.reqData),
+        method:'POST',
+        headers:params.headers || {}
+    },function(req){
+        var html = '';
+        req.on('data',function(data){html+=data;});
+        req.on('end',function(){
+            res.end(html);
         });
-    }catch(e){
-        res.end('can not link server :'+params.url);
-    }
+        req.on('error',function(){
+            res.end('request error : ' + params.hostname);
+        })
+    });
+    
+    request.end();
 };
 module.exports = proxy;

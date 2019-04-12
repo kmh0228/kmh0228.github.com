@@ -4,7 +4,7 @@
  * obj为id或者原生对象
  * 如果只有给了两个参数,则第二个参数默认是fnmove, fndown 不传入的话fnup必须不传入
  */
-const drag = function(obj,fndown,fnmove,fnup){
+var drag = function(obj,fndown,fnmove,fnup){
     if(!obj)return;
     var obj = document.getElementById(obj)?document.getElementById(obj):obj;
     if(arguments.length==2){

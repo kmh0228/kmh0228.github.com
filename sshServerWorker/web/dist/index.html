@@ -13,8 +13,25 @@
 </html>
 <script>
 $.ajax({
-    url:'localhost/api/proxy',
-    data:{test:'test'},
+    url:'http://localhost:8080/api/proxy',
+    data:{
+        hostname:'58.251.61.150',
+        port:'80',
+        path:'/v2transapi',
+        reqData:{
+            from: 'en',
+            to: 'zh',
+            query: 'hello work',
+            transtype: 'enter',
+            simple_means_flag: 3,
+            sign: 894108.608173,
+            token: '647475ea00ebf2d10b0c6fd2fa321255'
+        },
+        heads:{
+            'Accept':'application/json, text/plain, */*',
+            'Accept-Encoding':'gzip, deflate, br'
+        }
+    },
     type:'POST',
     success:function(data){
         console.log(data)

@@ -8,7 +8,5 @@
   },
   "author": "s5ming",
   "license": "ISC",
-  "dependencies": {
-    "http-proxy": "^1.17.0"
-  }
+  "dependencies": {}
 }

@@ -4,7 +4,7 @@ var proxy = require('./proxy.js');
 var app = function(url,req,res,params){
     switch(url){
         case '/api/proxy':
-            proxy(req,res,params);
+            proxy(res,params);
         break;
         default :
             res.end('无此接口');

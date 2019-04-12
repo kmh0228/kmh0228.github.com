@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box{
+            width:200px; height:200px; margin: 200px auto; position: relative; transform-style:preserve-3d;
+            transform:perspective(800px) rotateX(30deg) rotateY(30deg) rotateZ(30deg); 
+        }
+        .box>.box_face{
+            width:100%; height:100%; position:absolute; top:0; left:0; background: #ccc; border:1px solid #aaa; box-sizing: border-box;
+        }
+        
+    </style>
+    <script>
+    var drag = function(obj,fndown,fnmove,fnup){
+    if(!obj)return;
+    var obj = document.getElementById(obj)?document.getElementById(obj):obj;
+    if(arguments.length==2){
+        var fnmove=fndown;
+        fndown=null;
+    }
+    var mousedown=function(ev){
+        var oEvent = ev||event;
+        var oldX = oEvent.clientX;
+        var oldY = oEvent.clientY;
+        fndown&&fndown();
+        var mousemove=function(ev){
+            var oEvent = ev||event;
+            var newX = oEvent.clientX;
+            var newY = oEvent.clientY;
+            fnmove&&fnmove(newX-oldX,newY-oldY);
+            oldX=newX;oldY=newY;
+        };
+        document.addEventListener('mousemove',mousemove);			
+        var mouseup=function(){
+            document.removeEventListener('mousemove',mousemove);
+            document.removeEventListener('mouseup',mouseup);
+            fnup&&fnup();
+            obj.releaseCapture&&obj.releaseCapture();
+        };
+        document.addEventListener('mouseup',mouseup);
+        obj.setCapture&&obj.setCapture();
+        ev.preventDefault();
+    };
+    obj.addEventListener('mousedown',mousedown);
+};
+    </script>
+    <script src="../libs/dragRotate.js"></script>
+</head>
+<body>
+    <div class="box" id="box">
+        <div class="box_face box_top"></div>
+        <div class="box_face box_bottom"></div>
+        <div class="box_face box_left"></div>
+        <div class="box_face box_right"></div>
+        <div class="box_face box_front"></div>
+        <div class="box_face box_behind"></div>
+    </div>
+</body>
+</html>
+<script>
+    //样式添加
+    var oBox = document.getElementById('box');
+    var faces = oBox.getElementsByClassName('box_face');
+    for(var i = 0; i< 6 ;i++){
+        var tx = 0,ty = 0,tz = 0,rx = 0,ry = 0,rz = 0;
+        switch(i){
+            case 0:ty=-100;rx=90;break;
+            case 1:ty=100;rx=90;break;
+            case 2:tx=-100;ry=90;rx=90;break;
+            case 3:tx=100;ry=90;rx=90;break;
+            case 4:tz=100;break;
+            case 5:tz=-100;break;
+        }
+        var transformstyle='';
+        transformstyle+=tx?'translateX('+tx+'px) ':'';
+        transformstyle+=ty?'translateY('+ty+'px) ':'';
+        transformstyle+=tz?'translateZ('+tz+'px) ':'';
+        transformstyle+=rx?'rotateX('+rx+'deg) ':'';
+        transformstyle+=ry?'rotateY('+ry+'deg) ':'';
+        transformstyle+=rz?'rotateZ('+rz+'deg) ':'';
+        faces[i].style.WebkitTransform=transformstyle;
+    }
+
+    //添加方法
+    dragRotate(oBox,null,{
+        rotateX:30,
+        rotateY:30,
+        rotateZ:30
+    });
+
+</script>
