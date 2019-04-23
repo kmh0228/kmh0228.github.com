@@ -8,7 +8,7 @@
     <style>
         .box{
             width:200px; height:200px; margin: 200px auto; position: relative; transform-style:preserve-3d;
-            transform:perspective(800px) rotateX(30deg) rotateY(30deg) rotateZ(30deg); 
+            transform:perspective(800px) rotateX(0deg) rotateY(0deg) rotateZ(0deg); 
         }
         .box>.box_face{
             width:100%; height:100%; position:absolute; top:0; left:0; background: #ccc; border:1px solid #aaa; box-sizing: border-box;
@@ -87,10 +87,6 @@
     }
 
     //添加方法
-    dragRotate(oBox,null,{
-        rotateX:30,
-        rotateY:30,
-        rotateZ:30
-    });
+    dragRotate(oBox);
 
 </script>
