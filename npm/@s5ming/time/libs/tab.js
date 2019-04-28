@@ -2,7 +2,9 @@
 /* timestamp 时间戳     date 日期格式{year,month,date} 
     dateStr 日期字符串格式year-month-date
 */
-
+const toDou = function(n){
+    return n<10?'0'+n:''+n;
+}
  // 时间戳转换成日期   
 export const timestampToDate = function(timestamp){
     var date = new Date(timestamp)
@@ -16,7 +18,7 @@ export const timestampToDate = function(timestamp){
 //日期转日期字符串
 export const dateToDateStr = function(date,split){
     var split = split || '-';
-    return date.year + '-' + date.month + '-' + date.date;
+    return date.year + '-' + toDou(date.month) + '-' + toDou(date.date);
 }
 
 //时间戳转日期字符串格式

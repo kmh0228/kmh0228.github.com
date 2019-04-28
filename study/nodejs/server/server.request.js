@@ -1,10 +1,14 @@
 
 var http = require('http');
+var querystring = require('querystring');
 var options = { 
-    hostname: 'http://74.82.214.56', 
-    port: 8080, 
-    path: '/api/getVoice?words=哈哈', 
-    method: 'POST' 
+    hostname: 'https://meipin365.cn', 
+//  port: 80, 
+    path: '/erector/index.php?act=gree_vote&op=get_wx_config', 
+    method: 'POST',
+    headers:{
+
+    }
 }; 
  
 var req = http.request(options, function(res) {
@@ -17,6 +21,10 @@ req.on('error', function(e) {
     console.log('problem with request: ' + e.message); 
 }); 
 
-   req.write('data\n'); 
-   req.write('data\n'); 
+   var data = querystring.stringify({
+      act:'gree_vote',
+      op:'get_wx_config'
+
+   })
+   req.write(data); 
    req.end();

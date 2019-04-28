@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../parse.js"></script>
+</head>
+<body>
+    <input type="text" value="{a:1,b:2,c:'hehe'}" id="text1"></br>
+    <button id="btn">转换</button></br>
+    <input type="text" id="text2">
+</body>
+</html>
+<script>
+    function $(id){ return document.getElementById(id); }
+    $('text2').value = parse($('text1').value);
+    $('btn').onclick = function(){
+        //$('text2').value = parse($('text1').value);
+        console.log(parse($('text1').value));
+    }
+</script>
