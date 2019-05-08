@@ -6,6 +6,7 @@
     this.opt = extend(opt||{},{
         point:new BMap.Point(116.404, 39.915),
         offset:{x:10,y:10},
+        zIndex:0,
         html:null           //覆盖物标签
     })
     this._div = document.createElement("div");
@@ -15,7 +16,7 @@ OverlayFloat.prototype.initialize = function(map){
     this._map = map;
     var div = this._div;
     div.style.position = "absolute";
-    div.style.zIndex = BMap.Overlay.getZIndex(this.opt.point.lat);
+    div.style.zIndex = this.opt.zIndex || BMap.Overlay.getZIndex(this.opt.point.lat);
     this.setHTML(this.opt.html);
     this._map.getPanes().floatPane.appendChild(div);
     this.draw();
@@ -46,10 +47,16 @@ OverlayFloat.prototype.draw = function(){
   
 OverlayFloat.prototype.setHTML=function(html){
     this.opt.html = html;
-    switch(typeof html){
-        case 'string':
-            this._div.innerHTML = html
-        break;
+    var inner;
+    if(typeof html == 'function'){
+        inner = html()
+    }else{
+        inner = html;
+    }
+    if(typeof inner == 'string'){
+        this._div.innerHTML = inner
+    }else{
+        this._div.appendChild(inner)
     }
 }
 
