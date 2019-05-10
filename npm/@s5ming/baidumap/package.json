@@ -1,7 +1,7 @@
 {
   "name": "@s5ming/baidumap",
-  "version": "1.0.23",
-  "description": "driving 添加 autoViewport 参数",
+  "version": "1.0.24",
+  "description": "overlayImage添加title参数",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -58,7 +58,7 @@ export const timestampToTimeStr = function(timestamp,split){
     })
     var date = timestampToDate(timestamp)
     return date.year + split.dateSplit + toDou(date.month) + split.dateSplit + toDou(date.date) + split.mSplit
-        + toDou(date.hour) + split.timeSplit + toDou(date.minute) + split.timeSplit + toDou(date.second)
+        + toDou(date.hour) + split.timeSplit + toDou(date.minute) + split.timeSplit + toDou(date.second)``
 }
 
 //毫秒数转换成时分秒   4646541315 >> 10:00:00

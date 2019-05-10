@@ -61,7 +61,8 @@ var image = overlayFloat({
     zIndex:0,                                    //覆盖物层级
     src:url,                                    //图片地址,在webpack项目中注意不能用路径,编译会使路径失效
     width:num,                                  //图片宽度
-    height:num                                  //图片高度
+    height:num,                                  //图片高度
+    title:''                                     //image的title属性
 })
 方法如下:
 image.setPoint(point)     //修改覆盖物坐标
