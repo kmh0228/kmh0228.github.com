@@ -4,33 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="./test.min.js"></script>
-    <title>Document</title>
+    <title>test</title>
+    <style>
+        *{margin:2px;}
+        .dm{color:blue;}
+        .dm input{ color:blue;}
+        .export{margin-top:20px;}
+    </style>
 </head>
 <body>
-    
+    <p style="color:red; font-size:8px;">
+        测试页面.蓝色字体为代码. 代码参数均是input,可输入.
+        此只是测试页面,方法说明请在npm上查看:<a href="https://www.npmjs.com/package/@s5ming/array">https://www.npmjs.com/package/@s5ming/array</a>
+    </p>
+    引入:
+    <span class="dm">import {
+            forEach,
+            forEachChildren,
+            binaryPlus
+        } from '@s5ming/array'</span>
+
+    <div class="export" id="forEach">
+        <b>forEach</b><br>
+        <code class="dm">
+            forEach(<input type="text" value="['test1','test2','test3']">,function(item,index){<input type="text" style="width:400px;" value="document.getElementById('forEachResult').value += item + ',';">})<br>
+        </code>
+        <button>执行</button><br>
+        <input type="text" value="" id="forEachResult" style="width:400px;">
+    </div>
+
+    <div class="export" id="forEachChildren">
+        <b>forEachChildren</b><br>
+        <code class="dm">
+            forEachChildren(<input type="text" value="[{value:'a',children:[{value:'b'},{value:'c'}]}]">,function(item,index){<input type="text" style="width:600px;" value="document.getElementById('forEachChildrenResult').value += index + ':' + item.value + ',';">},<input type="text" value="'children'">)<br>
+        </code>
+        <button>执行</button><br>
+        <input type="text" value="" id="forEachChildrenResult" style="width:400px;">
+    </div>
+
+    <div class="export" id="binaryPlus">
+        <b>binaryPlus</b><br>
+        <code class="dm">
+                var result = binaryPlus(<input type="text" value="[1,5,8,9,66,100,101]">,<input type="text" style="width:50px;" value="50">)<br>
+        </code>
+        <button>获取结果</button><br>
+        <input type="text" value="" id="binaryPlusResult" style="width:400px;">
+    </div>
+
 </body>
 </html>
-<script>
-var binaryPlus = function(arr,n){
-    
-    var left = 0;
-    var right = arr.length-1;
-    while(left < right){
-        var center = Math.floor((left+right)/2); 
-        if(n <= arr[center]){
-            right = center;
-        }else{
-            left = center + 1;
-        }
-    }
-    return right;
-
-}
-
-//测试数据
-         var arr = [0,15,10,18,20,30];
-         var n = 0;
-         console.log(binaryPlus(arr,n));
-
-</script>
+<script src="./test.min.js"></script>

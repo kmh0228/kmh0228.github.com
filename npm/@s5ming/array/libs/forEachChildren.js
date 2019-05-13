@@ -7,18 +7,19 @@
  * @param {childkey} 
  */
 
-const forEach = (arr, fn, childkey = 'children') => {
+const forEachChildren = (arr, fn, childkey = 'children') => {
     if(!fn)return
-    function work(arr2){
-        var length = arr2.length;			
+    function work(arr2,index){
+        var length = arr2.length;
+        var index = index?index+'-':''			
         for(var i = 0; i<length;i++){
             var item = arr2[i]
-            fn&&fn(item,i)
+            fn&&fn(item,index+i)
             if(item[childkey]&&item[childkey].length){
-                work(item[childkey])
+                work(item[childkey],index+i)
             }
         }
     }
     work(arr)
   }
-export default forEach
+export default forEachChildren
