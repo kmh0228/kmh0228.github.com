@@ -3,6 +3,8 @@
 > import {forEach,forEachChildren} from 's5-array'
 >
 
+ [测试页面](https://kmh0228.github.io/npm/@s5ming/array/test/test.html)
+ 
 # 使用说明
 
 ### forEach
