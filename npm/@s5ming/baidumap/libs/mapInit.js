@@ -3,6 +3,7 @@
  */
 import {extend} from '@s5ming/json'
 import mapSetStyle from './mapSetStyle'
+import $ from 'jquery'
 ;var mapInit = function(opts){
 		
     /*opts参数{					//详见mapConfig

@@ -6,6 +6,7 @@ import driving from './libs/driving'
 import getCoverPoint from './libs/getCoverRange'
 import baiduPoints from './libs/baiduPoints'
 import polylineTool from './libs/polylineTool'
+import toBaiduPoint from './libs/toBaiduPoint'
 
 export {
     mapInit,
@@ -16,5 +17,6 @@ export {
     getCoverPoint,
     baiduPoints,
     polylineTool,
-    overlayImage
+    overlayImage,
+    toBaiduPoint
 }

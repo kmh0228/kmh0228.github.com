@@ -107,7 +107,8 @@ mapDarwTool.close()     //关闭绘制模式
 参数如下:
 var driv = driving(map,{        //第一个参数是map,地图对象,第二个是json参数,具体key如下
     autoViewport:true,          //检索结束后是否自动调整地图视野,默认ture
-    searchEnd:function(){console.log('searchend')},                 //搜索结束触发的回调事件
+    policy:'BMAP_DRIVING_POLICY_LEAST_TIME',                           //驾车方案策略
+    searchEnd:function(DrivingRouteResult){console.log('searchend')},                 //搜索结束触发的回调事件
     setMarkerStyle:function(markers){console.log('markers',markers)},      //标注设置好之后的回调事件
     setlineStyle:function(lines){console.log('lines',lines)},    //线路添加之后的触发的回调事件
 })
@@ -117,6 +118,7 @@ driv.search(start,end)       //开始搜寻路线, @params start:起始点, end:
 `注意: 实例化此工具之后,需要调用 search 方法,才能开始绘制路线`
 
 ```
+[驾车方案策略参照](http://lbsyun.baidu.com/cms/jsapi/reference/jsapi_reference.html#a7b19)
 
 ### getCoverPoint
 获取多个点的最大小经纬度的方法
@@ -157,5 +159,20 @@ polylineTool.disGetPoiont(polyline,distance,map) //获取到起点distance米的
 polylineTool.connectPolyline(polylines) //把多个polyline合成一个polyline的方法
     //polylines:poleyline覆盖物的数组. 
     //返回的是一个polyline覆盖物,默认样式和状态为第一个polyline的, 注意:此方法毁掉了原来的polyline数组
+```
+
+### toBaiduPoint
+把其他坐标转换成百度坐标的方法,使用前请引用文章开头所写的js
+```
+// 参数
+toBaiduPoint(points,fn,opts)
+    @params points : 需要转换的坐标数组
+    @params fn:   转换完成后的回调函数, 回调参数是转换后的百度坐标数组
+    @params opts :{     相关设置参数
+        pici:10,			//每次发送多少个转换请求,建议10个
+        num:10,				//每个转换请求有多少数据。根据你的key的配置来,我的是最大10个
+        from:1,				//数据源类型 原GIS坐标from为1, 其他高德，谷歌等from为3
+    }
+
 ```
 

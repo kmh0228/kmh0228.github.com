@@ -8,12 +8,15 @@ var Driving = function(map,opts){
         searchEnd:function(){console.log('searchend')},                 //搜索结束事件
         setMarkerStyle:function(line){console.log('marker',line)},      //起点终点设置结束事件
         setlineStyle:function(line){console.log('line',line)},          //线设置结束事件
-        autoViewport:true                                                //检索结束后是否自动调整地图视野
+        autoViewport:true,                                              //检索结束后是否自动调整地图视野
+        policy:'BMAP_DRIVING_POLICY_LEAST_TIME'
     })
+    console.log(opts.policy)
     this._driving = new BMap.DrivingRoute(map, {
         renderOptions:{map: map, autoViewport: opts.autoViewport},
-        onSearchComplete:function(){
-            opts.searchEnd()
+        policy:opts.policy,
+        onSearchComplete:function(DrivingRouteResult){
+            opts.searchEnd(DrivingRouteResult)
         },
         onPolylinesSet:function(lines){
             var arr = [];

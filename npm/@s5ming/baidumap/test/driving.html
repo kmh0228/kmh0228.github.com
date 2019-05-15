@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=5XiOug3semCW2Fau6g3GKZ7P7UtBzWyf&services=&t=20180102152545"></script>
+    <style>
+        *{margin:0; padding:0; font-size: 12px;}
+        html,body{height:100%;}
+        .container{overflow: hidden;}
+        .fl{float:left;}
+        .fr{float:right;}
+        #showInfo{
+            position:absolute; top:20px; left:20px; background: #fff; padding:5px; border-radius: 5px; box-shadow: 5px 5px 5px 0px #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="height:100%;">
+        <div class="fl code" style="width:calc(30% - 10px); height:100%; margin:0 5px;">
+            <a href="https://www.npmjs.com/package/@s5ming/baidumap#driving" target="_blank">driving 示例</a>
+            代码区:<br>
+            <code>import {mapInit,driving} from '@s5ming/baidumap'</code><br>
+            <div class="clear" style="height:calc(100% - 150px);">
+                <textarea id="textarea1" class="fl" style="width:calc(100% - 60px); height:100%;">
+mapInit({
+    container:'map_container',
+    load:function(map){
+        var showInfo = document.getElementById('showInfo');
+        showInfo.innerHTML = '';
+        var startPoint = new BMap.Point(116.404,39.915);
+        var endPoint = new BMap.Point(116.303,39.725);
+        var driv = driving(map,{
+            autoViewport:true,          //检索结束后是否自动调整地图视野,默认ture
+            policy:BMAP_DRIVING_POLICY_LEAST_TIME,                           //时间最短策略
+            //policy:BMAP_DRIVING_POLICY_LEAST_DISTANCE,                       //距离最短策略
+
+            searchEnd:function(DrivingRouteResult){
+                var dis = DrivingRouteResult.getPlan(0).getDistance(false) + '米';
+                showInfo.innerHTML += '路程距离:' + dis + ';';
+            },                 //搜索结束触发的回调事件
+            setMarkerStyle:function(markers){console.log('markers',markers)},      //标注设置好之后的回调事件
+            setlineStyle:function(lines){console.log('lines',lines)},    //线路添加之后的触发的回调事件
+        })
+        driv.search(startPoint,endPoint);
+    }
+})               
+                                          
+                </textarea>
+                <input id="btn1" type="button" class="fl" value="运行" style="width:40px; margin:0 5px;">
+            </div>
+                
+        </div>
+        <div class="fl show" style="width:70%; height:100%; position: relative;">
+            <div id="map_container" style="width:98%; height:calc(100% - 8px); margin:4px auto;"></div>
+            <div id="showInfo">id是showInfo的容器</div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="./driving.min.js"></script>
