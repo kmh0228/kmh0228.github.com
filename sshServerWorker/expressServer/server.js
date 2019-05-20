@@ -5,4 +5,4 @@ var app = express();
 //托管静态文件
 app.use(express.static('web/dist'))
 //接受指定路径的请求，指定回调函数
-app.listen(80, () => console.log('Example app listening on port 80!'))
+app.listen(8888, () => console.log('Example app listening on port 8888!'))
