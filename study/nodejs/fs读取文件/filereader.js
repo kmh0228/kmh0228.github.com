@@ -8,6 +8,9 @@ fs.readFile('test.txt',function(err,data){
 	var buf = new Buffer(data);
 	console.log(buf.length);
 	console.log(buf.toString());
+	console.log(String.fromCharCode(data[0]))
+	console.log(String.fromCharCode(data[1]))
+	console.log(String.fromCharCode(data[2]))
 });
 
 
