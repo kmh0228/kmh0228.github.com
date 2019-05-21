@@ -1,12 +1,18 @@
 {
   "name": "web",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "serve": "vue-cli-service serve --open",
+    "build": "vue-cli-service build"
   },
-  "author": "s5ming",
-  "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.3",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vue/cli-service": "^3.7.0",
+    "vue-template-compiler": "^2.5.21"
+  }
 }
