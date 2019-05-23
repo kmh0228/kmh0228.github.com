@@ -5,5 +5,6 @@ var path = require('path');
 var app = express();
 //托管静态文件
 app.use(express.static(path.join(__dirname, '../web/dist')))
+app.use(express.static(path.join(__dirname, '../../../asset')))
 //接受指定路径的请求，指定回调函数
 app.listen(80, () => console.log('Example app listening on port 80!'))

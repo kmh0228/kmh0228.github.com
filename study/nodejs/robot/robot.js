@@ -38,18 +38,38 @@ var robot = require('robotjs');
 
 var time = 20;
 var writeTime = 50;
-setTimeout(function(){
-    //robot.keyTap('enter');
-    robot.keyToggle('alt','down');
-    setTimeout(function(){
-        robot.keyTap('tab');
-        setTimeout(function(){
-            robot.keyToggle('alt','up');
-            setTimeout(function(){
-                robot.typeString('ruguoshuziduoleshibushishijianjiuahuidnajidfiajkrjajirjakjri再来几个中文');
-            },writeTime);
-        },time);
-    },time);
+var interval;
+var tmt = function(time,fn){
+    var timeout = setTimeout(function(){
+        clearTimeout(timeout);
+        fn&&fn()
+    },time)
+}
+tmt(3000,function(){
+    
+    function oneCZ(){
+        robot.keyTap('f3');         //点击f3
+        tmt(800,function(){         //100毫秒后按删除按钮
+            robot.keyTap('delete');
+            tmt(50,function(){      //40毫秒后按enter按钮
+                robot.keyTap('enter');
+                tmt(50,function(){  //40毫秒后重复执行操作
+                    oneCZ()
+                })
+            })
+        })
+    }
+    oneCZ()
+    // robot.keyToggle('alt','down');
+    // setTimeout(function(){
+    //     robot.keyTap('tab');
+    //     setTimeout(function(){
+    //         robot.keyToggle('alt','up');
+    //         setTimeout(function(){
+    //             robot.typeString('ruguoshuziduoleshibushishijianjiuahuidnajidfiajkrjajirjakjri再来几个中文');
+    //         },writeTime);
+    //     },time);
+    // },time);
     
     
-},3000);
+});
