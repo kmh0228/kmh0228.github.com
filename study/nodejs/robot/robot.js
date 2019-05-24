@@ -49,7 +49,7 @@ tmt(3000,function(){
     
     function oneCZ(){
         robot.keyTap('f3');         //点击f3
-        tmt(800,function(){         //100毫秒后按删除按钮
+        tmt(3000,function(){         //100毫秒后按删除按钮
             robot.keyTap('delete');
             tmt(50,function(){      //40毫秒后按enter按钮
                 robot.keyTap('enter');
