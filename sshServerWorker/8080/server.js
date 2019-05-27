@@ -12,7 +12,7 @@ var httpObj = http.createServer(function(req,res){
             })
             req.on("end",function(){
                 var data = querystring.parse(str);
-                console.log('收到请求:' + data.user_name + ":" + data.user.id);
+                console.log('收到请求:' + data.user_name + ":" + data.id);
                 res.write('请求成功');
                 res.end();    
             })
