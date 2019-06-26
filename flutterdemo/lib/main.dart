@@ -1,37 +1,60 @@
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
 
-void main() => runApp(new MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    //final wordPair = new WordPair.random();
-    return new MaterialApp(
-      title: 'Welcome to Flutter',
-      home: new Scaffold(
-        appBar: new AppBar(
-          title: new Text('Welcome to Flutter'),
-        ),
-        body: new Center(
-          //child: new Text('Hello World'),
-          //child: new Text(wordPair.asPascalCase),
-          child: new RandomWords(),
-        ),
-      ),
-    );
-  }
+void main(){
+  runApp(MyApp());
 }
 
-class RandomWords extends StatefulWidget {
+class MyApp extends StatelessWidget{
   @override
-  createState() => new RandomWordsState();
+    Widget build(BuildContext context) {
+      // TODO: implement build
+      return MaterialApp(
+        home:Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'flutterDemo'
+            ),
+          ),
+          body:HomeContent()
+        )
+      );
+    }
 }
 
-class RandomWordsState extends State<RandomWords> {
+class HomeContent extends StatelessWidget{
   @override
-  Widget build(BuildContext context) {
-    final wordPair = new WordPair.random();
-    return new Text(wordPair.asPascalCase);
-  }
+    Widget build(BuildContext context) {
+      // TODO: implement build
+      return Center(
+        child:Container(
+          width:300.0,
+          height:300.0,
+          decoration: BoxDecoration(
+            color:Colors.yellow,
+            // borderRadius: BorderRadius.all(
+            //   Radius.circular(150)
+            // )
+            borderRadius: BorderRadius.circular(150),
+            // image:DecorationImage(
+            //   image:NetworkImage('http://g.hiphotos.baidu.com/image/pic/item/d52a2834349b033b95e7b4601fce36d3d539bd19.jpg'),
+            //   fit:BoxFit.cover
+            // )
+          ),
+          child:ClipOval(
+            // child: Image.network(
+            //   'http://g.hiphotos.baidu.com/image/pic/item/d52a2834349b033b95e7b4601fce36d3d539bd19.jpg',
+            //   fit:BoxFit.cover
+            // ),
+            child:Image.asset(
+              "images/2.0x/test.jpg",
+              fit:BoxFit.cover
+            )
+          )
+          // child: Image.network(
+          //   'http://g.hiphotos.baidu.com/image/pic/item/d52a2834349b033b95e7b4601fce36d3d539bd19.jpg',
+          //   fit:BoxFit.cover
+          // ),
+        )
+      );
+    }
 }
