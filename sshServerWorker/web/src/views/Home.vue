@@ -1,6 +1,8 @@
 <template>
   <div class="Home_container">
-    hehe
+    <div class="">
+      this is 主页
+    </div>
   </div>
 </template>
 
