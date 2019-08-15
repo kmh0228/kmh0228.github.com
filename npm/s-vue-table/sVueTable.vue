@@ -113,7 +113,7 @@ export default {
         td,th{
             border:none;
             background: #0e5784;
-            color:#4a88c1;
+            color:#a1ddfd;
             border-bottom:1px solid #0b305c;
             height:30px;
             text-align: right;

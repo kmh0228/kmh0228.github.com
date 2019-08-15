@@ -1,7 +1,7 @@
 {
   "name": "s-vue-table",
-  "version": "1.0.1",
-  "description": "基于vue的table组件",
+  "version": "1.0.2",
+  "description": "修复了默认字体颜色",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
