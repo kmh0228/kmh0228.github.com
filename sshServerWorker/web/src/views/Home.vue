@@ -5,9 +5,9 @@
       <div class="bg_f"></div>
     </div>
     <div class="content">
-      <div class="content_video fl" style="width:calc(100% - 300px);">
+      <div class="content_video fl" style="width:calc(100% - 300px);height:calc(100% - 120px);">
         <p>&nbsp;{{curVideo}}&nbsp;</p>
-        <video :src="videoSrc" width="90%" controls>你的浏览器暂不支持video标签</video>
+        <video :src="videoSrc" width="90%" height="90%" controls style="object-fit:contain;">你的浏览器暂不支持video标签</video>
       </div>
       <div class="video_list fl" style="width:300px; height:calc(100% - 120px);">
         <p v-for="(item,i) in videoList" @click="selectVideo(item)">{{item}}</p>
@@ -24,14 +24,14 @@ export default {
   data(){
     return {
       videoList:['加载列表中。。。。。。'],
-      videoSrc:null,
+      videoSrc:'./test.mp4',
       curVideo:''
     }
   },
   methods:{
     selectVideo(item){
       this.curVideo = item;
-      this.videoSrc = 'http://129.28.168.243:80/'+item;
+      this.videoSrc = 'http://129.28.168.243/'+item;
     }
   },
   mounted(){
