@@ -1,6 +1,6 @@
 <template>
     <div class="piano_container">
-        <audio :src="audioSrc" autoplay controls>你的浏览器不支持audio标签</audio>
+        <audio :src="audioSrc" autoplay>你的浏览器不支持audio标签</audio>
         <div class="piano">
             <div class="paionWhiteKey" v-for="(item,i) in pianoWhiteKeys" :style="{width:100/pianoWhiteKeys.length+'%'}" @click="whiteClick(i)">
                 
