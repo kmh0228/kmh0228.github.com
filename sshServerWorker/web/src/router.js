@@ -10,7 +10,7 @@ export default new Router({
       path: '/',
       name: 'home',
       //component: Home
-      component : ()=>import('./views/piano')
+      component : ()=>import('./views/qnyhjnd')
     },
     {
       path: '/about',
@@ -21,6 +21,16 @@ export default new Router({
       component: function () { 
         return import(/* webpackChunkName: "about" */ './views/About.vue')
       }
-    }
+    },{
+      path: '/piano',
+      name: 'piano',
+      //component: Home
+      component : ()=>import('./views/piano')
+    },{
+      path: '/audio',
+      name: 'audio',
+      //component: Home
+      component : ()=>import('./views/Home')
+    },
   ]
 })
