@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:fm_baidu_map/fm_baidu_map';
+import 'package:amap_base/amap_base.dart'; 
 
 class MapContainer extends StatefulWidget{
   @override
@@ -18,7 +18,7 @@ class MapContainerState extends State<MapContainer>{
       return Center(
         child: RaisedButton(
           onPressed: _launchURL,
-          child: Text('Show Flutter homepage'),
+          child: Text('$AMap()'),
         )
       );
     }
