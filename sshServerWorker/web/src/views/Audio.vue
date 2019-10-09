@@ -1,5 +1,5 @@
 <template>
-  <div class="Home_container">
+  <div class="audio_container">
     <div class="background">
       <div class="bg_b"></div>
       <div class="bg_f"></div>
@@ -46,7 +46,7 @@ export default {
 }
 </script>
 <style lang="less">
-.Home_container{
+.audio_container{
   width:100%;
   height:100%;
   background: rgb(23, 26, 64);
