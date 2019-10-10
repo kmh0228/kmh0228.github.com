@@ -149,7 +149,8 @@
 			sy:3,//y速度
 			m:1,//质量
 			e:document.createElement('div'),//默认小球元素 可自己定义
-			callBack:function(){}//回掉函数
+			callBack:function(){},//回掉函数
+			runBack:function(){}	//小球移动时候的回调函数
 			//,html:''//内容，可不写，无默认值
 			//,click:''//点击事件
 		});
@@ -215,6 +216,7 @@
 		var y=parseInt(this.opts.y-height2);
 		this.opts.e.style.transform='translate('+x+'px,'+y+'px)';
 		this.opts.e.style.webkitTransform='translate('+x+'px,'+y+'px)';
+		this.opts.runBack&&this.opts.runBack(this.opts.x,this.opts.y);
 	};
 	Obj.prototype.setC=function(str){
 		var c=this.opts.c=str;

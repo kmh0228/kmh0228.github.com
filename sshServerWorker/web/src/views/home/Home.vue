@@ -50,6 +50,9 @@ export default {
                         'sx':rand(1,2),
                         'sy':rand(1,2),
                         'html':html,
+                        'runBack':function(mouseX,mouseY){
+                            _this.$refs.watercomponent.disturb( mouseX, mouseY );
+                        },
                         'click':function(){
                             _this.$router.push({
                                 path:routes[i].path
