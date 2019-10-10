@@ -47,8 +47,8 @@ export default {
                         'b':b,
                         'x':x,
                         'y':y,
-                        'sx':rand(2,3),
-                        'sy':rand(2,3),
+                        'sx':rand(1,2),
+                        'sy':rand(1,2),
                         'html':html,
                         'click':function(){
                             _this.$router.push({

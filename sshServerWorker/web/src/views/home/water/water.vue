@@ -31,7 +31,7 @@ export default {
                 width: width,//width
                 height: height,//height
                 delay: 1,//if auto param === true. 1 === 1 second delay for animation
-                auto: false//if auto param === true, animation starts on it´s own
+                auto: true//if auto param === true, animation starts on it´s own
             });
             // dom.addEventListener( 'click', function( e ) {
             //     var mouseX = e.layerX;
