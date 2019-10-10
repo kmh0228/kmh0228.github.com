@@ -4,7 +4,7 @@
 <script>
 import $ from 'jquery'
 import WaterRippleEffect from './waterrippleeffect.js'
-import imgUrl from '../img/timg.jpeg'
+import imgUrl from '../img/timg3.jpeg'
 export default {
     name:'water',
     data(){
@@ -27,7 +27,7 @@ export default {
             
             _this.waterRippleEffect = new WaterRippleEffect(dom, {
                 image: imgUrl,//image path
-                rippleRadius: 4,//radius of the ripple
+                rippleRadius: 6,//radius of the ripple
                 width: width,//width
                 height: height,//height
                 delay: 1,//if auto param === true. 1 === 1 second delay for animation

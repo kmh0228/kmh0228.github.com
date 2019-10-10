@@ -36,22 +36,23 @@ export default {
             var _this = this;
             for(var index=0;index<routesLength;index++){
                 (function(i){
-                    var b=rand(40,60);
+                    var b=rand(40,50);
                     var x=rand(b,mxwidth-b);
                     var y=rand(b,mxheight-b);
                     var html = '<div style="width:100%;height:100%;position:relative;">\
-                                    <div style="width:100%;height:100%;background:url(./img/paopao'+rand(1,6)+'.png);opacity:0.3;background-size:cover;"></div>\
+                                    <div style="width:100%;height:100%;background:url(./img/paopao'+rand(1,6)+'.png);opacity:0.4;background-size:cover;"></div>\
                                     <span class="ppfont">'+routes[i].title+'</span>\
                                 </div>';
                     var ball=new Ball({
                         'b':b,
                         'x':x,
                         'y':y,
-                        'sx':rand(1,2),
-                        'sy':rand(1,2),
+                        'sx':rand(5,10)/10,
+                        'sy':rand(5,10)/10,
                         'html':html,
-                        'runBack':function(mouseX,mouseY){
-                            _this.$refs.watercomponent.disturb( mouseX, mouseY );
+                        'runBack':function(mouseX,mouseY,sx,sy,w,h){
+                            var sc = w/Math.sqrt(sx*sx+sy*sy)/2;
+                            _this.$refs.watercomponent.disturb( mouseX + sc*sx, mouseY + sc*sy );
                         },
                         'click':function(){
                             _this.$router.push({
@@ -89,7 +90,7 @@ export default {
             
             color: transparent;
             //-webkit-text-fill-color: #fff;/*文字的填充色*/
-            -webkit-text-stroke: 1px #fff;
+            -webkit-text-stroke: 1px pink;
             position:absolute;top:0;left:0;width:100%;
         }
     }

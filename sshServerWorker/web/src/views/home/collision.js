@@ -216,7 +216,7 @@
 		var y=parseInt(this.opts.y-height2);
 		this.opts.e.style.transform='translate('+x+'px,'+y+'px)';
 		this.opts.e.style.webkitTransform='translate('+x+'px,'+y+'px)';
-		this.opts.runBack&&this.opts.runBack(this.opts.x,this.opts.y);
+		this.opts.runBack&&this.opts.runBack(this.opts.x,this.opts.y,this.opts.sx,this.opts.sy,this.opts.width,this.opts.height);
 	};
 	Obj.prototype.setC=function(str){
 		var c=this.opts.c=str;
