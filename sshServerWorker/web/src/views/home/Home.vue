@@ -23,8 +23,8 @@ export default {
         }
     },
     mounted(){
+        console.log('mounted');
         this.$nextTick(function(){
-
             var oC = this.$refs.collbox;
             var oB = this.oB = new CollBox(oC);
             oB.ballRun();
@@ -52,7 +52,7 @@ export default {
                         'html':html,
                         'runBack':function(mouseX,mouseY,sx,sy,w,h){
                             var sc = w/Math.sqrt(sx*sx+sy*sy)/2;
-                            _this.$refs.watercomponent.disturb( mouseX + sc*sx, mouseY + sc*sy );
+                            if(_this.$refs.watercomponent)_this.$refs.watercomponent.disturb( mouseX + sc*sx, mouseY + sc*sy );
                         },
                         'click':function(){
                             _this.$router.push({
@@ -70,7 +70,6 @@ export default {
                 _this.$refs.watercomponent.disturb( mouseX, mouseY );
             });
             oC.addEventListener( 'mousemove', function( e ) {
-                console.log(e);
                 var mouseX = e.layerX;
                 var mouseY = e.layerY;
                 _this.$refs.watercomponent.disturb( mouseX, mouseY );
