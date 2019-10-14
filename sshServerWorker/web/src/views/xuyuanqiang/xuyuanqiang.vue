@@ -105,14 +105,14 @@ export default {
         return {
             colors:['#96C2F1', '#BBE1F1', '#E3E197', '#F8B3D0', '#FFCC00'],
             addWindowShow:false,
-            addcontent:'我希望',
-            addname:'释迦摩尼'
+            addcontent:'我希望...',
+            addname:''
         }
     },
     methods:{
-        createItem(text,id){
+        createItem(text,id,name){
             var color = this.colors[parseInt(Math.random() * 5, 10)]
-            $('<div class="item" index="'+id+'"><p>'+ text +'</p><a href="#">关闭</a></div>').css({ 'background': color }).appendTo(this.$refs.bqcontainer).drag();
+            $('<div class="item" index="'+id+'"><p>'+ text +'</p><span style="padding-left:40px;">&nbsp; ---- '+name+'</span><br><a href="#">关闭</a></div>').css({ 'background': color }).appendTo(this.$refs.bqcontainer).drag();
         },
         addxyqcontent(text,author){
             if(!this.addcontent){alert('老大，没写内容啊。');return;};
@@ -122,7 +122,7 @@ export default {
             axios.post('/api/addxyqcontent',{
                 content:this.addcontent,author:this.addname,time:time
             }).then(function(res){
-                _this.createItem(_this.addcontent,time);
+                _this.createItem(_this.addcontent,time,_this.addname);
                 _this.addWindowShow = false;
             }).catch(function(){
                 console.log('false');
@@ -141,7 +141,7 @@ export default {
             axios.post('/api/getxyqcontent',{
             }).then(function(res){
                 res.data.forEach(function(item){
-                    _this.createItem(item.content);
+                    _this.createItem(item.content,item.time,item.auhor);
                 });
             }).catch(function(){
                 console.log('false');
@@ -186,7 +186,7 @@ export default {
             text-align: left;
             p{
             height: 80px;
-            margin: 30px 10px;
+            margin: 20px 10px;
             overflow: hidden;
             word-wrap: break-word;
             line-height: 1.5;
