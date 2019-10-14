@@ -2,7 +2,7 @@ var fs = require('fs');
 var path = require('path');
 
 var getxyqcontent = function(req,res){
-	var data = fs.readFileSync(path.join(__dirname,'../data/data/xuyuanqiang.txt'),'utf-8');
+	var data = fs.readFileSync(path.join(__dirname,'../../../../../home/s5ming/data/xuyuanqiang.txt'),'utf-8');
 	var result = [];
 	var arr1 = data.split('\n');
 	arr1.forEach(function(item){
