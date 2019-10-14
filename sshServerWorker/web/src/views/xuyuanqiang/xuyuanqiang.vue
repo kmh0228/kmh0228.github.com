@@ -123,6 +123,7 @@ export default {
                 content:this.addcontent,author:this.addname,time:time
             }).then(function(res){
                 _this.createItem(_this.addcontent,time);
+                _this.addWindowShow = false;
             }).catch(function(){
                 console.log('false');
             });
