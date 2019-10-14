@@ -34,5 +34,11 @@ export default [
         title:'qnyh加点',
         //component: Home
         component : ()=>import('../views/qnyhjnd')
+      },{
+        path: '/xyq',
+        name: 'xyq',
+        title:'许愿墙',
+        //component: Home
+        component : ()=>import('../views/xuyuanqiang')
       }
     ]

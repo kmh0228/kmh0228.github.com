@@ -1,14 +1,13 @@
 module.exports = {
-    baseUrl:'',
-    // devServer:{
-    //     proxy:{
-    //         '/getList':{
-    //             target:'htto://localhost:9999',
-    //             changeOrigin:true,
-    //             pathRewrite:{
-    //                 '^/getList':'/getList'
-    //             }
-    //         }
-    //     }
-    // }
+    devServer:{
+        proxy:{
+            '/api':{
+                target:'http://localhost:9999/api',
+                changeOrigin:true,
+                pathRewrite:{
+                    '^/api':''
+                }
+            }
+        }
+    }
 }
