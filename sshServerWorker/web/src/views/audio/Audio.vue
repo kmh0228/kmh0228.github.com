@@ -31,7 +31,7 @@ export default {
   methods:{
     selectVideo(item){
       this.curVideo = item;
-      this.videoSrc = 'http://129.28.168.243/'+item;
+      this.videoSrc = 'http://129.28.168.243/video/'+item;
     }
   },
   mounted(){
