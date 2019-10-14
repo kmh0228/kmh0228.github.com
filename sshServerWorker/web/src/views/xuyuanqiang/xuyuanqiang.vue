@@ -214,8 +214,10 @@ export default {
         box-shadow: 2px 2px 1px 1px #ccc;
         cursor: pointer;
         outline: none;
+        z-index:999;
     }
     .openWindow{
+        z-index:999;
         position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,.2);
         .owin{
             margin:100px auto; background: #fff; width:300px; padding:20px; font-size: 14px; border-radius: 5px;
