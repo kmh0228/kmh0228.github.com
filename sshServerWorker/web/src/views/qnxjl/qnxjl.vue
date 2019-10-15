@@ -1,12 +1,21 @@
 <template>
     <div class="qnxjl_container">
-        <div class="container">
+        <div class="container clear">
             
-            <div class="inputs">
+            <div class="inputs fl">
                 <input id="searchBtn" type="text" value="" placeholder=""/>
             </div>
-            <div class="con">
-                <ul class="con_list">
+            <div class="con fl">
+                <ul class="con_list" ref="con_list">
+                    <li class="con_item">sssss</li>
+                    <li class="con_item">sssss</li>
+                    <li class="con_item">sssss</li>
+                    <li class="con_item">sssss</li>
+                    <li class="con_item">sssss</li>
+                    <li class="con_item">sssss</li>  
+                    <li class="con_item">sssss</li>  
+                    <li class="con_item">sssss</li>  
+                    <li class="con_item">sssss</li>  
                     <li class="con_item">sssss</li>                
                 </ul>
             </div>
@@ -17,8 +26,17 @@
     </div>
 </template>
 <script>
+import $ from 'jquery'
 export default {
-    name:'qnxjl'
+    name:'qnxjl',
+    mounted(){
+        function rand(a,b){return parseInt(a+(Math.random()*(b-a)));}
+        this.$nextTick(function(){
+            $(this.$refs.con_list).find('li').each(function(i,e){
+                $(e).css('transform','rotate('+rand(-3,3)+'deg)');
+            });
+        });
+    }
 }
 </script>
 <style lang="less">
@@ -26,19 +44,18 @@ export default {
     width:100%; height:100%; background:url(./images/back.jpeg); background-size: cover;
     .container{ width:800px; margin:0px auto; height: 100%; overflow: hidden;
         .inputs{
-           input{ font-size: 18px; display: block; width:80%; height: 30px; line-height: 30px; margin: 10px auto 0; border-radius: 5px; text-indent: 10px;}
+            background:url(./images/arrow.png) no-repeat;background-size:cover; width:274px; height:136px; margin-right:40px;
+            input{font-size: 18px; display: block; width:400px; height: 50px; line-height: 50px; margin: 10px auto 0;
+                border-radius: 5px; text-indent: 10px; outline: none; border:none; background:none;
+            }
         }
-        .con{ width:700px; padding:10px 0; margin: 10px auto; border-radius: 5px;
-            .con_list{ overflow:auto; height: 100%;
+        .con{ width:460px; padding:10px 0; margin: 10px auto;
+            .con_list{height: 100%;
                 li{
-                    cursor: pointer; list-style: none; overflow: hidden; padding:2px 6px; background:#963;
-                    border-radius: 5px;
-                }
-                li span{width:300px; float:left;word-wrap : break-word;}
-                li span.pinyin{display: none;}
-                li span.shouzimu{display: none;}
-                li .icon{float:left; width:0;height:0;border-top:6px solid transparent; border-bottom:6px solid transparent; border-left:8px solid blue; margin: 2px 4px;}
-                li button{width:42px; float:right; height:100%;}            
+                    cursor: pointer; list-style: none; color:#eee; line-height: 40px; font-size: 24px; cursor: pointer;
+                    background-size: cover; border-radius: 5px; height:40px; background: url(./images/listback.png);
+                    box-shadow: 2px 2px 1px 1px #963; margin-top: 10px;
+                } 
             }
        }
     }
