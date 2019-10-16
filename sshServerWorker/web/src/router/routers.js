@@ -39,5 +39,11 @@ export default [
         title:'qn行酒令',
         //component: Home
         component : ()=>import('../views/qnxjl')
+      },{
+        path: '/test',
+        name: 'test',
+        title:'test',
+        //component: Home
+        component : ()=>import('../views/test.vue')
       }
     ]
