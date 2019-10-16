@@ -23,10 +23,14 @@ app.use('/api/getxyqcontent',getxyqcontent);
 var addxyqcontent = require('./libs/addxyqcontent');
 app.use('/api/addxyqcontent',addxyqcontent);
 
+//添加行酒令内容服务
+var addxingjiulingdata = require('./libs/addxingjiulingdata');
+app.use('/api/addxingjiulingdata',addxingjiulingdata);
+
 
 app.use(function(req,res){
     res.send('404 notFound');
 });
 
-//app.listen(9999);
-app.listen(80);   //改成80布到服务器上。
+app.listen(9999);
+//app.listen(80);   //改成80布到服务器上。
