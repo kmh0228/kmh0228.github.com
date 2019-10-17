@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="other">
-            <a class="help" title="帮助">
+            <a class="help" title="帮助" href="./xjlpageshuoming.html" target="_blank">
                 <img src="./images/说明.svg" alt="关于">
             </a>
             <a class="plus" target="_blank" title="添加词语"  @click="showAddWin=true">
@@ -45,7 +45,7 @@
                     <span class="fl title">答案:</span>
                     <input class="fl name" type="text" v-model="addopt"/>
                 </div>
-                <button class="addBtn" @click="addxyqcontent()" style="margin-top:20px;">添加</button>
+                <button class="addBtn" @click="addxjlData()" style="margin-top:20px;">添加</button>
             </div>
         </div>
     </div>
@@ -56,6 +56,7 @@ import xjlData from './data/xjlData'
 import wordToShouzimu from './wordToShouzimu'
 import ClipboardJS from 'clipboard'
 import keyUp from './keyup.js'
+import axios from 'axios'
 export default {
     name:'qnxjl',
     data(){
@@ -68,6 +69,19 @@ export default {
         }
     },
     methods:{
+        addxjlData(){
+            if(!this.addquestion){alert('老大，没写问题啊。');return;};
+            if(!this.addopt){alert('请留个答案，让后人抄袭。');return;};
+            var _this = this;
+            axios.post('/api/addxingjiulingdata',{
+                quest:this.addquestion,opt:this.addopt
+            }).then(function(res){
+                console.log(res.data);
+                _this.showAddWin = false;
+            }).catch(function(){
+                console.log('false');
+            });
+        },
         inputChange(obj,fn){    //监控表单方法
             var oldval=obj.val();
             obj.on('focus',function(){
