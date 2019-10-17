@@ -3,15 +3,20 @@
         <div class="container clear">
             
             <div class="inputs fl">
-                <input id="searchBtn" ref="searchBtn" type="text" value="plase putin" placeholder=""/>
+                <input id="searchBtn" ref="searchBtn" type="text" value="" placeholder="在此输入首字母"/>
+                <div class="tupian">
+                    <img src="./images/jiayu.png">
+                    <span>剪切板:<br>{{copyTxt}}</span>
+                </div>
+                
             </div>
             <div class="con fl">
                 <div class="lineback clear">
                     <div class="fl"></div><div class="fl"></div>
                 </div>
                 <ul class="con_list" ref="con_list">
-                    <li v-for="item in list" class="con_item cur"  data-clipboard-text="item.opt1">
-                        <p style="display:none;" class="shouzimu">{{item.shouzimu}}</p>
+                    <li v-for="item in list" class="con_item cur" v-show="item.show"  :data-clipboard-text="item.opt1">
+                        <p style="display:none;" class="shouzimu">{{item.shouzimu||''}}</p>
                         <p class="p1">{{item.question}}</p>
                         <p class="p2">{{item.opt1}}</p>
                     </li>         
@@ -49,6 +54,8 @@
 import $ from 'jquery'
 import xjlData from './data/xjlData'
 import wordToShouzimu from './wordToShouzimu'
+import ClipboardJS from 'clipboard'
+import keyUp from './keyup.js'
 export default {
     name:'qnxjl',
     data(){
@@ -56,7 +63,8 @@ export default {
             showAddWin:false,
             addquestion:'',
             addopt:'',
-            list:xjlData
+            list:xjlData,
+            copyTxt:''
         }
     },
     methods:{
@@ -86,15 +94,36 @@ export default {
                 $(e).css('transform','rotate('+rand(-3,3)+'deg)');
             });
             //整理数据信息
-            this.list.forEach(function(item){
-                item.shouzimu = wordToShouzimu(item.question);
-                item.show = true;
+            this.list.forEach(function(item,index){
+                _this.$set(item,'shouzimu',wordToShouzimu(item.question));
+                _this.$set(item,'show',true);
             });
             //表单筛选效果
+            var dom = $(_this.$refs.con_list);
             this.inputChange($(this.$refs.searchBtn),function(val){
-                $(_this.$refs.con_list).find('li').hide();
-                $(_this.$refs.con_list).find('.shouzimu:contains("'+val+'")').parent().show();
+                _this.list.forEach(function(item,index){
+                    if(item.shouzimu.indexOf(val)>=0){
+                        _this.$set(item,'show',true);
+                    }else{
+                        _this.$set(item,'show',false);
+                    }
+                });
             });
+            //复制粘贴事件
+            var t = new ClipboardJS('.qnxjl_container .con_list li');
+            t.on('success',function(txt){
+                console.log('success');
+                // $.get("http://localhost:8020",function(req){
+                //         console.log('success');
+                //         console.log(req);
+                // });
+                _this.copyTxt = txt.text;
+            });
+            //回车复制第一条事件
+            keyUp($(this.$refs.searchBtn)[0],['ENTER'],function(){
+                dom.find('li:visible').eq(0).trigger("click");
+            });
+
         });
     }
 }
@@ -108,6 +137,17 @@ export default {
             input{
                 font-size: 24px; display: block; width:200px; height: 30px; line-height: 30px; margin: 55px 0 0 20px;
                 text-indent: 10px; outline: none; background:none; border:none; font-weight: bold; color:#c96; cursor:pointer;
+            }
+            .tupian{
+                width:100%; text-align: right; position: relative; margin-top:80px;
+                img{
+                    width:140px; margin-right:20px;
+                }
+                span{
+                    position: absolute; bottom:300px; right:130px; background: #c96; color:#630; border:1px solid #630;
+                    border-radius: 15px 15px 0 15px; padding:10px; font-size: 12px; line-height: 14px; font-weight: bold;
+                    text-align: left;
+                }
             }
         }
         .con{ width:460px; position:relative; height:100%;

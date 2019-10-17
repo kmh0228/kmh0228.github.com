@@ -102,13 +102,15 @@
     setConHeight();
     //$(window).resize(function(){setConHeight();});
     //表单筛选事件
+	var dom = $('.con_list');
     inputChange($('#searchBtn'),function(val){
         for(var name in hrefInfo){
             val = val.replace(new RegExp(name,'g'),hrefInfo[name]);
         }
-
-        $('.con_list li').hide();
-        $('.shouzimu:contains("'+val+'")').parent().show();
+		var time1 = new Date().getTime();
+        dom.find('li').hide();
+        dom.find('.shouzimu:contains("'+val+'")').parent().show();
+		console.log('用时：'+((new Date().getTime() - time1)/1000));
     });
     //复制粘贴事件处理
     var t = new ClipboardJS('.con_list li');
