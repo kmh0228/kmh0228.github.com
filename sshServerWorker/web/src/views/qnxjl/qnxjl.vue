@@ -64,7 +64,7 @@ export default {
             showAddWin:false,
             addquestion:'',
             addopt:'',
-            list:xjlData,
+            list:[],
             copyTxt:''
         }
     },
@@ -103,6 +103,8 @@ export default {
         function rand(a,b){return parseInt(a+(Math.random()*(b-a)));}
         this.$nextTick(function(){
             var _this = this;
+            //添加用户自己添加的数据
+            this.list = xingjiulingData.concat(xjlData);
             //木牌随机倾斜效果
             $(this.$refs.con_list).find('li').each(function(i,e){
                 $(e).css('transform','rotate('+rand(-3,3)+'deg)');
