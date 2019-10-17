@@ -2,7 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var querystring = require('querystring');
 
-var datapth = path.join(__dirname,'../data/data/xingjiulingData.js');
+var datapth = path.join(__dirname,'../../../../../home/s5ming/data/xingjiulingData.js');
 
 var addxingjiulingdata = function(req,res){
 	var post='';
