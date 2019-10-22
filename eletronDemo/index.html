@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>行酒令答题器-首字母搜索-本地服务操作按键</title>
+    <link rel="stylesheet" type="text/css" href="./css/eletronDemo.css">
+    <script type="text/javascript" src="./js/jquery.js"></script>
+    <script src="./js/clipboard.js"></script>
+    <script src="./js/wordToPinyin.js"></script>
+    <script type="text/javascript" src="http://s5ming.com/data/xingjiulingData.js"></script>
+    <script type="text/javascript" src="https://www.16163.com/zt/qnm/xjl/index_files/data-keju.js"></script>
+    <script src="./js/keyup.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="title">行酒令答题器 - 首字母搜索 - 本地服务操作按键</div>
+        <div class="subtitle" style="overflow:hidden;">
+            <p class="subtitle_autor" style="float:left;">author:塞上曲 - s5ming(2019-10-22)</p>
+            <p class="copyContent" style="float:right; color:red;">点击一行，即可复制成功！去游戏中粘贴即可！</p>
+        </div>
+        <div class="inputs">
+            <input id="searchBtn" type="text" value="" placeholder="请输入行酒令问题"/>
+        </div>
+        <div class="con">
+            <ul class="con_list">
+               <li class="con_item"><span class="wx">wx</span><i class="icon"></i><span class="da">da</span><button>复制</button></li>                
+            </ul>
+        </div>
+    </div>
+    <a class="help" href="http://www.s5ming.com/xjlpageshuoming.html" target="_blank"><img src="./images/说明.svg" alt="关于"></div></a>
+</body>
+</html>
+<script>
+    //监控表单输入方法
+    function inputChange(obj,fn){
+		var oldval=obj.val();
+		obj.on('focus',function(){
+			clearInterval(obj.timer);
+			obj.timer=setInterval(function(){
+				var newval=obj.val();
+				if(!(newval===oldval)){
+					oldval=newval;
+					fn&&fn(newval);
+				}
+			},30);
+		});
+		obj.on('blur',function(){
+			clearInterval(obj.timer);
+		});
+    }
+    //建立列表方法
+    function createList(arr){
+        var arrLength = arr.length;
+        var html = '';
+        for(var i=0; i<arrLength;i++){
+            html += '<li data-clipboard-text="'+arr[i].opt1+'" class="con_item"><span class="shouzimu">'+arr[i].shouzimu+'</span><span class="question">'+arr[i].question+'</span><i class="icon"></i><span class="opt1">'+arr[i].opt1+'</span><button>复制</button></li>';
+        }
+        $('.con_list').html(html);
+    }
+    //延迟执行的方法
+    function timeout(time,fn){
+        var out = setTimeout(function(){
+            clearTimeout(out);fn&&fn();
+        },time);
+    }
+    //整合全部列表
+    var sumList = xingjiulingData.concat(a.xlinfo);
+    //在列表中备注首字母
+    var sumListLength = sumList.length;
+    for(var i=0;i<sumListLength;i++){
+        var shouzimu = wordToShouzimu(sumList[i].question);
+        sumList[i].shouzimu = shouzimu;
+    }
+    //建立列表
+    createList(sumList);
+    //初始化.con的高度
+    function setConHeight(){
+        var windowHeight = $(window).height();
+        $('.con').height(windowHeight-140);
+    }
+    setConHeight();
+    //$(window).resize(function(){setConHeight();});
+    //表单筛选事件
+	var dom = $('.con_list');
+    inputChange($('#searchBtn'),function(val){
+		var time1 = new Date().getTime();
+        dom.find('li').hide();
+        dom.find('.shouzimu:contains("'+val+'")').parent().show();
+    });
+    //复制粘贴事件处理
+    var t = new ClipboardJS('.con_list li');
+    var robot = require('robotjs');
+    t.on('success',function(txt){
+        //robotjs 操作电脑
+        robot.keyToggle('alt','down',);
+        timeout(300,function(){
+            robot.keyTap('tab');
+            timeout(300,function(){
+                robot.keyToggle('alt','up');
+                timeout(300,function(){
+                    robot.keyToggle('control','down',);
+                    timeout(300,function(){
+                        robot.keyTap('v');
+                        timeout(300,function(){
+                            robot.keyToggle('control','up');
+                        });
+                    });
+                });
+            });
+        });
+
+
+
+        $('.copyContent').html('复制成功！：'+txt.text);
+    });
+
+    //回车复制第一条事件
+    keyUp($('#searchBtn')[0],['ENTER'],function(){
+        $('.con_list li:visible').eq(0).trigger("click");
+    });
+
+
+
+</script>
