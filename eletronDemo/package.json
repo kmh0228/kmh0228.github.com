@@ -10,7 +10,9 @@
   "author": "s5ming",
   "license": "ISC",
   "devDependencies": {
+    "electron": "^7.0.0"
   },
   "dependencies": {
+    "robotjs": "^0.5.1"
   }
 }
