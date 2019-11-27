@@ -4,7 +4,7 @@
             <div class="back_t">
                 <div class="clear">
                     <div class="selectBox fl" style="margin:20px 0 0 50px;">
-                        <qnselect @select="getZy"></qnselect>
+                        <qnselect @select="getZy" :curzy="curzy"></qnselect>
                     </div>
                     <pre class="fl" style="margin:20px 50px 0 50px; text-align:left;">
                         左边牌子选职业，下面选技能等级。然后最下面就出来经验比最高的技能排序。
@@ -14,15 +14,20 @@
                 </div>
                 
                 <div class="jinengs clear">
-                    <div class="jineng fl" v-for="item in zyjns">
+                    <div class="jineng fl" v-for="(item,i) in zyjns" :key="i">
                         <span>{{item}}:&nbsp;</span>
-                        <input type="number" value="0" step="1" min="0" max="40" v-model="jnd[item]" @change="jndchange">
+                        <input type="number" value="0" step="1" min="0" max="40" v-model="jnd[item]">
                     </div>
                 </div>
                 
+                <button class="jisuan" @click="jndchange">开始计算</button>
+                <span style="font-size:10px;">
+                    你已经在修为中花费了 {{used.mon}} 银两和 {{used.exp}} 经验,
+                    &nbsp;&nbsp;还需 {{toused.mon}} 银两和 {{toused.exp}} 经验就可以把所有修为点满。
+                </span>
             </div>
             <div class="back_b clear">
-                <div v-for="(item,key) in result" class="selectBox fl">
+                <div v-for="(item,key) in result" class="selectBox fl" :key="key">
                     <qnyhjndinfo :info="item.name+': '+(item.level-1) + ' - ' + item.level" :num="key+1"></qnyhjndinfo>
                 </div>
             </div>
@@ -42,7 +47,15 @@ export default {
         return {
             curzy:'',       //当前职业
             jnd:{},         //技能点
-            result:[]
+            result:[],      //计算结果集
+            used:{
+                mon:0,      //你已经投入在修为中的银两
+                exp:0,      //你已经投入在修为中的钱
+            },
+            toused:{
+                mon:0,      //你还需投入在修为中的银两
+                exp:0,      //你还需投入在修为中的钱
+            }
         }
     },
     computed:{
@@ -52,7 +65,8 @@ export default {
     },
     methods:{
         getZy(data){
-            var curzy = this.curzy = data.name;
+            var curzy = this.curzy = localStorage.curzy = data.name;
+            localStorage.jndata = {};
         },
         jndchange(){
             var alldata = expmonscales[this.curzy];
@@ -87,6 +101,11 @@ export default {
             });
             this.result = no.slice(0,no.length>20?20:no.length);
         }
+    },
+    mounted(){
+        //数据本地缓存取出来
+        this.curzy = localStorage.curzy?localStorage.curzy:'';
+
     }
 }
 </script>
@@ -96,7 +115,7 @@ export default {
     .back{
         height:100%;
         .back_t{
-            height:50%; background: #dfe0e5; position: relative; overflow:hidden;
+            height:50%; background: #dfe0e5; position: relative; overflow:hidden; text-align: left;
             .jinengs{
                 margin:30px 30px 0 80px;
                 .jineng{
@@ -108,6 +127,23 @@ export default {
                         height:24px; width:40px; text-indent: 6px; border-radius: 5px;
                     }
                 }
+            }
+            .jisuan{
+                padding: .5em 2em;
+                background-image: linear-gradient(#ddd, #bbb);
+                border: 1px solid rgba(0,0,0,.2);
+                border-radius: .3em;
+                box-shadow: 0 1px white inset;
+                text-align: center;
+                text-shadow: 0 1px 1px black;
+                color:#666; cursor: pointer;
+                font-weight: bold;
+                outline: none; margin-left:30px; margin-right:30px;
+            }
+            .jisuan:active{
+                box-shadow: .05em .1em .2em rgba(0,0,0,.6) inset;
+                border-color: rgba(0,0,0,.3);
+                background: #bbb;
             }
         }
         .back_b{

@@ -13,6 +13,7 @@ import $ from 'jquery'
 import {imitateSelect} from '@s5ming/input'
 import {peos} from './data'
 export default {
+    props:['curzy'],
     data(){
         return {
             select:null,
@@ -36,7 +37,8 @@ export default {
                 borderRadius:5,
                 arrowBorderWidth:0,
                 height:30,
-                placeholder:'选择职业'
+                placeholder:'选择职业',
+                defalut:_this.curzy
             });
         });
           
