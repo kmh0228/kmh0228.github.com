@@ -103,6 +103,8 @@ export default {
                 }
             }
             //获取已经使用的mon,exp
+            console.log('yes',yes);
+            console.log('no',no);
             console.log('havenot',havenot);
             var usedmon = 0; var usedexp = 0;
             for(var name in yes){
@@ -137,12 +139,14 @@ export default {
                     datas.push(no[name][0]?no[name][0].scale:0);
                 }
                 datas.sort(function(a,b){
-                    return a-b;
+                    return b-a;
                 });
+                console.log(i,datas);
+                var find = false;
                 for(var name in no){
-                    if(no[name][0]&&no[name][0].scale == datas[0]){
+                    if(no[name][0]&&no[name][0].scale == datas[0]&&!find){
                         result.push(no[name].shift());
-                        break;
+                        find = true;
                     }
                 }
             }
