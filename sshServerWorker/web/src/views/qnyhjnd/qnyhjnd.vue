@@ -75,10 +75,10 @@ export default {
             console.log(alldata);
             //把学过的与没学的拆分
             var yes = {}; var no = {}; var havenot = {};
-            for(var name in jnddata){
+            for(var name in alldata){
                 var value = jnddata[name];
-                if(value === ''){
-                    havenot[name] = alldata[name];
+                if(value === '' || ( typeof value == 'undefined')){
+                    havenot[name] = alldata[name].slice(1);
                     continue;
                 }
                 value = Number(value);
@@ -102,6 +102,33 @@ export default {
                     });
                 }
             }
+            //获取已经使用的mon,exp
+            console.log('havenot',havenot);
+            var usedmon = 0; var usedexp = 0;
+            for(var name in yes){
+                yes[name].forEach(function(element){
+                    usedmon += Number(element.mon);
+                    usedexp += Number(element.exp);
+                });
+            }
+            this.used = {mon:usedmon,exp:usedexp};
+            //获取还需要的mon和exp
+            var tousedmon = 0; var tousedexp = 0;
+            for(var name in no){
+                no[name].forEach(function(element){
+                    tousedmon += Number(element.mon);
+                    tousedexp += Number(element.exp);
+                });
+            }
+            for(var name in havenot){
+                havenot[name].forEach(function(element){
+                    tousedmon += Number(element.mon);
+                    tousedexp += Number(element.exp);
+                });
+            }
+            this.toused = {mon:tousedmon,exp:tousedexp};
+
+            //获取结果
             var result = [];
             var resultLength = 20;
             for(var i=0;i<resultLength;i++){
