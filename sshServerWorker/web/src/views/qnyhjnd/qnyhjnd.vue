@@ -7,8 +7,7 @@
                         <qnselect @select="getZy" :curzy="curzy"></qnselect>
                     </div>
                     <pre class="fl" style="margin:20px 50px 0 50px; text-align:left;">
-                        左边牌子选职业，下面选技能等级。然后最下面就出来经验比最高的技能排序。
-                        注意：别点那么快，人家要一点点计算的
+                        左边牌子选职业，下面选技能等级。然后点下计算，最下面就出来经验比最高的技能排序。
                         没有学的技能空着，它不会算
                     </pre>
                 </div>
@@ -16,7 +15,7 @@
                 <div class="jinengs clear">
                     <div class="jineng fl" v-for="(item,i) in zyjns" :key="i">
                         <span>{{item}}:&nbsp;</span>
-                        <input type="number" value="0" step="1" min="0" max="40" v-model="jnd[item]">
+                        <input type="number" value="0" step="1" min="0" max="40" v-model="jnd[item]" @change="setloc">
                     </div>
                 </div>
                 
@@ -66,12 +65,13 @@ export default {
     methods:{
         getZy(data){
             var curzy = this.curzy = localStorage.curzy = data.name;
-            localStorage.jnd = '';
+        },
+        setloc(){
+            localStorage.jnd = JSON.stringify(this.jnd);
         },
         jndchange(){
             var alldata = expmonscales[this.curzy];
             var jnddata = this.jnd;
-            localStorage.jnd = JSON.stringify(jnddata);
             console.log(alldata);
             //把学过的与没学的拆分
             var yes = {}; var no = {}; var havenot = {};
