@@ -6,11 +6,11 @@
                     <div class="selectBox fl" style="margin:20px 0 0 50px;">
                         <qnselect @select="getZy" :curzy="curzy"></qnselect>
                     </div>
-                    <pre class="fl" style="margin:20px 50px 0 50px; text-align:left;">
-                        左边牌子选职业，下面选技能等级。然后点下计算，最下面就出来经验比最高的技能排序(前20)。
-                        按这个排序点技能，可以花最少的钱省最多的修为。
+                    <p class="fl" style="margin:20px 50px 0 50px; text-align:left;">
+                        左边牌子选职业，下面选技能等级。然后点下计算，最下面就出来经验比最高的技能排序(前20)。<br>
+                        按这个排序点技能，可以花最少的钱省最多的修为。<br>
                         没有学的技能空着，它不会算
-                    </pre>
+                    </p>
                 </div>
                 
                 <div class="jinengs clear">
@@ -21,10 +21,10 @@
                 </div>
                 
                 <button class="jisuan" @click="jndchange">开始计算</button>
-                <span style="font-size:10px;">
+                <p style="font-size:10px; margin:0 30px 20px;">
                     你已经在修为中花费了 {{used.mon}} 银两和 {{used.exp}} 经验,
                     &nbsp;&nbsp;还需 {{toused.mon}} 银两和 {{toused.exp}} 经验就可以把所有修为点满。
-                </span>
+                </p>
             </div>
             <div class="back_b clear" :style="{height:conHeight}">
                 <div v-for="(item,key) in result" class="selectBox fl" :key="key">
@@ -171,7 +171,7 @@ export default {
         .back_t{
             background: #dfe0e5; position: relative; overflow:hidden; text-align: left;
             .jinengs{
-                margin:30px 30px 0 80px;
+                margin:30px 30px 0 40px;
                 .jineng{
                     border:1px solid #999; border-radius: 8px; padding:5px; box-shadow: 2px 2px 1px 1px #999; margin:0 20px 20px 0;
                     span{
@@ -193,6 +193,7 @@ export default {
                 color:#666; cursor: pointer;
                 font-weight: bold;
                 outline: none; margin-left:30px; margin-right:30px;
+                margin-bottom:4px;
             }
             .jisuan:active{
                 box-shadow: .05em .1em .2em rgba(0,0,0,.6) inset;
@@ -201,7 +202,7 @@ export default {
             }
         }
         .back_b{
-            background: #edeef2; position: relative;
+            background: #edeef2; position: relative; min-height:200px;
             .selectBox{
                 margin:20px;
             }
