@@ -66,16 +66,19 @@ export default {
     methods:{
         getZy(data){
             var curzy = this.curzy = localStorage.curzy = data.name;
-            localStorage.jndata = {};
+            localStorage.jnd = '';
         },
         jndchange(){
             var alldata = expmonscales[this.curzy];
             var jnddata = this.jnd;
+            localStorage.jnd = JSON.stringify(jnddata);
+            console.log(alldata);
             //把学过的与没学的拆分
-            var yes = []; var no = [];
+            var yes = {}; var no = {}; var havenot = {};
             for(var name in jnddata){
                 var value = jnddata[name];
                 if(value === ''){
+                    havenot[name] = alldata[name];
                     continue;
                 }
                 value = Number(value);
@@ -87,25 +90,42 @@ export default {
                     alert('点数不能小于0');return;
                 }else{
                     var alljndata = alldata[name];
-                    for(var name2 in alljndata){
-                        if(Number(name2) <= value){
-                            yes.push(alljndata[name2]);
-                        }else{
-                            no.push(alljndata[name2]);
+                    yes[name] = []; no[name] = [];
+                    alljndata.forEach(element => {
+                        if(element&&element.level>1){
+                            if(element.level <= value){
+                                yes[name].push(element);
+                            }else{
+                                no[name].push(element);
+                            }
                         }
+                    });
+                }
+            }
+            var result = [];
+            var resultLength = 20;
+            for(var i=0;i<resultLength;i++){
+                var datas = [];
+                for(var name in no){
+                    datas.push(no[name][0]?no[name][0].scale:0);
+                }
+                datas.sort(function(a,b){
+                    return a-b;
+                });
+                for(var name in no){
+                    if(no[name][0]&&no[name][0].scale == datas[0]){
+                        result.push(no[name].shift());
+                        break;
                     }
                 }
             }
-            no.sort(function(a,b){
-                return b.scale - a.scale;
-            });
-            this.result = no.slice(0,no.length>20?20:no.length);
+            this.result = result;
         }
     },
     mounted(){
         //数据本地缓存取出来
         this.curzy = localStorage.curzy?localStorage.curzy:'';
-
+        this.jnd = localStorage.jnd?JSON.parse(localStorage.jnd):{};
     }
 }
 </script>

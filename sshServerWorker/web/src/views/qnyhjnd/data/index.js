@@ -14469,7 +14469,7 @@ for(var name in exps){
         for(var name3 in expnums){
             var expnum = expnums[name3];
             var monnum = monnums[name3];
-            if(!json[name3])json[name3] = {};
+            if(!json[name3])json[name3] = [];
             json[name3][name2] = {
                 name:name3,
                 level:name2,
