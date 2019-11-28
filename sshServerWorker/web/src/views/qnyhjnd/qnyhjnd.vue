@@ -1,13 +1,14 @@
 <template>
-    <div class="qnyhjnd_container">
+    <div class="qnyhjnd_container" ref="qnyhjnd_container">
         <div class="back">
-            <div class="back_t">
+            <div class="back_t" :style="{height:conHeight}">
                 <div class="clear">
                     <div class="selectBox fl" style="margin:20px 0 0 50px;">
                         <qnselect @select="getZy" :curzy="curzy"></qnselect>
                     </div>
                     <pre class="fl" style="margin:20px 50px 0 50px; text-align:left;">
-                        左边牌子选职业，下面选技能等级。然后点下计算，最下面就出来经验比最高的技能排序。
+                        左边牌子选职业，下面选技能等级。然后点下计算，最下面就出来经验比最高的技能排序(前20)。
+                        按这个排序点技能，可以花最少的钱省最多的修为。
                         没有学的技能空着，它不会算
                     </pre>
                 </div>
@@ -25,7 +26,7 @@
                     &nbsp;&nbsp;还需 {{toused.mon}} 银两和 {{toused.exp}} 经验就可以把所有修为点满。
                 </span>
             </div>
-            <div class="back_b clear">
+            <div class="back_b clear" :style="{height:conHeight}">
                 <div v-for="(item,key) in result" class="selectBox fl" :key="key">
                     <qnyhjndinfo :info="item.name+': '+(item.level-1) + ' - ' + item.level" :num="key+1"></qnyhjndinfo>
                 </div>
@@ -54,7 +55,8 @@ export default {
             toused:{
                 mon:0,      //你还需投入在修为中的银两
                 exp:0,      //你还需投入在修为中的钱
-            }
+            },
+            conHeight:'50%'         //上下两个区域的高度，应对手机屏的
         }
     },
     computed:{
@@ -72,7 +74,6 @@ export default {
         jndchange(){
             var alldata = expmonscales[this.curzy];
             var jnddata = this.jnd;
-            console.log(alldata);
             //把学过的与没学的拆分
             var yes = {}; var no = {}; var havenot = {};
             for(var name in alldata){
@@ -103,9 +104,6 @@ export default {
                 }
             }
             //获取已经使用的mon,exp
-            console.log('yes',yes);
-            console.log('no',no);
-            console.log('havenot',havenot);
             var usedmon = 0; var usedexp = 0;
             for(var name in yes){
                 yes[name].forEach(function(element){
@@ -141,7 +139,6 @@ export default {
                 datas.sort(function(a,b){
                     return b-a;
                 });
-                console.log(i,datas);
                 var find = false;
                 for(var name in no){
                     if(no[name][0]&&no[name][0].scale == datas[0]&&!find){
@@ -157,6 +154,12 @@ export default {
         //数据本地缓存取出来
         this.curzy = localStorage.curzy?localStorage.curzy:'';
         this.jnd = localStorage.jnd?JSON.parse(localStorage.jnd):{};
+        this.$nextTick(function(){
+            var width = parseInt(this.$refs.qnyhjnd_container.offsetWidth);
+            if(width<1000){
+                this.conHeight = 'auto';
+            }
+        });
     }
 }
 </script>
@@ -166,7 +169,7 @@ export default {
     .back{
         height:100%;
         .back_t{
-            height:50%; background: #dfe0e5; position: relative; overflow:hidden; text-align: left;
+            background: #dfe0e5; position: relative; overflow:hidden; text-align: left;
             .jinengs{
                 margin:30px 30px 0 80px;
                 .jineng{
@@ -198,7 +201,7 @@ export default {
             }
         }
         .back_b{
-            height:50%; background: #edeef2; position: relative;
+            background: #edeef2; position: relative;
             .selectBox{
                 margin:20px;
             }
