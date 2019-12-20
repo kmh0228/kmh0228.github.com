@@ -34,7 +34,7 @@ export default {
                 repassword:'111',
                 mail:'111'
             },
-            registBoxShow:true
+            registBoxShow:false
         }
     },
     methods:{
