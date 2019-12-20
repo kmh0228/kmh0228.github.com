@@ -22,7 +22,6 @@ function Calculator(opts){
 	this.fix = (typeof opts.fix == 'undefined')?10:opts.fix;  //商的默认小数位
 	this.maxOrd = opts.maxOrd || 10000;							//次方的时候结果的最大位数，超出时会警告
 	
-	
 	this.numRegExp=/^-?\d+.?\d*$/;
 }
 

@@ -278,9 +278,9 @@ $(obj).$(TOOLSET)/%.o: $(srcdir)/%.m FORCE_DO_CMD
 	@$(call do_cmd,objc,1)
 $(obj).$(TOOLSET)/%.o: $(srcdir)/%.mm FORCE_DO_CMD
 	@$(call do_cmd,objcxx,1)
-$(obj).$(TOOLSET)/%.o: $(srcdir)/%.S FORCE_DO_CMD
-	@$(call do_cmd,cc,1)
 $(obj).$(TOOLSET)/%.o: $(srcdir)/%.s FORCE_DO_CMD
+	@$(call do_cmd,cc,1)
+$(obj).$(TOOLSET)/%.o: $(srcdir)/%.S FORCE_DO_CMD
 	@$(call do_cmd,cc,1)
 
 # Try building from generated source, too.
@@ -296,9 +296,9 @@ $(obj).$(TOOLSET)/%.o: $(obj).$(TOOLSET)/%.m FORCE_DO_CMD
 	@$(call do_cmd,objc,1)
 $(obj).$(TOOLSET)/%.o: $(obj).$(TOOLSET)/%.mm FORCE_DO_CMD
 	@$(call do_cmd,objcxx,1)
-$(obj).$(TOOLSET)/%.o: $(obj).$(TOOLSET)/%.S FORCE_DO_CMD
-	@$(call do_cmd,cc,1)
 $(obj).$(TOOLSET)/%.o: $(obj).$(TOOLSET)/%.s FORCE_DO_CMD
+	@$(call do_cmd,cc,1)
+$(obj).$(TOOLSET)/%.o: $(obj).$(TOOLSET)/%.S FORCE_DO_CMD
 	@$(call do_cmd,cc,1)
 
 $(obj).$(TOOLSET)/%.o: $(obj)/%.c FORCE_DO_CMD
@@ -313,9 +313,9 @@ $(obj).$(TOOLSET)/%.o: $(obj)/%.m FORCE_DO_CMD
 	@$(call do_cmd,objc,1)
 $(obj).$(TOOLSET)/%.o: $(obj)/%.mm FORCE_DO_CMD
 	@$(call do_cmd,objcxx,1)
-$(obj).$(TOOLSET)/%.o: $(obj)/%.S FORCE_DO_CMD
-	@$(call do_cmd,cc,1)
 $(obj).$(TOOLSET)/%.o: $(obj)/%.s FORCE_DO_CMD
+	@$(call do_cmd,cc,1)
+$(obj).$(TOOLSET)/%.o: $(obj)/%.S FORCE_DO_CMD
 	@$(call do_cmd,cc,1)
 
 
@@ -326,8 +326,8 @@ ifeq ($(strip $(foreach prefix,$(NO_LOAD),\
 endif
 
 quiet_cmd_regen_makefile = ACTION Regenerating $@
-cmd_regen_makefile = cd $(srcdir); /usr/local/lib/node_modules/cnpm/node_modules/node-gyp/gyp/gyp_main.py -fmake --ignore-environment "--toplevel-dir=." -I/usr/local/data/workspace/kmh0228/kmh0228.github.com/eletrontest/build/config.gypi -I/usr/local/lib/node_modules/cnpm/node_modules/node-gyp/addon.gypi -I/Users/mac/.node-gyp/13.2.0/include/node/common.gypi "--depth=." "-Goutput_dir=." "--generator-output=build" "-Dlibrary=shared_library" "-Dvisibility=default" "-Dnode_root_dir=/Users/mac/.node-gyp/13.2.0" "-Dnode_gyp_dir=/usr/local/lib/node_modules/cnpm/node_modules/node-gyp" "-Dnode_lib_file=/Users/mac/.node-gyp/13.2.0/<(target_arch)/node.lib" "-Dmodule_root_dir=/usr/local/data/workspace/kmh0228/kmh0228.github.com/eletrontest" "-Dnode_engine=v8" binding.gyp
-Makefile: $(srcdir)/../../../../../lib/node_modules/cnpm/node_modules/node-gyp/addon.gypi $(srcdir)/build/config.gypi $(srcdir)/binding.gyp $(srcdir)/../../../../../../../Users/mac/.node-gyp/13.2.0/include/node/common.gypi
+cmd_regen_makefile = cd $(srcdir); /usr/local/data/workspace/kmh0228/kmh0228.github.com/eletrontest/node_modules/_node-gyp@6.0.1@node-gyp/gyp/gyp_main.py -fmake --ignore-environment "-Dlibrary=shared_library" "-Dvisibility=default" "-Dnode_root_dir=/Users/mac/.electron-gyp/7.1.3" "-Dnode_gyp_dir=/usr/local/data/workspace/kmh0228/kmh0228.github.com/eletrontest/node_modules/_node-gyp@6.0.1@node-gyp" "-Dnode_lib_file=/Users/mac/.electron-gyp/7.1.3/<(target_arch)/node.lib" "-Dmodule_root_dir=/usr/local/data/workspace/kmh0228/kmh0228.github.com/eletrontest" "-Dnode_engine=v8" "--depth=." "-Goutput_dir=." "--generator-output=build" -I/usr/local/data/workspace/kmh0228/kmh0228.github.com/eletrontest/build/config.gypi -I/usr/local/data/workspace/kmh0228/kmh0228.github.com/eletrontest/node_modules/_node-gyp@6.0.1@node-gyp/addon.gypi -I/Users/mac/.electron-gyp/7.1.3/include/node/common.gypi "--toplevel-dir=." binding.gyp
+Makefile: $(srcdir)/node_modules/_node-gyp@6.0.1@node-gyp/addon.gypi $(srcdir)/../../../../../../../Users/mac/.electron-gyp/7.1.3/include/node/common.gypi $(srcdir)/build/config.gypi $(srcdir)/binding.gyp
 	$(call do_cmd,regen_makefile)
 
 # "all" is a concatenation of the "all" targets from all the included

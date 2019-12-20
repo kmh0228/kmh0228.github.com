@@ -4,6 +4,8 @@ const { app, BrowserWindow } = require('electron')
 // 垃圾回收的时候，window对象将会自动的关闭
 let win
 
+console.log(process.versions);
+
 function createWindow () {
   // 创建浏览器窗口。
   win = new BrowserWindow({
