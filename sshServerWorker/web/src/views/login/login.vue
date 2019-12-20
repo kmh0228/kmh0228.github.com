@@ -51,7 +51,12 @@ export default {
                 data:regist,
                 method:'post'
             }).then(function(res){
-                
+                var status = res.data.state;
+                if(status == 'error'){
+                    alert('用户已经存在');
+                }else if(status == 'success'){
+                    alert('用户创建成功');
+                }
             });
         },
         getUserInfo(token){
@@ -78,9 +83,9 @@ export default {
                 var state = data.data.state;
                 if(state == 'ok'){
                     _this.getUserInfo(data.data.data.token);
-                    // _this.$router.push({
-                    //     path:'/'
-                    // });
+                    _this.$router.push({
+                        path:'/'
+                    });
                 }else if(state == 'none'){
                     alert('无此账号');
                 }else if(state == 'password error'){
