@@ -1,8 +1,8 @@
 var fs = require('fs');
 var path = require('path');
-var querystring = require('querystring');
+var config = require('../config');
 
-var datapth = path.join(__dirname,'../../../../../home/s5ming/data/xingjiulingData.js');
+var datapth = path.join(config.dataUrl,'./xingjiulingData.js');
 
 var addxingjiulingdata = function(req,res){
 	var post='';

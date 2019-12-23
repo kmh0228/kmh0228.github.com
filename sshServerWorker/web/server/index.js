@@ -2,6 +2,8 @@ var express = require('express');
 var path = require('path');
 var fs = require('fs');
 
+var config = require('./config');
+
 var login = require('./user/login');
 var getUserInfo = require('./user/getUserInfo');
 var regist = require('./user/regist');
@@ -45,5 +47,5 @@ app.use(function(req,res){
 });
 
 //监控端口
-app.listen(80);
-console.log('server start and listen 80');
+app.listen(config.serverPost);
+console.log('server start and listen '+config.serverPost);
