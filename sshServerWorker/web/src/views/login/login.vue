@@ -1,38 +1,60 @@
 <template>
     <div class="login_container container">
-        <div class="login_box">
-            <br><br><br>      <br><br>
-            账号：<input type="text" v-model="username"><br>
-            密码：<input type="text" v-model="password"><br>
-            <button @click="login">登录</button>
-            <button @click="registBoxShow=true">注册</button>
-        </div>
-        <div class="regist_box" v-show="registBoxShow">
-            <div class="regist_con">
-                账号:<input type="text" v-model="regist.username"><br>
-                密码:<input type="password" v-model="regist.password"><br>
-                重复密码:<input type="password" v-model="regist.repassword"><br>
-                邮箱:<input type="text" v-model="regist.mail"><br>
-                <button @click="registclick">注册</button>
-                <button @click="registBoxShow=false">取消</button>
+        <login-background></login-background>
+        <div class="login_content container">
+            <div class="login_box opaBox" v-show="!registBoxShow">
+                <span class="title">欢迎登陆</span>
+                <div class="inputitem">
+                    账号：<input type="text" v-model="username" placeholder="请输入账号"><br>
+                </div>
+                <div class="inputitem">
+                    密码：<input type="text" v-model="password" placeholder="请输入密码"><br>
+                </div>
+                <div class="buttons clear">
+                    <button @click="login" class="fl">登录</button>
+                    <button @click="registBoxShow=true" class="fl">注册</button>
+                </div>
             </div>
-        </div>
+            <div class="regist_box opaBox" v-show="registBoxShow">
+                <span class="title">欢迎注册</span>
+                <div class="inputitem">
+                    账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号:<input type="text" v-model="regist.username" placeholder="请输入账号"><br>
+                </div>
+                <div class="inputitem">
+                    密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:<input type="password" v-model="regist.password" placeholder="请输入密码"><br>
+                </div>
+                <div class="inputitem">
+                    重复密码:<input type="password" v-model="regist.repassword" placeholder="请重复输入密码"><br>
+                </div>
+                <div class="inputitem">
+                    邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱:<input type="text" v-model="regist.mail" placeholder="请输入邮箱"><br>
+                </div>
+                <div class="buttons clear">
+                    <button @click="registclick" class="fl">注册</button>
+                    <button @click="registBoxShow=false" class="fl">取消</button>
+                </div>
+            </div>
+        </div> 
     </div>
 </template>
 <script>
 import {mapActions} from 'vuex'
 import axios from '_l/axios'
+import loginBackground from './loginBackground'
 export default {
     name:'login',
+    components:{
+        loginBackground
+    },
     data(){
         return {
-            username:'admin',
-            password:'admin',
+            username:'',
+            password:'',
             regist:{
-                username:'www',
-                password:'111',
-                repassword:'111',
-                mail:'111'
+                username:'',
+                password:'',
+                repassword:'',
+                mail:''
             },
             registBoxShow:false
         }
@@ -105,12 +127,40 @@ export default {
 </script>
 <style lang="less">
 .login_container{
-    position: relative;
-    .regist_box{
-        position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.3);
-        .regist_con{
-            width:300px; height:300px; background:#ccc; margin:100px auto;
+    overflow:hidden;
+    .login_content{
+        position: absolute; top:0; left:0;
+        .opaBox{
+            width:290px; height:300px; position:absolute; top:0; left:0; right:0; bottom:0; margin:auto;
+            background:linear-gradient(230deg,rgba(53,57,74,0) 0%,rgb(0,0,0) 100%);
+            box-shadow: -15px 15px 15px rgba(6,17,47,.7); padding:80px 40px 40px;
+            .title{
+                display:block; color:#d3d7f7; height:60px; font-size:23px; text-align: center;
+            }
+            .inputitem{
+                height:52px; line-height: 52px; color:#d3d7f7;
+                input{
+                    background:none; font-size:16px; color:#61bfff; outline:none; border:none;
+                }
+            }
+            .buttons{
+                margin:27px 10px 0;
+                button{
+                    border-radius:50px; padding:10px 40px; border:2px solid #4fa1d9; color:#4fa1d9;
+                    font-size:14px; background:none; outline:none; margin:0 10px;
+                }
+                button:hover{
+                    background:#4fa1d9; color:#fff;
+                }
+            }
         }
+        .login_box{
+            
+        }
+        .regist_box{
+            height:350px;
+        }
+
     }
 }
 </style>
