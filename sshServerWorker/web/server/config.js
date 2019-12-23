@@ -1,7 +1,7 @@
 
 var path = require('path');
 
-var devType = 'local';          // local 本地  server 服务
+var devType = require('./devType');          // local 本地  server 服务
 
 module.exports = {
     // 存放数据的文件目录
