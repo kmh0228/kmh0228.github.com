@@ -4,7 +4,7 @@
             <water ref="watercomponent"></water>
         </div>
         <div class="collbox" ref="collbox" style="width:100%; height:100%; position:absolute;top:0;left:0; overflow:hidden;"></div>
-         <a class="ban" style=" background:#fff;display:block;text-align:center; font-size:12px; color:#000; margin-top:20px;" href="http://beian.miit.gov.cn">
+         <a class="ban" href="http://beian.miit.gov.cn">
             个人前端代码存放  备案编号: 京ICP备18032050号-2
         </a>
     </div>
@@ -59,7 +59,7 @@ export default {
                         },
                         'click':function(){
                             _this.$router.push({
-                                path:routes[i].path
+                                path:'/pages/'+routes[i].path
                             });
                         } //点击跳转
                     });
@@ -84,7 +84,7 @@ export default {
 </script>
 <style lang="less">
 .Home_container{
-    width:100%; height:100%;
+    width:100%; height:100%; position: relative;
 
     .collbox{
         .ppfont{
@@ -98,6 +98,7 @@ export default {
     }
     .ban{
         position:absolute; bottom:0; left:0; width:100%;
+        background:#fff;display:block;text-align:center; font-size:12px; color:#000;
     }
 }
 </style>
