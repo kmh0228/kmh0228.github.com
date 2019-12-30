@@ -4,11 +4,14 @@
             <water ref="watercomponent"></water>
         </div>
         <div class="collbox" ref="collbox" style="width:100%; height:100%; position:absolute;top:0;left:0; overflow:hidden;"></div>
+         <a class="ban" style=" background:#fff;display:block;text-align:center; font-size:12px; color:#ccc; margin-top:20px;" href="http://beian.miit.gov.cn">
+            个人前端代码存放  备案编号: 京ICP备18032050号-2
+        </a>
     </div>
 </template>
 <script>
 import {CollBox,Ball} from './collision.js'
-import routes from '../../router/routers'
+import allroutes from '../../router/routers'
 import ballElement from './ballElement'
 import water from './water'
 export default {
@@ -23,13 +26,13 @@ export default {
         }
     },
     mounted(){
-        console.log('mounted');
         this.$nextTick(function(){
             var oC = this.$refs.collbox;
             var oB = this.oB = new CollBox(oC);
             oB.ballRun();
 
             function rand(m,n){return m+parseInt((n-m)*Math.random());}
+            var routes = allroutes[2].children;
             var routesLength=routes.length;
             var mxwidth=oC.offsetWidth;
             var mxheight=oC.offsetHeight;
@@ -92,6 +95,9 @@ export default {
             -webkit-text-stroke: 1px pink;
             position:absolute;top:0;left:0;width:100%;
         }
+    }
+    .ban{
+        position:absolute; bottom:0; left:0; width:100%;
     }
 }
 </style>

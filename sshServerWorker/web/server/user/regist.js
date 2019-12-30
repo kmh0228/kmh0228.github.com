@@ -40,7 +40,7 @@ module.exports = function(req,res){
         //注册
         function regit(){
             connectMysql(function(connection){
-                var sql = 'insert into users (name,password,email) values ("'+rs.username+'","'+rs.password+'","'+rs.mail+'")';
+                var sql = 'insert into users (name,password,email,createdate,token) values ("'+rs.username+'","'+rs.password+'","'+rs.mail+'",now(),"")';
                 console.log(sql);
                 connection.query(sql,function(error,results,fields){
                     if(error){
@@ -49,7 +49,7 @@ module.exports = function(req,res){
                             des:'sql语句错误'
                         }))
                         return;
-                    };
+                     };
                     res.send(JSON.stringify({
                         state:'success',
                         des:'注册成功'

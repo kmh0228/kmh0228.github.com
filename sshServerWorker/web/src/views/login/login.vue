@@ -14,6 +14,9 @@
                     <button @click="login" class="fl">登录</button>
                     <button @click="registBoxShow=true" class="fl">注册</button>
                 </div>
+                <a style="display:block;text-align:center; font-size:12px; color:#ccc; margin-top:20px;" href="http://beian.miit.gov.cn">
+                    备案编号: 京ICP备18032050号-2
+                </a>
             </div>
             <div class="regist_box opaBox" v-show="registBoxShow">
                 <span class="title">欢迎注册</span>
