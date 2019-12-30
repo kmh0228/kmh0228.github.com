@@ -4,7 +4,7 @@
             <water ref="watercomponent"></water>
         </div>
         <div class="collbox" ref="collbox" style="width:100%; height:100%; position:absolute;top:0;left:0; overflow:hidden;"></div>
-         <a class="ban" style=" background:#fff;display:block;text-align:center; font-size:12px; color:#ccc; margin-top:20px;" href="http://beian.miit.gov.cn">
+         <a class="ban" style=" background:#fff;display:block;text-align:center; font-size:12px; color:#000; margin-top:20px;" href="http://beian.miit.gov.cn">
             个人前端代码存放  备案编号: 京ICP备18032050号-2
         </a>
     </div>
