@@ -4,13 +4,13 @@ import datetime
 import time
 
 toUserNames=[
-    # "栖木26 凯月",
-    "赵明强"
+    "栖木26 凯月",
+    # "赵明强"
 ]
 
 times = [
-    {'h':14,'m':45,'msg':'good morning,美好的一天开始开始了.'},
-    {'h':14,'m':50,'msg':'good night,做个好梦.'}
+    {'h':8,'m':0,'msg':'good morning,美好的一天开始开始了.'},
+    {'h':22,'m':0,'msg':'good night,做个好梦.'}
 ]
 
 def send_move(message):    
