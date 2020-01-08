@@ -22,6 +22,7 @@ def send_move(message):
 
 if __name__ == "__main__":
     itchat.auto_login(hotReload=True,enableCmdQR=2)  # 首次扫描登录后后续自动登录
+    send_move("test")
 
 while True:
     now = datetime.datetime.now()
