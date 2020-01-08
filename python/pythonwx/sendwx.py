@@ -9,8 +9,8 @@ toUserNames=[
 ]
 
 times = [
-    {'h':14,'m':15,'msg':'good morning,美好的一天开始开始了.'},
-    {'h':14,'m':20,'msg':'good night,做个好梦.'}
+    {'h':14,'m':38,'msg':'good morning,美好的一天开始开始了.'},
+    {'h':14,'m':40,'msg':'good night,做个好梦.'}
 ]
 
 def send_move(message):    
