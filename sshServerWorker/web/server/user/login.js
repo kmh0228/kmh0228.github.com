@@ -1,6 +1,6 @@
 
-
 var connectMysql = require('../libs/connectMysql');
+var jwt = require('jsonwebtoken');
 
 module.exports = function(req,res){
     console.log('login');
@@ -28,6 +28,12 @@ module.exports = function(req,res){
                     return;
                 }else{
                     if(resultjson.password == results[0].password){
+                        
+                        var token = jwt.sign({name:results[0].name},results[0].password,{
+                            expiresIn:60*60*24
+                        })
+
+
                         res.send(JSON.stringify({
                             state:'ok',
                             des:'请求成功',
