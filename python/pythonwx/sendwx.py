@@ -8,22 +8,24 @@ toUserNames=[
     "凯月",
     "狗狗",
     "深圳徒弟",
-    "糖果"
+    "糖果",
+    "李志杰",
+    "骚军"
 ]
 
 times = [
     {'h':8,'m':2,'msg':[
-        'good morning,美好的一天开始开始了.',
-        '早.',
-        '早安.',
-        '早啊.',
-        '早,起床啦。',
-        'good morning.'
+        'good morning',
+        '早',
+        '早安',
+        '早啊',
+        '早,起床啦',
+        'good morning'
     ]},
     {'h':22,'m':2,'msg':[
-        'good night,做个好梦.',
-        '晚安.',
-        '晚安,早些睡觉.',
+        'good night,做个好梦',
+        '晚安',
+        '晚安,早些睡觉',
         'Sleep tight',
         'sweet dreams',
         'Nighty-night'
