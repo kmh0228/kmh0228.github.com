@@ -6,20 +6,13 @@ import random
 
 toUserNames=[
     "凯月",
-    "骚军",
-    "高习军",
     "狗狗",
-    "大妹",
-    "小妹",
-    "邵莉",
     "深圳徒弟",
-    "糖果",
-    "李志杰",
-    "小蒋"
+    "糖果"
 ]
 
 times = [
-    {'h':8,'m':0,'msg':[
+    {'h':8,'m':2,'msg':[
         'good morning,美好的一天开始开始了.',
         '早.',
         '早安.',
@@ -27,7 +20,7 @@ times = [
         '早,起床啦。',
         'good morning.'
     ]},
-    {'h':22,'m':0,'msg':[
+    {'h':22,'m':2,'msg':[
         'good night,做个好梦.',
         '晚安.',
         '晚安,早些睡觉.',
@@ -51,7 +44,7 @@ if __name__ == "__main__":
 
 while True:
     now = datetime.datetime.now()
-    if(now.hour == 0 and now.minute == 0):
+    if(now.hour == 1 and now.minute == 0):
         for saytime in times:
             saytime['m'] = random.randint(0,10)
     for saytime in times:
