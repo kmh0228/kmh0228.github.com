@@ -6,6 +6,7 @@ import random
 
 toUserNames=[
     "凯月",
+    "凯月同桌"
     "狗狗",
     "深圳徒弟",
     "糖果",
