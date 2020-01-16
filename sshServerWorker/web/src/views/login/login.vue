@@ -51,8 +51,8 @@ export default {
     },
     data(){
         return {
-            username:'',
-            password:'',
+            username:'111w',
+            password:'111w',
             regist:{
                 username:'',
                 password:'',

@@ -1,9 +1,11 @@
 
 var connectMysql = require('../libs/connectMysql');
 var jwt = require('jsonwebtoken');
+var secret = 's5ming';
 
 module.exports = function(req,res){
     console.log('login');
+    console.log(req.headers['x-forwarded-host']);
     var result = '';
     req.on('data',function(chat){
         result += chat;
@@ -13,7 +15,7 @@ module.exports = function(req,res){
         var resultjson = JSON.parse(result);
         var name,mail = name = resultjson.username;
         connectMysql(function(connection){
-            connection.query('select token,password from users where name="'+name+'" or email="'+mail+'"',function(error,results,fields){
+            connection.query('select name,password from users where name="'+name+'" or email="'+mail+'"',function(error,results,fields){
                 if(error){
                     res.send(JSON.stringify({
                         state:'sql error',
@@ -27,18 +29,16 @@ module.exports = function(req,res){
                     }));
                     return;
                 }else{
+                    console.log('results',results);
                     if(resultjson.password == results[0].password){
-                        
-                        var token = jwt.sign({name:results[0].name},results[0].password,{
+                        var token = jwt.sign({name:results[0].name},secret,{
                             expiresIn:60*60*24
                         })
-
-
                         res.send(JSON.stringify({
                             state:'ok',
                             des:'请求成功',
                             data:{
-                                token:results[0].token
+                                token:token
                             }
                         }));
                     }else{
