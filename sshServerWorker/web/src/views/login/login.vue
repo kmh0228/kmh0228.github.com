@@ -44,6 +44,7 @@
 import {mapActions} from 'vuex'
 import axios from '_l/axios'
 import loginBackground from './loginBackground'
+import cookies from 'js-cookie'
 export default {
     name:'login',
     components:{
@@ -107,7 +108,9 @@ export default {
             .then(data=>{
                 var state = data.data.state;
                 if(state == 'ok'){
-                    _this.getUserInfo(data.data.data.token);
+                    var token = data.data.data.token;
+                    _this.getUserInfo(token);
+                    cookies.set('s5mingtoken',token);
                     _this.$router.push({
                         path:'/'
                     });

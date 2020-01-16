@@ -11,7 +11,7 @@ const router = new Router({
 
 router.beforeEach(function(to,from,next){
     //检查是否有token
-    var token = cookies.get('token')
+    var token = cookies.get('s5mingtoken')
     
     if(!token){
         //没有token
