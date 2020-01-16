@@ -5,7 +5,11 @@ var secret = 's5ming';
 
 module.exports = function(req,res){
     console.log('login');
-    console.log(req.headers['x-forwarded-host']);
+    var ip = req.headers['x-forwarded-for'] || // 判断是否有反向代理 IP
+        req.connection.remoteAddress || // 判断 connection 的远程 IP
+        req.socket.remoteAddress || // 判断后端的 socket 的 IP
+        req.connection.socket.remoteAddress;
+    console.log(ip);
     var result = '';
     req.on('data',function(chat){
         result += chat;

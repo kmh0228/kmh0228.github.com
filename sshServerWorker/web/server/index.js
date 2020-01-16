@@ -47,5 +47,5 @@ app.use(function(req,res){
 });
 
 //监控端口
-app.listen(config.serverPost);
+app.listen(config.serverPost,'0.0.0.0');
 console.log('server start and listen '+config.serverPost);
