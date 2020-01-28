@@ -15,7 +15,8 @@ toUserNames=[
     "乔乔",
     "陈陈",
     "大妹",
-    "小妹"
+    "小妹",
+    "芯梦"
 ]
 
 times = [
@@ -23,17 +24,11 @@ times = [
         'good morning',
         '早',
         '早安',
-        '早啊',
-        '早,起床啦',
-        'good morning'
+        '早,起床啦'
     ]},
     {'h':22,'m':2,'msg':[
-        'good night,做个好梦',
         '晚安',
-        '晚安,早些睡觉',
-        'Sleep tight',
-        'sweet dreams',
-        'Nighty-night'
+        '晚安,早些睡觉'
     ]}
 ]
 
@@ -53,7 +48,7 @@ while True:
     now = datetime.datetime.now()
     if(now.hour == 1 and now.minute == 0):
         for saytime in times:
-            saytime['m'] = random.randint(0,10)
+            saytime['m'] = random.randint(0,15)
     for saytime in times:
         if(now.hour == saytime['h'] and now.minute == saytime['m']):
             saytimemsg = saytime['msg']
