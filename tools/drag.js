@@ -5,7 +5,8 @@
 		if(arguments.length==2){
 			var fnmove=fndown;
 			fndown=null;
-		}
+		}else{
+}
 		var mousedown=function(ev){
 			var oEvent = ev||event;
 			var oldX = oEvent.clientX;
