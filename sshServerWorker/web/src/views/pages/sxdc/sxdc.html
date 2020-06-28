@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./dic.js"></script>
+</head>
+<body>
+    <input type="text" value="test" id="text"><br>
+    <button id="btn">查找</button>
+    <div id="result"></div>
+</body>
+</html>
+<script>
+    var btn = document.getElementById('btn');
+    var text = document.getElementById('text');
+    var result = document.getElementById('result');
+var sparr = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+var sarr = {'a':1,'b':2,'c':3,'d':4,'e':5,'f':6,'g':7,'h':8,'i':9,'j':10,'k':11,'l':12,'m':13,'n':14,'o':15,'p':16,
+    'q':17,'r':18,'s':19,'t':20,'u':21,'v':22,'w':23,'x':24,'y':25,'z':26};
+var json ={};
+function findNum(word){
+    var arr = [];
+    for(var i=0;i<26;i++){
+        arr.push(word.length - word.replace(new RegExp(sparr[i],'g'),'').length);
+    }
+    return arr;
+}
+function setAtr(obj,key,value){
+    if(key)obj[key] = value;
+}
+for(var name in dic){
+    name = name.toLowerCase();
+    var arr = findNum(name);
+    var t = json;
+    for(var i = 0;i<26;i++){
+        if(!t[arr[i]]){
+            t[arr[i]] = {};
+        }
+        t = t[arr[i]];
+    }
+    if(t[arr[i-1]]){
+        t[arr[i-1]].push(name);
+    }else{
+        t[arr[i-1]] = [name];
+    }
+    
+}
+function search(str){
+    var arr = findNum(str);
+    var t = json;
+    for(var i = 0;i<26;i++){
+        if(!t[arr[i]]){
+            return [];
+        }
+        t = t[arr[i]];
+    }
+    return t[arr[i-1]];
+}
+
+btn.onclick = function(){
+    result.innerHTML = search(text.value);
+};
+
+</script>

@@ -51,6 +51,12 @@ export default [
             title:'qn行酒令',
             //component: Home
             component : ()=>import('../views/pages/qnxjl')
+          },{
+            path: 'sxdc',
+            name: 'sxdc',
+            title:'搜寻单词',
+            //component: Home
+            component : ()=>import('../views/pages/sxdc')
           }
         ]
       }

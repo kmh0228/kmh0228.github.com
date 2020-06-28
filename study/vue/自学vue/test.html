@@ -1,0 +1,52 @@
+<!DOCTYPE html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+<div id="app">
+
+
+</div>
+</body> 
+</html>
+<script>
+
+var App = {
+    template:
+        `<div><input type="text" v-model="text">
+        {{text|reverse}}        
+        </div>`,
+    data:function(){
+        return {
+            text:'四点半你帮我办点事'
+        }
+    },
+    filters:{
+        reverse:function(data){
+            return data.split('').reverse().join('');
+        }
+    }
+    
+};
+
+new Vue({
+    el:'#app',
+    components:{
+        app:App
+    },
+    template:'<app/>',
+    data(){
+        return {
+
+        }
+    },
+
+});
+
+</script>

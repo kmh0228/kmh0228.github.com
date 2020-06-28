@@ -14,7 +14,11 @@
 		   	:style="'background:'+btnColor+';'"
 		   	@click="changeColor"				
 		   	type="button"
-		   	/>
+			   />
+			<span ref="text">abcd<span>efg</span></span>
+			
+			<input v-model="num"><input v-model="num">
+			{{num}}
 		</div>
 	</body>
 </html>
@@ -25,7 +29,8 @@
 		data:{
 			message:'meaages',
 			title:'this is a title',
-			btnColor:'#f00'
+			btnColor:'#f00',
+			num:'123'
 		},
 		methods:{
 			changeColor:function(){
@@ -34,6 +39,11 @@
 				};
 				this.btnColor = 'rgb('+rand()+','+rand()+','+rand()+')';
 			}
+		},
+		mounted(){
+			this.$nextTick(() => {
+				
+			});
 		}
 	});
 	
