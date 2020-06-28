@@ -1,7 +1,7 @@
 // JavaScript Document
 //拖拽函数，当两个参数时，第二个参数是移动时间
 	function drag(obj,fndown,fnmove,fnup){
-		if(!obj)return;
+		if(!obj){return ;}else{}
 		if(arguments.length==2){
 			var fnmove=fndown;
 			fndown=null;
