@@ -1,44 +1,40 @@
 <template>
-  <div class="hello">
-    child接受到的数据:</br>
-    {{content}}
+  <div>
+    data
+    <div v-for="(item,i) in myFruits" :key="i">
+      {{item.color}} -- {{item.sale}}
+    </div>
  </div>
 </template>
-
 <script>
 export default {
   name: 'HelloWorld',
-  props:['data'],
   data () {
-    return {
-      content:'初始状态'
+   return {
+     fruits:[ {color:'red',sale:0},
+        {color:'yellow',sale:0}
+       ]
+     //myFruits:[]
+   }
+  },
+  computed:{
+    myFruits ( ){
+      let result = [...this.fruits]
+      result.push({'color':'pink',sale:0})
+      return result
     }
   },
-  watch:{
-    data:{
-      handler(newval){
-        this.content = '监控到了数据：' + JSON.stringify(newval);
-      },
-      deep:true
+  methods:{
+    async getsale(data){
+      let timeout = setTimeout(()=>{
+        this.$set(data,'sale',(Math.random()*60+40).toFixed(0))
+      },1000)
     }
+  },
+  created(){
+    this.myFruits.forEach(item=>{
+      this.getsale(item)
+    })
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>

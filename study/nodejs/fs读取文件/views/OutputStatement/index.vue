@@ -1,0 +1,110 @@
+<template>
+  <div class="mes-main mes-work-order">
+    <h3 class="mes-main-title">产出报表</h3>
+    <el-row :gutter="20" class="mes-main-filte">
+      <el-col :span="12">
+       <cascader-select v-model="searchForm.officeCode" style="width:40%" dataType="1"></cascader-select>
+      </el-col>
+      <el-col :span="12">
+        <el-button size="mini" style="margin-left:10px;float:right" @click="showMoreConditon = !showMoreConditon">
+          <i class="fa fa-filter"></i>
+        </el-button>
+         <el-input placeholder="请输入工单号"  v-model.trim="searchForm.docNo" size="mini" style="width:40%;float:right" @keydown.enter.native="getproduceReportList">
+          <!-- <i slot="suffix" class="el-input__icon el-icon-search" @click="getproduceReportList"></i> -->
+        </el-input>
+      </el-col>
+      <el-col :span="24" style="padding-top:1vh;">
+        <el-form class="el-row mes-search-form" :model="searchForm" label-width="120px" label-position="left" v-if="showMoreConditon">
+            <el-form-item label="料号：" class="el-col el-col-11">
+            <el-input size="mini" v-model="searchForm.materialNo"></el-input>
+          </el-form-item>
+        </el-form>
+      </el-col>
+    </el-row>
+    <div class="mes-table">
+       <el-row class="mes-table-handle">
+        <el-col :span="12">
+           <el-button icon="el-icon-search" size="mini" @click="getproduceReportList">查询</el-button>
+        </el-col>
+        <el-col :span="12">
+          <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
+            layout="total, sizes, prev, pager, next, jumper, ->" :total="total"
+            @current-change="handleCurrentChange" @size-change="handleSizeChange">
+          </el-pagination>
+        </el-col>
+      </el-row>
+      <div class="mes-table-content">
+        <el-table :data="tableData" border size="mini">
+          <el-table-column type="index" label="序号" align="center" :index="indexMethod"></el-table-column>
+          <el-table-column prop="officeName" sortable label="工厂" align="center"></el-table-column>
+          <el-table-column prop="docNo" sortable label="工单号" align="center"></el-table-column>
+          <el-table-column prop="materialNo" sortable label="工单料号" align="center"></el-table-column>
+          <el-table-column prop="requestQty" sortable label="工单需求数量"  align="center"></el-table-column>
+          <el-table-column prop="checkQty" sortable label="完成数量" align="center"></el-table-column>
+          <el-table-column prop="successQty" sortable label="合格数量" align="center"></el-table-column>
+          <el-table-column prop="failQty" sortable label="报废数量"  align="center"></el-table-column>
+          <el-table-column prop="schStartDt" sortable label="计划开始时间" align="center" :formatter="dateFormatter"></el-table-column>
+          <el-table-column prop="schClosedDt" sortable label="计划结束时间"  align="center" :formatter="dateFormatter"></el-table-column>
+        </el-table>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+
+export default {
+  data () {
+    return {
+      searchForm: {
+        officeCode: '',
+        docNo: '',
+        materialNo: '',
+        queryLevel: 1
+      },
+      showMoreConditon: false,
+      page: {
+        pageSize: 10,
+        pageIndex: 1
+      },
+      total: 0,
+      tableData: []
+    }
+  },
+  computed: {
+  },
+  methods: {
+    indexMethod (index) {
+      let { pageIndex, pageSize } = this.page
+      return pageSize * (pageIndex - 1) + index + 1
+    },
+    handleCurrentChange (size) {
+      this.page.pageSize = size
+      this.getproduceReportList()
+    },
+    handleSizeChange (index) {
+      this.page.pageIndex = index
+      this.getproduceReportList()
+    },
+    dateFormatter (row, column, cellValue, index) {
+      return cellValue ? this.$dayjs(cellValue).format('YYYY-MM-DD HH:mm:ss') : ''
+    },
+    async getproduceReportList () {
+      let { searchForm, page } = this
+      const data = Object.assign(searchForm, page)
+      let res = await this.$api.getproduceReportList(data)
+      if (res.code === '200') {
+        this.tableData = res.data.list
+        this.total = res.data.totalNum
+      } else {
+        this.tableData = []
+        this.total = 0
+      }
+    }
+  },
+  created () {
+    this.getproduceReportList()
+  }
+
+}
+</script>

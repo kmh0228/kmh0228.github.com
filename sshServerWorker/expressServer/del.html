@@ -1,0 +1,279 @@
+<div class="trans-left">
+    <div class="trans-input-wrap">
+    <div class="image-wrap">
+    <div id="image-holder"></div>
+    </div>
+    <div class="input-wrap">
+    <a href="###" class="textarea-clear-btn" title="&#x6E05;&#x7A7A;"></a>
+    <div class="doc-trans-file"></div>
+    <div class="textarea-wrap">
+    <div class="textarea-bg">
+    <span class="prompt-text"></span>
+    </div>
+    <div class="textarea-bg-text" id="textarea-bg-text"></div>
+    <textarea class="textarea" id="baidu_translate_input"></textarea>
+    </div>
+    <ul class="sug-wrap" id="sug-wrap">
+    </ul>
+    <div class="input-operate">
+    <a href="###" class="operate-btn op-sound data-hover-tip" data-hover-tip-text="&#x53D1;&#x97F3;"><span class="icon-sound"></span></a>
+    <div class="op-favor-container">
+    <a href="javascript:void(0);" class="operate-btn op-favo data-hover-tip" data-hover-tip-text="&#x6536;&#x85CF;&#x7ED3;&#x679C;"><span class="icon-favo"></span></a>
+    <div class="input-coll-extra-container">
+    <div class="input-coll-group-container">
+    <a class="close-input-coll-group" href="javascript:"></a>
+    <header class="gray">
+    &#x6DFB;&#x52A0;&#x6536;&#x85CF;&#x5230;&#xA0;<span class="black">(&#x5355;&#x9009;)</span>&#xA0;&#xFF1A;</header>
+    <hr>
+    <ol class="input-coll-ol scrollbar-inner">
+    </ol>
+    <hr>
+    <div class="new-coll-group-container">
+    <a class="add-new-group" href="javascript:">&#x65B0;&#x6536;&#x85CF;&#x5206;&#x7EC4;</a>
+    <div class="new-coll-group-input-container">
+    <input type="text" placeholder="&#x8BF7;&#x8F93;&#x5165;&#x65B0;&#x5206;&#x7EC4;&#x540D;&#x79F0;" class="new-group-name"><a class="new-group-confirm disabled-new-group-confirm" href="javascript:">&#x521B;&#x5EFA;&#x5E76;&#x6DFB;&#x52A0;</a>
+    </div>
+    </div>
+    </div>
+    <div class="new-coll-group-err-msg"></div>
+    </div>
+    <script type="text/template" id="tpl-input-ol">
+        {{each groupList as group}}
+            <li class="input-coll-li" title="{{group.nameDisplayLegth > 14 ? group.name : ''}}" data-group-id="{{group.id}}" data-stat-id="18">{{group.name}}</li>
+        {{/each}}
+    </script>
+    </div>
+    <div class="trans-correct">
+    </div>
+    <div class="trans-prompt">
+    <p class="prompt-wrap">
+    </p>
+    </div>
+    </div>
+    <div id="upload-btn" style="display: none">
+    <span class="upload-btn-title">&#x4E0A;&#x4F20;&#x6587;&#x6863;</span>
+    <div class="upload-tip">&#x652F;&#x6301;pdf&#x3001;word&#x3001;ppt&#x3001;excel&#x3001;jpg&#x7B49;&#x683C;&#x5F0F;</div>
+    <div class="first-tip">&#x652F;&#x6301;&#x4E2D;&#x82F1;&#x65E5;&#x97E9;&#xFF0C;&#x4E0D;&#x9650;&#x5B57;&#x7B26;&#x7FFB;&#x8BD1;&#xFF0C;&#x514D;&#x8D39;&#x5BFC;&#x51FA;</div>
+    </div>
+    <div id="upload-btn-hidden"></div>
+    </div>
+    </div>
+    </div>
+    <script type="text/html" id="tplSugItem">
+        {{each data}}
+            <li class="sug-item" data-sug-title="{{$value.k}}">
+                <span class="sug-query">{{$value.queryInK}}</span><span class="sug-query-rest">{{$value.kRest}}</span>
+                <span class="sug-translate">{{$value.v}}</span>
+            </li>
+        {{/each}}
+    </script>
+    <script type="text/html" id="tplLangPrompt">
+        <span class="prompt-text">{{isOcr ? '上传图片原文' : '您输入的'}}���能是:</span>
+        <a href="javascript:" class="prompt-link source-lang" data-lang="{{lang}}">{{langText}}</a>
+    </script>
+    <div class="trans-right">
+    <div class="output-wrap output-blank">
+    </div>
+    <span class="hover-tips-wrap" id="hover-tips" style="display:none;">
+    <span class="tips-content">&#x6E05;&#x7A7A;&#x5185;&#x5BB9;</span>
+    <span class="tips-arrow-down"></span>
+    </span>
+    </div>
+    <script type="text/html" id="tplOrdinaryResult">
+        <div class="output-mod ordinary-wrap">
+            <!--翻译结果展示与编辑区域-->
+            <div class="output-bd" dir="{{tplData['dir']}}">
+                {{each tplData['data'] as value index}}
+                    {{if value.prefixWrap}}<p class="ordinary-output">{{#value.prefixWrap | fanyiGenBr}}</p>{{/if}}
+                    {{if value.src}}
+                    <p class="ordinary-output source-output" dir="{{tplData['srcDir']}}"
+                        {{if tplData['doubleLangChecked'] === false}}
+                            style="display:none;"
+                        {{/if}}
+                        {{if tplData['srcDir'] == 'rtl'}}
+                            style="margin-left:10px;font-size:22px;"
+                        {{/if}}
+                    >{{value.src}}</p>
+                    {{/if}}
+                    {{if value.dst}}
+                        <p class="ordinary-output target-output clearfix"
+                            {{if (tplData['jpData'] && tplData['japanChecked'] === true)
+                                    || (tplData['lmData'] && tplData['luomaChecked'] === true)
+                                    || (tplData['lmData'] && tplData['chinaChecked'] === true)}}
+                                 style="display:none;"
+                            {{/if}}
+                        >
+                            {{if value['result'].length > 0}}{{each value['result'] as val idx}}<span left-pos="{{val[2][0]}}" right-pos="{{val[4][0]}}" space="{{val[3][0]}}"{{if tplData['dir'] == 'rtl'}}style="font-size:22px;"{{/if}}>{{if tplData['needSpace'] == 'yes'}}&nbsp;{{val[6]}}&nbsp;{{else}}{{val[6]}}{{/if}}</span>{{/each}}{{else}}{{value.dst}}
+                            {{/if}}
+                        </p>
+                    {{/if}}
+                    {{if tplData['jpData']}}
+                        <p class="japan-pinyin-output japan-output"
+                            {{if tplData['japanChecked'] === false}}
+                                style="display:none;"
+                            {{/if}}
+                            {{if tplData['srcDir'] == 'rtl'}}
+                                style="margin-left:10px;font-size:22px;"
+                            {{/if}}
+                        >
+                            {{each tplData['jpData'][index] as val idx}}
+                                <span class="japan-output-item">
+                                    {{if val['dst']}}
+                                        <em class="japan-ouput-pinyin">
+                                            {{val['dst']}}</em>
+                                    {{/if}}
+                                    <span class="japan-output-japan">
+                                        {{val['src']}}</span>
+                                </span>
+                            {{/each}}
+                        </p>
+                    {{/if}}
+                    {{if tplData['lmData'] && tplData['lmData'][index]}}
+                        <p class="luoma-pinyin-kor luoma-output"
+                            {{if tplData['luomaChecked'] === false || tplData['chinaChecked'] === false}}
+                                style="display:none;"
+                            {{/if}}
+                            {{if tplData['srcDir'] == 'rtl'}}
+                                style="margin-left:10px;font-size:22px;"
+                            {{/if}}
+                        >
+                            {{each tplData['lmData'][index] as val idx}}
+                                <span class="luoma-output-item">
+                                    {{if val['trg']}}
+                                        <em class="luoma-ouput-pinyin">{{val['trg']}}</em>
+                                    {{/if}}
+                                    <span class="luoma-output-kor">{{val['src']}}</span>
+                                </span>
+                            {{/each}}
+                        </p>
+                    {{/if}}
+                {{/each}}
+            </div>
+    
+            <!--翻译结果功能控制区域-->
+            <div class="output-hd clearfix">
+                <div class="output-operate">
+                    {{if tplData['spell'] !== '' && tplData['spellLang'] !== ''}}
+                        <a href="javascript:void(0);" data-sound-lan="{{tplData['spellLang']}}" data-sound-text="{{tplData['spell']}}" class="operate-btn op-sound data-hover-tip" data-hover-tip-text="发音"><span class="icon-sound"></span>
+                        </a>
+                    {{else}}
+                        <div class="op-sound-disable"><div></div></div>
+                    {{/if}}
+                    <a href="javascript:void(0);" data-stat-id="60" class="operate-btn op-copy data-hover-tip"
+                    {{if tplData['doubleLangChecked'] === false}}
+                        data-hover-tip-text="复制">
+                    {{else}}
+                        data-hover-tip-text="复制双语结果">
+                    {{/if}}
+                    <span class="icon-copy"></span>
+                    </a>
+                    <a href="javascript:void(0);" class="operate-btn op-correct"  data-stat-id="38" data-stat-add="纠错"><span class="correct-txt">报错</span></a>
+                </div>
+                <div class="output-double-lang">
+                    {{if tplData['lmData'] && tplData['targetLang'] === 'kor'}}
+                    <a href="javascript:void(0);" class="operate-btn op-lm-pingyin-btn">
+                        罗马音
+                        {{if tplData['luomaChecked'] === false}}
+                            <span class="op-check"><label class="icon-opcheck"></label></span>
+                        {{else}}
+                            <span class="op-checked"><label class="icon-opcheck"></label></span>
+                        {{/if}}
+                    </a>
+                    {{/if}}
+                    {{if tplData['jpData']}}
+                    <a href="javascript:void(0);" class="operate-btn op-jp-pingyin-btn">
+                        假名对照
+                        {{if tplData['japanChecked'] === false}}
+                            <span class="op-check"><label class="icon-opcheck"></label></span>
+                        {{else}}
+                            <span class="op-checked"><label class="icon-opcheck"></label></span>
+                        {{/if}}
+                    </a>
+                    {{/if}}
+                    {{if tplData['lmData'] && tplData['targetLang'] === 'zh'}}
+                    <a href="javascript:void(0);" class="operate-btn op-zh-pingyin-btn">
+                        拼音
+                        {{if tplData['chinaChecked'] === false}}
+                            <span class="op-check"><label class="icon-opcheck"></label></span>
+                        {{else}}
+                            <span class="op-checked"><label class="icon-opcheck"></label></span>
+                        {{/if}}
+                    </a>
+                    {{/if}}
+                    <a href="javascript:void(0);" class="operate-btn op-double-lang">
+                        双语对照
+                        {{if tplData['doubleLangChecked'] === false}}
+                            <span class="op-check"><label class="icon-opcheck"></label></span>
+                        {{else}}
+                            <span class="op-checked"><label class="icon-opcheck"></label></span>
+                        {{/if}}
+                    </a>
+                </div>
+            </div>
+            <div class="edit-tip" style="display:none"></div>
+        </div>
+    </script>
+    <script type="text/html" id="tplEditOutputTextarea">
+        <a href="javascript:void(0);" class="output-textarea-clear-btn" title="清空"></a>
+        <div class="textarea-wrap">
+            <textarea class="textarea" id="baidu_translate_output_edit" data-height="70">
+            </textarea>
+        </div>
+    </script>
+    <script type="text/html" id="tplCorrectResultModel">
+        <div id="output-correct" class="output-correct output-correct-hide">
+            <div class="output-correct-wrapper">
+                <h1 class="output-correct-title">翻译报错反馈</h1>
+                <p class="output-correct-type"><!--
+                    --><span class="output-correct-type-tip">错误类型:</span><!--
+                    --><span class="output-correct-type-box"><input id="output-correct-type-quality" checked name="type[]" value="1" type="checkbox"><label for="output-correct-type-quality" data-stat-id="39" class="icon-box">质量不佳</label></span><!--
+                    --><span class="output-correct-type-box"><input id="output-correct-type-misnomer" name="type[]" value="2" type="checkbox"><label for="output-correct-type-misnomer" data-stat-id="40" class="icon-box">用词不当</label></span><!--
+                    --><span class="output-correct-type-box"><input id="output-correct-type-grammar" name="type[]" value="3" type="checkbox"><label for="output-correct-type-grammar" data-stat-id="41" class="icon-box">语法有误</label></span><!--
+                    --><span class="output-correct-type-box"><input id="output-correct-type-other" name="type[]" value="0" type="checkbox"><label for="output-correct-type-other" data-stat-id="42" class="icon-box">其他</label></span><!--
+                --></p>
+                <div class="output-correct-text">
+                    <p class="output-correct-text-tip">建议译文（非必填）:</p>
+                    <div class="output-correct-text-wrapper">
+                        <textarea id="output-correct-text-area" class="output-correct-text-area" name="result"></textarea>
+                        <div class="output-correct-text-placeholder">您的建议将用于提高翻译质量</div>
+                    </div>
+                </div>
+                <p class="output-correct-btn-row">
+                    <a href="###" class="output-correct-btn-submit" data-stat-id="43">提交</a>
+                </p>
+                <a href="###" class="output-correct-btn-close"><span class="icon-closesqr"></span></a>
+            </div>
+        </div>
+    </script><script type="text/html" id="tplSideAd">
+        <div class="app-side-ad{{if isLong}} long{{/if}}">
+            <div class="title">英语阅读看不懂？</div>
+            <div class="note">手机取词，拍照秒现翻译</div>
+            <div class="qr-bg">
+                <div class="app-qr"></div>
+            </div>
+        </div>
+        {{if hasSideAd}}
+        <div class="trans-side-ad-wrap">
+            <div class="side-ad-top">
+                <a href="{{sideAdData.url}}" target="_blank" class="side-ad-link">
+                    <img src="{{sideAdData.path}}" />
+                    {{if sideAdData.showad === "1" }}
+                    <div class="showad_flag"></div>
+                    {{/if}}
+                </a>
+            </div>
+            <div class="side-ad-control"><a href="{{sideAdData.url}}" target="_blank" class="side-ad-link">{{sideAdData.title}}<span class="side-ad-arr"></span></a></div>
+        </div>
+        {{/if}}
+    </script>
+    <script type="text/html" id="tplLongTextPrompt">
+        <div class="long-text-prompt-wrap">
+            <p>{{message}}</p>
+        </div>
+    </script>
+    <div class="flash" style="font-size:0;width:0;height:0;overflow:hidden;position:absolute;left:-999999em;z-index:-9999;">
+    <img id="btpm-swf-src" src="https://fanyi-cdn.cdn.bcebos.com/static/translation/widget/translate/common/flash/bt_e981bce.swf" style="display:none;" alt>
+    <div class="bt-flash" style="width:0;height:0;font-size:0;overflow:hidden;"></div>
+    </div>
+    <div id="sideAdData" style="display:none;" data-path="https://fanyiapp.cdn.bcebos.com/cms/image/58eb5ccdedfd017daa2e7d4e48d43891.jpg" data-title="&#x767E;&#x5EA6;&#x7FFB;&#x8BD1;&#x6691;&#x671F;&#x5927;&#x793C;&#x5305;&#x6765;&#x88AD;&#xFF01;" data-url="https://fanyi-video.baidu.com/activity2?hmsr=activity-right&amp;hmpl=video&amp;hmcu=&amp;hmkw=&amp;hmci=">
+    </div>
