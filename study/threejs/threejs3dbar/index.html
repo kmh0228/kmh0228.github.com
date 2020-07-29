@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./node_modules/three/build/three.js"></script>
+    <script src="./node_modules/three/examples/js/utils/SceneUtils.js"></script>
+    <script src="./threejs3dbar.js"></script>
+</head>
+<body>
+    <div id="WebGL-output" style="width: 900px;height:400px;"></div>
+</body>
+</html>
+<script>
+//三维饼图
+var cubic = new Cubic.PieChart("WebGL-output", {
+        width: 400,
+        height: 300,
+        thickness: 5,//厚度
+        radius: 30,//半径
+        colors: [0xffffff, 0xff00ff, 0xffff00, 0x0000ff,0x5F9EA0,0x00FF7F],//颜色数组16进制的数组
+        data: [12, 13, 5, 50, 23, 54],//数据数组
+        startAngle: 0,//起始角
+        background: 0x00ffff,//背景色，16进制数字
+        opacity: 0.2,   //背景透明度
+        camera: "orthographic" //相机类型，透视投影摄像机('perspective)、正交投影摄像机('orthographic')
+    });
+ 
+    console.log(cubic.getPosition());
+    console.log(cubic.getRotation());
+    cubic.setPosition(0, 0, 0);
+    cubic.setRotation(-70, 0, 0);
+    //cubic.remove();
+
+//三维柱形图
+// var cubic = new Cubic.CylinderChart("WebGL-output", {
+//         width: 400,
+//         height: 300,
+//         thickness: 60,//厚度
+//         radius: 15,//半径
+//         rate: 0.4,//百分比
+//         background: 0x00ffff,//背景色，16进制数字
+//         opacity: 1,   //背景透明度
+//         topColor: 0x555555,//上部颜色
+//         bottomColor: 0xCC0000,//下部颜色
+//         topOpacity: 0.5,//上部透明度
+//         bottomOpacity: 1,//下部透明度
+//         camera: "orthographic"  //相机类型，透视投影摄像机('perspective)、正交投影摄像机('orthographic')
+//     });
+
+
+</script>
