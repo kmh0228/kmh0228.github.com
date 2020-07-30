@@ -1,6 +1,6 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">故障原因管理</h3>
+    <h3 class="mes-main-title">{{$t('troubleReason_FaultCausMana')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
         <cascader-select v-model="officeCode" style="width:35%" @change="getTpmFailReasonList"></cascader-select>
@@ -9,7 +9,7 @@
         <el-button size="mini" style="float:right;margin-left:10px;">
           <i class="fa fa-filter"></i>
         </el-button>
-        <el-input placeholder="故障原因" v-model.trim="failReason" size="mini" style="width:40%;float:right;" @keydown.enter.native="getTpmFailReasonList">
+        <el-input :placeholder="$t('troubleReason_CauseFail')" v-model.trim="failReason" size="mini" style="width:40%;float:right;" @keydown.enter.native="getTpmFailReasonList">
           <i slot="suffix" class="el-input__icon" @click="getTpmFailReasonList"></i>
         </el-input>
       </el-col>
@@ -17,15 +17,15 @@
     <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="11">
-          <el-button size="mini" icon="el-icon-search" @click="getTpmFailReasonList">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="getTpmFailReasonList">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-plus" @click="handleFailReason('dialogForm','')">新增</el-button>
+          <el-button size="mini" icon="el-icon-plus" @click="handleFailReason('dialogForm','')">{{$t('common_Add')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-upload2" @click="importDialog=true">导入</el-button>
+          <el-button size="mini" icon="el-icon-upload2" @click="importDialog=true">{{$t('common_Impor')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteTpmFailReason('')">批量删除</el-button>
+          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteTpmFailReason('')">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh" @click="getTpmFailReasonList">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh" @click="getTpmFailReasonList">{{$t('common_Refresh')}}</el-button>
         </el-col>
         <el-col :span="13">
           <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -37,23 +37,23 @@
       <!-- 故障原因列表 -->
       <el-table :data="tableData" border highlight-current-row size="mini" @selection-change="tableSelectionChange" @current-change="tableActiveRow">
         <el-table-column type="selection" width="50" align="center"></el-table-column>
-        <el-table-column type="index" label="序号" align="center" :index="indexMethod"></el-table-column>
-        <el-table-column prop="officeName" sortable label="工厂" align="center"></el-table-column>
-        <el-table-column prop="typeName" sortable width="120" label="设备类别名称" align="center"></el-table-column>
-        <el-table-column prop="failCode" sortable label="故障代码" align="center"></el-table-column>
-        <el-table-column prop="failReason" sortable label="故障原因" align="center"></el-table-column>
-        <el-table-column prop="failDesc" sortable width="120" label="故障原因描述" align="center"></el-table-column>
-        <el-table-column prop="isPredefined" sortable label="预定义" align="center">
+        <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod"></el-table-column>
+        <el-table-column prop="officeName" sortable :label="$t('common_Factory')" align="center"></el-table-column>
+        <el-table-column prop="typeName" sortable width="120" :label="$t('common_EquipCateName')" align="center"></el-table-column>
+        <el-table-column prop="failCode" sortable :label="$t('troubleReason_FaultCode')" align="center"></el-table-column>
+        <el-table-column prop="failReason" sortable :label="$t('troubleReason_CauseFail')" align="center"></el-table-column>
+        <el-table-column prop="failDesc" sortable width="120" :label="$t('troubleReason_FailuCausDesc')" align="center"></el-table-column>
+        <el-table-column prop="isPredefined" sortable :label="$t('troubleReason_Prede')" align="center">
             <template slot-scope="scope">
-            <el-tag :type="scope.row.isPredefined?'':'danger'">{{ scope.row.isPredefined?'是':'否' }}</el-tag>
+            <el-tag :type="scope.row.isPredefined?'':'danger'">{{ scope.row.isPredefined?this.$t('common_Yes'):this.$t('common_No') }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="creator" sortable label="创建人" align="center"></el-table-column>
-        <el-table-column prop="createdDt" sortable label="创建时间" align="center"></el-table-column>
-        <el-table-column label="操作" width="120" align="center">
+        <el-table-column prop="creator" sortable :label="$t('common_Creator')" align="center"></el-table-column>
+        <el-table-column prop="createdDt" sortable :label="$t('common_CreateTime')" align="center"></el-table-column>
+        <el-table-column :label="$t('common_Operate')" width="120" align="center">
           <template slot-scope="scope">
-            <handle-button iconClass='el-icon-edit-outline' tipText="编辑" @click="handleFailReason('dialogForm',scope.row)"></handle-button>
-            <handle-button iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c' @click="deleteTpmFailReason(scope.row.mMomFailreasonId)"></handle-button>
+            <handle-button iconClass='el-icon-edit-outline' :placeholder="$t('common_Edit')" @click="handleFailReason('dialogForm',scope.row)"></handle-button>
+            <handle-button iconClass='el-icon-delete' :placeholder="$t('common_Del')" iconColor='#f56c6c' @click="deleteTpmFailReason(scope.row.mMomFailreasonId)"></handle-button>
           </template>
         </el-table-column>
       </el-table>
@@ -62,20 +62,20 @@
         <el-tabs  v-model="activeTabName">
           <el-row class="mes-table-handle">
             <el-col :span="24">
-              <el-button size="mini" @click="handleFailReason('methodForm','')">新增</el-button>
+              <el-button size="mini" @click="handleFailReason('methodForm','')">{{$t('common_Add')}}</el-button>
               <span class="split-line">|</span>
-              <el-button size="mini" @click="deleteFailReasonMethod('')">批量删除</el-button>
+              <el-button size="mini" @click="deleteFailReasonMethod('')">{{$t('common_Delete')}}</el-button>
             </el-col>
           </el-row>
-          <el-tab-pane label="处理方法" name="info" class="mes-table-content">
+          <el-tab-pane :label="$t('troubleReason_proceMeth')" name="info" class="mes-table-content">
             <el-table :data="methodList" border highlight-current-row size="mini" @selection-change="methodSelectionChange">
               <el-table-column type="selection" width="50" align="center"></el-table-column>
-              <el-table-column type="index" label="序号"></el-table-column>
-              <el-table-column label="处理方法" prop="method"></el-table-column>
-              <el-table-column label="操作" width="120" align="center">
+              <el-table-column type="index" :label="$t('common_Number')"></el-table-column>
+              <el-table-column :label="$t('troubleReason_proceMeth')" prop="method"></el-table-column>
+              <el-table-column :label="$t('common_Operate')" width="120" align="center">
                 <template slot-scope="scope">
-                  <handle-button iconClass='el-icon-edit-outline' tipText="编辑" @click="handleFailReason('methodForm',scope.row)"></handle-button>
-                  <handle-button iconClass='el-icon-delete' tipText="删除" iconColor="#f56c6c" @click="deleteFailReasonMethod(scope.row.mMomFailreasonMethodId)"></handle-button>
+                  <handle-button iconClass='el-icon-edit-outline' :placeholder="$t('common_Edit')" @click="handleFailReason('methodForm',scope.row)"></handle-button>
+                  <handle-button iconClass='el-icon-delete' :placeholder="$t('common_Del')" iconColor="#f56c6c" @click="deleteFailReasonMethod(scope.row.mMomFailreasonMethodId)"></handle-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -88,19 +88,19 @@
          :failCodeList="failCodeList" @getTpmFailReasonList="getTpmFailReasonList" @getFailReasonMethodList="getFailReasonMethodList"></component>
       </el-dialog>
         <!-- 导入故障原因弹框 -->
-      <el-dialog title="请选择需要导入的故障原因文件" :visible.sync="importDialog" width="600px" @close="closeUploadDialog" class="handle-dialog">
+      <el-dialog :title="$t('troubleReason_selecFaulReasFileImpo')" :visible.sync="importDialog" width="600px" @close="closeUploadDialog" class="handle-dialog">
         <el-upload action="" drag style="text-align:center;" :before-upload="beforeUpload">
           <mes-icon icon="excel-icon" size="67px" style="display:inline-block;margin:40px 0 16px;" v-if="fileName"></mes-icon>
           <i class="el-icon-upload" v-else></i>
           <p v-if="fileName">{{ fileName }}</p>
           <div class="el-upload__text" v-else>
-            拖动文件至此处，<em>点击上传</em> 或
-            <em><a href="static/download/FailReason.xlsx" style="color:#3B6F9A;text-decoration:none;" download="故障原因模板.xlsx" @click="downloadTemplate">模版下载</a></em>
+            {{$t('common_DragFileHere')}}<em>{{$t('common_ClickUplo')}}</em> {{$t('common_or')}}
+            <em><a href="static/download/FailReason.xlsx" style="color:#3B6F9A;text-decoration:none;" :download="$t('troubleReason_FailuCausTemp')+'.xlsx'" @click="downloadTemplate">{{$t('common_TemplDown')}}</a></em>
           </div>
         </el-upload>
         <div slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="importFailReason">确 定</el-button>
-          <el-button @click="closeUploadDialog">取 消</el-button>
+          <el-button type="primary" @click="importFailReason">{{$t('common_ok')}}</el-button>
+          <el-button @click="closeUploadDialog">{{$t('common_cancel')}}</el-button>
         </div>
       </el-dialog>
     </div>
@@ -139,8 +139,8 @@ export default {
   },
   computed: {
     dialogTitle () {
-      const name = this.dialogComponent === 'dialogForm' ? '故障原因' : '处理方法'
-      return this.isEdit ? `编辑${name}` : `新增${name}`
+      const name = this.dialogComponent === 'dialogForm' ? this.$t('troubleReason_CauseFail') : this.$t('troubleReason_proceMeth')
+      return this.isEdit ? this.$t('common_Edit') + name : this.$t('common_Add') + name
     },
     showTabs () {
       return this.mMomFailreasonId !== ''
@@ -248,7 +248,7 @@ export default {
     async deleteTpmFailReason (id) {
       const ids = id ? [id] : this.selectList
       if (ids.length > 0) {
-        const confirm = await this.$myPrompt.confirm('确定删除当前选中的故障原因吗？')
+        const confirm = await this.$myPrompt.confirm(this.$t('troubleReason_AreYouSureFaulCaus'))
         if (confirm) {
           const res = await this.$api.deleteTpmFailReason(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -256,7 +256,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请先选择需要删除的故障原因！')
+        this.$message.warning(this.$t('troubleReason_selecFaulReasDeleFirs'))
       }
     },
     // 导入文件
@@ -268,7 +268,7 @@ export default {
         this.fileName = fileName
         this.fileContent = file
       } else {
-        this.$message.warning('文件类型必须是excel格式!')
+        this.$message.warning(this.$t('troubleReason_fileTypeExcel'))
       }
       return false
     },
@@ -291,7 +291,7 @@ export default {
           this.getTpmFailReasonList()
         })
       } else {
-        this.$message.warning('请先上传需要导入的出货检验项目！')
+        this.$message.warning(this.$t('troubleReason_uploaDeliInspImpoFirs'))
       }
     },
     // 获取处理方法
@@ -315,7 +315,7 @@ export default {
     async deleteFailReasonMethod (id) {
       const ids = id ? [id] : this.methodSelectList
       if (ids.length > 0) {
-        const confirm = await this.$myPrompt.confirm('确定删除当前选中的处理方法吗？')
+        const confirm = await this.$myPrompt.confirm(this.$t('troubleReason_AreYouSureProcMeth'))
         if (confirm) {
           const res = await this.$api.deleteFailReasonMethod(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -323,7 +323,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请先选择需要删除的处理方法！')
+        this.$message.warning(this.$t('troubleReason_selecProcMethDeleFirs'))
       }
     }
   },

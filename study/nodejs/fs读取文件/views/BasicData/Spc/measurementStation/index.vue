@@ -1,37 +1,37 @@
 <template>
   <div class="mes-main mes-work-order">
-    <div class="mes-main-title">测量站管理</div>
+    <div class="mes-main-title">{{$t('measurStation_SurveStatMana')}}</div>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-        <el-input size="mini" v-model="searchForm.keyWord" style="width:35%;" placeholder="请输入查询内容" @keydown.enter.native="getTableData"></el-input>
+        <el-input size="mini" v-model="searchForm.keyWord" style="width:35%;" :placeholder="$t('common_PleasEnteQuerCo')" @keydown.enter.native="getTableData"></el-input>
       </el-col>
     </el-row>
     <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="12">
-          <el-button size="mini" icon="el-icon-search" @click="getTableData">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="getTableData">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-plus" @click="handletable('')">新增</el-button>
+          <el-button size="mini" icon="el-icon-plus" @click="handletable('')">{{$t('common_Add')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-delete-solid"  @click="deleteTable('')">批量删除</el-button>
+          <el-button size="mini" icon="el-icon-delete-solid"  @click="deleteTable('')">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-upload2" @click="isUpload = true">批量导入</el-button>
+          <el-button size="mini" icon="el-icon-upload2" @click="isUpload = true">{{$t('measurStation_BatchImpo')}}</el-button>
           <span class="split-line">|</span>
-            <el-button size="mini" icon="el-icon-refresh" @click="getTableData">刷新</el-button>
+            <el-button size="mini" icon="el-icon-refresh" @click="getTableData">{{$t('common_Refresh')}}</el-button>
         </el-col>
       </el-row>
        <div class="mes-table-content">
       <el-table :data="tableData" border size="mini" highlight-current-row @selection-change="tableSelectionChange">
         <el-table-column type="selection"></el-table-column>
-        <el-table-column type="index" label="序号" align="center"></el-table-column>
-        <el-table-column prop="stationCode" label="测量站/实验室" align="center" sortable></el-table-column>
-        <el-table-column prop="stationDesc" label="描述" align="center" sortable></el-table-column>
-        <el-table-column prop="lastEditor" label="最后维护人" align="center" sortable></el-table-column>
-        <el-table-column prop="lastEditedDt" label="最后维护时间" align="center" :formatter="formatterDate" sortable></el-table-column>
-        <el-table-column label="操作" align="center" width="120">
+        <el-table-column type="index" :label="$t('common_Number')" align="center"></el-table-column>
+        <el-table-column prop="stationCode" :label="$t('measurStation_SurveStat')+'/'+$t('common_labor')" align="center" sortable></el-table-column>
+        <el-table-column prop="stationDesc" :label="$t('common_Description')" align="center" sortable></el-table-column>
+        <el-table-column prop="lastEditor" :label="$t('measurStation_LastMain')" align="center" sortable></el-table-column>
+        <el-table-column prop="lastEditedDt" :label="$t('measurStation_LastMainTime')" align="center" :formatter="formatterDate" sortable></el-table-column>
+        <el-table-column :label="$t('common_Operate')" align="center" width="120">
           <template slot-scope="scope">
-            <handle-button @click="handletable(scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-            <handle-button @click="deleteTable(scope.row.mSpcMeasurementStationId)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+            <handle-button @click="handletable(scope.row)" iconClass='el-icon-edit-outline' :placeholder="$t('common_Edit')"></handle-button>
+            <handle-button @click="deleteTable(scope.row.mSpcMeasurementStationId)" iconClass='el-icon-delete' :placeholder="$t('common_Del')" iconColor='#f56c6c'></handle-button>
           </template>
       </el-table-column>
       </el-table>
@@ -40,20 +40,20 @@
     <el-dialog :visible.sync="dialogVisible" :title="dialogTitle"  width="500px" class="handle-dialog">
     <dialog-form v-if="dialogVisible" ref="dialog" @cannel="cannel" :isEdit="isEdit" @getTableData="getTableData" ></dialog-form>
   </el-dialog>
-  <el-dialog :visible.sync="isUpload" title="请选择需要导入的文件" class="handle-dialog"  width="30vw">
+  <el-dialog :visible.sync="isUpload" :title="$t('measurStation_selecFileYouWantImpo')" class="handle-dialog"  width="30vw">
         <el-upload
         style="text-align:center"  :before-upload="beforeUpload" drag action="">
         <mes-icon icon="excel-icon" size="67px" style="display:inline-block;margin:40px 0 16px;" v-if="fileName"></mes-icon>
         <i class="el-icon-upload" v-else></i>
         <p v-if="fileName">{{ fileName }}</p>
          <div class="el-upload__text" v-else>
-          拖动文件至此处，<em>点击上传</em> 或
-          <em><a href="static/download/MeasurementStation.xlsx" style="color:#3B6F9A;text-decoration:none;" download="测量站模版.xls" @click="downloadTemplate">模版下载</a></em>
+          {{$t('common_DragFileHere')}}<em>{{$t('common_ClickUplo')}}</em> {{$t('common_or')}}
+          <em><a href="static/download/MeasurementStation.xlsx" style="color:#3B6F9A;text-decoration:none;" :download="$t('measurStation_MeasuStatTemp')+'.xls'" @click="downloadTemplate">{{$t('common_TemplDown')}}</a></em>
         </div>
       </el-upload>
        <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="importOnline">确 定</el-button>
-        <el-button @click="closeUploadDialog">取 消</el-button>
+        <el-button type="primary" @click="importOnline">{{$t('common_ok')}}</el-button>
+        <el-button @click="closeUploadDialog">{{$t('common_cancel')}}</el-button>
       </div>
     </el-dialog>
   </div>
@@ -85,7 +85,7 @@ export default {
       return this.selectList.length === 0
     },
     dialogTitle () {
-      return this.isEdit ? '编辑测量站' : '新增测量站'
+      return this.isEdit ? this.$t('measurStation_EditStat') : this.$t('measurStation_NewSurvStat')
     }
   },
   methods: {
@@ -97,7 +97,7 @@ export default {
         this.fileName = fileName
         this.fileContent = file
       } else {
-        this.$message.warning('文件类型必须是excel格式!')
+        this.$message.warning(this.$t('measurStation_fileTypeExcel'))
       }
       return false
     },
@@ -120,7 +120,7 @@ export default {
           this.getTableData()
         })
       } else {
-        this.$message.warning('请上传需要导入的文件！')
+        this.$message.warning(this.$t('measurStation_uploaFileBeImpo'))
       }
     },
     closeUploadDialog () {
@@ -163,7 +163,7 @@ export default {
       let { selectList } = this
       let ids = mSpcMeasurementStationId ? [mSpcMeasurementStationId] : selectList
       if (ids.length > 0) {
-        const confirm = await this.$myPrompt.confirm('确定删除当前选中的测量站吗？')
+        const confirm = await this.$myPrompt.confirm(this.$t('measurStation_AreYouSureSurvStat'))
         if (confirm) {
           let res = await this.$api.deleteMeasurementStation(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -171,7 +171,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请选择要删除的测量站')
+        this.$message.warning(this.$t('measurStation_selecSurvStatDele'))
       }
     },
     cannel () {

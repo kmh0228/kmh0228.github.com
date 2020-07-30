@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-form :model="infoData" ref="infoData" :rules="rules"   label-width="120px" label-position="left" class="el-row mes-form-rule"  style="margin-top:1.5vh"  size="mini">
-      <el-form-item label="效果追踪" prop="improvetRace" class="el-col el-col-23">
+    <el-form :model="infoData" ref="infoData" :rules="rules"   label-width="220px" label-position="left" class="el-row mes-form-rule"  style="margin-top:1.5vh"  size="mini">
+      <el-form-item :label="$t('VDCS_EffectTracking')" prop="improvetRace" class="el-col el-col-23">
         <el-input type="textarea" :rows="3" v-model="infoData.improvetRace" v-if="isEdit"></el-input>
         <span v-else>{{infoData.improvetRace}}</span>
       </el-form-item>
@@ -12,7 +12,7 @@
         </el-select>
         <span v-else>{{infoData.traceIpcVn}}</span>
       </el-form-item>
-      <el-form-item label="IQC主管" prop="traceLeader" class="el-col el-col-11 el-col-offset-1">
+      <el-form-item :label="$t('VDCS_IQCSupervisor')" prop="traceLeader" class="el-col el-col-11 el-col-offset-1">
         <!-- <mes-select v-model="infoData.traceLeader" method="getPersonList" labelKey="userName" valueKey="userCode" v-if="isEdit"></mes-select> -->
         <el-select  v-model="infoData.traceLeader" :filterable="true" :clearable="true" style="width: 100%;"  v-if="isEdit">
           <el-option v-for="(option,i) in userList" :key="i" :label="option.userName" :value="option.userCode"></el-option>
@@ -35,11 +35,6 @@ export default {
         traceIpcVn: '',
         traceLeader: '',
         traceLeaderVn: ''
-      },
-      rules: {
-        improvetRace: [{ required: true, message: '请输入效果追踪' }],
-        traceIpc: [{ required: true, message: '请选择IQC' }],
-        traceLeader: [{ required: true, message: '请选择IQC主管' }]
       }
     }
   },
@@ -54,6 +49,15 @@ export default {
     userList: {
       type: Array,
       default: () => []
+    }
+  },
+  computed: {
+    rules () {
+      return {
+        improvetRace: [{ required: true, message: this.$t('VDCS_EnterEffectTracking') }],
+        traceIpc: [{ required: true, message: this.$t('VDCS_PleaseSelectIQC') }],
+        traceLeader: [{ required: true, message: this.$t('VDCS_PleaseSelectIQCSupervisor') }]
+      }
     }
   },
   watch: {

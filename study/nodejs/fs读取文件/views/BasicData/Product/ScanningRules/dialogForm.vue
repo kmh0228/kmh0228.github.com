@@ -33,10 +33,10 @@
     <el-form-item :label="$t('scanningRules_RuleDesc')" prop="parseRuleDesc" class="el-col el-col-11 el-col-offset-1">
       <el-input type="textarea" :rows="2" v-model="dialogForm.parseRuleDesc" size="mini"></el-input>
     </el-form-item>
-    <el-form-item :label="$t('scanningRules_examp')" prop="parseRuleDesc" label-width="30px" class="el-col el-col-23">
+    <el-form-item :label="$t('scanningRules_examp')" prop="parseRuleDesc" label-width="40px" class="el-col el-col-23">
       <p>{{$t('scanningRules_examDesc')}}</p>
     </el-form-item>
-    <el-form-item :label-width="0" class="el-col el-col-24 dialog-footer">
+    <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
       <el-button type="primary" size="mini" @click="saveLineInfo">{{$t('common_save')}}</el-button>
       <el-button size="mini" @click="$emit('cannel')">{{$t('common_cancel')}}</el-button>
     </el-form-item>

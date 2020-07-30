@@ -1,48 +1,48 @@
 <template>
   <div class="mes-main mes-work-order">
-    <div class="mes-main-title">物料批次方案</div>
+    <div class="mes-main-title">{{$t('materialBathS_MaterBatcSche')}}</div>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-        <el-input placeholder="编码" v-model.trim="code" size="mini" style="width:40%" @keydown.enter.native="$refs.tableList.queryList(true)"></el-input>
-        <el-input placeholder="名称" v-model.trim="name" size="mini" style="width:40%" @keydown.enter.native="$refs.tableList.queryList(true)"></el-input>
+        <el-input :placeholder="$t('common_code')" v-model.trim="code" size="mini" style="width:40%" @keydown.enter.native="$refs.tableList.queryList(true)"></el-input>
+        <el-input :placeholder="$t('common_Name')" v-model.trim="name" size="mini" style="width:40%" @keydown.enter.native="$refs.tableList.queryList(true)"></el-input>
       </el-col>
     </el-row>
     <div>
       <table-list ref="tableList" :tableData="tableData" :tableOption="option"  :queryListApi="getBatchProgramList" :total="total">
         <div slot="buttonBox">
-          <el-button size="mini" icon="el-icon-search" @click="$refs.tableList.queryList(true)">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="$refs.tableList.queryList(true)">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-plus" @click="showPop">新增</el-button>
+          <el-button size="mini" icon="el-icon-plus" @click="showPop">{{$t('common_Add')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-delete-solid" @click="deletetableData($refs.tableList.getSelectData().map(item => item.mwmsMaterialBatchProgramId))">批量删除</el-button>
+          <el-button size="mini" icon="el-icon-delete-solid" @click="deletetableData($refs.tableList.getSelectData().map(item => item.mwmsMaterialBatchProgramId))">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">刷新</el-button>
-          <el-button size="mini" :loading="changeStatusLoading" @click="changeStautsBatchProgram" >启用/禁用</el-button>
+          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">{{$t('common_Refresh')}}</el-button>
+          <el-button size="mini" :loading="changeStatusLoading" @click="changeStautsBatchProgram" >{{$t('common_Enabl')}}/{{$t('common_Disab')}}</el-button>
         </div>
       </table-list>
     </div>
     <div class="mes-main-tabs" v-show="showTabs" style="margin-top:10px">
         <el-tabs v-model="tabAciveName">
-        <el-tab-pane label="批次属性" name="batch">
-          <el-button size="mini" icon="el-icon-edit" v-if="batchIsRead"  @click="batchIsRead = false">编辑</el-button>
-          <el-button size="mini" icon="el-icon-edit"  v-else @click="updateBeleteBatchProgramDetail" :loading="detailLoading">保存</el-button>
+        <el-tab-pane :label="$t('materialBathS_BatchProp')" name="batch">
+          <el-button size="mini" icon="el-icon-edit" v-if="batchIsRead"  @click="batchIsRead = false">{{$t('common_Edit')}}</el-button>
+          <el-button size="mini" icon="el-icon-edit"  v-else @click="updateBeleteBatchProgramDetail" :loading="detailLoading">{{$t('common_save')}}</el-button>
           <batch-table style="margin-top:10px" ref="detaliTable" :batchData="batchData" :isRead="batchIsRead"></batch-table>
         </el-tab-pane>
         </el-tabs>
       </div>
     <!-- 新增弹窗 -->
     <el-dialog
-      :title="addForm.id ? '编辑物料批次方案' : '新增物料批次方案' "
+      :title="addForm.id ? $t('materialBathS_EditMateBatcSch') : $t('materialBathS_NewMateBatcSche') "
       :visible.sync="addVisible"
       width="1100px">
       <el-form class="el-row" ref="addForm" :model="addForm" :rules="rules" label-width="70px" label-position="left">
-        <el-form-item label="编码"  prop="code" class="el-col el-col-5 ">
+        <el-form-item :label="$t('common_code')"  prop="code" class="el-col el-col-5 ">
           <el-input  v-model="addForm.code"></el-input>
         </el-form-item>
-        <el-form-item label="名称"  prop="name" class="el-col el-col-5 el-col-offset-1">
+        <el-form-item :label="$t('common_Name')"  prop="name" class="el-col el-col-5 el-col-offset-1">
           <el-input v-model="addForm.name"></el-input>
         </el-form-item>
-        <el-form-item label="批次号规则"  prop="batchCodeType" label-width="120px" class="el-col el-col-7 el-col-offset-1">
+        <el-form-item :label="$t('materialBathS_BatchNumbRule')"  prop="batchCodeType" label-width="120px" class="el-col el-col-7 el-col-offset-1">
           <el-select  v-model="addForm.batchCodeType" filterable clearable style="width:100%">
             <el-option :label="item.seqNoFormat" :value="item.mSeqId" :key="i" v-for="(item, i) in codingLsit">
               <div style="display: flex;">
@@ -53,18 +53,18 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="是否有效"  prop="isInvalid" label-width="100px" class="el-col el-col-3 el-col-offset-1">
+        <el-form-item :label="$t('materialBathS_IsItEffe')"  prop="isInvalid" label-width="100px" class="el-col el-col-3 el-col-offset-1">
            <el-checkbox  v-model="addForm.isInvalid"></el-checkbox>
         </el-form-item>
       </el-form>
       <el-tabs v-model="tabAciveName" v-if="popType === 'add'">
-        <el-tab-pane label="批次属性" name="batch">
+        <el-tab-pane :label="$t('materialBathS_BatchProp')" name="batch">
           <batch-table ref="batchTable" :batchData="popType === 'add' ? popBatchData : batchData" :isRead="popType !== 'add'"></batch-table>
         </el-tab-pane>
       </el-tabs>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="addVisible = false">取 消</el-button>
-        <el-button type="primary" @click="saveBatch" :loading="saveLoading">确 定</el-button>
+        <el-button @click="addVisible = false">{{$t('common_cancel')}}</el-button>
+        <el-button type="primary" @click="saveBatch" :loading="saveLoading">{{$t('common_ok')}}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -99,15 +99,17 @@ export default {
         name: '',
         batchCodeType: '',
         isInvalid: true
-      },
-      rules: {
-        code: [{ required: true, message: '编码不能为空' }],
-        name: [{ required: true, message: '名称不能为空' }],
-        batchCodeType: [{ required: true, message: '请选择批次号规则' }]
       }
     }
   },
   computed: {
+    rules () {
+      return {
+        code: [{ required: true, message: this.$t('materialBathS_CodeCannBeEmpt') }],
+        name: [{ required: true, message: this.$t('materialBathS_TheNameCannBeEm') }],
+        batchCodeType: [{ required: true, message: this.$t('materialBathS_PleasSeleBatcNu') }]
+      }
+    }
   },
   methods: {
     // 刷新数据，重新查询
@@ -148,7 +150,7 @@ export default {
           let res = this.popType === 'add' ? await this.$api.insertBatchProgram(obj) : await this.$api.updateBatchProgram(obj)
           if (res.code === '200') {
             this.addVisible = false
-            this.$message.success('保存成功')
+            this.$message.success(this.$t('common_SavedSuccessfully'))
             this.$refs.tableList.queryList()
           }
         }
@@ -162,7 +164,7 @@ export default {
     async deletetableData (ids) {
       const len = ids.length
       if (len > 0) {
-        const confirmRes = await this.$myPrompt.confirm('确定删除当前选中的数据吗?')
+        const confirmRes = await this.$myPrompt.confirm(this.$t('materialBathS_AreYouSureDeleC') + '?')
         if (confirmRes) {
           const res = await this.$api.deleteBatchProgram(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -171,7 +173,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请先选择需要删除的数据！')
+        this.$message.warning(this.$t('materialBathS_PleasSeleDataBe'))
       }
     },
     async updateBeleteBatchProgramDetail () {
@@ -181,7 +183,7 @@ export default {
       if (res.code === '200') {
         this.detailLoading = false
         this.batchIsRead = true
-        this.$message.success('保存成功!')
+        this.$message.success(this.$t('common_SavedSuccessfully') + '!')
         this.$refs.tableList.queryList()
       }
     },
@@ -197,11 +199,11 @@ export default {
         const res = await this.$api.changeStautsBatchProgram(list)
         if (res.code === '200') {
           this.changeStatusLoading = false
-          this.$message.success('修改成功')
+          this.$message.success(this.$t('materialBathS_ModifSucc'))
           this.$refs.tableList.queryList()
         }
       } else {
-        this.$message.warning('请先选择需要启用/禁用的数据！')
+        this.$message.warning(this.$t('materialBathS_PleasSeleItBeEn'))
       }
     }
   },

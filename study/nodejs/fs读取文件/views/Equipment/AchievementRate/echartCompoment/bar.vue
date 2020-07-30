@@ -40,7 +40,7 @@ export default {
         },
         xAxis: {
           type: 'category',
-          data: ['点检', '保养'],
+          data: [this.$t('achievemRate_SpotChec'), this.$t('achievemRate_maint')],
           axisTick: {
             alignWithLabel: true
           }
@@ -49,12 +49,12 @@ export default {
           type: 'value'
         },
         series: [{
-          name: '达成数量',
+          name: this.$t('achievemRate_QuantAchiNum'),
           data: this.reachData,
           type: 'bar',
           barWidth: '30px'
         }, {
-          name: '未达成数量',
+          name: this.$t('achievemRate_QuantNotReac'),
           data: this.notReachData,
           type: 'bar',
           barWidth: '30px',

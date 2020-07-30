@@ -49,7 +49,7 @@ export default {
       let data = echarts.dataTool.prepareBoxplotData(measureData)
       return {
         title: {
-          text: 'Box—控制图',
+          text: 'Box—' + this.$t('common_ContrChar'),
           left: '5%'
         },
         tooltip: {
@@ -86,12 +86,12 @@ export default {
             tooltip: {
               formatter: function (param) {
                 return [
-                  '序号: ' + param.name,
-                  '最大值: ' + param.data[5],
+                  this.$t('common_Number') + ': ' + param.name,
+                  this.$t('conChartHome_Maxim') + ': ' + param.data[5],
                   'Q3: ' + param.data[4],
-                  '平均值: ' + param.data[3],
+                  this.$t('conChartHome_averaValu') + ': ' + param.data[3],
                   'Q1: ' + param.data[2],
-                  '最小值: ' + param.data[1]
+                  this.$t('conChartHome_minimValu') + ': ' + param.data[1]
                 ].join('<br/>')
               }
             }

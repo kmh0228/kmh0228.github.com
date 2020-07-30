@@ -1,9 +1,9 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">测量仪器管理</h3>
+    <h3 class="mes-main-title">{{$t('instrumentM_ManagMeasInst')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-        <el-select v-model="mSpcMeasurementStationId" clearable style="width:35%" placeholder="量测站/实验室" @change="getSpcInstrumentList">
+        <el-select v-model="mSpcMeasurementStationId" clearable style="width:35%" :placeholder="$t('common_MeasuStat')+'/'+$t('common_labor')" @change="getSpcInstrumentList">
           <el-option v-for="option in measurementStationList" :key="option.mSpcMeasurementStationId" :label="option.stationCode" :value="option.mSpcMeasurementStationId"></el-option>
         </el-select>
       </el-col>
@@ -11,7 +11,7 @@
         <el-button size="mini" style="float:right;margin-left:10px;">
           <i class="fa fa-filter"></i>
         </el-button>
-        <el-input placeholder="请输入查询内容" v-model.trim="keywords" style="width:40%;float:right;" @keydown.enter.native="getSpcInstrumentList">
+        <el-input :placeholder="$t('common_PleasEnteQuerCo')" v-model.trim="keywords" style="width:40%;float:right;" @keydown.enter.native="getSpcInstrumentList">
           <i slot="suffix" class="el-input__icon" @click="getSpcInstrumentList"></i>
         </el-input>
       </el-col>
@@ -19,31 +19,31 @@
      <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="11">
-          <el-button size="mini" icon="el-icon-search" @click="getSpcInstrumentList">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="getSpcInstrumentList">{{$t('common_Inquire')}}</el-button>
          <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-plus" @click="handleDialog('')">新增</el-button>
+          <el-button size="mini" icon="el-icon-plus" @click="handleDialog('')">{{$t('common_Add')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteSpcInstrument('')">批量删除</el-button>
+          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteSpcInstrument('')">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-upload2" @click="importDialog=true">批量导入</el-button>
+          <el-button size="mini" icon="el-icon-upload2" @click="importDialog=true">{{$t('instrumentM_BatchImpo')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh" @click="getSpcInstrumentList">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh" @click="getSpcInstrumentList">{{$t('common_Refresh')}}</el-button>
         </el-col>
       </el-row>
       <el-table :data="tableData" border size="mini" @selection-change="tableSelectionChange">
         <el-table-column type="selection" width="50" align="center"></el-table-column>
-        <el-table-column type="index" label="序号" align="center"></el-table-column>
-        <el-table-column prop="stationCode" sortable label="量测站/实验室" align="center"></el-table-column>
-        <el-table-column prop="instrumentName" sortable label="测量仪器" align="center"></el-table-column>
-        <el-table-column prop="precision" sortable label="仪器精度" align="center"></el-table-column>
-        <el-table-column prop="uom" sortable label="测量单位" align="center" width="100"></el-table-column>
-        <el-table-column prop="instrumentDesc" sortable label="描述" align="center"></el-table-column>
-        <el-table-column prop="lastEditor" sortable label="最后维护人" align="center" width="110"></el-table-column>
-        <el-table-column prop="lastEditedDt" sortable label="最后维护时间" align="center" :formatter="formatterDate"></el-table-column>
-        <el-table-column label="操作" width="120" align="center">
+        <el-table-column type="index" :label="$t('common_Number')" align="center"></el-table-column>
+        <el-table-column prop="stationCode" sortable :label="$t('common_MeasuStat')+'/'+$t('common_labor')" align="center"></el-table-column>
+        <el-table-column prop="instrumentName" sortable :label="$t('common_MeasuInst')" align="center"></el-table-column>
+        <el-table-column prop="precision" sortable :label="$t('instrumentM_InstrAccu')" align="center"></el-table-column>
+        <el-table-column prop="uom" sortable :label="$t('instrumentM_UnitMeas')" align="center" width="100"></el-table-column>
+        <el-table-column prop="instrumentDesc" sortable :label="$t('common_Description')" align="center"></el-table-column>
+        <el-table-column prop="lastEditor" sortable :label="$t('instrumentM_LastMain')" align="center" width="110"></el-table-column>
+        <el-table-column prop="lastEditedDt" sortable :label="$t('instrumentM_LastMainTime')" align="center" :formatter="formatterDate"></el-table-column>
+        <el-table-column :label="$t('common_Operate')" width="120" align="center">
           <template slot-scope="scope">
-            <handle-button iconClass='el-icon-edit-outline' tipText="编辑" @click="handleDialog(scope.row)"></handle-button>
-            <handle-button iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c' @click="deleteSpcInstrument(scope.row.mSpcMeasurementInstrumentId)"></handle-button>
+            <handle-button iconClass='el-icon-edit-outline' :placeholder="$t('common_Edit')" @click="handleDialog(scope.row)"></handle-button>
+            <handle-button iconClass='el-icon-delete' :placeholder="$t('common_Del')" iconColor='#f56c6c' @click="deleteSpcInstrument(scope.row.mSpcMeasurementInstrumentId)"></handle-button>
           </template>
         </el-table-column>
       </el-table>
@@ -53,19 +53,19 @@
       <dialog-form v-if="dialogVisible" ref="dialog" @cannel="dialogVisible = false" :isEdit="isEdit" :measurementStationList="measurementStationList" @getSpcInstrumentList="getSpcInstrumentList"></dialog-form>
     </el-dialog>
     <!-- 导入测量仪器 -->
-    <el-dialog title="请选择需要导入的测量仪器文件" :visible.sync="importDialog" width="600px" @close="closeUploadDialog" class="handle-dialog">
+    <el-dialog :title="$t('instrumentM_selecMeasInstBeImpo')" :visible.sync="importDialog" width="600px" @close="closeUploadDialog" class="handle-dialog">
       <el-upload action="" drag style="text-align:center;" :before-upload="beforeUpload">
         <mes-icon icon="excel-icon" size="67px" style="display:inline-block;margin:40px 0 16px;" v-if="fileName"></mes-icon>
         <i class="el-icon-upload" v-else></i>
         <p v-if="fileName">{{ fileName }}</p>
         <div class="el-upload__text" v-else>
-          拖动文件至此处，<em>点击上传</em> 或
-          <em><a href="static/download/Instrument.xlsx" style="color:#3B6F9A;text-decoration:none;" download="测量仪器模板.xlsx" @click="downloadTemplate">模版下载</a></em>
+          {{$t('common_DragFileHere')}}<em>{{$t('common_ClickUplo')}}</em> {{$t('common_or')}}
+          <em><a href="static/download/Instrument.xlsx" style="color:#3B6F9A;text-decoration:none;" download="$t('instrumentM_MeasuInstTemp')+'.xlsx'" @click="downloadTemplate">{{$t('common_TemplDown')}}</a></em>
         </div>
       </el-upload>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="importSpcInstrument">确 定</el-button>
-        <el-button @click="closeUploadDialog">取 消</el-button>
+        <el-button type="primary" @click="importSpcInstrument">{{$t('common_ok')}}</el-button>
+        <el-button @click="closeUploadDialog">{{$t('common_cancel')}}</el-button>
       </div>
     </el-dialog>
   </div>
@@ -91,7 +91,7 @@ export default {
   },
   computed: {
     dialogTitle () {
-      return this.isEdit ? '编辑测量仪器' : '新增测量仪器'
+      return this.isEdit ? this.$t('instrumentM_EditMeasInst') : this.$t('instrumentM_NewMeasInst')
     }
   },
   methods: {
@@ -141,7 +141,7 @@ export default {
     async deleteSpcInstrument (id) {
       const ids = id ? [id] : this.selectList
       if (ids.length > 0) {
-        const confirm = await this.$myPrompt.confirm('确定删除当前选中的测量仪器吗？')
+        const confirm = await this.$myPrompt.confirm(this.$t('instrumentM_AreYouSureMeasInst'))
         if (confirm) {
           const res = await this.$api.deleteSpcInstrument(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -149,7 +149,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请先选择需要删除的测量仪器！')
+        this.$message.warning(this.$t('instrumentM_selecMeasInstDeleFirs'))
       }
     },
     // 导入文件
@@ -161,7 +161,7 @@ export default {
         this.fileName = fileName
         this.fileContent = file
       } else {
-        this.$message.warning('文件类型必须是excel格式!')
+        this.$message.warning(this.$t('instrumentM_fileTypeExcel'))
       }
       return false
     },
@@ -184,7 +184,7 @@ export default {
           this.getSpcInstrumentList()
         })
       } else {
-        this.$message.warning('请先上传需要导入的测量仪器！')
+        this.$message.warning(this.$t('instrumentM_uploaMeasInstImpoFirs'))
       }
     }
   },

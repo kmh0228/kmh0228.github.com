@@ -1,24 +1,24 @@
 <template>
    <div class="mes-main mes-work-order mes-material">
-    <h3 class="mes-main-title">终端设备管理</h3>
+    <h3 class="mes-main-title">{{$t('dictionary_userManagement')}}</h3>
     <el-form label-position="left">
       <el-form-item >
-        <el-input v-model="keywords" placeholder="设备代码" size="mini" style="width:12vw;" @keydown.enter.native="getDevices">
+        <el-input v-model="keywords" :placeholder="$t('Device_deviceCode')" size="mini" style="width:12vw;" @keydown.enter.native="getDevices">
           <i slot="suffix" class="el-input__icon" @click="getDevices"></i>
         </el-input>
       </el-form-item>
     </el-form>
     <div class="mes-material-handle mes-table-handle">
       <div class="mes-btn-group">
-        <el-button size="mini" icon="el-icon-search" @click="getDevices">查询</el-button>
+        <el-button size="mini" icon="el-icon-search" @click="getDevices">{{$t('common_Inquire')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-plus" @click="handleEqp('')">新增</el-button>
+        <el-button size="mini" icon="el-icon-plus" @click="handleEqp('')">{{$t('common_Add')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-delete-solid" @click="deleteEpqs('')">批量删除</el-button>
+        <el-button size="mini" icon="el-icon-delete-solid" @click="deleteEpqs('')">{{$t('common_Delete')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" @click="showPermissionInfo" :disabled="permissionBtn">权限详情</el-button>
+        <el-button size="mini" @click="showPermissionInfo" :disabled="permissionBtn">{{$t('Device_Permission')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-refresh" @click="getDevices">刷新</el-button>
+        <el-button size="mini" icon="el-icon-refresh" @click="getDevices">{{$t('common_Refresh')}}</el-button>
 
       </div>
       <mes-page ref="mesPage" :initData="getDevices" :total="total" />
@@ -26,25 +26,25 @@
     <div class="mes-table">
       <el-table :data="eqpData" border size="mini" @selection-change="selectDevice">
         <el-table-column type="selection" width="50" align="center"></el-table-column>
-        <el-table-column type="index" label="序号" align="center" :index="indexMethod" fixed="left"></el-table-column>
-        <el-table-column prop="eqpCode" sortable width="100" label="设备代码" align="center"></el-table-column>
-        <el-table-column prop="eqpName" sortable  width="100" label="设备名称" align="center"></el-table-column>
-        <el-table-column prop="lineName" sortable label="线别" align="center"></el-table-column>
-        <el-table-column prop="segName" sortable label="制程" align="center"></el-table-column>
-        <el-table-column prop="mComPersonEqpOwner" sortable  width="120" label="设备保管人员" align="center" ></el-table-column>
-        <el-table-column prop="repairUser" sortable  width="120" label="默认点检人员" align="center" ></el-table-column>
-        <el-table-column prop="eqpDesc" sortable label="描述" align="center" ></el-table-column>
-        <el-table-column prop="eqpMac" sortable  width="100" label="MAC地址" align="center" ></el-table-column>
-        <el-table-column prop="eqpIp" sortable label="IP地址" align="center" ></el-table-column>
-        <el-table-column prop="documentAuthority"  width="120" sortable label="文档浏览权限" align="center" >
+        <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod" fixed="left"></el-table-column>
+        <el-table-column prop="eqpCode" sortable width="100" :label="$t('Device_deviceCode')" align="center"></el-table-column>
+        <el-table-column prop="eqpName" sortable  width="100" :label="$t('Device_deviceName')" align="center"></el-table-column>
+        <el-table-column prop="lineName" sortable :label="$t('common_Line')" align="center"></el-table-column>
+        <el-table-column prop="segName" sortable :label="$t('common_Process')" align="center"></el-table-column>
+        <el-table-column prop="mComPersonEqpOwner" sortable  width="120" :label="$t('Device_Custodian')" align="center" ></el-table-column>
+        <el-table-column prop="repairUser" sortable  width="120" :label="$t('Device_Inspector')" align="center" ></el-table-column>
+        <el-table-column prop="eqpDesc" sortable :label="$t('common_Description')" align="center" ></el-table-column>
+        <el-table-column prop="eqpMac" sortable  width="100" :label="$t('Device_MAC')" align="center" ></el-table-column>
+        <el-table-column prop="eqpIp" sortable :label="$t('Device_IP')" align="center" ></el-table-column>
+        <el-table-column prop="documentAuthority"  width="120" sortable :label="$t('Device_Document')" align="center" >
           <template slot-scope="scope">
-            <el-tag :type="scope.row.documentAuthority ? '':'danger'"> {{scope.row.documentAuthority ? '是' :'否'}}</el-tag>
+            <el-tag :type="scope.row.documentAuthority ? '':'danger'"> {{scope.row.documentAuthority ? $t('common_Yes') : $t('common_No')}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" align="center" width="160">
+        <el-table-column :label="$t('common_Operate')" fixed="right" align="center" width="160">
             <template slot-scope="scope">
-              <handle-button @click="handleEqp(scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-              <handle-button @click="deleteEpqs(scope.row.mComEqpId)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+              <handle-button @click="handleEqp(scope.row)" iconClass='el-icon-edit-outline' :tipText="$t('common_Edit')"></handle-button>
+              <handle-button @click="deleteEpqs(scope.row.mComEqpId)" iconClass='el-icon-delete' :tipText="$t('common_Del')" iconColor='#f56c6c'></handle-button>
             </template>
           </el-table-column>
       </el-table>
@@ -52,17 +52,17 @@
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" class="handle-dialog" width="950px">
       <dialog-form ref="dialog" @cannel="dialogVisible=false" @getDevices="getDevices" :isEdit="isEdit" :processList="processList" :userList="userList"></dialog-form>
     </el-dialog>
-    <el-dialog title="设备权限详情" :visible.sync="dialogPermission" class="handle-dialog" width="600px">
+    <el-dialog :title="$t('Device_DeviceDetails')" :visible.sync="dialogPermission" class="handle-dialog" width="600px">
       <el-form :model="infoForm" ref="infoForm" label-width="100px" label-position="left" class="el-row mes-form-rule">
-        <el-form-item label="制程" class="el-col el-col-24">
+        <el-form-item :label="$t('common_Process')" class="el-col el-col-24">
           <el-checkbox-group  v-model="infoForm.segIds" :disabled="!isEditInfo">
             <el-checkbox v-for="(process,i) in processList" :label="process.mComProcessSegId" :key="i">{{process.segName}}</el-checkbox>
           </el-checkbox-group>
         </el-form-item>
         <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-          <el-button type="primary" size="mini" v-if="isEditInfo" @click="savePermissionInfo">保存</el-button>
-          <el-button type="primary" size="mini" v-else @click="isEditInfo=true">编辑</el-button>
-          <el-button size="mini" @click="permissionCannel">取消</el-button>
+          <el-button type="primary" size="mini" v-if="isEditInfo" @click="savePermissionInfo">{{$t('common_save')}}</el-button>
+          <el-button type="primary" size="mini" v-else @click="isEditInfo=true">{{$t('common_Edit')}}</el-button>
+          <el-button size="mini" @click="permissionCannel">{{$t('common_cancel')}}</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -97,7 +97,7 @@ export default {
   },
   computed: {
     dialogTitle () {
-      return this.isEdit ? '编辑设备' : '新增设备'
+      return this.isEdit ? this.$t('Device_Editing') : this.$t('Device_New')
     },
     permissionBtn () {
       return this.selectList.length !== 1
@@ -180,13 +180,13 @@ export default {
       const { selectList } = this
       const ids = id ? [id] : selectList
       if (ids.length > 0) {
-        const isConfirm = await this.$myPrompt.confirm('确定删除当前选中的设备吗？')
+        const isConfirm = await this.$myPrompt.confirm(this.$t('Device_deleteDevice'))
         if (isConfirm) {
           const res = await this.$api.delEqps(ids)
           this.$myPrompt.handleMsg(res, this.getDevices)
         }
       } else {
-        this.$message.warning('请选择需要删除的设备！')
+        this.$message.warning(this.$t('Device_selectDevice'))
       }
     },
     async showPermissionInfo () {

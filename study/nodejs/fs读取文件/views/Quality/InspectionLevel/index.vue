@@ -1,30 +1,30 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">检查水平管理</h3>
+    <h3 class="mes-main-title">{{$t('InspectionLevel_InspectionLevelManagement')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-         <el-input placeholder="检查水平" v-model.trim="levelCode" size="mini" style="width:35%;" @keydown.enter.native="getInspectLevelList">
+         <el-input :placeholder="$t('common_InspeLeve')" v-model.trim="levelCode" size="mini" style="width:35%;" @keydown.enter.native="getInspectLevelList">
           <i slot="suffix" class="el-input__icon el-icon-search" @click="getInspectLevelList"></i>
         </el-input>
       </el-col>
       <el-col :span="12">
          <div style="float:right;">
-           <!-- <el-button plain size="mini" icon="el-icon-refresh-right" @click="showLevel=!showLevel">切换</el-button> -->
+           <!-- <el-button plain size="mini" icon="el-icon-refresh-right" @click="showLevel=!showLevel">{{$t('InspectionLevel_Switch')}}</el-button> -->
          </div>
       </el-col>
     </el-row>
     <transition name="el-zoom-in-center">
       <el-row :gutter="20" class="mes-table" v-if="showLevel">
         <el-table :data="tableData" border size="mini">
-          <el-table-column label="批量最小/大值" align="center" width="150">
+          <el-table-column :label="$t('InspectionLevel_LotSizeMinMax')" align="center" width="150">
             <template slot-scope="prop">
               <p>{{  prop.row.lotSizeMin }} ~ {{ prop.row.lotSizeMax }} </p>
             </template>
           </el-table-column>
-          <el-table-column label="特殊检查水平" align="center" class-name="special-levels">
+          <el-table-column :label="$t('InspectionLevel_SpecialInspectionLevel')" align="center" class-name="special-levels">
             <el-table-column v-for="(col,i) in specialLevels" :key="i" :prop="col.key" :label="col.label" align="center" class-name="special-levels"></el-table-column>
           </el-table-column>
-          <el-table-column label="一般检查水平" align="center" class-name="general-levels">
+          <el-table-column :label="$t('InspectionLevel_GeneralInspectionLevel')" align="center" class-name="general-levels">
             <el-table-column v-for="(col,i) in generalLevels" :key="i" :prop="col.key" :label="col.label" align="center" class-name="general-levels"></el-table-column>
           </el-table-column>
         </el-table>
@@ -33,52 +33,52 @@
         <el-col :span="10">
           <el-card class="mes-table">
             <div slot="header">
-              <span>检查水平</span>
+              <span>{{$t('common_InspeLeve')}}</span>
               <div style="float: right;">
-                <el-tooltip effect="dark" content="新增" placement="top" :hide-after="1000">
+                <el-tooltip effect="dark" :content="$t('common_Add')" placement="top" :hide-after="1000">
                   <el-button type="text" style="font-size:1vw;" icon="el-icon-circle-plus" @click="handleLevel('mainDialog','level',false)"></el-button>
                 </el-tooltip>
-                <el-tooltip effect="dark" content="编辑" placement="top" :hide-after="1000">
+                <el-tooltip effect="dark" :content="$t('common_Edit')" placement="top" :hide-after="1000">
                   <el-button type="text" style="font-size:1vw;" icon="el-icon-edit" :disabled="levelEditBtn" @click="handleLevel('mainDialog','level',true)"></el-button>
                 </el-tooltip>
-                <el-tooltip effect="dark" content="删除" placement="top" :hide-after="1000">
+                <el-tooltip effect="dark" :content="$t('common_Del')" placement="top" :hide-after="1000">
                   <el-button type="text" style="font-size:1vw;" icon="el-icon-delete" @click="delInspectLevels"></el-button>
                 </el-tooltip>
               </div>
             </div>
             <el-table :data="levelData" border highlight-current-row @current-change="tableCurrentChange" @selection-change="levelSelectionChange">
               <el-table-column type="selection" width="50" align="center"></el-table-column>
-              <el-table-column type="index" label="序号" width="50" align="center"></el-table-column>
-              <el-table-column label="类型" prop="levelType" sortable align="center"></el-table-column>
-              <el-table-column label="检查水平" prop="levelCode" align="center"></el-table-column>
+              <el-table-column type="index" :label="$t('common_Number')" width="50" align="center"></el-table-column>
+              <el-table-column :label="$t('common_type')" prop="levelType" sortable align="center"></el-table-column>
+              <el-table-column :label="$t('common_InspeLeve')" prop="levelCode" align="center"></el-table-column>
             </el-table>
           </el-card>
         </el-col>
         <el-col :span="14">
           <el-card class="mes-table">
             <div slot="header">
-              <span>检查水平详情</span>
+              <span>{{$t('InspectionLevel_InspectionLevelDetails')}}</span>
               <div style="float: right;">
-                <el-tooltip effect="dark" content="新增" placement="top" :hide-after="1000">
+                <el-tooltip effect="dark" :content="$t('common_Add')" placement="top" :hide-after="1000">
                   <el-button type="text" style="font-size:1vw;" :disabled="!isSelect" icon="el-icon-circle-plus" @click="handleLevel('infoDialog','info',false)"></el-button>
                 </el-tooltip>
-                <el-tooltip effect="dark" content="编辑" placement="top" :hide-after="1000">
+                <el-tooltip effect="dark" :content="$t('common_Edit')" placement="top" :hide-after="1000">
                   <el-button type="text" style="font-size:1vw;" icon="el-icon-edit" :disabled="infoEditBtn"  @click="handleLevel('infoDialog','info',true)"></el-button>
                 </el-tooltip>
-                <el-tooltip effect="dark" content="删除" placement="top" :hide-after="1000">
+                <el-tooltip effect="dark" :content="$t('common_Del')" placement="top" :hide-after="1000">
                   <el-button type="text" style="font-size:1vw;" icon="el-icon-delete" @click="delInspectLevelInfo"></el-button>
                 </el-tooltip>
               </div>
             </div>
             <div v-if="!isSelect">
-              <p style="padding:10px; border-left:3px solid #ddd;">点击检查水平列表查看详情</p>
+              <p style="padding:10px; border-left:3px solid #ddd;">{{$t('InspectionLevel_ClickCheckLevelListToViewDetails')}}</p>
             </div>
             <el-table :data="levelInfo" border v-else @selection-change="infoSelectionChange">
               <el-table-column type="selection" width="50" align="center"></el-table-column>
-              <el-table-column type="index" label="序号" width="50" align="center"></el-table-column>
-              <el-table-column label="批量最小值" prop="lotSizeMin" align="center"></el-table-column>
-              <el-table-column label="批量最大值" prop="lotSizeMax" align="center"></el-table-column>
-              <el-table-column label="样本代码" prop="sampleCode" align="center"></el-table-column>
+              <el-table-column type="index" :label="$t('common_Number')" width="50" align="center"></el-table-column>
+              <el-table-column :label="$t('InspectionLevel_BatchMinimum')" prop="lotSizeMin" align="center"></el-table-column>
+              <el-table-column :label="$t('InspectionLevel_BatchMaximum')" prop="lotSizeMax" align="center"></el-table-column>
+              <el-table-column :label="$t('InspectionLevel_SampleCode')" prop="sampleCode" align="center"></el-table-column>
             </el-table>
           </el-card>
         </el-col>
@@ -315,8 +315,8 @@ export default {
   },
   computed: {
     dialogTitle () {
-      let handleName = this.isEdit ? '编辑' : '新增'
-      let typeName = this.dialogType === 'level' ? '检查水平' : '检查水平详情'
+      let handleName = this.isEdit ? this.$t('common_Edit') : this.$t('common_Add')
+      let typeName = this.dialogType === 'level' ? this.$t('common_InspeLeve') : this.$t('InspectionLevel_InspectionLevelDetails')
       return `${handleName}${typeName}`
     },
     levelEditBtn () {
@@ -397,13 +397,13 @@ export default {
     async delInspectLevels () {
       const { levelSelects } = this
       if (levelSelects.length > 0) {
-        const isConfirm = await this.$myPrompt.confirm('确定删除当前选中的检查水平吗？')
+        const isConfirm = await this.$myPrompt.confirm(this.$t('InspectionLevel_Tips'))
         if (isConfirm) {
           const res = await this.$api.delInspectlevel(levelSelects)
           this.$myPrompt.handleMsg(res, this.getInspectLevelList)
         }
       } else {
-        this.$message.warning('请选择需要删除的检查水平！')
+        this.$message.warning(this.$t('InspectionLevel_Tips1'))
       }
     },
     async getInspectLevelInfo (mQomInspectionLevelId) {
@@ -424,7 +424,7 @@ export default {
     async delInspectLevelInfo () {
       const { infoSelects, mQomInspectionLevelId } = this
       if (infoSelects.length > 0) {
-        const isConfirm = await this.$myPrompt.confirm('确定删除当前选中的检查水平详情吗？')
+        const isConfirm = await this.$myPrompt.confirm(this.$t('InspectionLevel_Tips2'))
         if (isConfirm) {
           const res = await this.$api.deleteInspectLevelInfo(infoSelects)
           this.$myPrompt.handleMsg(res, () => {
@@ -432,7 +432,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请选择需要删除的检查水平详情！')
+        this.$message.warning(this.$t('InspectionLevel_PleaseSelectTheCheckLevelDetailsToBeDeleted'))
       }
     }
   },

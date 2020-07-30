@@ -1,18 +1,18 @@
 <template>
   <el-tabs v-model="tabAciveName" :before-leave="tabsBeforeleave">
-    <el-tab-pane label="基本信息" name="info">
+    <el-tab-pane :label="$t('common_essenInfo')" name="info">
       <info :useType="useType" ref="info" :info="basicInfo" :materialNoVersion="materialNoVersion" @setWorkFlowId="setWorkFlowId" @set-workorder-id="setWorkOrderId"></info>
     </el-tab-pane>
-    <el-tab-pane label="物料清单" name="materials">
+    <el-tab-pane :label="$t('WorkOrder_BillMate')" name="materials">
       <materials :useType="useType" ref="materials" :materialsObj="materialsObj"></materials>
       <el-row v-if="useType!==0" style="margin-top:15px;">
-        <el-button type="primary" plain size="mini" icon="el-icon-plus" @click="addMaterialsList">添加</el-button>
+        <el-button type="primary" plain size="mini" icon="el-icon-plus" @click="addMaterialsList">{{$t('common_add')}}</el-button>
       </el-row>
     </el-tab-pane>
-    <el-tab-pane label="上线维护" name="online">
+    <el-tab-pane :label="$t('WorkOrder_OnlinMain')" name="online">
       <online :useType="useType" ref="online" :online="online"></online>
     </el-tab-pane>
-    <el-tab-pane label="SN详情" name="snlist" v-if="useType===0">
+    <el-tab-pane :label="$t('WorkOrder_detai')" name="snlist" v-if="useType===0">
       <sn-list :useType="useType" ref="snlist" :snList="snList"></sn-list>
     </el-tab-pane>
   </el-tabs>
@@ -121,9 +121,9 @@ export default {
     tabsBeforeleave (active, old) {
       let { isChange } = this
       if (isChange) {
-        this.$confirm('当前页面信息发生变更, 是否保存?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm(this.$t('WorkOrder_currePageInfoHasChan'), this.$t('common_tips'), {
+          confirmButtonText: this.$t('common_ok'),
+          cancelButtonText: this.$t('common_cancel'),
           type: 'warning'
         }).then(() => {
           this.saveCurrentPage()

@@ -2,11 +2,11 @@
   <div class="mes-main mes-workstation">
     <el-row class="mes-workstation-info" :gutter="10" :class="changeSize">
       <el-col v-for="(item,i) in infoLabel" :key="i" :span="12" class="el-row">
-        <p class="el-col el-col-6">{{ item.label }}</p>
+        <p class="el-col el-col-6">{{ $t(item.label) }}:</p>
         <p class="el-col el-col-18">{{ info[item.key] }}</p>
       </el-col>
     </el-row>
-     <station-logs logName="操作日志" recordName="检验记录" :recordTableLabel="recordTableLabel" ref="logs"></station-logs>
+     <station-logs :logName="$t('common_OperaLog')" :recordName="$t('common_InspeRecord')" :recordTableLabel="recordTableLabel" ref="logs"></station-logs>
     <scan-input :scanType="scanType" @scan-code="scanCode"></scan-input>
   </div>
 </template>
@@ -25,35 +25,35 @@ export default {
       },
       infoLabel: [
         {
-          label: '工单号:',
+          label: 'common_WorkOrdeNo',
           key: 'docNo'
         },
         {
-          label: '料号:',
+          label: 'common_PorN',
           key: 'materialNo'
         },
         {
-          label: '需求数量:',
+          label: 'common_DemanQuan',
           key: 'requestQty'
         },
         {
-          label: '生产日期:',
+          label: 'common_dateManu',
           key: 'productDate'
         }
       ],
       recordTableLabel: [
         {
-          label: '零件序列号',
+          label: 'jobCheck_PartSeriNumb',
           key: 'productSn'
         }, {
-          label: '扫描结果',
+          label: 'jobCheck_ScanResu',
           key: 'checkoutStatus'
         }, {
-          label: '扫描时间',
+          label: 'jobCheck_ScanTime',
           key: 'checkDate'
         }
       ],
-      scanType: '序列号',
+      scanType: this.$t('jobCheck_seriaNumb'),
       orderId: '',
       splitSn: ''
     }
@@ -85,9 +85,9 @@ export default {
   methods: {
     scanCode (code) {
       let { scanType } = this
-      if (scanType === '序列号') {
+      if (scanType === this.$t('jobCheck_seriaNumb')) {
         this.scanPartSplitSn(code)
-      } else if (scanType === '结果') {
+      } else if (scanType === this.$t('jobCheck_resul')) {
         this.scanPartResult(code)
       }
     },
@@ -97,7 +97,7 @@ export default {
     //   if (res.code === '200') {
     //     this.info = res.data
     //     this.orderId = res.data.tpomJobOrderId
-    //     const nextStep = '序列号'
+    //     const nextStep = this.$t('jobCheck_seriaNumb')
     //     this.scanType = nextStep
     //     this.$refs.logs.createLogsInfo(docNo, 1, `请扫描${nextStep}`)
     //   }
@@ -111,7 +111,7 @@ export default {
         if (res.code === '200') {
           this.splitSn = splitSn
           this.info = res.data
-          this.scanType = '结果'
+          this.scanType = this.$t('jobCheck_resul')
           this.$refs.logs.createLogsInfo(splitSn, 1, res.msg)
         } else {
           this.$refs.logs.createLogsInfo(splitSn, 0, res.msg)
@@ -127,7 +127,7 @@ export default {
         const data = Object.assign({ checkoutStatus, productSn })
         let res = await this.$api.scanPartResult(data)
         if (res.code === '200') {
-          this.scanType = '序列号'
+          this.scanType = this.$t('jobCheck_seriaNumb')
           // this.$refs.logs.recordList.push({
           //   productSn: res.data.productSn,
           //   checkoutStatus: res.data.checkoutStatus,
@@ -151,7 +151,7 @@ export default {
         requertQty: ''
       }
       this.$refs.logs.recordList = []
-      this.scanType = '序列号'
+      this.scanType = this.$t('jobCheck_seriaNumb')
     }
 
   },

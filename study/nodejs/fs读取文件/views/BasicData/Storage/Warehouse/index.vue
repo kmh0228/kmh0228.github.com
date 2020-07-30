@@ -1,22 +1,22 @@
 <template>
 <div class="mes-main mes-work-order">
-  <div class="mes-main-title">仓库管理</div>
+  <div class="mes-main-title">{{$t('warehouse_WarehMana')}}</div>
   <el-row :gutter="20" class="mes-main-filte">
     <el-col :span="12">
-      <el-input placeholder="请输入仓库代码" v-model.trim="keywords" size="mini" style="width:40%" @keydown.enter.native="getWarehouses">
+      <el-input :placeholder="$t('warehouse_PleasEnteWareCo')" v-model.trim="keywords" size="mini" style="width:40%" @keydown.enter.native="getWarehouses">
       </el-input>
     </el-col>
   </el-row>
   <div class="mes-table">
     <el-row class="mes-table-handle">
       <el-col :span="12">
-        <el-button size="mini" icon="el-icon-search" @click="getWarehouses">查询</el-button>
+        <el-button size="mini" icon="el-icon-search" @click="getWarehouses">{{$t('common_Inquire')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-plus"  @click="handleDialog('warehouseDialog','warehouse','')">新增</el-button>
+        <el-button size="mini" icon="el-icon-plus"  @click="handleDialog('warehouseDialog','warehouse','')">{{$t('common_Add')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-delete-solid" @click="deleteWarehouse('')">批量删除</el-button>
+        <el-button size="mini" icon="el-icon-delete-solid" @click="deleteWarehouse('')">{{$t('common_Delete')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-refresh"  @click="refreshData">刷新</el-button>
+        <el-button size="mini" icon="el-icon-refresh"  @click="refreshData">{{$t('common_Refresh')}}</el-button>
       </el-col>
       <el-col :span="12">
         <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :page-count="5"
@@ -27,29 +27,29 @@
     <div class="mes-table-content">
       <el-table :data="tableData" border highlight-current-row size="mini" @selection-change="tableSelectionChange" @current-change="tableCurrentChange" @cell-click="cellClick">
         <el-table-column type="selection" width="50" align="center"></el-table-column>
-        <el-table-column type="index" label="序号" align="center" :index="indexMethod" sortable></el-table-column>
-        <el-table-column prop="mWmsWarehouseCode" label="仓库代码"  align="center" sortable></el-table-column>
-        <el-table-column prop="mWmsWarehouseName" label="仓库名称" align="center" sortable></el-table-column>
-        <el-table-column prop="dictName" label="仓库类型" align="center" sortable></el-table-column>
-        <el-table-column prop="mWmsWarehouseAdmin" label="管理员" align="center" sortable></el-table-column>
-        <el-table-column prop="mWmsWarehouseRatio" label="使用情况" align="center" sortable></el-table-column>
-        <el-table-column prop="picking" label="是否拣货" align="center" sortable>
+        <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod" sortable></el-table-column>
+        <el-table-column prop="mWmsWarehouseCode" :label="$t('warehouse_WarehCode')"  align="center" sortable></el-table-column>
+        <el-table-column prop="mWmsWarehouseName" :label="$t('warehouse_WarehName')" align="center" sortable></el-table-column>
+        <el-table-column prop="dictName" :label="$t('warehouse_WarehType')" align="center" sortable></el-table-column>
+        <el-table-column prop="mWmsWarehouseAdmin" :label="$t('warehouse_admin')" align="center" sortable></el-table-column>
+        <el-table-column prop="mWmsWarehouseRatio" :label="$t('warehouse_Usage')" align="center" sortable></el-table-column>
+        <el-table-column prop="picking" :label="$t('warehouse_PickiOrNot')" align="center" sortable>
           <template slot-scope="scope">
-              {{scope.row.picking === 1 ? '否' : '是' }}
+              {{scope.row.picking === 1 ? $t('common_No') : $t('common_Yes') }}
             </template>
         </el-table-column>
-        <el-table-column prop="frozen" label="是否冻结" align="center"  sortable>
+        <el-table-column prop="frozen" :label="$t('warehouse_FreezOrNot')" align="center"  sortable>
           <template slot-scope="scope">
-              {{scope.row.frozen === 1 ? '冻结' : '未冻结' }}
+              {{scope.row.frozen === 1 ? $t('warehouse_froze') : $t('warehouse_Unfro') }}
             </template>
         </el-table-column>
-        <el-table-column prop="invalid" label="是否启用" align="center" :formatter="formatter" sortable></el-table-column>
+        <el-table-column prop="invalid" :label="$t('common_Enable')" align="center" :formatter="formatter" sortable></el-table-column>
         <!-- <el-table-column prop="creator" label="创建人" align="center"></el-table-column>
         <el-table-column prop="createdDt" label="创建时间" align="center"></el-table-column> -->
-        <el-table-column label="操作" align="center" width="120">
+        <el-table-column :label="$t('common_Operate')" align="center" width="120">
             <template slot-scope="scope">
-              <handle-button @click="handleDialog('warehouseDialog','warehouse',scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-              <handle-button @click="deleteWarehouse(scope.row.mWmsWarehouseId)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+              <handle-button @click="handleDialog('warehouseDialog','warehouse',scope.row)" iconClass='el-icon-edit-outline' :tipText="$t('common_Edit')"></handle-button>
+              <handle-button @click="deleteWarehouse(scope.row.mWmsWarehouseId)" iconClass='el-icon-delete' :tipText="$t('common_Del')" iconColor='#f56c6c'></handle-button>
             </template>
         </el-table-column>
       </el-table>
@@ -57,7 +57,7 @@
   </div>
   <div class="mes-main-tabs" v-if="showAreaTabs">
     <el-tabs v-model="areaActiveName">
-      <el-tab-pane label="区域维护" name="area">
+      <el-tab-pane :label="$t('warehouse_AreaMain')" name="area">
          <div class="mes-table">
           <el-row class="mes-table-handle">
             <!-- <el-col :span="12">
@@ -74,13 +74,13 @@
           <div class="mes-table-content">
             <el-table :data="areaData" border highlight-current-row size="mini" @selection-change="tableSelectionChange1" @current-change="tableCurrentChange1"  @cell-click="cellClick1">
               <el-table-column type="selection" width="50" align="center" ></el-table-column>
-              <el-table-column type="index" label="序号" align="center" :index="indexMethod1"></el-table-column>
-              <el-table-column prop="mWmsWarehouseAreaCode" label="区域代码" align="center" sortable></el-table-column>
-              <el-table-column prop="mWmsWarehouseAreaName" label="区域名称" align="center" sortable></el-table-column>
-              <el-table-column prop="fName" label="功能作用" align="center" sortable></el-table-column>
-              <el-table-column prop="cName" label="存储环境" align="center" sortable></el-table-column>
-              <el-table-column prop="vName" label="存储贵重类型" align="center" sortable></el-table-column>
-              <el-table-column prop="mWmsWarehouseAreaUse" label="储位使用情况" align="center" sortable></el-table-column>
+              <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod1"></el-table-column>
+              <el-table-column prop="mWmsWarehouseAreaCode" :label="$t('common_AreaCode')" align="center" sortable></el-table-column>
+              <el-table-column prop="mWmsWarehouseAreaName" :label="$t('warehouse_AreaName')" align="center" sortable></el-table-column>
+              <el-table-column prop="fName" :label="$t('warehouse_Funct')" align="center" sortable></el-table-column>
+              <el-table-column prop="cName" :label="$t('warehouse_StoraEnvi')" align="center" sortable></el-table-column>
+              <el-table-column prop="vName" :label="$t('warehouse_StoraValuType')" align="center" sortable></el-table-column>
+              <el-table-column prop="mWmsWarehouseAreaUse" :label="$t('common_UsageStorSpac')" align="center" sortable></el-table-column>
               <!-- <el-table-column label="操作" align="center" width="120" >
                 <template slot-scope="scope">
                   <handle-button @click="handleDialog('areaDialog','area',scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
@@ -91,7 +91,7 @@
           </div>
         </div>
       </el-tab-pane>
-      <el-tab-pane label="仓库关联用户" name="adssociatedUsers">
+      <el-tab-pane :label="$t('warehouse_WarehAssoUser')" name="adssociatedUsers">
          <adssociated-users :mWmsWarehouseId="mWmsWarehouseId"></adssociated-users>
       </el-tab-pane>
     </el-tabs>
@@ -190,14 +190,14 @@ export default {
       return !!this.mWmsWarehouseAreaId
     },
     dialogTitle () {
-      let handlename = this.isEdit ? '编辑' : '新增'
+      let handlename = this.isEdit ? this.$t('common_Edit') : this.$t('common_Add')
       let { dialogType, handlTypeName } = this
       if (dialogType === 'warehouse') {
-        handlTypeName = '仓库信息'
+        handlTypeName = this.$t('warehouse_WarehInfo')
       } else if (dialogType === 'area') {
-        handlTypeName = '区域信息'
+        handlTypeName = this.$t('warehouse_RegioInfo')
       } else {
-        handlTypeName = '货架信息'
+        handlTypeName = this.$t('warehouse_ShelfInfo')
       }
       return `${handlename}${handlTypeName}`
     }
@@ -279,7 +279,7 @@ export default {
       this.getShelf(mWmsWarehouseAreaId)
     },
     formatter (row) {
-      return row.invalid ? '是' : '否'
+      return row.invalid ? this.$t('common_Yes') : this.$t('common_No')
     },
     // 获取仓库信息
     async getWarehouses () {
@@ -335,7 +335,7 @@ export default {
       let ids = id ? [id] : this.selectList
       let len = ids.length
       if (len > 0) {
-        let confirmRes = await this.$myPrompt.confirm('确定删除当前选中的仓库信息吗?')
+        let confirmRes = await this.$myPrompt.confirm(this.$t('warehouse_deleteCurWare'))
         if (confirmRes) {
           let res = await this.$api.deleteWarehouses(ids)
           let { msg, code } = res
@@ -347,7 +347,7 @@ export default {
           }
         }
       } else {
-        this.$message.warning('请选择要删除的仓库信息')
+        this.$message.warning(this.$t('warehouse_PleasSeleWareIn'))
       }
     },
     // 删除区域信息
@@ -356,7 +356,7 @@ export default {
       let ids = id ? [id] : selectList1
       let len = ids.length
       if (len > 0) {
-        let confirmRes = await this.$myPrompt.confirm('确定删除当前选中的区域信息吗')
+        let confirmRes = await this.$myPrompt.confirm(this.确定删除当前选中的区域信息吗)
         if (confirmRes) {
           let res = await this.$api.deleteArea(ids)
           let { code, msg } = res
@@ -368,7 +368,7 @@ export default {
           }
         }
       } else {
-        this.$message.warning('请选择要删除的区域信息')
+        this.$message.warning(this.$t('warehouse_PleasSeleAreaIn'))
       }
     },
     // 删除货架信息
@@ -377,7 +377,7 @@ export default {
       let ids = id ? [id] : selectList2
       let len = ids.length
       if (len > 0) {
-        let confirmRes = await this.$myPrompt.confirm('确定要删除当前选中的货架信息')
+        let confirmRes = await this.$myPrompt.confirm(this.$t('warehouse_AreYouSureYouWa'))
         if (confirmRes) {
           let res = await this.$api.deleteShelf(ids)
           let { code, msg } = res
@@ -389,7 +389,7 @@ export default {
           }
         }
       } else {
-        this.$message.warning('请选择要删除的货架信息')
+        this.$message.warning(this.$t('warehouse_PleasSeleShelIn'))
       }
     },
     handleDialog (dialogName, type, row) {

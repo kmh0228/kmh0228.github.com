@@ -1,28 +1,28 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">字典管理 </h3>
+    <h3 class="mes-main-title">{{$t('dictionary_dataDictionary')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
     </el-row>
     <el-row :gutter="20" >
       <el-col :span="9">
         <el-card class="mes-table" shadow="never">
          <div slot="header">
-            <span>字典配置</span>
+            <span>{{$t('dictionary_configuration')}}</span>
             <div style="float:right">
-                <el-button size="mini" @click="handleDictionary('dialogForm',false)">新增</el-button>
+                <el-button size="mini" @click="handleDictionary('dialogForm',false)">{{$t('common_Add')}}</el-button>
             </div>
          </div>
           <el-row class="mes-table-handle">
-               <el-input placeholder="请输入字典名字" v-model="keywords" size="mini" style="width:50%" @keydown.native.enter="getDictionaryType" @change="selectChange">
+               <el-input :placeholder="$t('dictionary_enterName')" v-model="keywords" size="mini" style="width:50%" @keydown.native.enter="getDictionaryType" @change="selectChange">
                   <i slot="suffix" class="el-input__icon el-icon-search" @click="getDictionaryType"></i>
                </el-input>
                <!-- <el-button icon="el-icon-search" size="mini"  style="margin-left:10px">查询</el-button> -->
           </el-row>
          <el-table :data="tableData" @selection-change="tableChange" size="mini"  highlight-current-row @current-change="currentChange">
            <!-- <el-table-column type="selection" width="50px" align="center"></el-table-column> -->
-           <el-table-column type="index" label="序号" width="50" align="center"  :index="indexMethod"></el-table-column>
-           <el-table-column prop="mDataDictTypeName" show-overflow-tooltip label="字典名称" sortable align="center" ></el-table-column>
-           <el-table-column prop="mDataDictTypeType" show-overflow-tooltip label="字典类型" sortable align="center" ></el-table-column>
+           <el-table-column type="index" :label="$t('common_Number')" width="50" align="center"  :index="indexMethod"></el-table-column>
+           <el-table-column prop="mDataDictTypeName" show-overflow-tooltip :label="$t('dictionary_Name')" sortable align="center" ></el-table-column>
+           <el-table-column prop="mDataDictTypeType" show-overflow-tooltip :label="$t('dictionary_Type')" sortable align="center" ></el-table-column>
            <!-- <el-table-column label="操作" width="100" align="center">
              <template slot-scope="scope">
                  <el-tooltip effect="dark" content="编辑" placement="top" >
@@ -45,33 +45,33 @@
        <el-col :span="15">
         <el-card class="mes-table" shadow="never">
          <div slot="header">
-            <span>字典详情</span>
+            <span>{{$t('dictionary_Details')}}</span>
             <div style="float:right">
-              <el-button size="mini" :disabled="addDisabled" @click="handleDictionary('detailForm',false)">新增</el-button>
+              <el-button size="mini" :disabled="addDisabled" @click="handleDictionary('detailForm',false)">{{$t('common_Add')}}</el-button>
             </div>
          </div>
           <div v-if="choiseDetail">
-            <p style="padding:10px; border-left:3px solid #ddd;">点击字典列表查看详情</p>
+            <p style="padding:10px; border-left:3px solid #ddd;">{{$t('dictionary_clickOnTheDictionary')}}</p>
           </div>
           <div v-else>
             <el-row class="mes-table-handle" >
-              <el-input placeholder="请输入字典详情名字" v-model="detailKeywords" size="mini" style="width:30%" @keydown.native.enter="getDictionaryDetail(dictType)">
+              <el-input :placeholder="$t('dictionary_nameOfDetails')" v-model="detailKeywords" size="mini" style="width:30%" @keydown.native.enter="getDictionaryDetail(dictType)">
                 <i slot="suffix" class="el-input__icon el-icon-search" @click="getDictionaryDetail(dictType)"></i>
               </el-input>
             </el-row>
             <el-table :data="detailData" @selection-change="tableChange1" size="mini">
               <!-- <el-table-column type="selection" width="50px" align="center"></el-table-column> -->
               <!-- <el-table-column type="index" label="序号" width="50" align="center" :index="indexMethod1"></el-table-column> -->
-              <el-table-column prop="dictName"  label="字典标签" align="center" ></el-table-column>
-              <el-table-column prop="dictCode" label="字典值" align="center" ></el-table-column>
-              <el-table-column prop="sortNo" label="排序" align="center" ></el-table-column>
+              <el-table-column prop="dictName"  :label="$t('dictionary_label')" align="center" ></el-table-column>
+              <el-table-column prop="dictCode" :label="$t('dictionary_value')" align="center" ></el-table-column>
+              <el-table-column prop="sortNo" :label="$t('dictionary_sort')" align="center" ></el-table-column>
               <!-- <el-table-column label="是否启用" sortable align="center"></el-table-column> -->
-              <el-table-column label="操作" width="100" align="center" >
+              <el-table-column :label="$t('common_Operate')" width="100" align="center" >
                 <template slot-scope="scope">
-                    <el-tooltip effect="dark" content="编辑" placement="top" >
+                    <el-tooltip effect="dark" :content="$t('common_Edit')" placement="top" >
                     <el-button type="text" style="font-size:1vw;"  icon="el-icon-edit" size="mini" @click="handleDictionary('detailForm',true,scope.row)" ></el-button>
                   </el-tooltip>
-                  <el-tooltip effect="dark" content="删除" placement="top" style="margin-left:20px;color:#F56C6C" >
+                  <el-tooltip effect="dark" :content="$t('common_Delete')" placement="top" style="margin-left:20px;color:#F56C6C" >
                     <el-button type="text" style="font-size:1vw;"  icon="el-icon-delete" size="mini" @click="deleteDetail(scope.row.mDataDictId)"></el-button>
                   </el-tooltip>
                 </template>
@@ -125,8 +125,8 @@ export default {
   },
   computed: {
     dialogTitle () {
-      let word = this.isEdit ? '编辑' : '新增'
-      let word1 = this.dialogComponent === 'dialogForm' ? '字典配置' : '字典详情配置'
+      let word = this.isEdit ? this.$t('common_Edit') : this.$t('common_Add')
+      let word1 = this.dialogComponent === 'dialogForm' ? this.$t('dictionary_configuration') : this.$t('dictionary_DictionaryDetails')
       return `${word}${word1}`
     },
     addDisabled () {
@@ -189,7 +189,7 @@ export default {
       this.dialogComponent = dialogname
       this.isEdit = isEdit
       if (dialogname === 'detailForm' && !dictType) {
-        this.$message.warning('请先选择字典，再新增')
+        this.$message.warning(this.$t('dictionary_beforeAdding'))
       } else {
         this.dialogVisible = true
         if (isEdit) {
@@ -238,7 +238,7 @@ export default {
     // },
     async deleteDetail (id) {
       let { dictType } = this
-      let confirmRes = await this.$myPrompt.confirm('确定删除当前选中的字典吗?')
+      let confirmRes = await this.$myPrompt.confirm(this.$t('dictionary_sure'))
       if (confirmRes) {
         let res = await this.$api.deleteDictionaryDetail([id])
         this.$myPrompt.handleMsg(res, () => {

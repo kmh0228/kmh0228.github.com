@@ -1,4 +1,4 @@
-export let tableOption = (This) => {
+export let tableOption = This => {
   return {
     style: {
       width: '100%'
@@ -6,43 +6,43 @@ export let tableOption = (This) => {
     highlightCurrentRow: true,
     tableTitle: [
       {
-        title: '工厂',
+        title: 'common_Factory',
         prop: 'factoryName'
       },
       {
-        title: '部门',
+        title: 'common_Department',
         prop: 'officeName'
       },
       {
-        title: '产品系列',
+        title: 'common_ProduSeries',
         prop: 'productSeriesName'
       },
       {
-        title: '产品料号',
+        title: 'common_ProduPartNumb',
         prop: 'productNumberName'
       },
       {
-        title: '数量单位',
+        title: 'harmfulR_UnitQuan',
         prop: 'uomName'
       },
       {
-        title: '设备名称',
+        title: 'common_EquipName',
         prop: 'eqpName'
       },
       {
-        title: '描述',
+        title: 'common_Description',
         prop: 'defectiveItemDesc'
       },
       {
-        title: '创建时间',
+        title: 'common_CreateTime',
         prop: 'createdDt'
       },
       {
-        title: '创建人',
+        title: 'common_Creator',
         prop: 'creatorName'
       },
       {
-        title: '操作',
+        title: 'common_Operate',
         prop: 'operation',
         fixed: 'right',
         width: '120',
@@ -50,7 +50,7 @@ export let tableOption = (This) => {
         buttonArr: [
           {
             iconClass: 'el-icon-edit-outline',
-            text: '编辑',
+            text: 'common_Edit',
             operationClick (row) {
               This.addForm = {
                 mmomEqpDefectiveItemId: row.mmomEqpDefectiveItemId,
@@ -71,7 +71,7 @@ export let tableOption = (This) => {
           {
             iconClass: 'el-icon-delete',
             iconColor: '#f56c6c',
-            text: '删除',
+            text: 'common_Del',
             operationClick (row) {
               This.deletetableData([row.mmomEqpDefectiveItemId])
             }

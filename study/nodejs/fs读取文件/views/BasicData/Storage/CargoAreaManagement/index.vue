@@ -1,6 +1,6 @@
 <template>
 <div class="mes-main mes-work-order">
-  <div class="mes-main-title">货区管理</div>
+  <div class="mes-main-title">{{$t('cargoAreaMana_CargoAreaMana')}}</div>
   <el-row :gutter="20" class="mes-main-filte">
     <el-col :span="12">
       <el-select  v-model="mWmsWarehouseId" filterable clearable style="width:40%">
@@ -11,18 +11,18 @@
   <div>
       <table-list ref="tableList" :tableData="tableData" :tableOption="option" :queryListApi="getArea" :total="total">
         <div slot="buttonBox">
-          <el-button size="mini" icon="el-icon-search" @click="$refs.tableList.queryList(true)">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="$refs.tableList.queryList(true)">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-plus" @click="addData()">新增</el-button>
+          <el-button size="mini" icon="el-icon-plus" @click="addData()">{{$t('common_Add')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteArea($refs.tableList.getSelectData().map(item => item.mWmsWarehouseAreaId))">批量删除</el-button>
+          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteArea($refs.tableList.getSelectData().map(item => item.mWmsWarehouseAreaId))">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage(true)">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage(true)">{{$t('common_Refresh')}}</el-button>
         </div>
       </table-list>
     </div>
   <el-dialog
-      :title="areaForm.mWmsWarehouseAreaId ? '编辑区域信息' : '新增区域信息' "
+      :title="areaForm.mWmsWarehouseAreaId ? $t('cargoAreaMana_EditAreaInfo') : $t('cargoAreaMana_NewRegiInfo') "
       :visible.sync="dialogVisible"
       width="600px"
       class="handle-dialog" >
@@ -99,7 +99,7 @@ export default {
     async deleteArea (ids) {
       let len = ids.length
       if (len > 0) {
-        let confirmRes = await this.$myPrompt.confirm('确定删除当前选中的区域信息吗')
+        let confirmRes = await this.$myPrompt.confirm(this.$t('cargoAreaMana_AreYouSureDeleC'))
         if (confirmRes) {
           let res = await this.$api.deleteArea(ids)
           let { code, msg } = res
@@ -111,7 +111,7 @@ export default {
           }
         }
       } else {
-        this.$message.warning('请选择要删除的区域信息')
+        this.$message.warning(this.$t('cargoAreaMana_PleasSeleAreaIn'))
       }
     },
     cannel () {

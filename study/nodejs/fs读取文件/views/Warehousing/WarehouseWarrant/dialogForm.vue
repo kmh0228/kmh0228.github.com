@@ -1,27 +1,27 @@
  <template>
 <el-form :model="dialogForm" ref="dialogForm" :rules="rules"   label-width="120px" label-position="left" class="el-row mes-form-rule" >
-  <el-form-item label="入库单号" prop="mWmsEntrylistNo" class="el-col el-col-24">
-       <el-input v-model.trim="dialogForm.mWmsEntrylistNo" placeholder="请输入入库单号" size="mini"></el-input>
+  <el-form-item :label="$t('WarehouseWarrant_StorageOrders')" prop="mWmsEntrylistNo" class="el-col el-col-24">
+       <el-input v-model.trim="dialogForm.mWmsEntrylistNo" :placeholder="$t('WarehouseWarrant_PleaseEnterEheEntryNumber')" size="mini"></el-input>
   </el-form-item>
-  <el-form-item label="入库方式" prop="mWmsEntrylistTypeId" class="el-col el-col-24">
+  <el-form-item :label="$t('WarehouseWarrant_StorageMode')" prop="mWmsEntrylistTypeId" class="el-col el-col-24">
     <dict-select v-model="dialogForm.mWmsEntrylistTypeId" clearable dictType="ENTRY_STROAGE_WAY" selectKey="dictCode"></dict-select>
   </el-form-item>
-  <el-form-item label="入库库房" prop="mWmsEntrylistWharehouseid" class="el-col el-col-24">
-    <el-select v-model="dialogForm.mWmsEntrylistWharehouseid" filterable placeholder="请选择入库库房" style="width:100%">
+  <el-form-item :label="$t('WarehouseWarrant_StorageWarehouse')" prop="mWmsEntrylistWharehouseid" class="el-col el-col-24">
+    <el-select v-model="dialogForm.mWmsEntrylistWharehouseid" filterable :placeholder="$t('WarehouseWarrant_PleaseSelectTheWarehouse')" style="width:100%">
       <el-option v-for="(option,i) in mWmsEntryWarehouseidList" :key="i" :label="option.mWmsWarehouseCode" :value="option.mWmsWarehouseId"></el-option>
     </el-select>
   </el-form-item>
-  <el-form-item label="紧急程度" prop="mWmsEntrylistLevelId" class="el-col el-col-24">
-    <dict-select v-model="dialogForm.mWmsEntrylistLevelId" dictType="EMERGENCY_TYPE"  placeholder="请选择紧急程度" selectKey="dictCode"></dict-select>
+  <el-form-item :label="$t('WarehouseWarrant_Emergencies')" prop="mWmsEntrylistLevelId" class="el-col el-col-24">
+    <dict-select v-model="dialogForm.mWmsEntrylistLevelId" dictType="EMERGENCY_TYPE"  :placeholder="$t('WarehouseWarrant_PleaseSelectTheEmergency')" selectKey="dictCode"></dict-select>
   </el-form-item>
-  <el-form-item label="供应商" prop="mWmsEntrylistVenderid" class="el-col el-col-24" >
-    <el-select v-model="dialogForm.mWmsEntrylistVenderid" filterable placeholder="请选择供应商" style="width:100%">
+  <el-form-item :label="$t('WarehouseWarrant_Supplier')" prop="mWmsEntrylistVenderid" class="el-col el-col-24" >
+    <el-select v-model="dialogForm.mWmsEntrylistVenderid" filterable :placeholder="$t('WarehouseWarrant_PleaseSelectSupplier')" style="width:100%">
       <el-option v-for="(option,i) in mWmsEntrylistVendList" :key="i" :label="option.mWmsVendorName" :value="option.mWmsVendorId"></el-option>
     </el-select>
   </el-form-item>
    <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-      <el-button type="primary" size="mini" @click="saveEntrylist">保存</el-button>
-      <el-button size="mini" @click="$emit('cannel')">取消</el-button>
+      <el-button type="primary" size="mini" @click="saveEntrylist">{{$t('common_save')}}</el-button>
+      <el-button size="mini" @click="$emit('cannel')">{{$t('common_cancel')}}</el-button>
     </el-form-item>
 </el-form>
 </template>
@@ -42,18 +42,18 @@ export default {
         pageSize: 1000,
         keywords: ''
       },
-      // 供应商查询条件
+      // {{$t('WarehouseWarrant_Supplier')}}查询条件
       searchVendors: {
         pageIndex: 1,
         pageSize: 1000,
         mWmsVendorCode: ''
       },
       rules: {
-        mWmsEntrylistNo: [{ required: true, message: '入库单号不能为空' }],
-        mWmsEntrylistTypeId: [{ required: true, message: '请选择入库方式' }],
-        mWmsEntrylistWharehouseid: [{ required: true, message: '请选择入库库房' }],
-        mWmsEntrylistLevelId: [{ required: true, message: '请选择紧急程度' }],
-        mWmsEntrylistVenderid: [{ required: true, message: '请选择供应商' }]
+        mWmsEntrylistNo: [{ required: true, message: this.$t('WarehouseWarrant_StorageNoNoEmpty') }],
+        mWmsEntrylistTypeId: [{ required: true, message: this.$t('WarehouseWarrant_PleaseSelectTheStorageMethod') }],
+        mWmsEntrylistWharehouseid: [{ required: true, message: this.$t('WarehouseWarrant_PleaseSelectTheWarehouse') }],
+        mWmsEntrylistLevelId: [{ required: true, message: this.$t('WarehouseWarrant_PleaseSelectTheEmergency') }],
+        mWmsEntrylistVenderid: [{ required: true, message: this.$t('WarehouseWarrant_PleaseSelectSupplier') }]
       },
       mWmsEntryWarehouseidList: [],
       mWmsEntrylistVendList: []
@@ -71,7 +71,7 @@ export default {
       let res = await this.$api.getWarehouses(data)
       this.mWmsEntryWarehouseidList = res.data.list
     },
-    // 查询供应商
+    // 查询{{$t('WarehouseWarrant_Supplier')}}
     async getVendors () {
       let data = Object.assign(this.searchVendors)
       let res = await this.$api.getVendors(data)

@@ -1,28 +1,28 @@
 <template>
   <div class="mes-main mes-work-order">
-  <div class="mes-main-title">点检项目管理</div>
+  <div class="mes-main-title">{{$t('inspecItem_SpotInspProjMana')}}</div>
   <el-row :gutter="20" class="mes-main-filte">
     <el-col :span="12">
        <cascader-select v-model="searchForm.officeCode" style="width:40%" dataType="1" @change="findCheckitemList"></cascader-select>
     </el-col>
     <el-col :span="12">
-      <el-input placeholder="设备类别"  v-model="searchForm.typeCode"  style="width:40%;float:right"></el-input>
+      <el-input :placeholder="$t('inspecItem_EquipCate')"  v-model="searchForm.typeCode"  style="width:40%;float:right"></el-input>
     </el-col>
   </el-row>
   <div class="mes-table">
     <el-row class="mes-table-handle">
       <el-col :span="12">
-        <el-button size="mini" icon="el-icon-search" @click="findCheckitemList">查询</el-button>
+        <el-button size="mini" icon="el-icon-search" @click="findCheckitemList">{{$t('common_Inquire')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-plus" @click="handletable('')">新增</el-button>
+        <el-button size="mini" icon="el-icon-plus" @click="handletable('')">{{$t('common_Add')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-delete-solid" @click="deleteTable('','')">批量删除</el-button>
+        <el-button size="mini" icon="el-icon-delete-solid" @click="deleteTable('','')">{{$t('common_Delete')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" :disabled="publisDisabled" @click="publishCheckitem('1')">发布</el-button>
+        <el-button size="mini" :disabled="publisDisabled" @click="publishCheckitem('1')">{{$t('inspecItem_relea')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" :disabled="publisDisabled" @click="publishCheckitem('0')">取消发布</el-button>
+        <el-button size="mini" :disabled="publisDisabled" @click="publishCheckitem('0')">{{$t('inspecItem_calcelPub')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-refresh" @click="findCheckitemList">刷新</el-button>
+        <el-button size="mini" icon="el-icon-refresh" @click="findCheckitemList">{{$t('common_Refresh')}}</el-button>
       </el-col>
       <el-col :span="12">
         <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -34,22 +34,22 @@
     <div class="mes-table-content">
       <el-table :data="tableData" border highlight-current-row size="mini"  @selection-change="tableSelectionChange" @cell-click="cellClick">
         <el-table-column type="selection" width="50" align="center"></el-table-column>
-        <el-table-column type="index" label="序号" align="center" fixed="left" :index="indexMethod"></el-table-column>
-        <el-table-column prop="officeName" sortable label="工厂" align="center"></el-table-column>
-        <el-table-column prop="dictWorkKind" sortable label="工种" align="center"></el-table-column>
-        <el-table-column prop="typeCode" sortable width="120" label="设备类别代码" align="center"></el-table-column>
-        <el-table-column prop="typeName" sortable width="120" label="设备类别名称" align="center"></el-table-column>
-        <el-table-column prop="frequency" sortable width="100" label="点检频率" align="center" :formatter="frequencyFromatter"></el-table-column>
-        <el-table-column prop="time" sortable width="100" label="点检时间" align="center"></el-table-column>
-        <el-table-column prop="date" sortable width="100" label="点检日期" align="center" :formatter="dateFromatter"></el-table-column>
-        <el-table-column prop="status" sortable label="状态" align="center" :formatter="statusFormatter"></el-table-column>
-        <el-table-column prop="isautogenerate" sortable width="155" label="是否自动生成点检单" :formatter="autogenerateFromatter" align="center"></el-table-column>
-        <el-table-column prop="standardTime" sortable width="120" label="标准点检时长" align="center"></el-table-column>
-        <el-table-column prop="remark" sortable label="备注" align="center"></el-table-column>
-        <el-table-column label="操作" align="center" width="120" fixed="right">
+        <el-table-column type="index" :label="$t('common_Number')" align="center" fixed="left" :index="indexMethod"></el-table-column>
+        <el-table-column prop="officeName" sortable :label="$t('common_Factory')" align="center"></el-table-column>
+        <el-table-column prop="dictWorkKind" sortable :label="$t('common_TypeWork')" align="center"></el-table-column>
+        <el-table-column prop="typeCode" sortable width="120" :label="$t('inspecItem_EquipCateCode')" align="center"></el-table-column>
+        <el-table-column prop="typeName" sortable width="120" :label="$t('common_EquipCateName')" align="center"></el-table-column>
+        <el-table-column prop="frequency" sortable width="100" :label="$t('common_SpotChecFreq')" align="center" :formatter="frequencyFromatter"></el-table-column>
+        <el-table-column prop="time" sortable width="100" :label="$t('inspecItem_SpotChecTime')" align="center"></el-table-column>
+        <el-table-column prop="date" sortable width="100" :label="$t('inspecItem_SpotChecDate')" align="center" :formatter="dateFromatter"></el-table-column>
+        <el-table-column prop="status" sortable :label="$t('common_Status')" align="center" :formatter="statusFormatter"></el-table-column>
+        <el-table-column prop="isautogenerate" sortable width="155" :label="$t('inspecItem_WhethGeneADocuAuto')" :formatter="autogenerateFromatter" align="center"></el-table-column>
+        <el-table-column prop="standardTime" sortable width="120" :label="$t('inspecItem_StandSpotChecDura')" align="center"></el-table-column>
+        <el-table-column prop="remark" sortable :label="$t('common_remarks')" align="center"></el-table-column>
+        <el-table-column :label="$t('common_Operate')" align="center" width="120" fixed="right">
           <template slot-scope="scope">
-            <handle-button @click="handletable(scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-            <handle-button @click="deleteTable(scope.row.mMomCheckitemId,scope.row.status)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+            <handle-button @click="handletable(scope.row)" iconClass='el-icon-edit-outline' :placeholder="$t('common_Edit')"></handle-button>
+            <handle-button @click="deleteTable(scope.row.mMomCheckitemId,scope.row.status)" iconClass='el-icon-delete' :placeholder="$t('common_Del')" iconColor='#f56c6c'></handle-button>
           </template>
         </el-table-column>
       </el-table>
@@ -60,13 +60,13 @@
   </el-dialog>
    <div class="mes-main-tabs" v-if="troubleDetail">
       <el-tabs v-model="activeName" >
-      <el-tab-pane label="点检项目明细" name="checkItemDetails">
+      <el-tab-pane :label="$t('inspecItem_DetaiSpotChecItem')" name="checkItemDetails">
           <div class="mes-table">
             <el-row class="mes-table-handle">
               <el-col :span="12">
-                <el-button size="mini" @click="handleDetailtable('')">新增点检项目明细</el-button>
+                <el-button size="mini" @click="handleDetailtable('')">{{$t('inspecItem_DetaiNewlAddeChecItem')}}</el-button>
                 <span class="split-line">|</span>
-                <el-button size="mini"  @click="deleteDetailTable('')">批量删除</el-button>
+                <el-button size="mini"  @click="deleteDetailTable('')">{{$t('common_Delete')}}</el-button>
               </el-col>
               <el-col :span="12" >
                 <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -78,19 +78,19 @@
              <div class="mes-table-content">
               <el-table :data="checkDetailData" border highlight-current-row size="mini"  @selection-change="tableDetailSelectionChange">
                 <el-table-column type="selection" width="50" align="center"></el-table-column>
-                <el-table-column type="index" label="序号" align="center" :index="indexMethod1"></el-table-column>
-                <el-table-column prop="item" sortable label="点检方式" align="center"></el-table-column>
-                <el-table-column prop="detail" sortable label="点检内容" align="center"></el-table-column>
-                <el-table-column prop="method" sortable label="点检方法" align="center"></el-table-column>
-                <el-table-column prop="dictStatus" sortable label="设备状态" align="center"></el-table-column>
-                <el-table-column prop="lowerValue" sortable label="下限值" align="center"></el-table-column>
-                <el-table-column prop="upperValue" sortable label="上限值" align="center"></el-table-column>
-                <el-table-column prop="remark" sortable label="备注" align="center"></el-table-column>
-                <el-table-column prop="creator" sortable label="创建人" ></el-table-column>
-                <el-table-column label="操作" align="center" width="120">
+                <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod1"></el-table-column>
+                <el-table-column prop="item" sortable :label="$t('inspecItem_SpotChecMode')" align="center"></el-table-column>
+                <el-table-column prop="detail" sortable :label="$t('inspecItem_SpotChecCont')" align="center"></el-table-column>
+                <el-table-column prop="method" sortable :label="$t('inspecItem_SpotChecMeth')" align="center"></el-table-column>
+                <el-table-column prop="dictStatus" sortable :label="$t('inspecItem_EquipStat')" align="center"></el-table-column>
+                <el-table-column prop="lowerValue" sortable :label="$t('inspecItem_LowerLimi')" align="center"></el-table-column>
+                <el-table-column prop="upperValue" sortable :label="$t('inspecItem_UpperLimi')" align="center"></el-table-column>
+                <el-table-column prop="remark" sortable :label="$t('common_remarks')" align="center"></el-table-column>
+                <el-table-column prop="creator" sortable :label="$t('common_Creator')" ></el-table-column>
+                <el-table-column :label="$t('common_Operate')" align="center" width="120">
                   <template slot-scope="scope">
-                    <handle-button @click="handleDetailtable(scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-                    <handle-button @click="deleteDetailTable(scope.row.mMomCheckitemDetailId)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+                    <handle-button @click="handleDetailtable(scope.row)" iconClass='el-icon-edit-outline' :placeholder="$t('common_Edit')"></handle-button>
+                    <handle-button @click="deleteDetailTable(scope.row.mMomCheckitemDetailId)" iconClass='el-icon-delete' :placeholder="$t('common_Del')" iconColor='#f56c6c'></handle-button>
                   </template>
                 </el-table-column>
               </el-table>
@@ -100,13 +100,13 @@
             </div>
           </div>
       </el-tab-pane>
-      <el-tab-pane label="设备明细" name="equipmentDetails">
+      <el-tab-pane :label="$t('inspecItem_EquipDeta')" name="equipmentDetails">
          <div class="mes-table">
             <el-row class="mes-table-handle">
               <el-col :span="12">
-                <el-button size="mini" @click="refreshCheckitemResource">重新导入设备</el-button>
+                <el-button size="mini" @click="refreshCheckitemResource">{{$t('inspecItem_ReImpoDevi')}}</el-button>
                 <span class="split-line">|</span>
-                <el-button size="mini"  @click="deletedeviceTable('')">批量删除</el-button>
+                <el-button size="mini"  @click="deletedeviceTable('')">{{$t('common_Delete')}}</el-button>
               </el-col>
               <el-col :span="12">
                 <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -118,13 +118,13 @@
              <div class="mes-table-content">
               <el-table :data="deviceTableData" border highlight-current-row size="mini" @selection-change="deviceSelectionChange">
                 <el-table-column type="selection" width="50" align="center"></el-table-column>
-                <el-table-column type="index" label="序号" align="center" :index="indexMethod2"></el-table-column>
-                <el-table-column prop="lineCode" sortable label="线别" align="center"></el-table-column>
-                <el-table-column prop="resourceCode" sortable label="设备代码" align="center"></el-table-column>
-                <el-table-column prop="resourceName" sortable label="设备名称" align="center"></el-table-column>
-                  <el-table-column label="操作" align="center" width="120">
+                <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod2"></el-table-column>
+                <el-table-column prop="lineCode" sortable :label="$t('common_Line')" align="center"></el-table-column>
+                <el-table-column prop="resourceCode" sortable :label="$t('common_EquipCode')" align="center"></el-table-column>
+                <el-table-column prop="resourceName" sortable :label="$t('common_EquipName')" align="center"></el-table-column>
+                  <el-table-column :label="$t('common_Operate')" align="center" width="120">
                   <template slot-scope="scope">
-                    <handle-button @click="deletedeviceTable(scope.row.mMomCheckitemResourceId)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+                    <handle-button @click="deletedeviceTable(scope.row.mMomCheckitemResourceId)" iconClass='el-icon-delete' :placeholder="$t('common_Del')" iconColor='#f56c6c'></handle-button>
                   </template>
                 </el-table-column>
               </el-table>
@@ -182,13 +182,13 @@ export default {
   },
   computed: {
     dialogTitle () {
-      return this.isEdit ? '编辑点检项目' : '新增点检项目'
+      return this.isEdit ? this.$t('inspecItem_EditChecItem') : this.$t('inspecItem_NewlyAddeSpotChecItem')
     },
     publisDisabled () {
       return this.selectList.length === 0
     },
     detaildialogTitle () {
-      return this.isDetailEdit ? '编辑点检项目明细' : '新增点检项目明细'
+      return this.isDetailEdit ? this.$t('inspecItem_EditChecItemDeta') : this.$t('inspecItem_DetaiNewlAddeChecItem')
     }
   },
   methods: {
@@ -247,32 +247,32 @@ export default {
       })
     },
     frequencyFromatter (row, column, cellValue, index) {
-      return cellValue === '1' ? '日/点检' : cellValue === '2' ? '周/点检' : '月/点检'
+      return cellValue === '1' ? this.$t('common_day') + '/' + this.$t('inspecItem_SpotChec') : cellValue === '2' ? this.$t('common_week') + '/' + this.$t('inspecItem_SpotChec') : this.$t('common_month') + '/' + this.$t('inspecItem_SpotChec')
     },
     dateFromatter (row, column, cellValue, index) {
       if (cellValue === 'Mon') {
-        return '星期一'
+        return this.$t('inspecItem_Monda')
       } else if (cellValue === 'Tues') {
-        return '星期二'
+        return this.$t('inspecItem_Tuesd')
       } else if (cellValue === 'Wed') {
-        return '星期三'
+        return this.$t('inspecItem_Wedne')
       } else if (cellValue === 'Thur') {
-        return '星期四'
+        return this.$t('inspecItem_Thurs')
       } else if (cellValue === 'Fri') {
-        return '星期五'
+        return this.$t('inspecItem_Frida')
       } else if (cellValue === 'Sat') {
-        return '星期六'
+        return this.$t('inspecItem_Satur')
       } else if (cellValue === 'Sun') {
-        return '星期天'
+        return this.$t('inspecItem_Sunda')
       } else {
         return cellValue
       }
     },
     autogenerateFromatter (row, column, cellValue, index) {
-      return cellValue ? '是' : '否'
+      return cellValue ? this.$t('common_Yes') : this.$t('common_No')
     },
     statusFormatter (row, column, cellValue, index) {
-      return cellValue === '0' ? '未发布' : '已发布'
+      return cellValue === '0' ? this.$t('inspecItem_Unpub') : this.$t('inspecItem_Publi')
     },
     cellClick (row, column, cell, event) {
       this.troubleDetail = true
@@ -331,7 +331,7 @@ export default {
           let keys = Object.keys(this.$refs.dialog.dialogForm)
           this.$refs.dialog.dialogForm = this.$global.filterForm(selectObj, keys)
           this.$refs.dialog.dialogForm.mMomCheckitemId = mMomCheckitemId
-          if (selectObj.date === '每天') {
+          if (selectObj.date === this.$t('inspecItem_EveryDay')) {
             this.$refs.dialog.dateDisabeld = true
           }
           if (selectObj.frequency === '3') {
@@ -390,9 +390,9 @@ export default {
       let len = selectList.length
       if (len > 0 || mMomCheckitemId) {
         if (selcetStatusList.indexOf('1') > -1 || status === '1') {
-          this.$message.warning('已发布的不能删除')
+          this.$message.warning(this.$t('inspecItem_PubliCannBeDele'))
         } else {
-          const confirm = await this.$myPrompt.confirm('确定删除当前选中的点检项目信息吗？')
+          const confirm = await this.$myPrompt.confirm(this.$t('inspecItem_AreYouSureItemInfo'))
           if (confirm) {
             let res = await this.$api.deleteCheckitem(selectList)
             this.$myPrompt.handleMsg(res, () => {
@@ -401,7 +401,7 @@ export default {
           }
         }
       } else {
-        this.$message.warning('请先选择要删除的点检项目信息！')
+        this.$message.warning(this.$t('inspecItem_selecChecItemDeleFirs'))
       }
     },
     // 删除点检项目明细
@@ -410,7 +410,7 @@ export default {
       let ids = mMomCheckitemDetailId ? [mMomCheckitemDetailId] : selectDetailList
       let len = selectDetailList.length
       if (len > 0 || mMomCheckitemDetailId) {
-        const confirm = await this.$myPrompt.confirm('确定删除当前选中的点检项明细信息吗？')
+        const confirm = await this.$myPrompt.confirm(this.$t('inspecItem_AreYouSureChecItem'))
         if (confirm) {
           let mMomCheckitemId = onCheckitemId
           const data = Object.assign({ mMomCheckitemId, ids })
@@ -420,7 +420,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请先选择要删除的检项明细信息')
+        this.$message.warning(this.$t('inspecItem_selecChecItemDeleFirs'))
       }
     },
     // 删除设备明细
@@ -428,7 +428,7 @@ export default {
       let { selectDeviceList, onCheckitemId } = this
       let len = selectDeviceList.length
       if (len > 0 || mMomCheckitemResourceId) {
-        const confirm = await this.$myPrompt.confirm('确定删除当前选中的设备信息吗？')
+        const confirm = await this.$myPrompt.confirm(this.$t('inspecItem_AreYouSureDeviInfo'))
         if (confirm) {
           let ids = mMomCheckitemResourceId ? [mMomCheckitemResourceId] : selectDeviceList
           let mMomCheckitemId = onCheckitemId
@@ -439,7 +439,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请先选择要删除的信息')
+        this.$message.warning(this.$t('inspecItem_selecInfoDeleFirs'))
       }
     },
     // 发布和取消发布点检项目

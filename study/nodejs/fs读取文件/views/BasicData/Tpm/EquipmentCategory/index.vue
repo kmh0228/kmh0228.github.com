@@ -1,6 +1,6 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">设备类别管理</h3>
+    <h3 class="mes-main-title">{{$t('equipmentCate_EquipCateMana')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
         <cascader-select v-model="officeCode" style="width:40%" dataType="1"></cascader-select>
@@ -9,7 +9,7 @@
         <el-button size="mini" style="float:right;margin-left:10px;">
           <i class="fa fa-filter"></i>
         </el-button>
-        <el-input placeholder="请输入设备类别代码" v-model.trim="typeCode" size="mini" style="width:40%;float:right;" @keydown.enter.native="getDeviceClassList">
+        <el-input :placeholder="$t('equipmentCate_enterEquiCateCode')" v-model.trim="typeCode" size="mini" style="width:40%;float:right;" @keydown.enter.native="getDeviceClassList">
           <i slot="suffix" class="el-input__icon" @click="getDeviceClassList"></i>
         </el-input>
       </el-col>
@@ -17,15 +17,15 @@
     <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="11">
-          <el-button size="mini" icon="el-icon-search" @click="getDeviceClassList">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="getDeviceClassList">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-plus" @click="handleDeviceClass('')">新增</el-button>
+          <el-button size="mini" icon="el-icon-plus" @click="handleDeviceClass('')">{{$t('common_Add')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteDeviceClass('')">批量删除</el-button>
+          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteDeviceClass('')">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh" @click="getDeviceClassList">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh" @click="getDeviceClassList">{{$t('common_Refresh')}}</el-button>
           <!-- <span class="split-line">|</span>
-          <el-button size="mini">刷新</el-button> -->
+          <el-button size="mini">{{$t('common_Refresh')}}</el-button> -->
         </el-col>
         <el-col :span="13">
           <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -38,17 +38,17 @@
       <div class="mes-table-content">
         <el-table :data="tableData" border highlight-current-row size="mini" @selection-change="tableSelectionChange">
           <el-table-column type="selection" width="50" align="center"></el-table-column>
-          <el-table-column type="index" label="序号" align="center" :index="indexMethod"></el-table-column>
-          <el-table-column prop="officeName" sortable label="工厂" align="center"></el-table-column>
-          <el-table-column prop="typeCode" sortable label="设备类别代码" align="center"></el-table-column>
-          <el-table-column prop="typeName" sortable label="设备类别名称" align="center"></el-table-column>
-          <el-table-column prop="description" sortable label="描述" align="center"></el-table-column>
-          <el-table-column prop="creator" sortable label="创建人" align="center"></el-table-column>
-          <el-table-column prop="createTime" sortable label="创建时间" align="center"></el-table-column>
-          <el-table-column label="操作" width="120" align="center">
+          <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod"></el-table-column>
+          <el-table-column prop="officeName" sortable :label="$t('common_Factory')" align="center"></el-table-column>
+          <el-table-column prop="typeCode" sortable :label="$t('equipmentCate_EquipCateCode')" align="center"></el-table-column>
+          <el-table-column prop="typeName" sortable :label="$t('common_EquipCateName')" align="center"></el-table-column>
+          <el-table-column prop="description" sortable :label="$t('common_Description')" align="center"></el-table-column>
+          <el-table-column prop="creator" sortable :label="$t('common_Creator')" align="center"></el-table-column>
+          <el-table-column prop="createTime" sortable :label="$t('common_CreateTime')" align="center"></el-table-column>
+          <el-table-column :label="$t('common_Operate')" width="120" align="center">
             <template slot-scope="scope">
-              <handle-button iconClass='el-icon-edit-outline' tipText="编辑" @click="handleDeviceClass(scope.row)"></handle-button>
-              <handle-button iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'  @click="deleteDeviceClass(scope.row.mMomResourceTypeId)"></handle-button>
+              <handle-button iconClass='el-icon-edit-outline' :placeholder="$t('common_Edit')" @click="handleDeviceClass(scope.row)"></handle-button>
+              <handle-button iconClass='el-icon-delete' :placeholder="$t('common_Del')" iconColor='#f56c6c'  @click="deleteDeviceClass(scope.row.mMomResourceTypeId)"></handle-button>
             </template>
           </el-table-column>
         </el-table>
@@ -82,7 +82,7 @@ export default {
   },
   computed: {
     dialogTitle () {
-      return this.isEdit ? '编辑设备类别' : '新增设备类别'
+      return this.isEdit ? this.$t('equipmentCate_EditDeviCate') : this.$t('equipmentCate_NewEquiCate')
     }
   },
   methods: {
@@ -136,7 +136,7 @@ export default {
     async deleteDeviceClass (id) {
       const ids = id ? [id] : this.selectList
       if (ids.length > 0) {
-        const confirm = await this.$myPrompt.confirm('确定删除当前选中的设备类别吗？')
+        const confirm = await this.$myPrompt.confirm(this.$t('equipmentCate_AreYouSureDeviCate'))
         if (confirm) {
           const res = await this.$api.deleteDeviceClass(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -144,7 +144,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请先选择需要删除的设备类别！')
+        this.$message.warning(this.$t('equipmentCate_selecEquiCateDeleFirs'))
       }
     }
   },

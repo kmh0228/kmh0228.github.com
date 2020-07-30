@@ -1,4 +1,4 @@
-export let tableOption = (This) => {
+export let tableOption = This => {
   return {
     style: {
       width: '100%'
@@ -6,37 +6,37 @@ export let tableOption = (This) => {
     highlightCurrentRow: true,
     tableTitle: [
       {
-        title: '编码',
+        title: 'common_code',
         prop: 'code'
       },
       {
-        title: '名称',
+        title: 'common_Name',
         prop: 'name'
       },
       {
-        title: '描述',
+        title: 'common_Description',
         prop: 'description'
       },
       {
-        title: '状态',
+        title: 'common_Status',
         prop: 'isInvalid',
-        replaceFun: (row) => {
+        replaceFun: row => {
           return { '0': '不可用', '1': '可用' }[row.isInvalid]
         }
       },
       {
-        title: '分类',
+        title: 'docuCateGory_class',
         prop: 'functionType'
       },
       {
-        title: '是否上传',
+        title: 'docuCateGory_Uploa',
         prop: 'isUpload',
-        replaceFun: (row) => {
+        replaceFun: row => {
           return { '0': '否', '1': '是' }[row.isUpload]
         }
       },
       {
-        title: '操作',
+        title: 'common_Operate',
         prop: 'operation',
         fixed: 'right',
         width: '120',
@@ -44,7 +44,7 @@ export let tableOption = (This) => {
         buttonArr: [
           {
             iconClass: 'el-icon-edit-outline',
-            text: '编辑',
+            text: 'common_Edit',
             operationClick (row) {
               This.addForm = {
                 ...row,
@@ -56,7 +56,7 @@ export let tableOption = (This) => {
           {
             iconClass: 'el-icon-delete',
             iconColor: '#f56c6c',
-            text: '删除',
+            text: 'common_Del',
             operationClick (row) {
               This.deletetableData([row.mWmsBillSubcategoryId])
             }

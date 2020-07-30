@@ -1,21 +1,21 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">库龄预警</h3>
+    <h3 class="mes-main-title">{{$t('LibraryAge_EarlyWarning')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-        <el-input style="width:35%" v-model="searchForm.materialNo" placeholder="请输入料号"></el-input>
+        <el-input style="width:35%" v-model="searchForm.materialNo" :placeholder="$t('LibraryAge_PleaseEnterThePN')"></el-input>
       </el-col>
       <el-col :span="12">
-        <el-input style="width:40%;float:right;" v-model="searchForm.pkgId" placeholder="请输入PKGID"></el-input>
+        <el-input style="width:40%;float:right;" v-model="searchForm.pkgId" :placeholder="$t('LibraryAge_PleaseEnterPKGID')"></el-input>
       </el-col>
     </el-row>
     <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="12">
-          <el-button size="mini" icon="el-icon-search" @click="getLibraryAgeList">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="getLibraryAgeList">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">刷新</el-button>
-          <el-tooltip  effect="dark" content="表格中红色背景表示当前批次的库存时间大于有效期，" placement="right">
+          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">{{$t('common_Refresh')}}</el-button>
+          <el-tooltip  effect="dark" :content="$t('LibraryAge_redBackground')" placement="right">
             <i class="el-icon-question" style="color:#E6A23C;font-size:16px;margin-left:10px;cursor:pointer"></i>
           </el-tooltip>
         </el-col>
@@ -25,15 +25,15 @@
       </el-row>
       <div class="mes-table-content">
         <el-table :data="tableData" border :row-style="tableRowStyle">
-          <el-table-column type="index" label="序号" align="center" :index="indexMethod" fixed="left"></el-table-column>
-          <el-table-column prop="materialNo" label="料号" align="center" sortable></el-table-column>
-          <el-table-column prop="materialName" label="品名" align="center" sortable></el-table-column>
-          <el-table-column prop="pkgId" label="PKG_ID" align="center" sortable></el-table-column>
-          <el-table-column prop="qty" label="数量" align="center" sortable></el-table-column>
-          <el-table-column prop="entryListTime" label="入库日期" align="center" sortable></el-table-column>
-          <el-table-column prop="validDate" label="有效期" align="center" sortable></el-table-column>
-          <el-table-column prop="warehouseName" label="仓库" align="center" sortable></el-table-column>
-          <el-table-column prop="warehouseBinCode" label="储位" align="center" sortable></el-table-column>
+          <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod" fixed="left"></el-table-column>
+          <el-table-column prop="materialNo" :label="$t('LibraryAge_PN')" align="center" sortable></el-table-column>
+          <el-table-column prop="materialName" :label="$t('LibraryAge_Production')" align="center" sortable></el-table-column>
+          <el-table-column prop="pkgId" :label="$t('LibraryAge_PKG_ID')" align="center" sortable></el-table-column>
+          <el-table-column prop="qty" :label="$t('LibraryAge_Num')" align="center" sortable></el-table-column>
+          <el-table-column prop="entryListTime" :label="$t('LibraryAge_WarehousingDate')" align="center" sortable></el-table-column>
+          <el-table-column prop="validDate" :label="$t('LibraryAge_ExpirationDate')" align="center" sortable></el-table-column>
+          <el-table-column prop="warehouseName" :label="$t('LibraryAge_Warehouse')" align="center" sortable></el-table-column>
+          <el-table-column prop="warehouseBinCode" :label="$t('LibraryAge_StorageLocation')" align="center" sortable></el-table-column>
         </el-table>
       </div>
     </div>

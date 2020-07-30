@@ -42,15 +42,15 @@ export default {
       }
       return {
         title: {
-          text: 'Point—控制图',
+          text: 'Point—' + this.$t('common_ContrChar'),
           left: '5%'
         },
         tooltip: {
           // trigger: 'axis'
           formatter: params => {
             return [
-              '序号: ' + params.value[0],
-              '测量值: ' + params.value[1]
+              this.$t('common_Number') + ': ' + params.value[0],
+              this.$t('conChartHome_MeasuValu') + ': ' + params.value[1]
               // '采样时间: ' + params.value[2],
               // 'MDI: ' + params.value[3]
             ].join('<br/>')

@@ -1,6 +1,6 @@
 <template>
   <div class="mes-main mes-work-order">
-  <div class="mes-main-title">报警信息查询</div>
+  <div class="mes-main-title">{{$t('inFormatQ_AlarmInfoQuer')}}</div>
   <el-row :gutter="20" class="mes-main-filte">
     <el-col :span="12">
       <cascader-select v-model="searchForm.officeCode" style="width:40%" dataType="1"></cascader-select>
@@ -9,22 +9,22 @@
       <el-button size="mini" style="float:right;margin-left:10px;" @click="showMoreConditon = !showMoreConditon">
           <i class="fa fa-filter"></i>
       </el-button>
-       <el-select style="float:right;width:35%" size="mini" clearable placeholder="请选择线别"  v-model="searchForm.mPomLineId">
+       <el-select style="float:right;width:35%" size="mini" clearable :placeholder="$t('common_PleasSeleLineTy')"  v-model="searchForm.mPomLineId">
             <el-option v-for="(option,i) in lineList" :key="i" :label="option.lineName" :value="option.mPomLineId"></el-option>
        </el-select>
     </el-col>
     <el-col :span="24" style="padding-top:1vh;">
         <el-form class="el-row mes-search-form" :model="searchForm" label-width="30%" label-position="left" v-show="showMoreConditon">
-          <el-form-item label="报警类型 :" class="el-col el-col-11" >
+          <el-form-item :label="$t('inFormatQ_AlarmType') + ' :'" class="el-col el-col-11" >
             <el-select style="width:100%" v-model="searchForm.mAlmTypeId" @focus="getAlarmType">
               <el-option v-for="(option,i) in alarmList" :key="i" :label="option.typeName" :value="option.mAlmTypeId"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="报警状态："   class="el-col el-col-11 el-col-offset-2">
+          <el-form-item :label="$t('inFormatQ_AlarmStat') + ':'"   class="el-col el-col-11 el-col-offset-2">
             <el-input size="mini" v-model="searchForm.almStatus"></el-input>
           </el-form-item>
-          <el-form-item label="报警起止时间 :" class="el-col el-col-11">
-            <el-date-picker  v-model="dateList"  type="daterange"  range-separator="至"  start-placeholder="开始日期" value-format="yyyy-MM-dd 00:00:00"  end-placeholder="结束日期" style="width:100%"> </el-date-picker>
+          <el-form-item :label="$t('inFormatQ_StartAndEndTimeAlar') + ' :'" class="el-col el-col-11">
+            <el-date-picker  v-model="dateList"  type="daterange"  :range-separator="$t('common_to')"  start-:placeholder="$t('common_StartDate')" value-format="yyyy-MM-dd 00:00:00"  end-:placeholder="$t('common_EndDate')" style="width:100%"> </el-date-picker>
           </el-form-item>
         </el-form>
       </el-col>
@@ -32,13 +32,13 @@
   <div class="mes-table">
     <el-row class="mes-table-handle">
       <el-col :span="12">
-        <el-button size="mini" icon="el-icon-search" @click="getTableData">查询</el-button>
+        <el-button size="mini" icon="el-icon-search" @click="getTableData">{{$t('common_Inquire')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-close" @click="colseDataStatus">关闭</el-button>
+        <el-button size="mini" icon="el-icon-close" @click="colseDataStatus">{{$t('common_close')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon=" el-icon-delete-solid" @click="deleteTable('')">批量删除</el-button>
+        <el-button size="mini" icon=" el-icon-delete-solid" @click="deleteTable('')">{{$t('common_Delete')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">刷新</el-button>
+        <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">{{$t('common_Refresh')}}</el-button>
       </el-col>
       <el-col :span="12">
         <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -50,24 +50,24 @@
     <div class="mes-table-content">
       <el-table :data="tableData" border highlight-current-row size="mini"  @selection-change="tableSelectionChange" @cell-click="cellClick">
         <el-table-column type="selection" width="50" align="center" fixed="left"></el-table-column>
-        <el-table-column type="index" label="序号" align="center" :index="indexMethod" fixed="left"></el-table-column>
-        <el-table-column prop="officeName" sortable label="工厂" align="center"  width="120"></el-table-column>
-        <el-table-column prop="lineName" sortable label="线别" align="center" width="120"></el-table-column>
-        <el-table-column prop="typeName" sortable label="报警单号" align="center" width="100"></el-table-column>
-        <el-table-column prop="almStatus" sortable label="报警状态" align="center" width="100"></el-table-column>
-        <el-table-column prop="typeName" sortable label="报警类型" align="center" width="100"></el-table-column>
-        <el-table-column prop="failName" sortable label="报警问题" align="center" width="100"></el-table-column>
-        <el-table-column prop="almLevel" sortable label="严重等级" align="center" width="100"></el-table-column>
-        <el-table-column prop="almIp" sortable label="报警终端IP" align="center" width="110"></el-table-column>
-        <el-table-column prop="createdDt" sortable label="报警时间" align="center" width="150"></el-table-column>
-        <el-table-column prop="employeeName" sortable label="报警人" align="center" width="100"></el-table-column>
-        <el-table-column prop="remark" sortable label="备注" width="120" align="center"></el-table-column>
-        <el-table-column prop="reponseLength" sortable label="响应时长（分）" align="center" width="130"></el-table-column>
-        <el-table-column prop="handleLength" sortable label="处理时长（分）" align="center" width="130"></el-table-column>
-        <el-table-column label="操作" align="center" width="120" fixed="right">
+        <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod" fixed="left"></el-table-column>
+        <el-table-column prop="officeName" sortable :label="$t('common_Factory')" align="center"  width="120"></el-table-column>
+        <el-table-column prop="lineName" sortable :label="$t('common_Line')" align="center" width="120"></el-table-column>
+        <el-table-column prop="typeName" sortable :label="$t('inFormatQ_AlarmNumb')" align="center" width="100"></el-table-column>
+        <el-table-column prop="almStatus" sortable :label="$t('inFormatQ_AlarmStat')" align="center" width="100"></el-table-column>
+        <el-table-column prop="typeName" sortable :label="$t('inFormatQ_AlarmType')" align="center" width="100"></el-table-column>
+        <el-table-column prop="failName" sortable :label="$t('common_AlarmProb')" align="center" width="100"></el-table-column>
+        <el-table-column prop="almLevel" sortable :label="$t('inFormatQ_SeverLeve')" align="center" width="100"></el-table-column>
+        <el-table-column prop="almIp" sortable :label="$t('inFormatQ_AlarmTermIP')" align="center" width="110"></el-table-column>
+        <el-table-column prop="createdDt" sortable :label="$t('inFormatQ_AlarmTime')" align="center" width="150"></el-table-column>
+        <el-table-column prop="employeeName" sortable :label="$t('inFormatQ_Polic')" align="center" width="100"></el-table-column>
+        <el-table-column prop="remark" sortable :label="$t('common_remarks')" width="120" align="center"></el-table-column>
+        <el-table-column prop="reponseLength" sortable :label="$t('inFormatQ_RespoTimeMin')" align="center" width="130"></el-table-column>
+        <el-table-column prop="handleLength" sortable :label="$t('inFormatQ_ProceTimeMin')" align="center" width="130"></el-table-column>
+        <el-table-column :label="$t('common_Operate')" align="center" width="120" fixed="right">
           <template slot-scope="scope">
-            <!-- <handle-button @click="handletable(scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button> -->
-            <handle-button @click="deleteTable(scope.row.mAlmAlarmlistId)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+            <!-- <handle-button @click="handletable(scope.row)" iconClass='el-icon-edit-outline' :placeholder="$t('common_Edit')"></handle-button> -->
+            <handle-button @click="deleteTable(scope.row.mAlmAlarmlistId)" iconClass='el-icon-delete' :placeholder="$t('common_Del')" iconColor='#f56c6c'></handle-button>
           </template>
         </el-table-column>
       </el-table>
@@ -75,7 +75,7 @@
   </div>
    <div class="mes-main-tabs" v-if="dataDetail">
       <el-tabs v-model="activeName" >
-      <el-tab-pane label="处理记录" name="processRecord">
+      <el-tab-pane :label="$t('inFormatQ_ProceReco')" name="processRecord">
           <div class="mes-table">
             <el-row class="mes-table-handle">
               <el-col :span="12" style="float:right">
@@ -87,12 +87,12 @@
             </el-row>
              <div class="mes-table-content">
               <el-table :data="checkDetailData" border highlight-current-row size="mini">
-                <el-table-column type="index" label="序号" align="center" :index="indexMethod1"></el-table-column>
-                <el-table-column prop="workItem" sortable label="作业内容" align="center"></el-table-column>
-                <el-table-column prop="employeeName" sortable label="作业人" align="center"></el-table-column>
-                <el-table-column prop="operateTime" sortable label="作业时间" align="center" :formatter="dateFormatter"></el-table-column>
-                <el-table-column prop="failReason" sortable label="异常原因" align="center"></el-table-column>
-                <el-table-column prop="remark" sortable label="备注" align="center"></el-table-column>
+                <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod1"></el-table-column>
+                <el-table-column prop="workItem" sortable :label="$t('inFormatQ_WorkCont')" align="center"></el-table-column>
+                <el-table-column prop="employeeName" sortable :label="$t('common_opera')" align="center"></el-table-column>
+                <el-table-column prop="operateTime" sortable :label="$t('inFormatQ_OperaTime')" align="center" :formatter="dateFormatter"></el-table-column>
+                <el-table-column prop="failReason" sortable :label="$t('inFormatQ_AbnorCaus')" align="center"></el-table-column>
+                <el-table-column prop="remark" sortable :label="$t('common_remarks')" align="center"></el-table-column>
               </el-table>
             </div>
           </div>
@@ -188,7 +188,7 @@ export default {
           this.alarmList = []
         }
       } else {
-        this.$message.warning('请先选择工厂')
+        this.$message.warning(this.$t('inFormatQ_selecFactFirs'))
       }
     },
     tableSelectionChange (selection) {
@@ -243,7 +243,7 @@ export default {
     async colseDataStatus () {
       let { selectList } = this
       if (selectList.length > 0) {
-        const confirm = await this.$myPrompt.confirm('确定关闭当前选中的报警信息吗？')
+        const confirm = await this.$myPrompt.confirm(this.$t('inFormatQ_AreYouSureSAlarInfo'))
         if (confirm) {
           let res = await this.$api.updateAlmStatus(selectList)
           this.$myPrompt.handleMsg(res, () => {
@@ -251,7 +251,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请先选择要关闭的报警信息')
+        this.$message.warning(this.$t('inFormatQ_selecAlarInfoClosFirs'))
       }
     },
     // 删除报警信息
@@ -259,7 +259,7 @@ export default {
       let { selectList } = this
       let ids = mAlmAlarmlistId ? [mAlmAlarmlistId] : selectList
       if (ids.length > 0) {
-        const confirm = await this.$myPrompt.confirm('确定删除当前选中的报警信息吗？')
+        const confirm = await this.$myPrompt.confirm(this.$t('inFormatQ_AreYouSureDAlarInfo'))
         if (confirm) {
           let res = await this.$api.deleteAlmStatus(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -267,7 +267,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请选择要删除的报警信息')
+        this.$message.warning(this.$t('inFormatQ_selecAlarInfoBeDele'))
       }
     }
 

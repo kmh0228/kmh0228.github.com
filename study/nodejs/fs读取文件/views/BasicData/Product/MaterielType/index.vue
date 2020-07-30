@@ -83,7 +83,7 @@ export default {
   },
   computed: {
     rules () {
-      return [{ required: true, message: this.$t('materielType_mTTypeRequire') }]
+      return { mComMaterialtypeCode: [{ required: true, message: this.$t('materielType_mTTypeRequire') }] }
     },
     dialogTitle () {
       return this.isEdit ? this.$t('materielType_editMaterielType') : this.$t('materielType_addMaterielType')

@@ -1,33 +1,33 @@
 <template>
   <div class="mes-main mes-work-order mes-material">
-    <h3 class="mes-main-title">工单排产管理</h3>
+    <h3 class="mes-main-title">{{$t('orderSched_WorkOrdeScheMana')}}</h3>
     <div class="mes-material-handle mes-table-handle" style="border-top:none;">
       <div class="mes-btn-group">
         <div v-if="!isStartScheduling">
-          <el-button size="mini" icon="el-icon-setting" @click="showParmas = true">参数设定</el-button>
+          <el-button size="mini" icon="el-icon-setting" @click="showParmas = true">{{$t('orderSched_ParamSett')}}</el-button>
           <span class="split-line">|</span>
-          <!-- <el-button size="mini" :disabled="editBtnDisabled" @click="editApsScheduling">编辑</el-button>
+          <!-- <el-button size="mini" :disabled="editBtnDisabled" @click="editApsScheduling">{{$t('common_Edit')}}</el-button>
           <span class="split-line">|</span> -->
-          <el-button size="mini" icon="el-icon-date" @click="startApsScheduling">开始排程</el-button>
+          <el-button size="mini" icon="el-icon-date" @click="startApsScheduling">{{$t('orderSched_StartSche')}}</el-button>
            <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-delete-solid" @click="delApsScheduling('')">批量删除</el-button>
+          <el-button size="mini" icon="el-icon-delete-solid" @click="delApsScheduling('')">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-lock" @click="lockApsScheduling('')">批量锁定</el-button>
+          <el-button size="mini" icon="el-icon-lock" @click="lockApsScheduling('')">{{$t('orderSched_BatchLock')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-upload2" @click="importDialog = true">导入</el-button>
+          <el-button size="mini" icon="el-icon-upload2" @click="importDialog = true">{{$t('common_Impor')}}</el-button>
         </div>
         <div v-else>
-          <el-button size="mini" type="primary" plain @click="saveApsScheduling">保存</el-button>
+          <el-button size="mini" type="primary" plain @click="saveApsScheduling">{{$t('common_save')}}</el-button>
           <span class="split-line">|</span>
-           <el-button size="mini" @click="cannelApsScheduling">取消</el-button>
+           <el-button size="mini" @click="cannelApsScheduling">{{$t('common_cancel')}}</el-button>
         </div>
       </div>
     </div>
     <div class="mes-table">
       <el-table :data="dataList" border size="mini" :row-style="rowStyle" @selection-change="orderSelectChange">
         <el-table-column type="selection" width="50" align="center" fixed="left"></el-table-column>
-        <el-table-column type="index" label="序号" align="center" fixed="left"></el-table-column>
-        <el-table-column label="工单号" align="center" width="140" sortable>
+        <el-table-column type="index" :label="$t('common_Number')" align="center" fixed="left"></el-table-column>
+        <el-table-column :label="$t('common_WorkOrdeNo')" align="center" width="140" sortable>
           <template slot-scope="scope">
             <!-- :draggable="isDraggable(scope.row)" -->
             <div :draggable="isDraggable(scope.row)" @dragstart="dragScheduling(scope.row)" @dragend="dragSchedulingEnd(scope.row)">
@@ -35,25 +35,25 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="materialNo" label="料号" align="center" width="120" sortable></el-table-column>
-        <el-table-column prop="requestQty" label="工单需求数量"  width="120" align="center" sortable></el-table-column>
-        <el-table-column prop="docStatus" label="状态" width="80" align="center"></el-table-column>
-        <el-table-column prop="apsStartDt" width="180" label="排程开始时间" align="center" sortable>
+        <el-table-column prop="materialNo" :label="$t('common_PorN')" align="center" width="120" sortable></el-table-column>
+        <el-table-column prop="requestQty" :label="$t('orderSched_WorkOrdeDemaQuan')"  width="120" align="center" sortable></el-table-column>
+        <el-table-column prop="docStatus" :label="$t('common_Status')" width="80" align="center"></el-table-column>
+        <el-table-column prop="apsStartDt" width="180" :label="$t('orderSched_SchedChenStarTime')" align="center" sortable>
           <template slot-scope="scope">
              <el-date-picker v-if="isStartScheduling" v-model="scope.row.apsStartDt" type="datetime" format="yyyy-MM-dd HH:mm" value-format="yyyy-MM-dd HH:mm" size="mini" default-time="08:00:00" style="width:95%;">
             </el-date-picker>
             <p v-else>{{ scope.row.apsStartDt }}</p>
           </template>
         </el-table-column>
-        <el-table-column prop="apsFinishDt" width="180" label="排程结束时间" align="center" sortable>
+        <el-table-column prop="apsFinishDt" width="180" :label="$t('orderSched_SchedEndTime')" align="center" sortable>
           <template slot-scope="scope">
             <el-date-picker v-if="isStartScheduling" v-model="scope.row.apsFinishDt" type="datetime" format="yyyy-MM-dd HH:mm"  value-format="yyyy-MM-dd HH:mm" default-time="08:00:00" size="mini" style="width:95%;">
             </el-date-picker>
             <p v-else>{{ scope.row.apsFinishDt }}</p>
           </template>
         </el-table-column>
-        <el-table-column prop="estDeliveryDt" label="预计出货日期" align="center"  width="150" sortable></el-table-column>
-        <el-table-column prop="resuorceCode" label="资源" align="center" width="120" sortable>
+        <el-table-column prop="estDeliveryDt" :label="$t('orderSched_ExpecDeliDate')" align="center"  width="150" sortable></el-table-column>
+        <el-table-column prop="resuorceCode" :label="$t('orderSched_resou')" align="center" width="120" sortable>
           <template slot-scope="scope">
             <el-select v-if="isStartScheduling" size="mini" v-model="scope.row.mpsmResourceId">
               <el-option v-for="item in scope.row.resourceList" :key="item.resourceId" :label="item.resourceCode" :value="item.resourceId"></el-option>
@@ -61,41 +61,41 @@
             <p v-else>{{ scope.row.resourceCode }}</p>
           </template>
         </el-table-column>
-        <el-table-column prop="isScheduled" label="参与排产" width="100" align="center" sortable>
+        <el-table-column prop="isScheduled" :label="$t('orderSched_PartiInProdSche')" width="100" align="center" sortable>
           <template slot-scope="scope">
             <el-select v-if="isStartScheduling" size="mini" v-model="scope.row.isScheduled">
-              <el-option label="是" :value="true"></el-option>
-              <el-option label="否" :value="false"></el-option>
+              <el-option :label="$t('common_Yes')" :value="true"></el-option>
+              <el-option :label="$t('common_No')" :value="false"></el-option>
             </el-select>
             <el-tag v-else :type="setTagColor(scope.row.isScheduled)" size="mini">{{scope.row.isScheduled | formaterInvalid}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="isSchIncluded" label="已排配" width="100"  align="center" sortable>
+        <el-table-column prop="isSchIncluded" :label="$t('orderSched_Sched')" width="100"  align="center" sortable>
           <template slot-scope="scope">
             <el-tag :type="setTagColor(scope.row.isSchIncluded)" size="mini">{{scope.row.isSchIncluded | formaterInvalid}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="isSchLock" label="锁定" width="80" align="center" sortable>
+        <el-table-column prop="isSchLock" :label="$t('orderSched_locki')" width="80" align="center" sortable>
           <template slot-scope="scope">
             <el-tag :type="setTagColor(scope.row.isSchLock)" size="mini">{{scope.row.isSchLock | formaterInvalid}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" align="center" width="150" fixed="right">
+        <el-table-column :label="$t('common_Operate')" align="center" width="150" fixed="right">
           <template slot-scope="scope">
-            <handle-button @click="editApsScheduling(scope.row.tPomJobOrderId)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-            <handle-button @click="lockApsScheduling(scope.row.tPomJobOrderId)" iconClass='el-icon-lock' tipText="锁定" iconColor='#E6A23C'></handle-button>
-            <handle-button @click="delApsScheduling(scope.row.tPomJobOrderId)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+            <handle-button @click="editApsScheduling(scope.row.tPomJobOrderId)" iconClass='el-icon-edit-outline' :placeholder="$t('common_Edit')"></handle-button>
+            <handle-button @click="lockApsScheduling(scope.row.tPomJobOrderId)" iconClass='el-icon-lock' :placeholder="$t('orderSched_locki')" iconColor='#E6A23C'></handle-button>
+            <handle-button @click="delApsScheduling(scope.row.tPomJobOrderId)" iconClass='el-icon-delete' :placeholder="$t('common_Del')" iconColor='#f56c6c'></handle-button>
           </template>
         </el-table-column>
       </el-table>
     </div>
     <div class="mes-main-tabs">
       <el-tabs v-model="activeName">
-        <el-tab-pane name="gantt" label="排程甘特图">
+        <el-tab-pane name="gantt" :label="$t('orderSched_SchedGantChar')">
           <div class="mes-gantt">
             <table class="gantt-table" style="width:10%;float:left">
               <tr>
-                <td>资源</td>
+                <td>{{$t('orderSched_resou')}}</td>
               </tr>
               <tr v-for="(col,i) in ganttList" :key="i" class="resource-list" :style="targetStyle(col.resourceId)">
                 <td drag-target="resource-list" :drag-id="col.resourceId"><div>{{ col.resourceCode }}</div></td>
@@ -123,71 +123,71 @@
         </el-tab-pane>
       </el-tabs>
     </div>
-    <el-dialog :visible.sync="showParmas" title="排程参数设定" width="850px" class="handle-dialog">
+    <el-dialog :visible.sync="showParmas" :title="$t('orderSched_SchedParaSett')" width="850px" class="handle-dialog">
       <el-form :model="paramsForm" ref="paramsForm" :rules="rules" label-width="120px" label-position="left" class="el-row mes-form-rule">
-        <el-form-item label="排配模式:" prop="mode" class="el-col el-col-24">
-          <dict-select style="width:100%;"  v-model="paramsForm.mode" placeholder="请选择排配模式" dictType="SCHEDULING_MODE" clearable ></dict-select>
+        <el-form-item :label="$t('orderSched_ArranMode') + ':'" prop="mode" class="el-col el-col-24">
+          <dict-select style="width:100%;"  v-model="paramsForm.mode" :placeholder="$t('orderSched_selecArraMode')" dictType="SCHEDULING_MODE" clearable ></dict-select>
         </el-form-item>
-        <el-form-item label="排序规则:" class="el-col el-col-24">
+        <el-form-item :label="$t('orderSched_Colla') + ':'" class="el-col el-col-24">
           <el-transfer v-model="paramsForm.sortingRule" :data="sortList" :props="{key:'dictCode',label:'dictName'}"
           @right-check-change="rightSelect" class="sorting-rule" ></el-transfer>
           <div class="move-btn-gruop">
-            <div><el-button type="primary" icon="el-icon-arrow-up" :disabled="moveUpBtnDisabled" size="mini" @click="moveUp">上移</el-button></div>
-            <div><el-button type="primary" icon="el-icon-arrow-down" :disabled="moveDownBtnDisabled" size="mini" @click="moveDown">下移</el-button></div>
+            <div><el-button type="primary" icon="el-icon-arrow-up" :disabled="moveUpBtnDisabled" size="mini" @click="moveUp">{{$t('orderSched_MoveUp')}}</el-button></div>
+            <div><el-button type="primary" icon="el-icon-arrow-down" :disabled="moveDownBtnDisabled" size="mini" @click="moveDown">{{$t('orderSched_MoveDown')}}</el-button></div>
           </div>
         </el-form-item>
-        <el-form-item label="排配开始时间:" prop="durationStart" class="el-col el-col-11">
-          <el-date-picker v-model="paramsForm.durationStart" type="date" placeholder="设置排程开始时间" size="mini" :picker-options="pickerOptions" value-format="yyyy-MM-dd HH:mm" style="width:100%">
+        <el-form-item :label="$t('orderSched_SchedStarTime') + ':'" prop="durationStart" class="el-col el-col-11">
+          <el-date-picker v-model="paramsForm.durationStart" type="date" :placeholder="$t('orderSched_SetScheStarTime')" size="mini" :picker-options="pickerOptions" value-format="yyyy-MM-dd HH:mm" style="width:100%">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="最大排程天数:" prop="duration" class="el-col el-col-11 el-col-offset-1">
+        <el-form-item :label="$t('orderSched_MaximScheDays') + ':'" prop="duration" class="el-col el-col-11 el-col-offset-1">
           <el-input v-model.trim="paramsForm.duration" size="mini"></el-input>
         </el-form-item>
-        <el-form-item label="预计提前天数:" prop="advanceDay" class="el-col el-col-11">
+        <el-form-item :label="$t('orderSched_ExpecLeadTime') + ':'" prop="advanceDay" class="el-col el-col-11">
           <el-input v-model.trim="paramsForm.advanceDay" size="mini"></el-input>
         </el-form-item>
         <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-          <el-button type="warning" size="mini" @click="setApsSchedulingParams">设置默认</el-button>
-          <el-button type="primary" size="mini" @click="saveCurrentAps">保存</el-button>
-          <el-button size="mini" @click="showParmas= false">取消</el-button>
+          <el-button type="warning" size="mini" @click="setApsSchedulingParams">{{$t('orderSched_setDefa')}}</el-button>
+          <el-button type="primary" size="mini" @click="saveCurrentAps">{{$t('common_save')}}</el-button>
+          <el-button size="mini" @click="showParmas= false">{{$t('common_cancel')}}</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
     <!-- 导入文件 -->
-    <el-dialog title="请选择需要导入的工单" :visible.sync="importDialog" width="600px" @close="closeUploadDialog" class="handle-dialog">
+    <el-dialog :title="$t('orderSched_selecJobBeImpo')" :visible.sync="importDialog" width="600px" @close="closeUploadDialog" class="handle-dialog">
       <el-upload action="" drag style="text-align:center;" :before-upload="beforeUpload">
         <mes-icon icon="excel-icon" size="67px" style="display:inline-block;margin:40px 0 16px;" v-if="fileName"></mes-icon>
         <i class="el-icon-upload" v-else></i>
         <p v-if="fileName">{{ fileName }}</p>
         <div class="el-upload__text" v-else>
-          拖动文件至此处，<em>点击上传</em> 或
-          <em><a href="static/download/exportScheduling.xls" style="color:#3B6F9A;text-decoration:none;" download="导入工单排产模板.xls" @click="downloadTemplate">模版下载</a></em>
+          {{$t('common_DragFileHere')}}<em>{{$t('common_ClickUplo')}}</em> {{$t('common_or')}}
+          <em><a href="static/download/exportScheduling.xls" style="color:#3B6F9A;text-decoration:none;" :download="$t('orderSched_ImporWorkOrdeScheTemp') + '.xls'" @click="downloadTemplate">{{$t('common_TemplDown')}}</a></em>
         </div>
       </el-upload>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="importApsScheduling">确 定</el-button>
-        <el-button @click="closeUploadDialog">取 消</el-button>
+        <el-button type="primary" @click="importApsScheduling">{{$t('common_ok')}}</el-button>
+        <el-button @click="closeUploadDialog">{{$t('common_cancel')}}</el-button>
       </div>
     </el-dialog>
     <!-- 编辑修改状态 -->
-    <el-dialog title="编辑" :visible.sync="editDialog" width="600px" class="handle-dialog">
+    <el-dialog :title="$t('common_Edit')" :visible.sync="editDialog" width="600px" class="handle-dialog">
       <el-form :model="editForm" label-position="left"  label-width="130px" class="el-row mes-form-rule">
-        <el-form-item label="工单号">
+        <el-form-item :label="$t('common_WorkOrdeNo')">
           <el-input v-model="editForm.docNo" size="mini" disabled></el-input>
         </el-form-item>
-        <el-form-item label="料号">
+        <el-form-item :label="$t('common_PorN')">
           <el-input v-model="editForm.materialNo" size="mini" disabled></el-input>
         </el-form-item>
-        <el-form-item label="参与排产">
+        <el-form-item :label="$t('orderSched_PartiInProdSche')">
           <el-checkbox v-model="editForm.isScheduled"></el-checkbox>
         </el-form-item>
-        <el-form-item label="锁定">
+        <el-form-item :label="$t('orderSched_locki')">
           <el-checkbox v-model="editForm.isSchLock"></el-checkbox>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="saveApsSchedulingState">确 定</el-button>
-        <el-button @click="editDialog=false">取 消</el-button>
+        <el-button type="primary" @click="saveApsSchedulingState">{{$t('common_ok')}}</el-button>
+        <el-button @click="editDialog=false">{{$t('common_cancel')}}</el-button>
       </div>
     </el-dialog>
   </div>
@@ -212,10 +212,10 @@ export default {
   data () {
     const durationRule = (rule, value, callback) => {
       if (!value) {
-        callback(new Error('请输入最大排程天数'))
+        callback(new Error(this.$t('orderSched_enterMaxiScheDays')))
       } else {
         if (value > 30) {
-          callback(new Error('最长排程天数限定不能超过30天'))
+          callback(new Error(this.$t('orderSched_maximScheDaysCannExce')))
         } else {
           callback()
         }
@@ -236,17 +236,17 @@ export default {
       selectList: [],
       pickerOptions: {
         shortcuts: [{
-          text: '当前日期',
+          text: this.$t('orderSched_curreDate'),
           onClick (picker) {
             picker.$emit('pick', new Date())
           }
         }]
       },
       rules: {
-        mode: [{ required: true, message: '请选择排配模式' }],
-        durationStart: [{ required: true, message: '请选择排配开始时间' }],
+        mode: [{ required: true, message: this.$t('orderSched_selecArraMode') }],
+        durationStart: [{ required: true, message: this.$t('orderSched_selecScheStarTime') }],
         duration: [{ required: true, validator: durationRule, trigger: 'blur' }],
-        advanceDay: [{ required: true, message: '预计提前天数不能为空' }]
+        advanceDay: [{ required: true, message: this.$t('orderSched_ExpecLeadDaysBeBlan') }]
       },
       ganttList: [],
       activeName: 'gantt',
@@ -410,7 +410,7 @@ export default {
     async lockApsScheduling (id) {
       const ids = id ? [id] : this.orderSelects
       if (ids.length > 0) {
-        const isConfirm = await this.$myPrompt.confirm('确定锁定当前选中的排程吗？')
+        const isConfirm = await this.$myPrompt.confirm(this.$t('orderSched_AreYouSureSeleSche'))
         if (isConfirm) {
           const res = await this.$api.lockApsScheduling(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -418,14 +418,14 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请先选择需要锁定的排程！')
+        this.$message.warning(this.$t('orderSched_selecScheBeLockFirs'))
       }
     },
     // 删除排程
     async delApsScheduling (id) {
       const ids = id ? [id] : this.orderSelects
       if (ids.length > 0) {
-        const isConfirm = await this.$myPrompt.confirm('确定删除当前选中的排程吗？')
+        const isConfirm = await this.$myPrompt.confirm(this.$t('orderSched_AreYouSureScheChen'))
         if (isConfirm) {
           const res = await this.$api.delApsScheduling(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -433,7 +433,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请先选择需要删除的排程！')
+        this.$message.warning(this.$t('orderSched_selecScheBeDeleFirs'))
       }
     },
     // 编辑修改状态
@@ -532,7 +532,7 @@ export default {
           this.getApsTimeAndResource()
         })
       } else {
-        this.$message.warning('当前暂无参与排产的工单！')
+        this.$message.warning(this.$t('orderSched_CurreTherIsProdSche'))
       }
     },
     cannelApsScheduling () {
@@ -617,7 +617,7 @@ export default {
           this.getApsTimeAndResource()
         })
       } else {
-        this.$message.warning('请将工单拖动到指定的资源上！')
+        this.$message.warning(this.$t('orderSched_dragWorkOrdeSpecReso'))
       }
     },
     // 导入排产
@@ -636,7 +636,7 @@ export default {
         this.fileName = fileName
         this.file = file
       } else {
-        this.$message.warning('文件类型必须是excel格式!')
+        this.$message.warning(this.$t('orderSched_fileMuseExcel'))
       }
       return false
     },
@@ -654,7 +654,7 @@ export default {
           this.$message.error(res.msg)
         }
       } else {
-        this.$message.warning('请先上传需要排程的工单！')
+        this.$message.warning(this.$t('orderSched_uploaWorkOrdeScheFirs'))
       }
     }
   },

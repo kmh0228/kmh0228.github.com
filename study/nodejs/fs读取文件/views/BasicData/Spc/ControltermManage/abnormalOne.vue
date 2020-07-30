@@ -5,53 +5,53 @@
         <el-col>
           <el-checkbox v-model="checked1" ></el-checkbox>
           <el-input v-model="value1" style="width:45px" disabled ></el-input>
-          个样本点超过±3σ
+          {{this.$t('controltermM_MoreThanSampPoin')}}±3σ
         </el-col>
         <el-col>
           <el-checkbox v-model="checked2" ></el-checkbox>
-          连续
+          {{$t('controltermM_conti')}}
           <el-input v-model="value2" style="width:45px" ></el-input>
-          点在中心线的同一侧
+          {{$t('controltermM_pointIsOnSideCent')}}
         </el-col>
         <el-col>
           <el-checkbox v-model="checked3" ></el-checkbox>
-          连续
+          {{$t('controltermM_conti')}}
           <el-input v-model="value3" style="width:45px" ></el-input>
-          点中有
+          {{$t('controltermM_ThereAre')}}
           <el-input v-model="value4" style="width:45px" ></el-input>
-          点超过±2σ
+          {{$t('controltermM_PointOver')}}±2σ
         </el-col>
         <el-col>
           <el-checkbox v-model="checked4" ></el-checkbox>
-          连续
+          {{$t('controltermM_conti')}}
           <el-input v-model="value5" style="width:45px" ></el-input>
-          点中有
+          {{$t('controltermM_ThereAre')}}
           <el-input v-model="value6" style="width:45px" ></el-input>
-          点超过±1σ
+          {{$t('controltermM_PointOver')}}±1σ
         </el-col>
         <el-col>
           <el-checkbox v-model="checked5" ></el-checkbox>
-          连续
+          {{$t('controltermM_conti')}}
           <el-input v-model="value7" style="width:45px" ></el-input>
-          点上升或下降
+          {{$t('controltermM_PointUpOrDown')}}
         </el-col>
         <el-col>
           <el-checkbox v-model="checked6" ></el-checkbox>
-          连续
+          {{$t('controltermM_conti')}}
           <el-input v-model="value8" style="width:45px" ></el-input>
-          点一上一下
+          {{$t('controltermM_ClickUpAndDown')}}
         </el-col>
         <el-col>
           <el-checkbox v-model="checked7" ></el-checkbox>
-          连续
+          {{$t('controltermM_conti')}}
           <el-input v-model="value9" style="width:45px" ></el-input>
-          在中心线上下两侧的±3σ内
+          {{$t('controltermM_OnBothSideCent')}}
         </el-col>
         <el-col>
           <el-checkbox v-model="checked8" ></el-checkbox>
-          连续
+          {{$t('controltermM_conti')}}
           <el-input v-model="value10" style="width:45px" ></el-input>
-          在中心线之两侧，但无1点在±1σ内
+          {{$t('controltermM_OnBothSideButNone')}}
         </el-col>
       </el-row>
     </el-tab-pane>

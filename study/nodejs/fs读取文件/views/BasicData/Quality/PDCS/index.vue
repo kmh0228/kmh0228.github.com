@@ -9,17 +9,17 @@
         <el-button size="mini" style="float:right;margin-left:10px;" @click="showMoreConditon = !showMoreConditon">
             <i class="fa fa-filter"></i>
         </el-button>
-        <el-input size="mini" placeholder="请输入料号查询" v-model="searchForm.partNoFilter" style="width:40%;float:right;" @keydown.enter.native="findPdcsList">
+        <el-input size="mini" :placeholder="$t('PDCS_inputItemNumbForInqu')" v-model="searchForm.partNoFilter" style="width:40%;float:right;" @keydown.enter.native="findPdcsList">
           <i slot="suffix" class="el-input__icon el-icon-search" @click="findPdcsList"></i>
         </el-input>
       </el-col>
       <el-col :span="24"   style="padding-top:1vh;">
         <el-form class="el-row mes-search-form" :model="searchForm" label-width="30%" label-position="left" v-show="showMoreConditon">
-          <el-form-item label="PDCS编号" class="el-col el-col-11">
+          <el-form-item :label="$t('PDCS_numbe')" class="el-col el-col-11">
             <el-input v-model="searchForm.pdcsNoFilter"></el-input>
           </el-form-item>
-          <el-form-item label="稽核日期" class="el-col el-col-11 ">
-            <el-date-picker style="width:100%"  v-model="timeValue"  type="datetimerange"   start-placeholder="开始日期" end-placeholder="结束日期"  value-format="yyyy-MM-dd HH:mm:ss" clearable></el-date-picker>
+          <el-form-item :label="$t('common_AuditDate')" class="el-col el-col-11 ">
+            <el-date-picker style="width:100%"  v-model="timeValue"  type="datetimerange"   start-:placeholder="$t('common_StartDate')" end-:placeholder="$t('common_EndDate')"  value-format="yyyy-MM-dd HH:mm:ss" clearable></el-date-picker>
           </el-form-item>
         </el-form>
       </el-col>
@@ -27,13 +27,13 @@
       <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="12">
-          <el-button size="mini" icon="el-icon-search" @click="findPdcsList">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="findPdcsList">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-plus" @click="handleCheck()">新增</el-button>
+          <el-button size="mini" icon="el-icon-plus" @click="handleCheck()">{{$t('common_Add')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-delete-solid" @click="deletetableData(selectIds)">批量删除</el-button>
+          <el-button size="mini" icon="el-icon-delete-solid" @click="deletetableData(selectIds)">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">{{$t('common_Refresh')}}</el-button>
         </el-col>
         <el-col :span="12">
           <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -45,28 +45,28 @@
       <div class="mes-table-content">
         <el-table :data="tableData" highlight-current-row border size="mini" @cell-click="cellClick"  @selection-change="selectionChange">
           <el-table-column type="selection" width="50" fixed="left"></el-table-column>
-          <el-table-column type="index" label="序号" align="center" :index="indexMethod" fixed="left"></el-table-column>
+          <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod" fixed="left"></el-table-column>
           <el-table-column prop="pdcsNo" label="PDCS单号" align="center" sortable></el-table-column>
-          <el-table-column prop="departmentVn" label="部门" align="center" sortable>
+          <el-table-column prop="departmentVn" :label="$t('common_Department')" align="center" sortable>
             <template slot-scope="scope">
               {{scope.row.departmentVn && scope.row.departmentVn.replace(/,/g,'/')}}
             </template>
           </el-table-column>
-          <el-table-column prop="partNoVn" label="料号" align="center" sortable>
+          <el-table-column prop="partNoVn" :label="$t('common_PorN')" align="center" sortable>
             <template slot-scope="scope">
               {{scope.row.pdcsNoRev ? `${scope.row.partNoVn}:${scope.row.pdcsNoRev}` : scope.row.partNoVn}}
             </template>
           </el-table-column>
-          <el-table-column prop="workOrderVn" label="工令" align="center" sortable></el-table-column>
-          <el-table-column prop="manufactueDate" label="制造时间" align="center" sortable></el-table-column>
-          <el-table-column prop="failType" label="不良品类型" align="center" sortable></el-table-column>
-          <el-table-column prop="inspectNo" label="检验单号" align="center" sortable></el-table-column>
-          <el-table-column prop="qty" label="生产数量" align="center" sortable></el-table-column>
-          <el-table-column prop="failQty" label="不良数" align="center" sortable></el-table-column>
-          <el-table-column label="操作" align="center" width="120" fixed="right">
+          <el-table-column prop="workOrderVn" :label="$t('PDCS_WorkOrde')" align="center" sortable></el-table-column>
+          <el-table-column prop="manufactueDate" :label="$t('PDCS_ManufTime')" align="center" sortable></el-table-column>
+          <el-table-column prop="failType" :label="$t('PDCS_TypesDefeProd')" align="center" sortable></el-table-column>
+          <el-table-column prop="inspectNo" :label="$t('common_InspeOrdeNo')" align="center" sortable></el-table-column>
+          <el-table-column prop="qty" :label="$t('PDCS_ProduQuan')" align="center" sortable></el-table-column>
+          <el-table-column prop="failQty" :label="$t('common_NumbeDefe')" align="center" sortable></el-table-column>
+          <el-table-column :label="$t('common_Operate')" align="center" width="120" fixed="right">
             <template slot-scope="scope">
-              <handle-button @click="handleCheck(scope.row)" iconClass="el-icon-edit-outline" tipText="编辑"></handle-button>
-              <handle-button @click="deletetableData([scope.row.pdcsId])" iconClass="el-icon-delete" tipText="删除" iconColor='#f56c6c'></handle-button>
+              <handle-button @click="handleCheck(scope.row)" iconClass="el-icon-edit-outline" :placeholder="$t('common_Edit')"></handle-button>
+              <handle-button @click="deletetableData([scope.row.pdcsId])" iconClass="el-icon-delete" :placeholder="$t('common_Del')" iconColor='#f56c6c'></handle-button>
             </template>
           </el-table-column>
         </el-table>
@@ -74,7 +74,7 @@
     </div>
     <div class="mes-main-tabs" v-if="showTabs" style="margin-top:10px">
         <el-tabs v-model="activeName">
-        <el-tab-pane label="详细资料" name="infoName">
+        <el-tab-pane :label="$t('PDCS_Detai')" name="infoName">
           <base-index type="details" :pdcsId="pdcsId"></base-index>
         </el-tab-pane>
         </el-tabs>
@@ -131,7 +131,7 @@ export default {
     },
     async deletetableData (ids) {
       if (ids.length > 0) {
-        let confirm = await this.$myPrompt.confirm('确定删除所选择的PDCS信息吗？')
+        let confirm = await this.$myPrompt.confirm(this.$t('PDCS_AreYouSureDeleSele'))
         if (confirm) {
           let res = await this.$api.deletePdcs(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -142,7 +142,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请选择要删除的PDCCS信息')
+        this.$message.warning(this.$t('PDCS_selecDelePDCSS'))
       }
     },
     async findPdcsList () {

@@ -24,12 +24,12 @@
     <el-form-item label="R-Sigma:" class="el-col el-col-5 el-col-offset-1">
       <el-input v-model.trim="dialogForm.rSigma" size="mini" style="width:100%;" />
     </el-form-item>
-    <!-- <el-form-item label="描述" prop="description" class="el-col el-col-23">
+    <!-- <el-form-item :label="$t('common_Description')" prop="description" class="el-col el-col-23">
       <el-input type="textarea" v-model="dialogForm.description"></el-input>
     </el-form-item> -->
     <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-      <el-button type="primary" @click="saveData">保存</el-button>
-      <el-button @click="$emit('cannel')">取消</el-button>
+      <el-button type="primary" @click="saveData">{{$t('common_save')}}</el-button>
+      <el-button @click="$emit('cannel')">{{$t('common_cancel')}}</el-button>
     </el-form-item>
   </el-form>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <div class="mes-main mes-work-order">
-     <h3 class="mes-main-title">入库单管理</h3>
+     <h3 class="mes-main-title">{{$t('WarehouseWarrant_InventoryManagement')}}</h3>
      <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
         <dict-select style="width:40%" v-model="searchForm.mWmsEntrylistStatus" dictType="DOCUMENT_STATUS" selectKey="dictCode" :clearable="true"></dict-select>
@@ -9,17 +9,17 @@
         <el-button size="mini" style="float:right;margin-left:10px;" @click="showMoreConditon = !showMoreConditon">
           <i class="fa fa-filter"></i>
         </el-button>
-        <el-input placeholder="请输入入库单号" v-model.trim="searchForm.mWmsEntrylistNo" size="mini" style="width:40%;float:right;" @keydown.enter.native="getInboundOrder">
+        <el-input :placeholder="$t('WarehouseWarrant_PleaseEnterEheEntryNumber')" v-model.trim="searchForm.mWmsEntrylistNo" size="mini" style="width:40%;float:right;" @keydown.enter.native="getInboundOrder">
         </el-input>
       </el-col>
        <el-col :span="24" style="padding-top:1vh;">
         <el-form class="el-row mes-search-form" :model="searchForm" label-width="30%" label-position="left" v-show="showMoreConditon">
-          <el-form-item label="开始时间：" class="el-col el-col-11">
-            <el-date-picker v-model="searchForm.startDt" style="width:100%" size="mini" type="datetime" placeholder="选择日期时间" value-format="yyyy-MM-dd HH:mm:ss" align="right" :picker-options="pickerOptions">
+          <el-form-item :label="$t('common_startTime')" class="el-col el-col-11">
+            <el-date-picker v-model="searchForm.startDt" style="width:100%" size="mini" type="datetime" :placeholder="$t('WarehouseWarrant_SelectDateTime')" value-format="yyyy-MM-dd HH:mm:ss" align="right" :picker-options="pickerOptions">
             </el-date-picker>
           </el-form-item>
-          <el-form-item label="结束时间：" class="el-col el-col-11 el-col-offset-1">
-            <el-date-picker v-model="searchForm.endDt" style="width:100%" size="mini" type="datetime" placeholder="选择日期时间" value-format="yyyy-MM-dd HH:mm:ss" align="right" :picker-options="pickerOptions">
+          <el-form-item :label="$t('common_endTime')" class="el-col el-col-11 el-col-offset-1">
+            <el-date-picker v-model="searchForm.endDt" style="width:100%" size="mini" type="datetime" :placeholder="$t('WarehouseWarrant_SelectDateTime')" value-format="yyyy-MM-dd HH:mm:ss" align="right" :picker-options="pickerOptions">
             </el-date-picker>
           </el-form-item>
         </el-form>
@@ -28,13 +28,13 @@
     <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="12">
-          <el-button size="mini" icon="el-icon-search" @click="getInboundOrder">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="getInboundOrder">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-plus" @click="handleWarrant('dialogForm','')">新增</el-button>
+          <el-button size="mini" icon="el-icon-plus" @click="handleWarrant('dialogForm','')">{{$t('common_Add')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteEntrylist('')">批量删除</el-button>
+          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteEntrylist('')">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh" @click="refreshData">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh" @click="refreshData">{{$t('common_Refresh')}}</el-button>
         </el-col>
         <el-col :span="12">
            <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :page-count="5"
@@ -45,23 +45,23 @@
       <div class="mes-table-content">
         <el-table :data="tableData" border highlight-current-row size="mini" @selection-change="tableChange" @cell-click="cellClick">
           <el-table-column type="selection" width="50" align="center" :selectable="disabledSelect" ></el-table-column>
-          <el-table-column type="index" label="序号" align="center" :index="indexMethod" fixed></el-table-column>
-          <el-table-column prop="mWmsEntrylistNo" sortable label="入库单号" align="center" min-width="120"></el-table-column>
-          <el-table-column prop="mWmsEntrylistRelateno" sortable label="关联单号" align="center" min-width="120"></el-table-column>
-          <el-table-column prop="mWmsEntrylistRelatenoitem" sortable label="关联单项次" align="center" min-width="120"></el-table-column>
-          <el-table-column prop="mWmsWarehouseCode" sortable label="入库库房" align="center" min-width="120"></el-table-column>
-          <el-table-column prop="mWmsEntrylistType" sortable label="入库方式" align="center" min-width="120"></el-table-column>
-          <el-table-column prop="mWmsEntrylistStatus" sortable label="单据状态" align="center" min-width="120"></el-table-column>
-          <el-table-column prop="mWmsEntrylistLevel" sortable label="紧急程度" align="center" min-width="120"></el-table-column>
-          <el-table-column prop="mWmsVendorName" sortable label="供应商" align="center" min-width="120"></el-table-column>
-          <el-table-column prop="creator" sortable label="创建人" align="center" min-width="120"></el-table-column>
-          <el-table-column prop="createdDt" sortable label="创建时间" align="center" min-width="120"></el-table-column>
-          <!-- <el-table-column prop="lastEditor" sortable label="修改人" align="center"></el-table-column>
-          <el-table-column prop="lastEditedDt" sortable label="最后修改时间" align="center"></el-table-column> -->
-          <el-table-column label="操作" width="120" align="center" fixed="right">
+          <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod" fixed></el-table-column>
+          <el-table-column prop="mWmsEntrylistNo" sortable :label="$t('WarehouseWarrant_StorageOrders')" align="center" min-width="120"></el-table-column>
+          <el-table-column prop="mWmsEntrylistRelateno" sortable :label="$t('WarehouseWarrant_AssociatedNumber')" align="center" min-width="120"></el-table-column>
+          <el-table-column prop="mWmsEntrylistRelatenoitem" sortable :label="$t('WarehouseWarrant_AssociatedIndividual')" align="center" min-width="120"></el-table-column>
+          <el-table-column prop="mWmsWarehouseCode" sortable :label="$t('WarehouseWarrant_StorageWarehouse')" align="center" min-width="120"></el-table-column>
+          <el-table-column prop="mWmsEntrylistType" sortable :label="$t('WarehouseWarrant_StorageMode')" align="center" min-width="120"></el-table-column>
+          <el-table-column prop="mWmsEntrylistStatus" sortable :label="$t('WarehouseWarrant_StatusOfDocuments')" align="center" min-width="120"></el-table-column>
+          <el-table-column prop="mWmsEntrylistLevel" sortable :label="$t('WarehouseWarrant_Emergencies')" align="center" min-width="120"></el-table-column>
+          <el-table-column prop="mWmsVendorName" sortable :label="$t('WarehouseWarrant_Supplier')" align="center" min-width="120"></el-table-column>
+          <el-table-column prop="creator" sortable :label="$t('WarehouseWarrant_Creator')" align="center" min-width="120"></el-table-column>
+          <el-table-column prop="createdDt" sortable :label="$t('WarehouseWarrant_CreateTime')" align="center" min-width="120"></el-table-column>
+          <!-- <el-table-column prop="lastEditor" sortable :label="$t('WarehouseWarrant_Amendment')" align="center"></el-table-column>
+          <el-table-column prop="lastEditedDt" sortable :label="$t('WarehouseWarrant_FinalRevisionTime')" align="center"></el-table-column> -->
+          <el-table-column :label="$t('common_Operate')" width="120" align="center" fixed="right">
             <template slot-scope="scope">
-              <handle-button iconClass='el-icon-edit-outline' tipText="编辑" @click="handleWarrant('dialogForm',scope.row)"></handle-button>
-              <handle-button iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c' @click="deleteEntrylist(scope.row.mWmsEntrylistId)"></handle-button>
+              <handle-button iconClass='el-icon-edit-outline' :tipText="$t('common_Edit')" @click="handleWarrant('dialogForm',scope.row)"></handle-button>
+              <handle-button iconClass='el-icon-delete' :tipText="$t('common_Del')" iconColor='#f56c6c' @click="deleteEntrylist(scope.row.mWmsEntrylistId)"></handle-button>
             </template>
           </el-table-column>
         </el-table>
@@ -69,13 +69,13 @@
     </div>
     <div class="mes-main-tabs" v-if="showTas">
       <el-tabs v-model="activeName">
-        <el-tab-pane label="入库单明细" name="detail">
+        <el-tab-pane :label="$t('WarehouseWarrant_ListOfEntries')" name="detail">
            <div class="mes-table">
             <el-row class="mes-table-handle">
               <el-col :span="12">
-                <el-button size="mini" icon="el-icon-plus" :disabled="addDetailDisabled" @click="handleWarrant('detaliForm','')">新增</el-button>
+                <el-button size="mini" icon="el-icon-plus" :disabled="addDetailDisabled" @click="handleWarrant('detaliForm','')">{{$t('common_Add')}}</el-button>
                 <span class="split-line">|</span>
-                <el-button size="mini" icon="el-icon-delete-solid" :disabled="deleteDetailDisabled" @click="deleteDetailList('')">批量删除</el-button>
+                <el-button size="mini" icon="el-icon-delete-solid" :disabled="deleteDetailDisabled" @click="deleteDetailList('')">{{$t('common_Delete')}}</el-button>
               </el-col>
               <el-col :span="12">
                 <el-pagination background :page-size="page1.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -86,20 +86,20 @@
             </el-row>
             <el-table :data="detaliData" border highlight-current-row size="mini" @selection-change="tableDetailChange">
               <el-table-column type="selection" width="50" align="center"></el-table-column>
-              <el-table-column type="index" label="序号" align="center" :index="indexMethod1"></el-table-column>
-              <el-table-column prop="materialNo" sortable label="料号" align="center"></el-table-column>
-              <el-table-column prop="materialName" sortable label="物料名称" align="center"  min-width="120"></el-table-column>
-              <el-table-column prop="" sortable label="来源单号" align="center"  min-width="120"></el-table-column>
-              <el-table-column prop="" sortable label="来源单项次" align="center"  min-width="120"></el-table-column>
-              <el-table-column prop="mWmsEntrylistDetailQty" sortable label="入库数量" align="center"  min-width="120"></el-table-column>
-              <el-table-column prop="mWmsWarehouseBinCode" sortable label="储位" align="center"></el-table-column>
-              <el-table-column prop="mWmsEntrylistDetailReceiveno" sortable label="已收数量" align="center"  min-width="120"></el-table-column>
-              <el-table-column prop="" sortable label="检验结果" align="center"  min-width="120"></el-table-column>
-              <el-table-column prop="mWmsEntrylistDetailShelfno" sortable label="上架数量" align="center"  min-width="120"></el-table-column>
-              <el-table-column label="操作" width="120" align="center" fixed="right">
+              <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod1"></el-table-column>
+              <el-table-column prop="materialNo" sortable :label="$t('WarehouseWarrant_PN')" align="center"></el-table-column>
+              <el-table-column prop="materialName" sortable :label="$t('WarehouseWarrant_MaterialName')" align="center"  min-width="120"></el-table-column>
+              <el-table-column prop="" sortable :label="$t('WarehouseWarrant_SourceNo')" align="center"  min-width="120"></el-table-column>
+              <el-table-column prop="" sortable :label="$t('WarehouseWarrant_Sourceindividual')" align="center"  min-width="120"></el-table-column>
+              <el-table-column prop="mWmsEntrylistDetailQty" sortable :label="$t('WarehouseWarrant_StorageQuantity')" align="center"  min-width="120"></el-table-column>
+              <el-table-column prop="mWmsWarehouseBinCode" sortable :label="$t('WarehouseWarrant_StorageLevel')" align="center"></el-table-column>
+              <el-table-column prop="mWmsEntrylistDetailReceiveno" sortable :label="$t('WarehouseWarrant_AmountReceived')" align="center"  min-width="120"></el-table-column>
+              <el-table-column prop="" sortable :label="$t('WarehouseWarrant_TestResults')" align="center"  min-width="120"></el-table-column>
+              <el-table-column prop="mWmsEntrylistDetailShelfno" sortable :label="$t('WarehouseWarrant_NumberOfShelves')" align="center"  min-width="120"></el-table-column>
+              <el-table-column :label="$t('common_Operate')"  width="120" align="center" fixed="right">
                 <template slot-scope="scope">
-                  <handle-button iconClass='el-icon-edit-outline' tipText="编辑" @click="handleWarrant('detaliForm',scope.row)"></handle-button>
-                  <handle-button iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c' @click="deleteDetailList(scope.row.mWmsEntrylistDetailId)"></handle-button>
+                  <handle-button iconClass='el-icon-edit-outline' :tipText="$t('common_Edit')" @click="handleWarrant('detaliForm',scope.row)"></handle-button>
+                  <handle-button iconClass='el-icon-delete' :tipText="$t('common_Del')" iconColor='#f56c6c' @click="deleteDetailList(scope.row.mWmsEntrylistDetailId)"></handle-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -128,28 +128,6 @@ export default {
         startTime: '',
         endTime: ''
       },
-      pickerOptions: {
-        shortcuts: [{
-          text: '今天',
-          onClick (picker) {
-            picker.$emit('pick', new Date())
-          }
-        }, {
-          text: '昨天',
-          onClick (picker) {
-            const date = new Date()
-            date.setTime(date.getTime() - 3600 * 1000 * 24)
-            picker.$emit('pick', date)
-          }
-        }, {
-          text: '一周前',
-          onClick (picker) {
-            const date = new Date()
-            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
-            picker.$emit('pick', date)
-          }
-        }]
-      },
       showMoreConditon: false,
       total: 0,
       page: {
@@ -177,10 +155,38 @@ export default {
     }
   },
   computed: {
+    pickerOptions () {
+      return {
+        shortcuts: [{
+          text: this.$t('WarehouseWarrant_TodayToday'),
+          onClick (picker) {
+            picker.$emit('pick', new Date())
+          }
+        }, {
+          text: this.$t('WarehouseWarrant_YesterdayYesterday'),
+          onClick (picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24)
+            picker.$emit('pick', date)
+          }
+        }, {
+          text: this.$t('WarehouseWarrant_OneWeekAgo'),
+          onClick (picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+            picker.$emit('pick', date)
+          }
+        }]
+      }
+    },
     dialogTitle () {
-      let word1 = this.isEdit ? '编辑' : '新增'
-      let word2 = this.dialogComponent === 'dialogForm' ? '入库单信息' : '入库单明细'
-      return `${word1}${word2}`
+      let str = ''
+      if (this.isEdit) {
+        str = this.dialogComponent === 'dialogForm' ? this.$t('WarehouseWarrant_EditLibraryInformation') : this.$t('WarehouseWarrant_DetailsOfTheEditor')
+      } else {
+        str = this.dialogComponent === 'dialogForm' ? this.$t('WarehouseWarrant_NewStorageListInformation') : this.$t('WarehouseWarrant_DetailsOfTheNewStorage')
+      }
+      return str
     },
     addDetailDisabled () {
       let { cannelOperation } = this
@@ -241,7 +247,7 @@ export default {
         this.isEdit = true
         if (dialogName === 'dialogForm') {
           if (row.mWmsEntrylistStatus !== '开立') {
-            this.$message.warning(`非开立状态系不允许任何操作！`)
+            this.$message.warning(this.$t('WarehouseWarrant_NonOpenStateDoes'))
           } else {
             this.dialogVisible = true
             this.$nextTick(() => {
@@ -294,7 +300,6 @@ export default {
         this.tableData = []
       }
     },
-    // 刷新数据，重新查询
     refreshData () {
       for (let i in this.searchForm) {
         this.searchForm[i] = ''
@@ -309,7 +314,7 @@ export default {
       let ids = id ? [id] : this.selectList
       const len = ids.length
       if (len > 0) {
-        let confirmRes = await this.$myPrompt.confirm('确定删除当前选中的入库单信息吗?')
+        let confirmRes = await this.$myPrompt.confirm(this.$t('WarehouseWarrant_Tips1'))
         if (confirmRes) {
           let res = await this.$api.deleteInboundOrder(ids)
           let { msg, code } = res
@@ -323,7 +328,7 @@ export default {
           this.cannel()
         }
       } else {
-        this.$message.warning('请选择要删除的入库单信息')
+        this.$message.warning(this.$t('WarehouseWarrant_Tips2'))
       }
     },
     async deleteDetailList (id) {
@@ -331,7 +336,7 @@ export default {
       let ids = id ? [id] : selectDetaliList
       const len = ids.length
       if (len > 0) {
-        let confirmRes = await this.$myPrompt.confirm('确定删除当前选中的值吗?')
+        let confirmRes = await this.$myPrompt.confirm(this.$t('WarehouseWarrant_Tips3'))
         if (confirmRes) {
           let res = await this.$api.deleteInboundOrderDetail(ids)
           let { code, msg } = res
@@ -343,7 +348,7 @@ export default {
           }
         }
       } else {
-        this.$message.warning('请选择要删除的信息')
+        this.$message.warning(this.$t('WarehouseWarrant_PleaseSelectInformation'))
       }
     },
     cannel () {

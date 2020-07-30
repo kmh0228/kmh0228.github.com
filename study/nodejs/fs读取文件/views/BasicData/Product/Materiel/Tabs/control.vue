@@ -22,7 +22,7 @@
             </el-select>
         </template>
       </el-table-column>
-      <el-table-column prop="defaultBinId" :label="默认上架储位"  width="150px" align="center">
+      <el-table-column prop="defaultBinId" :label="$t('material_defaultRack')"  width="150px" align="center">
         <template slot-scope="scope">
             <div v-if="isRead">{{scope.row.binCode}}</div>
             <el-select v-else  v-model="scope.row.defaultBinId" filterable clearable style="width:100%"  >

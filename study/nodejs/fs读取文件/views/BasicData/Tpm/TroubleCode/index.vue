@@ -1,12 +1,12 @@
 <template>
   <div class="mes-main mes-work-order">
-  <div class="mes-main-title">故障代码管理</div>
+  <div class="mes-main-title">{{$t('troubleCode_FaultCodeMana')}}</div>
   <el-row :gutter="20" class="mes-main-filte">
     <el-col :span="12">
       <cascader-select v-model="searchForm.officeCode" style="width:40%" dataType="1"></cascader-select>
     </el-col>
     <el-col :span="12">
-      <el-input placeholder="请输入故障代码" v-model.trim="searchForm.failCode" size="mini" style="width:40%;float:right" @keydown.enter.native="getTableData">
+      <el-input :placeholder="$t('troubleCode_enterFaulCode')" v-model.trim="searchForm.failCode" size="mini" style="width:40%;float:right" @keydown.enter.native="getTableData">
          <i slot="suffix" class="el-input__icon"  @click="getTableData"></i>
       </el-input>
     </el-col>
@@ -14,13 +14,13 @@
   <div class="mes-table">
     <el-row class="mes-table-handle">
       <el-col :span="12">
-        <el-button size="mini" icon="el-icon-search" @click="getTableData">查询</el-button>
+        <el-button size="mini" icon="el-icon-search" @click="getTableData">{{$t('common_Inquire')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-plus" @click="handletable('')">新增</el-button>
+        <el-button size="mini" icon="el-icon-plus" @click="handletable('')">{{$t('common_Add')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-delete-solid" @click="deleteTable('')">批量删除</el-button>
+        <el-button size="mini" icon="el-icon-delete-solid" @click="deleteTable('')">{{$t('common_Delete')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-refresh" @click="getTableData">刷新</el-button>
+        <el-button size="mini" icon="el-icon-refresh" @click="getTableData">{{$t('common_Refresh')}}</el-button>
       </el-col>
       <el-col :span="12">
         <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -32,26 +32,26 @@
     <div class="mes-table-content">
       <el-table :data="tableData" border highlight-current-row size="mini"  @selection-change="tableSelectionChange">
         <el-table-column type="selection" width="50" align="center"></el-table-column>
-        <el-table-column type="index" label="序号" align="center" fixed="left" :index="indexMethod"></el-table-column>
-        <el-table-column prop="officeName" sortable label="工厂" fixed align="center"></el-table-column>
-        <el-table-column prop="malmTypeName" sortable width="120" label="报警类型名称" align="center"></el-table-column>
-        <el-table-column prop="dictWorkKind" sortable label="工种" align="center"></el-table-column>
-        <el-table-column prop="typeName" sortable width="120" label="设备类别名称" align="center"></el-table-column>
-        <el-table-column prop="failCode" sortable width="100" label="故障代码" align="center"></el-table-column>
-        <el-table-column prop="failName" sortable width="100" label="故障描述" align="center"></el-table-column>
-        <el-table-column prop="standardTime" sortable width="100" label="标准工时" align="center"></el-table-column>
-        <el-table-column prop="responseTimeoutLength" sortable width="100" label="响应时间" align="center"></el-table-column>
-        <el-table-column prop="firstLevelTimeoutLength" sortable width="120" label="一级报警超时" align="center"></el-table-column>
-        <el-table-column prop="secondLevelTimeoutLength" sortable width="120" label="二级报警超时" align="center"></el-table-column>
-        <el-table-column prop="thirdLevelTimeoutLength" sortable width="120" label="三级报警超时" align="center"></el-table-column>
-        <el-table-column prop="isTimeoutReport" sortable width="120" label="是否超时上报" align="center" :formatter="dataFormatter"></el-table-column>
-        <el-table-column prop="dictAlarmLevel" sortable width="100" label="报警等级" align="center"></el-table-column>
-        <el-table-column prop="creator" sortable width="100" label="创建人" align="center"></el-table-column>
-        <el-table-column prop="createdDt" sortable width="100" label="创建时间" align="center"></el-table-column>
-        <el-table-column label="操作" align="center" width="120" fixed="right">
+        <el-table-column type="index" :label="$t('common_Number')" align="center" fixed="left" :index="indexMethod"></el-table-column>
+        <el-table-column prop="officeName" sortable :label="$t('common_Factory')" fixed align="center"></el-table-column>
+        <el-table-column prop="malmTypeName" sortable width="120" :label="$t('troubleCode_AlarmTypeName')" align="center"></el-table-column>
+        <el-table-column prop="dictWorkKind" sortable :label="$t('common_TypeWork')" align="center"></el-table-column>
+        <el-table-column prop="typeName" sortable width="120" :label="$t('common_EquipCateName')" align="center"></el-table-column>
+        <el-table-column prop="failCode" sortable width="100" :label="$t('troubleCode_FaultCode')" align="center"></el-table-column>
+        <el-table-column prop="failName" sortable width="100" :label="$t('troubleCode_FaultDesc')" align="center"></el-table-column>
+        <el-table-column prop="standardTime" sortable width="100" :label="$t('troubleCode_StandWorkHour')" align="center"></el-table-column>
+        <el-table-column prop="responseTimeoutLength" sortable width="100" :label="$t('troubleCode_respoTime')" align="center"></el-table-column>
+        <el-table-column prop="firstLevelTimeoutLength" sortable width="120" :label="$t('troubleCode_Level1AlarTime')" align="center"></el-table-column>
+        <el-table-column prop="secondLevelTimeoutLength" sortable width="120" :label="$t('troubleCode_Level2AlarTime')" align="center"></el-table-column>
+        <el-table-column prop="thirdLevelTimeoutLength" sortable width="120" :label="$t('troubleCode_Level3AlarTime')" align="center"></el-table-column>
+        <el-table-column prop="isTimeoutReport" sortable width="120" :label="$t('troubleCode_WhethRepoOver')" align="center" :formatter="dataFormatter"></el-table-column>
+        <el-table-column prop="dictAlarmLevel" sortable width="100" :label="$t('troubleCode_AlarmLeve')" align="center"></el-table-column>
+        <el-table-column prop="creator" sortable width="100" :label="$t('common_Creator')" align="center"></el-table-column>
+        <el-table-column prop="createdDt" sortable width="100" :label="$t('common_CreateTime')" align="center"></el-table-column>
+        <el-table-column :label="$t('common_Operate')" align="center" width="120" fixed="right">
           <template slot-scope="scope">
-            <handle-button @click="handletable(scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-            <handle-button @click="deleteTable(scope.row.mMomFailcodeId)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+            <handle-button @click="handletable(scope.row)" iconClass='el-icon-edit-outline' :placeholder="$t('common_Edit')"></handle-button>
+            <handle-button @click="deleteTable(scope.row.mMomFailcodeId)" iconClass='el-icon-delete' :placeholder="$t('common_Del')" iconColor='#f56c6c'></handle-button>
           </template>
         </el-table-column>
       </el-table>
@@ -86,7 +86,7 @@ export default {
   },
   computed: {
     dialogTitle () {
-      return this.isEdit ? '编辑故障代码' : '新增故障代码'
+      return this.isEdit ? this.$t('troubleCode_EditFaulCode') : this.$t('troubleCode_NewFaulCode')
     },
     deleteDisabled () {
       let len = this.selectList.length
@@ -114,7 +114,7 @@ export default {
       })
     },
     dataFormatter (row, column, cellValue, index) {
-      return cellValue ? '是' : '否'
+      return cellValue ? this.$t('common_Yes') : this.$t('common_No')
     },
     async getTableData () {
       let { searchForm, page } = this
@@ -144,7 +144,7 @@ export default {
       let { selectList } = this
       const ids = mMomFailcodeId ? [mMomFailcodeId] : selectList
       if (ids.length > 0) {
-        const confirm = await this.$myPrompt.confirm('确定删除当前选中的责任层级信息吗？')
+        const confirm = await this.$myPrompt.confirm(this.$t('troubleCode_AreYouSureLeveInfo'))
         if (confirm) {
           if (mMomFailcodeId) {
             selectList = [mMomFailcodeId]
@@ -155,7 +155,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请选择需要删除的责任层级信息！')
+        this.$message.warning(this.$t('troubleCode_selecRespLeveBeDele'))
       }
     },
     cannel () {

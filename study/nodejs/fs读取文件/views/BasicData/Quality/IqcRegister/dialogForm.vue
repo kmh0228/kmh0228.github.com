@@ -1,57 +1,57 @@
 <template>
-<el-form :model="dialogForm" ref="dialogForm" :rules="rules"  label-width="120px" label-position="left" class="el-row mes-form-rule" size="mini">
-  <el-form-item label="入库单号" prop="stockInNo" class="el-col el-col-11">
-   <!-- <el-select v-model="dialogForm.stockInNo " clearable placeholder="请选择产品系列" style="width:100%" filterable  @blur="sss"  @change="getByStockInNo">
+<el-form :model="dialogForm" ref="dialogForm" :rules="rules"  label-width="140px" label-position="left" class="el-row mes-form-rule" size="mini">
+  <el-form-item :label="$t('common_StockInNo')" prop="stockInNo" class="el-col el-col-11">
+   <!-- <el-select v-model="dialogForm.stockInNo " clearable :placeholder="$t('common_PleasSeleProdSe')" style="width:100%" filterable  @blur="sss"  @change="getByStockInNo">
       <el-option v-for="(option,i) in entryList" :key="i" :label="option.mWmsEntrylistNo" :value="option.mWmsEntrylistId"></el-option>
     </el-select> -->
-    <el-autocomplete :disabled="editDisabled" v-model="dialogForm.stockInNo" :fetch-suggestions="backSuggestion" value-key="mWmsEntrylistNo"  style="width:100%"  placeholder="请先选择入库单号" @select="handleSelect">  </el-autocomplete>
+    <el-autocomplete :disabled="editDisabled" v-model="dialogForm.stockInNo" :fetch-suggestions="backSuggestion" value-key="mWmsEntrylistNo"  style="width:100%"  :placeholder="$t('IqcRegister_PleaseSelectTheStockInNo')" @select="handleSelect">  </el-autocomplete>
   </el-form-item>
-  <el-form-item label="料号" prop="mComMaterialId"  class="el-col el-col-11 el-col-offset-1">
+  <el-form-item :label="$t('common_PorN')" prop="mComMaterialId"  class="el-col el-col-11 el-col-offset-1">
     <el-select v-if="noEntrylist" v-model="dialogForm.mComMaterialId" style="width:100%" clearable  :disabled="editDisabled">
       <el-option  v-for="(option,i) in materialList" :key="i" :label="option.materialNo" :value="option.mWmsEntrylistDetailMarerialid"></el-option>
     </el-select>
-    <dialogTableSelect style="width:100%" :isDisabled="true" v-else ref="dialogTableSelect" class="mes-form-item" :contentValue="materialNoVersion"  v-model="dialogForm.mComMaterialId" selectId="mComMaterialId" searchPlaceholder="请选择料号" :searchForm="materialSearch" searchKey="materialNo" :showKey="['materialNo','version']" :tableColumns="materialColumns" getDataFunction="getMaterialMasters" @change="getMaterialIdById"></dialogTableSelect>
+    <dialogTableSelect style="width:100%" :isDisabled="true" v-else ref="dialogTableSelect" class="mes-form-item" :contentValue="materialNoVersion"  v-model="dialogForm.mComMaterialId" selectId="mComMaterialId" search:placeholder="$t('common_PleaseSelectPN')" :searchForm="materialSearch" searchKey="materialNo" :showKey="['materialNo','version']" :tableColumns="materialColumns" getDataFunction="getMaterialMasters" @change="getMaterialIdById"></dialogTableSelect>
   </el-form-item>
-  <el-form-item label="供应商名称"  class="el-col el-col-11">
+  <el-form-item :label="$t('common_SupplName')"  class="el-col el-col-11">
       <el-input :disabled="noDisabled"  v-model="dialogForm.vendorName"></el-input>
   </el-form-item>
-  <el-form-item label="供应商代码"  class="el-col el-col-11 el-col-offset-1">
+  <el-form-item :label="$t('common_SupplCode')"  class="el-col el-col-11 el-col-offset-1">
     <el-input :disabled="noDisabled" v-model="dialogForm.vendorCode"></el-input>
   </el-form-item>
-  <el-form-item label="采购单号"  class="el-col el-col-11">
+  <el-form-item :label="$t('IqcRegister_PurchaseOrder')"  class="el-col el-col-11">
       <el-input :disabled="noDisabled" v-model="dialogForm.poNo" size="mini"></el-input>
   </el-form-item>
-  <el-form-item label="收货日期" prop="incomingDate"  class="el-col el-col-11 el-col-offset-1" >
-     <el-date-picker  v-model="dialogForm.incomingDate"  type="date" placeholder="选择日期时间" style="width:100%" value-format="yyyy-MM-dd"></el-date-picker>
+  <el-form-item :label="$t('IqcRegister_ReceivingDate')" prop="incomingDate"  class="el-col el-col-11 el-col-offset-1" >
+     <el-date-picker  v-model="dialogForm.incomingDate"  type="date" :placeholder="$t('common_SelecDateTime')" style="width:100%" value-format="yyyy-MM-dd"></el-date-picker>
   </el-form-item>
-  <el-form-item label="数量"  class="el-col el-col-11">
+  <el-form-item :label="$t('common_numbe')"  class="el-col el-col-11">
     <el-input :disabled="numIputDisabled" v-model.number="dialogForm.qty" size="mini"></el-input>
   </el-form-item>
-  <el-form-item label="数量单位"   class="el-col el-col-11 el-col-offset-1">
+  <el-form-item :label="$t('IqcRegister_UnitOfQuantity')"   class="el-col el-col-11 el-col-offset-1">
       <el-input :disabled="numIputDisabled" v-model="dialogForm.qtyUom" size="mini"></el-input>
   </el-form-item>
-  <el-form-item label="仓码"  class="el-col el-col-11">
+  <el-form-item :label="$t('IqcRegister_WarehouseCode')"  class="el-col el-col-11">
       <el-input :disabled="materialDisabled" v-model="dialogForm.warehouseNo" size="mini"></el-input>
   </el-form-item>
-  <el-form-item label="品名"   class="el-col el-col-11 el-col-offset-1">
+  <el-form-item :label="$t('common_ProduName')"   class="el-col el-col-11 el-col-offset-1">
       <el-input :disabled="materialDisabled" v-model="dialogForm.productName" size="mini"></el-input>
   </el-form-item>
-  <el-form-item label="物料类别"  class="el-col el-col-11">
+  <el-form-item :label="$t('IqcRegister_MaterialCategory')"  class="el-col el-col-11">
       <el-input :disabled="materialDisabled" v-model="dialogForm.mComMaterialtypeCode" size="mini"></el-input>
   </el-form-item>
-  <el-form-item label="检规编号"  class="el-col el-col-11 el-col-offset-1">
+  <el-form-item :label="$t('IqcRegister_InspectionRegulationVersion')"  class="el-col el-col-11 el-col-offset-1">
       <el-input :disabled="materialDisabled" v-model="dialogForm.sipNo" size="mini"></el-input>
   </el-form-item>
-  <el-form-item label="检验日期" prop="inspectDate"   class="el-col el-col-11">
-     <el-date-picker  v-model="dialogForm.inspectDate"  type="date" placeholder="选择日期时间" style="width:100%" value-format="yyyy-MM-dd"></el-date-picker>
+  <el-form-item :label="$t('common_InspeDate')" prop="inspectDate"   class="el-col el-col-11">
+     <el-date-picker  v-model="dialogForm.inspectDate"  type="date" :placeholder="$t('common_SelecDateTime')" style="width:100%" value-format="yyyy-MM-dd"></el-date-picker>
   </el-form-item>
-  <el-form-item label="检规版次" prop="sipVer"   class="el-col el-col-11 el-col-offset-1" >
+  <el-form-item :label="$t('IqcRegister_RevisionOfInspectionRegulation')" prop="sipVer"   class="el-col el-col-11 el-col-offset-1" >
      <el-input :disabled="materialDisabled" v-model="dialogForm.sipVer" size="mini"></el-input>
   </el-form-item>
   <el-form-item label-width="0"  class="el-col el-col-24 dialog-footer">
-      <el-button type="warning" size="mini" @click="saveForm('check')">保存并生成检验单</el-button>
-      <el-button type="primary" size="mini" @click="saveForm('')">保存</el-button>
-      <el-button size="mini" @click="$emit('cannel')">取消</el-button>
+      <el-button type="warning" size="mini" @click="saveForm('check')">{{$t('IqcRegister_SaveAndGenerateTheInspectionOrder')}}</el-button>
+      <el-button type="primary" size="mini" @click="saveForm('')">{{$t('common_save')}}</el-button>
+      <el-button size="mini" @click="$emit('cannel')">{{$t('common_cancel')}}</el-button>
   </el-form-item>
 </el-form>
 </template>
@@ -85,19 +85,6 @@ export default {
       auditItemList: [],
       checkFrequencyList: [],
       rulesStatus: true,
-      materialColumns: [{
-        key: 'materialNo',
-        label: '料号'
-      }, {
-        key: 'materialName',
-        label: '物料名称'
-      }, {
-        key: 'version',
-        label: '版次'
-      }, {
-        key: 'mComMaterialtypeCode',
-        label: '物料类型'
-      }],
       materialSearch: {
         materialNo: '',
         materialType: ''
@@ -106,19 +93,36 @@ export default {
       materialList: [],
       noDisabled: false,
       materialDisabled: false,
-      rules: {
-        stockInNo: [{ required: true, message: '入库单号不能为空' }],
-        mComMaterialId: [{ required: true, message: '料号不能为空' }],
-        inspectDate: [{ required: true, message: '检验日期不能为空' }],
-        sipVer: [{ required: true, message: '检规版次不能为空' }],
-        incomingDate: [{ required: true, message: '收货日期不能为空' }]
-      },
       numIputDisabled: false,
       inWms: false
 
     }
   },
   computed: {
+    materialColumns () {
+      return [{
+        key: 'materialNo',
+        label: this.$t('common_PorN')
+      }, {
+        key: 'materialName',
+        label: this.$t('common_MaterialName')
+      }, {
+        key: 'version',
+        label: this.$t('common_Edition')
+      }, {
+        key: 'mComMaterialtypeCode',
+        label: this.$t('common_MaterialType')
+      }]
+    },
+    rules () {
+      return {
+        stockInNo: [{ required: true, message: this.$t('IqcRegister_StockInNo') }],
+        mComMaterialId: [{ required: true, message: this.$t('common_ItemNoCannBeEm') }],
+        inspectDate: [{ required: true, message: this.$t('IqcRegister_TheInspectionDateCannotBeEmpty') }],
+        sipVer: [{ required: true, message: this.$t('IqcRegister_TheInspectionVersionCannotBeEmpty') }],
+        incomingDate: [{ required: true, message: this.$t('IqcRegister_TheReceivingDateCannotBeBlank') }]
+      }
+    },
     materialNoVersion () {
       const materialNo = this.dialogForm.mComMaterialNo ? this.dialogForm.mComMaterialNo + ':' : ''
       const version = this.dialogForm.mComMaterialVersion ? this.dialogForm.mComMaterialVersion : ''

@@ -1,21 +1,21 @@
 <template>
   <div class="mes-main mes-work-order">
-  <h3 class="mes-main-title">盘点单管理</h3>
+  <h3 class="mes-main-title">{{$t('Inventory_InventoryManagement')}}</h3>
   <el-row :gutter="20" class="mes-main-filte">
     <el-col :span="12">
-      <el-input placeholder="请输入盘点单号" v-model.trim="searchForm.checklistNo" size="mini" style="width:40%;">
+      <el-input :placeholder="$t('Inventory_PleaseInput1')" v-model.trim="searchForm.checklistNo" size="mini" style="width:40%;">
       </el-input>
     </el-col>
     <el-col :span="12">
       <el-button size="mini" style="float:right;margin-left:10px;" @click="showMoreConditon = !showMoreConditon">
         <i class="fa fa-filter"></i>
       </el-button>
-      <dict-select v-model="searchForm.noStatus" style="width:40%;float:right;" dictType="CHECKORDER_STATUS" placeholder="单据状态" clearable></dict-select>
+      <dict-select v-model="searchForm.noStatus" style="width:40%;float:right;" dictType="CHECKORDER_STATUS" :placeholder="$t('Inventory_DocumentStatus')" clearable></dict-select>
     </el-col>
       <el-col :span="24" style="padding-top:1vh;">
       <el-form class="el-row mes-search-form" :model="searchForm" label-width="20%" label-position="left" v-show="showMoreConditon">
-        <el-form-item label="仓库:" class="el-col el-col-8">
-          <mes-select v-model="searchForm.mWmsWarehouseId" method="getWarehouses" labelKey="mWmsWarehouseCode" valueKey="mWmsWarehouseId" placeholder="请选择仓库"></mes-select>
+        <el-form-item :label="$t('Inventory_Warehouse')" class="el-col el-col-8">
+          <mes-select v-model="searchForm.mWmsWarehouseId" method="getWarehouses" labelKey="mWmsWarehouseCode" valueKey="mWmsWarehouseId" :placeholder="$t('Inventory_PleaseSelectWarehouse')"></mes-select>
         </el-form-item>
       </el-form>
     </el-col>
@@ -23,17 +23,17 @@
   <div class="mes-table">
     <el-row class="mes-table-handle">
       <el-col :span="12">
-          <el-button icon="el-icon-search" size="mini" @click="getinventoryList">查询</el-button>
+          <el-button icon="el-icon-search" size="mini" @click="getinventoryList">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-plus" @click="inventoryHandle('')">新增</el-button>
+          <el-button size="mini" icon="el-icon-plus" @click="inventoryHandle('')">{{$t('common_Add')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteEntrylist('')">批量删除</el-button>
+          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteEntrylist('')">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" @click="inventoryCompleted">盘点完成</el-button>
+          <el-button size="mini" @click="inventoryCompleted">{{$t('Inventory_InventoryCompleted')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" @click="inventoryReview">审核</el-button>
+          <el-button size="mini" @click="inventoryReview">{{$t('Inventory_toExamine')}}</el-button>
           <span class="split-line">|</span>
-          <el-button icon="el-icon-refresh-right" size="mini" @click="resetForm">刷新</el-button>
+          <el-button icon="el-icon-refresh-right" size="mini" @click="resetForm">{{$t('common_Refresh')}}</el-button>
         </el-col>
         <el-col :span="12">
           <mes-page ref="mesPage" :initData="getinventoryList" />
@@ -42,25 +42,25 @@
       <div class="mes-table-content">
         <el-table :data="tableData" border size="mini" @selection-change="tableSelect" @cell-click="cellClick">
           <el-table-column type="selection" width="50" align="center"></el-table-column>
-          <el-table-column type="index" label="序号" align="center" fixed="left" :index="indexMethod"></el-table-column>
-          <el-table-column prop="checklistNo" sortable label="盘点单号" min-width="110" show-overflow-tooltip label-class-name="mes-table-label" class-name="mes-table-click" align="center"></el-table-column>
-          <el-table-column prop="mWmsWarehouseCode" sortable label="仓库" width="100" align="center"></el-table-column>
-          <el-table-column prop="creator" sortable label="创建人" min-width="100" align="center"></el-table-column>
-          <el-table-column prop="createdDt" sortable label="创建日期" min-width="110" align="center" :formatter="formatDate"></el-table-column>
-          <el-table-column prop="operator" sortable label="盘点人" min-width="100" align="center"></el-table-column>
-          <el-table-column prop="operateDate" sortable label="盘点日期" min-width="110" align="center" :formatter="formatDate"></el-table-column>
-          <el-table-column prop="noStatus" sortable label="单据状态" min-width="110" align="center">
+          <el-table-column type="index" :label="$t('common_Number')" align="center" fixed="left" :index="indexMethod"></el-table-column>
+          <el-table-column prop="checklistNo" sortable :label="$t('Inventory_InventoryNo')" min-width="110" show-overflow-tooltip label-class-name="mes-table-label" class-name="mes-table-click" align="center"></el-table-column>
+          <el-table-column prop="mWmsWarehouseCode" sortable :label="$t('Inventory_Warehouse')" width="100" align="center"></el-table-column>
+          <el-table-column prop="creator" sortable :label="$t('Inventory_Creator')" min-width="100" align="center"></el-table-column>
+          <el-table-column prop="createdDt" sortable :label="$t('Inventory_CreationDate')" min-width="110" align="center" :formatter="formatDate"></el-table-column>
+          <el-table-column prop="operator" sortable :label="$t('Inventory_Inventory')" min-width="100" align="center"></el-table-column>
+          <el-table-column prop="operateDate" sortable :label="$t('Inventory_InventoryDate')" min-width="110" align="center" :formatter="formatDate"></el-table-column>
+          <el-table-column prop="noStatus" sortable :label="$t('Inventory_DocumentStatus')" min-width="110" align="center">
             <template slot-scope="scope">
-              <el-tag :type="setTagColor(scope.row.noStatus)" size="mini">{{scope.row.noStatus | filterStatus }}</el-tag>
+              <el-tag :type="setTagColor(scope.row.noStatus)" size="mini">{{filterStatus(scope.row.noStatus)}}</el-tag>
             </template>
           </el-table-column>
-          <el-table-column prop="auditor" sortable label="审核人" min-width="100" align="center"></el-table-column>
-          <el-table-column prop="auditeDate" sortable label="审核日期" min-width="110" align="center" :formatter="formatDate"></el-table-column>
-          <el-table-column prop="remarks" sortable label="备注" align="center"></el-table-column>
-          <el-table-column label="操作" width="120" align="center" fixed="right">
+          <el-table-column prop="auditor" sortable :label="$t('Inventory_Reviewer')" min-width="100" align="center"></el-table-column>
+          <el-table-column prop="auditeDate" sortable :label="$t('Inventory_AuditDate')" min-width="110" align="center" :formatter="formatDate"></el-table-column>
+          <el-table-column prop="remarks" sortable :label="$t('common_remarks')" align="center"></el-table-column>
+          <el-table-column :label="$t('common_Operate')" width="120" align="center" fixed="right">
             <template slot-scope="scope">
-              <handle-button @click="inventoryHandle(scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-              <handle-button iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c' @click="deleteEntrylist(scope.row.mWmsChecklistId)"></handle-button>
+              <handle-button @click="inventoryHandle(scope.row)" iconClass='el-icon-edit-outline' :tipText="$t('common_Edit')"></handle-button>
+              <handle-button iconClass='el-icon-delete' :tipText="$t('common_Del')" iconColor='#f56c6c' @click="deleteEntrylist(scope.row.mWmsChecklistId)"></handle-button>
             </template>
           </el-table-column>
         </el-table>
@@ -68,14 +68,14 @@
     </div>
     <div class="mes-main-tabs" v-if="showTas">
       <el-tabs>
-        <el-tab-pane label="盘点明细">
+        <el-tab-pane :label="$t('Inventory_InventoryDetails')">
           <div class="mes-table">
             <el-table :data="detailData" border size="mini">
-              <el-table-column type="index" label="序号" align="center"></el-table-column>
-              <el-table-column prop="materialNo" sortable label="物料料号" align="center"></el-table-column>
-              <el-table-column prop="materialName" sortable label="物料名称" align="center" min-width="120"></el-table-column>
-              <el-table-column prop="bookQuantity" sortable label="账面数量" align="center" min-width="120"></el-table-column>
-              <el-table-column prop="realQuantity" sortable label="实际数量" align="center" min-width="120"></el-table-column>
+              <el-table-column type="index" :label="$t('common_Number')" align="center"></el-table-column>
+              <el-table-column prop="materialNo" sortable :label="$t('Inventory_MaterialItemNo')" align="center"></el-table-column>
+              <el-table-column prop="materialName" sortable :label="$t('Inventory_MaterialName')" align="center" min-width="120"></el-table-column>
+              <el-table-column prop="bookQuantity" sortable :label="$t('Inventory_BookQuantity')" align="center" min-width="120"></el-table-column>
+              <el-table-column prop="realQuantity" sortable :label="$t('Inventory_ActualAmount')" align="center" min-width="120"></el-table-column>
             </el-table>
           </div>
         </el-tab-pane>
@@ -112,19 +112,6 @@ export default {
       checkId: ''
     }
   },
-  filters: {
-    filterStatus (status) {
-      if (status === 'START') {
-        return '初始'
-      } else if (status === 'CHECKING') {
-        return '待审核'
-      } else if (status === 'FINISH') {
-        return '已完成'
-      } else {
-        return ''
-      }
-    }
-  },
   watch: {
     detailData: {
       handler (val, old) {
@@ -135,10 +122,21 @@ export default {
   },
   computed: {
     dialogTitle () {
-      return this.isEdit ? '编辑盘点单' : '新增盘点单'
+      return this.isEdit ? this.$t('Inventory_EditInventoryList') : this.$t('Inventory_AddInventoryList')
     }
   },
   methods: {
+    filterStatus (status) {
+      if (status === 'START') {
+        return this.$t('Inventory_initial')
+      } else if (status === 'CHECKING') {
+        return this.$t('Inventory_ToBeReviewed')
+      } else if (status === 'FINISH') {
+        return this.$t('Inventory_Completed')
+      } else {
+        return ''
+      }
+    },
     setTagColor (status) {
       if (status === 'START') {
         return 'danger'
@@ -206,9 +204,9 @@ export default {
     cancelDetailList () {
       let { isChange } = this
       if (isChange) {
-        this.$confirm('当前页面信息发生变更, 是否保存?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm(this.$t('Inventory_ Tips'), this.$t('common_tips'), {
+          confirmButtonText: this.$t('common_ok'),
+          cancelButtonText: this.$t('common_cancel'),
           type: 'warning'
         }).then(() => {
           this.saveDetailList()
@@ -223,7 +221,7 @@ export default {
       let ids = id ? [id] : this.selectList
       const len = ids.length
       if (len > 0) {
-        let confirmRes = await this.$myPrompt.confirm('确定删除当前选中的盘点单信息吗?')
+        let confirmRes = await this.$myPrompt.confirm(this.$t('Inventory_ Tips1'))
         if (confirmRes) {
           let res = await this.$api.deleteInventory(ids)
           let { msg, code } = res
@@ -237,7 +235,7 @@ export default {
           this.cannel()
         }
       } else {
-        this.$message.warning('请选择要删除的盘点单信息')
+        this.$message.warning(this.$t('Inventory_ Tips2'))
       }
     },
     async inventoryCompleted () {
@@ -252,9 +250,9 @@ export default {
           this.$message.error(msg)
         }
       } else if (selection.length === 0) {
-        this.$message.error('请选择盘点单号！')
+        this.$message.error(this.$t('Inventory_ Tips3'))
       } else if (selection.length > 1) {
-        this.$message.error('只能选择一个盘点单号！')
+        this.$message.error(this.$t('Inventory_ Tips4'))
       }
     },
     async inventoryReview () {
@@ -273,9 +271,9 @@ export default {
           this.$message.error(msg)
         }
       } else if (selection.length === 0) {
-        this.$message.error('请选择盘点单号！')
+        this.$message.error(this.$t('Inventory_ Tips3'))
       } else if (selection.length > 1) {
-        this.$message.error('只能选择一个盘点单号！')
+        this.$message.error(this.$t('Inventory_ Tips4'))
       }
     },
     cannel () {

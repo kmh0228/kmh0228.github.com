@@ -1,107 +1,107 @@
 <template>
   <div>
-    <el-form :model="dialogForm" ref="dialogForm" label-position="left" label-width="130px" class="el-row mes-form-rule" :rules="rules" size="mini">
-      <el-form-item label="部门" prop="dept" class="el-col el-col-11">
+    <el-form :model="dialogForm" ref="dialogForm" label-position="left" label-width="170px" class="el-row mes-form-rule" :rules="rules" size="mini">
+      <el-form-item :label="$t('common_Department')" prop="dept" class="el-col el-col-11">
         <el-input v-if="isEdit" v-model="officeName" disabled></el-input>
-        <cascader-select v-else v-model="dialogForm.dept" type="2" placeholder="请选择部门" :disabled="isEdit" style="width:100%;"></cascader-select>
+        <cascader-select v-else v-model="dialogForm.dept" type="2" :placeholder="$t('common_PleasSeleDepa')" :disabled="isEdit" style="width:100%;"></cascader-select>
       </el-form-item>
-      <el-form-item label="控制项名称" prop="itemCode" class="el-col el-col-11 el-col-offset-1">
-        <el-input v-model="dialogForm.itemCode" placeholder="请输入控制项名称" :disabled="isEdit"></el-input>
+      <el-form-item :label="$t('common_ContrName')" prop="itemCode" class="el-col el-col-11 el-col-offset-1">
+        <el-input v-model="dialogForm.itemCode" :placeholder="$t('controltermM_enterAContName')" :disabled="isEdit"></el-input>
       </el-form-item>
-      <el-form-item label="控制项描述" prop="itemDesc" class="el-col el-col-23">
-        <el-input type="textarea" v-model="dialogForm.itemDesc" placeholder="描述"></el-input>
+      <el-form-item :label="$t('common_ContrDesc')" prop="itemDesc" class="el-col el-col-23">
+        <el-input type="textarea" v-model="dialogForm.itemDesc" :placeholder="$t('common_Description')"></el-input>
       </el-form-item>
-      <el-form-item label="料号" prop="mComMaterialId" class="el-col el-col-11">
+      <el-form-item :label="$t('common_PorN')" prop="mComMaterialId" class="el-col el-col-11">
         <el-input v-if="isEdit" v-model="materialNo" disabled></el-input>
         <material-select v-model="dialogForm.mComMaterialId" :materialNoVersion="materialNo" v-else style="width:100%" @select-change="setMaterialRev"></material-select>
       </el-form-item>
-      <el-form-item label="料号版次" prop="materialRev" class="el-col el-col-11 el-col-offset-1">
-        <el-input v-model="dialogForm.materialRev" placeholder="请输入料号版次"></el-input>
+      <el-form-item :label="$t('common_ItemNoRev')" prop="materialRev" class="el-col el-col-11 el-col-offset-1">
+        <el-input v-model="dialogForm.materialRev" :placeholder="$t('controltermM_inputPartNumbAndRevi')"></el-input>
       </el-form-item>
-      <el-form-item label="产品系列" prop="mComMaterialfamilyId" class="el-col el-col-11">
+      <el-form-item :label="$t('common_ProduSeries')" prop="mComMaterialfamilyId" class="el-col el-col-11">
         <el-select v-model="dialogForm.mComMaterialfamilyId" clearable filterable style="width:100%">
           <el-option v-for="(option,i) in productList" :key="i" :label="option.mComMaterialfamilyName" :value="option.mComMaterialfamilyId"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="量测站/实验室" prop="mSpcMeasurementStationId" class="el-col el-col-11 el-col-offset-1">
+      <el-form-item :label="$t('common_MeasuStat')+'/'+$t('common_labor')" prop="mSpcMeasurementStationId" class="el-col el-col-11 el-col-offset-1">
         <el-select v-model="dialogForm.mSpcMeasurementStationId" clearable filterable :disabled="isEdit" @change="getSpcInstrumentList" style="width:100%">
           <el-option v-for="(option,i) in measurementStationList" :key="i" :label="option.stationCode" :value="option.mSpcMeasurementStationId"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="测量仪器" prop="mSpcMeasurementInstrumentId" class="el-col el-col-11">
+      <el-form-item :label="$t('common_MeasuInst')" prop="mSpcMeasurementInstrumentId" class="el-col el-col-11">
         <el-select v-model="dialogForm.mSpcMeasurementInstrumentId" clearable filterable style="width:100%">
           <el-option v-for="(option,i) in measurementInstrumentList" :key="i" :label="option.instrumentName" :value="option.mSpcMeasurementInstrumentId"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="线别" prop="mPomLineId" class="el-col el-col-11 el-col-offset-1">
+      <el-form-item :label="$t('common_Line')" prop="mPomLineId" class="el-col el-col-11 el-col-offset-1">
         <el-select v-model="dialogForm.mPomLineId" clearable filterable style="width:100%">
           <el-option v-for="(option,i) in lineList" :key="i" :value="option.mPomLineId" :label="option.lineName"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="模穴号/零件位置" prop="moldCavityNo" class="el-col el-col-11">
-        <el-input v-model="dialogForm.moldCavityNo" placeholder="请输入模穴号/零件位置" :disabled="isEdit"></el-input>
+      <el-form-item :label="$t('common_MouldHoleNumb')" prop="moldCavityNo" class="el-col el-col-11">
+        <el-input v-model="dialogForm.moldCavityNo" :placeholder="$t('controltermM_inputDieHoleNumb')+'/'+$t('controltermM_PartLoca')" :disabled="isEdit"></el-input>
       </el-form-item>
-      <el-form-item label="控制图" prop="controlChartType" class="el-col el-col-11 el-col-offset-1">
+      <el-form-item :label="$t('common_ContrChar')" prop="controlChartType" class="el-col el-col-11 el-col-offset-1">
         <dict-select style="width:100%;" v-model="dialogForm.controlChartType" dictType="CONTROLCHART_TYPE" selectKey="dictCode" @change="controlChartTypeChange" clearable></dict-select>
       </el-form-item>
       <el-form-item prop="subgroupSize" class="el-col el-col-11">
         <div slot="label" style="display:inline-block;">
-          <span>子组容量</span>
-          <help-tips content="用于设置SPC控制图的样本大小" />
+          <span>{{$t('controltermM_SubgrCapa')}}</span>
+          <help-tips :content="$t('controltermM_ForSetSPC')" />
         </div>
-        <el-input v-model="dialogForm.subgroupSize" placeholder="请输入子组容量" :disabled="isEdit"></el-input>
+        <el-input v-model="dialogForm.subgroupSize" :placeholder="$t('controltermM_enterSubgCapa')" :disabled="isEdit"></el-input>
       </el-form-item>
-      <el-form-item label="异常判定规则" prop="chartList" class="el-col el-col-11 el-col-offset-1">
-        <el-button type="primary" @click="showAbnormalDialog(true)">异常判定规则</el-button>
+      <el-form-item :label="$t('controltermM_AbnorJudgRule')" prop="chartList" class="el-col el-col-11 el-col-offset-1">
+        <el-button type="primary" @click="showAbnormalDialog(true)">{{$t('controltermM_AbnorJudgRule')}}</el-button>
       </el-form-item>
-      <el-form-item label="Cpk目标值" prop="cpkTarget" class="el-col el-col-11">
-        <el-input v-model="dialogForm.cpkTarget" placeholder="请输入Cpk目标值"></el-input>
+      <el-form-item :label="$t('controltermM_cpkValue')" prop="cpkTarget" class="el-col el-col-11">
+        <el-input v-model="dialogForm.cpkTarget" :placeholder="$t('controltermM_enterCpkValue')"></el-input>
       </el-form-item>
       <el-form-item label="USL" prop="usl" class="el-col el-col-11 el-col-offset-1">
-        <el-input v-model="dialogForm.usl" placeholder="请输入USL"></el-input>
+        <el-input v-model="dialogForm.usl" :placeholder="$t('common_PleasEnte') + 'USL'"></el-input>
       </el-form-item>
       <el-form-item label="SL" prop="sl" class="el-col el-col-11">
-        <el-input v-model="dialogForm.sl" placeholder="请输入SL"></el-input>
+        <el-input v-model="dialogForm.sl" :placeholder="$t('common_PleasEnte') + 'SL'"></el-input>
       </el-form-item>
       <el-form-item label="LSL" prop="lsl" class="el-col el-col-11 el-col-offset-1">
-        <el-input v-model="dialogForm.lsl" placeholder="请输入LSL"></el-input>
+        <el-input v-model="dialogForm.lsl" :placeholder="$t('common_PleasEnte') + 'LSL'"></el-input>
       </el-form-item>
-      <el-form-item label="接警设置" class="el-col el-col-11 el-row">
-        <el-button type="primary" class="el-col el-col-18" @click="alarmDialog=true">接警设置</el-button>
-        <el-checkbox v-model="isAlarm" class="el-col el-col-5 el-col-offset-1">不报警</el-checkbox>
+      <el-form-item :label="$t('controltermM_AlarmReceSett')" class="el-col el-col-11 el-row">
+        <el-button type="primary" class="el-col el-col-18" @click="alarmDialog=true">{{$t('controltermM_AlarmReceSett')}}</el-button>
+        <el-checkbox v-model="isAlarm" class="el-col el-col-5 el-col-offset-1">{{$t('controltermM_NoAlar')}}</el-checkbox>
       </el-form-item>
-      <el-form-item label="控制阶段" prop="itemStatus" class="el-col el-col-11 el-col-offset-1">
+      <el-form-item :label="$t('controltermM_ContrPhas')" prop="itemStatus" class="el-col el-col-11 el-col-offset-1">
         <el-radio-group v-model="dialogForm.itemStatus">
-          <el-radio label="analysis">解析</el-radio>
-          <el-radio label="control">管控</el-radio>
+          <el-radio label="analysis">{{$t('controltermM_analy')}}</el-radio>
+          <el-radio label="control">{{$t('controltermM_Contr')}}</el-radio>
         </el-radio-group>
       </el-form-item>
       <template v-for="(item,i) in dialogForm.chartList" v-if="showControl">
         <el-form-item :key="`${i}_1`" :label="getControrItemLabel(item.chartType)+'-UCL'" class="el-col el-col-11" :class="{'el-col-offset-1':i%2===1}">
-          <el-input v-model="dialogForm.chartList[i].ucl" placeholder="请输入"></el-input>
+          <el-input v-model="dialogForm.chartList[i].ucl" :placeholder="$t('common_PleasEnte')"></el-input>
         </el-form-item>
         <el-form-item :key="`${i}_2`" :label="getControrItemLabel(item.chartType)+'-CL'" class="el-col el-col-11" :class="{'el-col-offset-1':i%2===0}">
-          <el-input v-model="dialogForm.chartList[i].cl" placeholder="请输入"></el-input>
+          <el-input v-model="dialogForm.chartList[i].cl" :placeholder="$t('common_PleasEnte')"></el-input>
         </el-form-item>
         <el-form-item :key="`${i}_3`" :label="getControrItemLabel(item.chartType)+'-LCL'" class="el-col el-col-11" :class="{'el-col-offset-1':i%2===1}">
-          <el-input v-model="dialogForm.chartList[i].lcl" placeholder="请输入"></el-input>
+          <el-input v-model="dialogForm.chartList[i].lcl" :placeholder="$t('common_PleasEnte')"></el-input>
         </el-form-item>
       </template>
       <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-        <el-button type="primary" size="mini" @click="saveControlItem">保存</el-button>
-        <el-button size="mini" @click="$emit('cannel')">取消</el-button>
+        <el-button type="primary" size="mini" @click="saveControlItem">{{$t('common_save')}}</el-button>
+        <el-button size="mini" @click="$emit('cannel')">{{$t('common_cancel')}}</el-button>
       </el-form-item>
     </el-form>
     <!-- 异常判定规则 -->
-    <el-dialog width="900px" title="异常判定规则" :visible.sync="abnormalDialog" append-to-body>
+    <el-dialog width="900px" :title="$t('controltermM_AbnorJudgRule')" :visible.sync="abnormalDialog" append-to-body>
       <el-row class="mes-main-tabs" :gutter="20" v-if="abnormalDialog">
         <el-col v-for="(item,i) in dialogForm.chartList" :key="i" :span="dialogForm.chartList.length>1?12:24">
           <abnormal-one :chartType="item.chartType" :ref="'chart'+i" v-model="item.exceptionRule"></abnormal-one>
         </el-col>
       </el-row>
       <div style="text-align:center;">
-        <el-button type="primary" @click="saveRule">确定</el-button>
-        <el-button @click="abnormalDialog=false">取消</el-button>
+        <el-button type="primary" @click="saveRule">{{$t('common_ok')}}</el-button>
+        <el-button @click="abnormalDialog=false">{{$t('common_cancel')}}</el-button>
       </div>
     </el-dialog>
     <!-- 接警设置 -->
@@ -117,61 +117,6 @@ import abnormalOne from './abnormalOne'
 import alarmSetting from './alarmSetting'
 export default {
   data () {
-    const subgroupSizeRule = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入子组容量'))
-      } else {
-        if (value > 0) {
-          callback()
-        } else {
-          callback(new Error('子组容量必须为正整数'))
-        }
-      }
-    }
-    const cpkTargetRule = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入子Cpk目标值'))
-      } else {
-        if (value > 0) {
-          callback()
-        } else {
-          callback(new Error('Cpk目标值必须大于0'))
-        }
-      }
-    }
-    const uslRule = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入USL'))
-      } else {
-        if (value > 0) {
-          callback()
-        } else {
-          callback(new Error('USL必须大于0'))
-        }
-      }
-    }
-    const slRule = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入SL'))
-      } else {
-        if (value > 0) {
-          callback()
-        } else {
-          callback(new Error('SL必须大于0'))
-        }
-      }
-    }
-    const lslRule = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入LSL'))
-      } else {
-        if (value > 0) {
-          callback()
-        } else {
-          callback(new Error('LSL必须大于0'))
-        }
-      }
-    }
     return {
       materialNo: '',
       officeName: '',
@@ -196,20 +141,6 @@ export default {
         mSpcAlertId: '',
         chartList: [],
         notAlert: ''
-      },
-      rules: {
-        dept: [{ required: true, message: '请选择部门' }],
-        itemCode: [{ required: true, message: '请输入控制项名称' }],
-        mComMaterialId: [{ required: true, message: '请选择料号' }],
-        mSpcMeasurementStationId: [{ required: true, message: '请选择量测站/实验室' }],
-        moldCavityNo: [{ required: true, message: '请输入模穴号/零件位置' }],
-        controlChartType: [{ required: true, message: '请选择控制图' }],
-        subgroupSize: [{ required: true, validator: subgroupSizeRule }],
-        cpkTarget: [{ required: true, validator: cpkTargetRule }],
-        usl: [{ required: true, validator: uslRule }],
-        sl: [{ required: true, validator: slRule }],
-        lsl: [{ required: true, validator: lslRule }],
-        chartList: [{ required: true, message: '请选择异常判定规则' }]
       },
       measurementStationList: [],
       measurementInstrumentList: [],
@@ -236,7 +167,78 @@ export default {
       return this.dialogForm.itemStatus === 'control'
     },
     alarmDialogTitle () {
-      return this.alarmType === 'table' ? '接警设置' : '新增接警设置'
+      return this.alarmType === 'table' ? this.$t('controltermM_AlarmReceSett') : this.$t('controltermM_NewAlarSett')
+    },
+    rules () {
+      const subgroupSizeRule = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error(this.$t('controltermM_enterSubgCapa')))
+        } else {
+          if (value > 0) {
+            callback()
+          } else {
+            callback(new Error(this.$t('controltermM_SubgrCapaMustPosiInte')))
+          }
+        }
+      }
+      const cpkTargetRule = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error(this.$t('controltermM_enterSubCpkValue')))
+        } else {
+          if (value > 0) {
+            callback()
+          } else {
+            callback(new Error(this.$t('controltermM_TargeValuMustGreaThan0')))
+          }
+        }
+      }
+      const uslRule = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error(this.$t('common_PleasEnte') + 'USL'))
+        } else {
+          if (value > 0) {
+            callback()
+          } else {
+            callback(new Error('USL' + this.$t('controltermM_mustBeGreaThan0')))
+          }
+        }
+      }
+      const slRule = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error(this.$t('common_PleasEnte') + 'SL'))
+        } else {
+          if (value > 0) {
+            callback()
+          } else {
+            callback(new Error('SL' + this.$t('controltermM_mustBeGreaThan0')))
+          }
+        }
+      }
+      const lslRule = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error(this.$t('common_PleasEnte') + 'LSL'))
+        } else {
+          if (value > 0) {
+            callback()
+          } else {
+            callback(new Error('LSL' + this.$t('controltermM_mustBeGreaThan0')))
+          }
+        }
+      }
+      return {
+        dept: [{ required: true, message: this.$t('common_PleasSeleDepa') }],
+        itemCode: [{ required: true, message: this.$t('controltermM_enterAContName') }],
+        mComMaterialId: [{ required: true, message: this.$t('common_PleaseSelectPN') }],
+        mSpcMeasurementStationId: [{ required: true, message: this.$t('controltermM_selecMeasStat') + '/' + this.$t('common_labor') }],
+        moldCavityNo: [{ required: true, message: this.$t('controltermM_inputDieHoleNumb') + '/' + this.$t('controltermM_PartLoca') }],
+        controlChartType: [{ required: true, message: this.$t('controltermM_selecContChar') }],
+        subgroupSize: [{ required: true, validator: subgroupSizeRule }],
+        cpkTarget: [{ required: true, validator: cpkTargetRule }],
+        usl: [{ required: true, validator: uslRule }],
+        sl: [{ required: true, validator: slRule }],
+        lsl: [{ required: true, validator: lslRule }],
+        chartList: [{ required: true, message: this.$t('controltermM_selecAnExceRule') }]
+      }
     }
   },
   watch: {
@@ -284,7 +286,7 @@ export default {
         }
         this.abnormalDialog = isOpen
       } else {
-        this.$message.warning('请先选择控制图!')
+        this.$message.warning(this.$t('controltermM_selecContCharFirs'))
       }
     },
     controlChartTypeChange (type) {

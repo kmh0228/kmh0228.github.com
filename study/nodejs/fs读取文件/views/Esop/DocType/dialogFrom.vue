@@ -1,14 +1,14 @@
 <template>
  <el-form :model="dialogForm"  ref="dialogForm" label-position="left" label-width="120px" class="el-row mes-form-rule" :rules="rules" size="mini">
-   <el-form-item label="文档类型" prop="docType" class="el-col el-col-24">
+   <el-form-item :label="$t('docType_DocumType')" prop="docType" class="el-col el-col-24">
      <el-input v-model="dialogForm.docType"></el-input>
    </el-form-item>
-   <el-form-item label="描述" class="el-col el-col-24">
+   <el-form-item :label="$t('common_Description')" class="el-col el-col-24">
      <el-input v-model="dialogForm.typeDesc"></el-input>
    </el-form-item>
-   <el-form-item label="文档后缀" class="el-col el-col-24">
+   <el-form-item :label="$t('docType_DocumSuff')" class="el-col el-col-24">
      <!-- <el-input v-model="dialogForm.suffix"></el-input> -->
-     <el-select style="width:100%" v-model="suffixList" multiple placeholder="请选择">
+     <el-select style="width:100%" v-model="suffixList" multiple :placeholder="$t('common_PleasSele')">
       <el-option
         v-for="item in options"
         :key="item.value"
@@ -18,15 +18,15 @@
     </el-select>
 
    </el-form-item>
-   <!-- <el-form-item label="文档编号规则" class="el-col el-col-24">
+   <!-- <el-form-item :label="$t('docType_DocumNumbRule')" class="el-col el-col-24">
      <el-input  v-model="dialogForm.mSeqName"></el-input>
    </el-form-item> -->
-   <el-form-item label="浏览工具" class="el-col el-col-24">
+   <el-form-item :label="$t('docType_BrowsTool')" class="el-col el-col-24">
       <el-input v-model="dialogForm.browseTool"></el-input>
    </el-form-item>
     <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-      <el-button type="primary" size="mini" @click="saveForm">保存</el-button>
-        <el-button size="mini" @click="$emit('cancel')">取消</el-button>
+      <el-button type="primary" size="mini" @click="saveForm">{{$t('common_save')}}</el-button>
+        <el-button size="mini" @click="$emit('cancel')">{{$t('common_cancel')}}</el-button>
     </el-form-item>
 
  </el-form>
@@ -63,9 +63,13 @@ export default {
         browseTool: '',
         mComDoctypeId: ''
       },
-      suffixList: [],
-      rules: {
-        docType: [{ required: true, message: '文档类型不能为空' }]
+      suffixList: []
+    }
+  },
+  computed: {
+    rules () {
+      return {
+        docType: [{ required: true, message: this.$t('docType_DocumTypeCannBeEmpt') }]
       }
     }
   },

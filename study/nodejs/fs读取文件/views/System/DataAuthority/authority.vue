@@ -2,20 +2,20 @@
   <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="11">
-          <el-button size="mini" icon="el-icon-finished" v-if="isSetting" :loading="saveLoading" @click="saveTenantPermission">保存</el-button>
-          <el-button size="mini" icon="el-icon-setting" v-else @click="isSetting = true">配置</el-button>
+          <el-button size="mini" icon="el-icon-finished" v-if="isSetting" :loading="saveLoading" @click="saveTenantPermission">{{$t('common_save')}}</el-button>
+          <el-button size="mini" icon="el-icon-setting" v-else @click="isSetting = true">{{$t('dataAuthority_Config')}}</el-button>
         </el-col>
       </el-row>
       <el-table :data="tableData" border :span-method="objSpanMethod">
-        <el-table-column  prop="parenttitle" label="模组" align="center"></el-table-column>
-        <el-table-column  prop="title" label="功能" align="center"></el-table-column>
-        <el-table-column  prop="functionCode" label="功能标识" align="center"></el-table-column>
-        <el-table-column label="权限配置" align="center">
+        <el-table-column  prop="parenttitle" :label="$t('dataAuthority_Module')" align="center"></el-table-column>
+        <el-table-column  prop="title" :label="$t('dataAuthority_Function')" align="center"></el-table-column>
+        <el-table-column  prop="functionCode" :label="$t('dataAuthority_Marking')" align="center"></el-table-column>
+        <el-table-column :label="$t('dataAuthority_Configuration')" align="center">
           <template slot-scope="scope">
             <el-radio-group v-model="scope.row.permissionLevel" :disabled="!isSetting">
-              <el-radio :label="0">租户</el-radio>
-              <el-radio :label="1">工厂</el-radio>
-              <el-radio :label="2">部门</el-radio>
+              <el-radio :label="0">{{$t('dataAuthority_Tenant')}}</el-radio>
+              <el-radio :label="1">{{$t('common_Factory')}}</el-radio>
+              <el-radio :label="2">{{$t('common_Department')}}</el-radio>
             </el-radio-group>
           </template>
         </el-table-column>
@@ -69,7 +69,7 @@ export default {
       let res = await this.$api.saveTenantPermission({ itemList: data })
       if (res.code === '200') {
         this.saveLoading = false
-        this.$message.success('保存成功！')
+        this.$message.success(this.$t('common_SavedSuccessfully'))
         this.isSetting = false
       }
     }

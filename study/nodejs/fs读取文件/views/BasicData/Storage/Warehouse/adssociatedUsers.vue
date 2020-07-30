@@ -2,27 +2,27 @@
   <div>
     <div class="mes-table">
       <el-row class="mes-table-handle">
-        <el-button size="mini" icon="el-icon-plus" @click="showPop">选择</el-button>
+        <el-button size="mini" icon="el-icon-plus" @click="showPop">{{$t('warehouse_choic')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-delete-solid" @click="deleteWarehouseUser()">删除</el-button>
+        <el-button size="mini" icon="el-icon-delete-solid" @click="deleteWarehouseUser()">{{$t('common_Del')}}</el-button>
       </el-row>
       <div class="mes-table-content">
         <el-table :data="tableData" border highlight-current-row size="mini" @selection-change="tableSelectionChange" >
           <el-table-column type="selection" width="50" align="center"></el-table-column>
-          <el-table-column type="index"  width="80" label="序号" align="center" :index="indexMethod" sortable></el-table-column>
-          <el-table-column prop="userCode" label="用户编码"  align="center" sortable></el-table-column>
-          <el-table-column prop="userName" label="用户名称" align="center" sortable></el-table-column>
+          <el-table-column type="index"  width="80" :label="$t('common_Number')" align="center" :index="indexMethod" sortable></el-table-column>
+          <el-table-column prop="userCode" :label="$t('warehouse_UserCode')"  align="center" sortable></el-table-column>
+          <el-table-column prop="userName" :label="$t('warehouse_UserName')" align="center" sortable></el-table-column>
         </el-table>
       </div>
     </div>
-    <el-dialog title="关联用户" :visible.sync="usersVisible" width="400px" class="handle-dialog" >
+    <el-dialog :title="$t('warehouse_AssocUser')" :visible.sync="usersVisible" width="400px" class="handle-dialog" >
       <el-form :model="adssociatedUsersForm" ref="adssociatedUsersForm" label-width="70px" label-position="left" class="el-row mes-form-rule">
-        <el-form-item label="用户" prop="userIds" class="el-col el-col-24">
+        <el-form-item :label="$t('warehouse_user')" prop="userIds" class="el-col el-col-24">
           <el-select
             v-model="adssociatedUsersForm.userIds"
             multiple
             collapse-tags
-            placeholder="请选择">
+            :placeholder="$t('common_PleasSele')">
             <el-option
               v-for="item in personList"
               :key="item.userCode"
@@ -32,8 +32,8 @@
           </el-select>
         </el-form-item>
         <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-          <el-button type="primary" size="mini" @click="saveUser">保存</el-button>
-          <el-button size="mini" @click="usersVisible = false">取消</el-button>
+          <el-button type="primary" size="mini" @click="saveUser">{{$t('common_save')}}</el-button>
+          <el-button size="mini" @click="usersVisible = false">{{$t('common_cancel')}}</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -80,7 +80,7 @@ export default {
     },
     async saveUser () {
       if (!this.adssociatedUsersForm.userIds.length) {
-        this.$message.error('请选择关联用户')
+        this.$message.error(this.$t('warehouse_PleasSeleAssoUs'))
         return false
       }
       let data = this.adssociatedUsersForm.userIds.map(item => {
@@ -101,7 +101,7 @@ export default {
     },
     async deleteWarehouseUser () {
       if (this.selectList.length > 0) {
-        let confirmRes = await this.$myPrompt.confirm('确定删除当前选中的关联用户吗?')
+        let confirmRes = await this.$myPrompt.confirm(this.$t('warehouse_deleteCurAssUser'))
         if (confirmRes) {
           const res = await this.$api.deleteWarehouseUser(this.selectList)
           if (res.code === '200') {
@@ -112,7 +112,7 @@ export default {
           }
         }
       } else {
-        this.$message.warning('请选择需要删除的关联用户')
+        this.$message.warning(this.$t('warehouse_PleasSeleDelUs'))
       }
     },
     async getPersonList () {

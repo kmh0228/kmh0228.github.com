@@ -1,50 +1,50 @@
 <template>
   <div class="mes-main mes-work-order">
-    <div class="mes-main-title">IQC检验</div>
+    <div class="mes-main-title">{{$t('IQCInspection_IQCInspection')}}</div>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-         <el-input v-model="searchForm.materialNo" style="width:40%" placeholder="料号" @keydown.enter.native="$refs.tableList.queryList(true)"></el-input>
+         <el-input v-model="searchForm.materialNo" style="width:40%" :placeholder="$t('common_PorN')" @keydown.enter.native="$refs.tableList.queryList(true)"></el-input>
       </el-col>
       <el-col :span="12">
         <el-button size="mini" style="float:right;margin-left:10px;" @click="showMoreConditon = !showMoreConditon">
             <i class="fa fa-filter"></i>
         </el-button>
-        <el-input size="mini" placeholder="批次号" v-model="searchForm.lotCode" style="width:40%;float:right;" @keydown.enter.native="$refs.tableList.queryList(true)">
+        <el-input size="mini" :placeholder="$t('IQCInspection_BatchNumber')" v-model="searchForm.lotCode" style="width:40%;float:right;" @keydown.enter.native="$refs.tableList.queryList(true)">
           <i slot="suffix" class="el-input__icon el-icon-search" @click="$refs.tableList.queryList(true)"></i>
         </el-input>
       </el-col>
       <el-col :span="24"   style="padding-top:1vh;">
         <el-form class="el-row mes-search-form" :model="searchForm" label-width="30%" label-position="left" v-show="showMoreConditon">
-          <el-form-item label="日期范围" class="el-col el-col-11">
+          <el-form-item :label="$t('IQCInspection_DateRange')" class="el-col el-col-11">
             <el-date-picker
               v-model="searchForm.time"
               type="daterange"
-              range-separator="至"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"  format="yyyy-MM-dd"
+              :range-separator="$t('common_')"
+              start-:placeholder="$t('common_StartDate')"
+              end-:placeholder="$t('common_dDate')"  format="yyyy-MM-dd"
               value-format="yyyy-MM-dd"
               size="mini"
               style="width:100%;">
             </el-date-picker>
           </el-form-item>
-          <el-form-item label="检验单号" class="el-col el-col-11 el-col-offset-1">
+          <el-form-item :label="$t('common_InspeOrdeNo')" class="el-col el-col-11 el-col-offset-1">
             <el-input v-model="searchForm.iqcNo"></el-input>
           </el-form-item>
-          <el-form-item label="入库单号" class="el-col el-col-11">
+          <el-form-item :label="$t('common_StockInNo')" class="el-col el-col-11">
             <el-input v-model="searchForm.entrylistNo"></el-input>
           </el-form-item>
-          <el-form-item label="检验状态" class="el-col el-col-11 el-col-offset-1">
-            <el-select size="mini" placeholder="检验状态"  v-model="searchForm.checkStatus" style="width:100%">
-              <el-option label="未检验" value="0"></el-option>
-              <el-option label="已检验" value="1"></el-option>
+          <el-form-item :label="$t('IQCInspection_InspectionStatus')" class="el-col el-col-11 el-col-offset-1">
+            <el-select size="mini" :placeholder="$t('IQCInspection_InspectionStatus')"  v-model="searchForm.checkStatus" style="width:100%">
+              <el-option :label="$t('IQCInspection_NotInspected')" value="0"></el-option>
+              <el-option :label="$t('IQCInspection_Inspected')" value="1"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="处理结果" class="el-col el-col-11">
-            <el-select size="mini" placeholder="处理结果"  v-model="searchForm.handleResult" style="width:100%">
-              <el-option label="特采" value="0"></el-option>
-              <el-option label="挑选" value="1"></el-option>
-              <el-option label="报废" value="2"></el-option>
-              <el-option label="退货" value="3"></el-option>
+          <el-form-item :label="$t('IQCInspection_ProcessingResult')" class="el-col el-col-11">
+            <el-select size="mini" :placeholder="$t('IQCInspection_ProcessingResult')"  v-model="searchForm.handleResult" style="width:100%">
+              <el-option :label="$t('common_SpeciColl')" value="0"></el-option>
+              <el-option :label="$t('common_choos')" value="1"></el-option>
+              <el-option :label="$t('IQCInspection_Scrap')" value="2"></el-option>
+              <el-option :label="$t('IQCInspection_Return')" value="3"></el-option>
             </el-select>
           </el-form-item>
         </el-form>
@@ -53,11 +53,11 @@
     <div>
       <table-list ref="tableList" :tableData="tableData" :tableOption="option"  :queryListApi="getIQCCheckList" :total="total">
         <div slot="buttonBox">
-          <el-button size="mini" @click="auditClick">检验审核</el-button>
+          <el-button size="mini" @click="auditClick">{{$t('IQCInspection_InspectionReview')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-search" @click="$refs.tableList.queryList(true)">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="$refs.tableList.queryList(true)">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">{{$t('common_Refresh')}}</el-button>
         </div>
       </table-list>
     </div>
@@ -120,7 +120,7 @@ export default {
     auditClick () {
       let data = this.$refs.tableList.getSelectData()
       if (data.length !== 1) {
-        this.$message.warning('请选择一条需要检验审核的数据')
+        this.$message.warning(this.$t('IQCInspection_PleaseSelectADataToBeInspectedAndApproved'))
         return false
       }
       sessionStorage.setItem('IQCAuditData', JSON.stringify(data))

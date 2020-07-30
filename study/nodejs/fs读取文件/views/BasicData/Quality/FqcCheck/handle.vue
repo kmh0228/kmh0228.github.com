@@ -4,66 +4,66 @@
       <div class="mes-handle-content">
       <el-row :gutter="15">
         <el-col :span="24">
-          <el-button type="primary" plain size="mini" @click="saveIqc('DRAFT')" :disabled="buttonDisabled">保存</el-button>
-          <el-button type="primary" plain size="mini" @click="saveIqc('SUBMITTED')" :disabled="buttonDisabled">提交</el-button>
-          <el-button type="primary" plain size="mini" @click="closeCurrentPage">关闭</el-button>
-           <span class="status_class">状态：{{ fqcState }}</span>
-           <span v-if="userType === 2" class="status_class"  style="margin-left:3vw">单号：{{unitNumber}}</span>
+          <el-button type="primary" plain size="mini" @click="saveIqc('DRAFT')" :disabled="buttonDisabled">{{$t('common_save')}}</el-button>
+          <el-button type="primary" plain size="mini" @click="saveIqc('SUBMITTED')" :disabled="buttonDisabled">{{$t('common_Submit')}}</el-button>
+          <el-button type="primary" plain size="mini" @click="closeCurrentPage">{{$t('common_close')}}</el-button>
+           <span class="status_class">{{$t('fqcCheck_Statu')}}{{ fqcState }}</span>
+           <span v-if="userType === 2" class="status_class"  style="margin-left:3vw">{{$t('fqcCheck_OddNumb')}}{{unitNumber}}</span>
         </el-col>
       </el-row>
       <div class="mes-main-tabs" style="margin-top:10px;">
         <el-tabs v-model="activeName" >
-          <el-tab-pane label="基本资料" name="info">
+          <el-tab-pane :label="$t('common_BasicInfo')" name="info">
             <el-form :model="iqcInfo" ref="iqcInfo" :rules="rules" label-width="110px" label-position="left" class="el-row mes-form-rule" size="mini">
-              <el-form-item label="入库单号" class="el-col el-col-7" prop="stockInNo">
+              <el-form-item :label="$t('common_StockInNo')" class="el-col el-col-7" prop="stockInNo">
                 <!-- <el-input size="mini" v-model="iqcInfo.stockInNo" :disabled="userType !== 1"></el-input> -->
                 <mes-select v-model="iqcInfo.stockInNo" labelKey="mWmsEntrylistNo" valueKey="mWmsEntrylistNo" method="getInboundOrder" clearable :disabled="userType !== 1"></mes-select>
                 <!-- <el-col :lg="{span:13}" :xl="{span:16}">
-                  <el-input v-model="iqcInfo.stockInNo" placeholder="请生成入库单号" size="mini"></el-input>
+                  <el-input v-model="iqcInfo.stockInNo" :placeholder="$t('fqcCheck_generStocInNo')" size="mini"></el-input>
                 </el-col>
                 <el-col :lg="{span:10,offset:1}" :xl="{span:7,offset:1}">
-                  <el-button type="primary" plain size="mini" style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" @click="createBatchNo">按规则生成工单号</el-button>
+                  <el-button type="primary" plain size="mini" style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" @click="createBatchNo">{{$t('fqcCheck_GenerWorkOrdeAccoRule')}}</el-button>
                 </el-col> -->
               </el-form-item>
-              <el-form-item label="批号" class="el-col el-col-7 el-col-offset-1" prop="lotNo">
+              <el-form-item :label="$t('common_BatchNumb')" class="el-col el-col-7 el-col-offset-1" prop="lotNo">
                 <el-input size="mini" v-model="iqcInfo.lotNo" ></el-input>
               </el-form-item>
-              <el-form-item label="料号" class="el-col el-col-7 el-col-offset-1" prop="materialNo">
+              <el-form-item :label="$t('common_PorN')" class="el-col el-col-7 el-col-offset-1" prop="materialNo">
                 <material-select v-model="iqcInfo.materialNo" @change="handleData" v-if="userType === 1" style="width:100%" selectkey="materialNo"></material-select>
-                <el-input disabled v-else v-model="iqcInfo.materialNo" placeholder="请输入料号"></el-input>
+                <el-input disabled v-else v-model="iqcInfo.materialNo" :placeholder="$t('common_PleasEnteItemNu')"></el-input>
               </el-form-item>
-                <el-form-item label="入库数量" class="el-col el-col-7" prop="stockInQty">
+                <el-form-item :label="$t('fqcCheck_StoraQuan')" class="el-col el-col-7" prop="stockInQty">
                 <el-input size="mini" v-model.number="iqcInfo.stockInQty" style="width:60%" ></el-input>
                 <el-input style="width:35%;float:right" v-model="iqcInfo.qtyUom" size="mini"></el-input>
               </el-form-item>
-              <el-form-item label="客户" class="el-col el-col-7 el-col-offset-1" prop="customer">
+              <el-form-item :label="$t('common_custo')" class="el-col el-col-7 el-col-offset-1" prop="customer">
                 <el-input size="mini" v-model="iqcInfo.customer" ></el-input>
               </el-form-item>
-                <el-form-item label="客户料号" class="el-col el-col-7 el-col-offset-1" prop="custMaterialNo">
+                <el-form-item :label="$t('fqcCheck_CustoItemNo')" class="el-col el-col-7 el-col-offset-1" prop="custMaterialNo">
                 <el-input size="mini" v-model="iqcInfo.custMaterialNo" ></el-input>
               </el-form-item>
-              <el-form-item label="生产线别" class="el-col el-col-7" prop="mPomLineId">
-                <el-select style="width:100%" size="mini" clearable placeholder="请选择线别"  v-model="iqcInfo.mPomLineId">
+              <el-form-item :label="$t('fqcCheck_ProduLine')" class="el-col el-col-7" prop="mPomLineId">
+                <el-select style="width:100%" size="mini" clearable :placeholder="$t('common_PleasSeleLineTy')"  v-model="iqcInfo.mPomLineId">
                   <el-option v-for="(option,i) in lineList" :key="i" :label="option.lineName" :value="option.mPomLineId"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="地点" class="el-col el-col-7 el-col-offset-1" prop="location">
+              <el-form-item :label="$t('fqcCheck_place')" class="el-col el-col-7 el-col-offset-1" prop="location">
                 <el-input size="mini" v-model="iqcInfo.location" ></el-input>
               </el-form-item>
-              <el-form-item label="入库日期" class="el-col el-col-7 el-col-offset-1" prop="stockInDate">
-                <!-- <el-date-picker  v-model="iqcInfo.stockInDate" type="date"  placeholder="选择日期" style="width:100%"></el-date-picker> -->
-                <el-date-picker  v-model="iqcInfo.stockInDate"  type="date"  placeholder="选择日期" style="width:100%" value-format="yyyy-MM-dd"></el-date-picker>
+              <el-form-item :label="$t('fqcCheck_WarehDate')" class="el-col el-col-7 el-col-offset-1" prop="stockInDate">
+                <!-- <el-date-picker  v-model="iqcInfo.stockInDate" type="date"  :placeholder="$t('common_SelecDate')" style="width:100%"></el-date-picker> -->
+                <el-date-picker  v-model="iqcInfo.stockInDate"  type="date"  :placeholder="$t('common_SelecDate')" style="width:100%" value-format="yyyy-MM-dd"></el-date-picker>
               </el-form-item>
-              <el-form-item label="检验日期" class="el-col el-col-7" prop="inspectDate">
-                <el-date-picker  v-model="iqcInfo.inspectDate"  type="date"  placeholder="选择日期" style="width:100%" value-format="yyyy-MM-dd"></el-date-picker>
+              <el-form-item :label="$t('common_InspeDate')" class="el-col el-col-7" prop="inspectDate">
+                <el-date-picker  v-model="iqcInfo.inspectDate"  type="date"  :placeholder="$t('common_SelecDate')" style="width:100%" value-format="yyyy-MM-dd"></el-date-picker>
               </el-form-item>
-              <el-form-item label="检验员" class="el-col el-col-7 el-col-offset-1" prop="inspector">
+              <el-form-item :label="$t('common_examiCler')" class="el-col el-col-7 el-col-offset-1" prop="inspector">
                 <!-- <el-select  v-model="iqcInfo.inspector" style="width:100%">
                   <el-option v-for="(option,i) in userList" :key="i" :label="option.employeeName" :value="option.mComEmployeeId"></el-option>
                 </el-select> -->
                 <mes-select v-model="iqcInfo.inspector" labelKey="userName" valueKey="userCode" method="getPersonList"></mes-select>
               </el-form-item>
-              <el-form-item label="异常通知人员" class="el-col el-col-7 el-col-offset-1">
+              <el-form-item :label="$t('common_AbnorNotiPers')" class="el-col el-col-7 el-col-offset-1">
                 <mes-select v-model="iqcInfo.excepNotice" labelKey="userName" valueKey="userCode" method="getPersonList"></mes-select>
               </el-form-item>
             </el-form>
@@ -71,32 +71,32 @@
         </el-tabs>
         <settings ref="settings" :stockInQty="iqcInfo.stockInQty"></settings>
          <el-tabs v-model="activeName1">
-          <el-tab-pane label="检验记录" name='record'>
+          <el-tab-pane :label="$t('common_InspeRecord')" name='record'>
             <el-table :data="fqcDetailList" border>
-              <el-table-column prop="sortNo" label="项次" align="center"></el-table-column>
-              <el-table-column label="检验项目" prop="inspectItem" align="center" ></el-table-column>
-              <el-table-column label="检验内容" prop="inspectContent" align="center"></el-table-column>
+              <el-table-column prop="sortNo" :label="$t('common_item')" align="center"></el-table-column>
+              <el-table-column :label="$t('common_InspeItem')" prop="inspectItem" align="center" ></el-table-column>
+              <el-table-column :label="$t('common_InspeCont')" prop="inspectContent" align="center"></el-table-column>
 
               <!-- 设计取消掉了 但是以免再加上   -->
-              <!-- <el-table-column label="上限" prop="maxValue" align="center"></el-table-column>
-              <el-table-column label="下限" prop="minValue" align="center"></el-table-column>
-              <el-table-column label="单位" prop="specUom" align="center"></el-table-column>
-              <el-table-column label="图位" align="center">
+              <!-- <el-table-column :label="$t('fqcCheck_upperLimi')" prop="maxValue" align="center"></el-table-column>
+              <el-table-column :label="$t('fqcCheck_lowerLimi')" prop="minValue" align="center"></el-table-column>
+              <el-table-column :label="$t('common_Unit')" prop="specUom" align="center"></el-table-column>
+              <el-table-column :label="$t('common_MapLoca')" align="center">
                 <template slot-scope="scope" >
                   <el-input v-model="scope.row.locationContent"></el-input>
                 </template>
               </el-table-column>
-              <el-table-column label="测试编号" prop="testNo" align="center">
+              <el-table-column :label="$t('fqcCheck_TestNumb')" prop="testNo" align="center">
                 <template slot-scope="scope" >
                   <el-input v-model="scope.row.testNo"></el-input>
                 </template>
               </el-table-column> -->
-              <el-table-column label="测试结果" align="center">
+              <el-table-column :label="$t('fqcCheck_testResu')" align="center">
                 <template slot-scope="scope">
                   <el-input size="mini" v-model.trim="scope.row.inspectInfo"></el-input>
                 </template>
               </el-table-column>
-              <el-table-column label="判定结果" align="center">
+              <el-table-column :label="$t('common_JudgmResu')" align="center">
                 <template slot-scope="scope">
                   <el-select size="mini" v-model.trim="scope.row.inspectResult">
                     <el-option v-for="(option,i) in statusList" :key="i" :label="option" :value="option"  @click.native="dispatchNg(scope.row)"></el-option>
@@ -108,7 +108,7 @@
         </el-tabs>
         <bad-type ref="badType"></bad-type>
         <determine ref="determine"></determine>
-        <el-dialog :visible.sync="dialogVisible" title="ng页面"  width="800px" class="handle-dialog">
+        <el-dialog :visible.sync="dialogVisible" :title="'ng'+$t('common_page')"  width="800px" class="handle-dialog">
           <ng-dialog v-if="dialogVisible" ref="dialog" :detailId="detailId" @cannel="cannel"></ng-dialog>
         </el-dialog>
       </div>
@@ -148,17 +148,17 @@ export default {
         excepNotice: ''
       },
       rules: {
-        stockInNo: [{ required: true, message: '请选择入库单号' }],
-        materialNo: [{ required: true, message: '请选择料号' }],
-        stockInQty: [{ required: true, message: '请输入入库数量' }],
-        mPomLineId: [{ required: true, message: '请选择生产线别' }],
-        inspectDate: [{ required: true, message: '请输入检验日期' }]
+        stockInNo: [{ required: true, message: this.$t('fqcCheck_selecStocInNo') }],
+        materialNo: [{ required: true, message: this.$t('common_PleaseSelectPN') }],
+        stockInQty: [{ required: true, message: this.$t('fqcCheck_enterStocInQuan') }],
+        mPomLineId: [{ required: true, message: this.$t('fqcCheck_selecProdLine') }],
+        inspectDate: [{ required: true, message: this.$t('fqcCheck_enterInspDate') }]
       },
       lineList: [],
       userList: [],
       fqcDetailList: [],
       activeName1: 'record',
-      statusList: ['OK', 'NG', '空白'],
+      statusList: ['OK', 'NG', this.$t('common_blank')],
       dialogVisible: false,
       detailId: ''
     }
@@ -168,7 +168,7 @@ export default {
   },
   computed: {
     buttonDisabled () {
-      return this.fqcState === '已提交'
+      return this.fqcState === this.$t('common_Submitted')
     }
   },
   methods: {
@@ -182,7 +182,7 @@ export default {
       this.dialogVisible = false
     },
     setStatus () {
-      this.fqcState = this.$route.query.status === 'DRAFT' ? '未提交' : '已提交'
+      this.fqcState = this.$route.query.status === 'DRAFT' ? this.$t('common_NotSubm') : this.$t('common_Submitted')
       this.unitNumber = this.$route.query.unitNumber
     },
     async createBatchNo () {

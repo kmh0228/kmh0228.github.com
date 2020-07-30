@@ -1,17 +1,17 @@
 <template>
   <el-form :model="dialogForm" :rules="rules" ref="dialogForm" label-width="120px" label-position="left" class="el-row mes-form-rule" :isEdit="isEdit">
-  <el-form-item label="部门" prop="officeCode" class="el-col el-col-24">
-      <cascader-select v-model="dialogForm.officeCode" :disabled="isEdit" type="2" style="width:100%" size="mini" placeholder="请选择部门"></cascader-select>
+  <el-form-item :label="$t('common_Department')" prop="officeCode" class="el-col el-col-24">
+      <cascader-select v-model="dialogForm.officeCode" :disabled="isEdit" type="2" style="width:100%" size="mini" :placeholder="$t('common_PleasSeleDepa')"></cascader-select>
   </el-form-item>
-  <el-form-item label="测量站/实验室" prop="stationCode" class="el-col el-col-24">
+  <el-form-item :label="$t('measurStation_SurveStat')+'/'+$t('common_labor')" prop="stationCode" class="el-col el-col-24">
     <el-input v-model.trim="dialogForm.stationCode" :disabled="isEdit" size="mini"></el-input>
   </el-form-item>
-  <el-form-item label="描述" prop="stationDesc" class="el-col el-col-24">
+  <el-form-item :label="$t('common_Description')" prop="stationDesc" class="el-col el-col-24">
     <el-input v-model.trim="dialogForm.stationDesc" size="mini"></el-input>
   </el-form-item>
   <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-      <el-button type="primary" size="mini" @click="saveStation">保存</el-button>
-      <el-button size="mini" @click="$emit('cannel')">取消</el-button>
+      <el-button type="primary" size="mini" @click="saveStation">{{$t('common_save')}}</el-button>
+      <el-button size="mini" @click="$emit('cannel')">{{$t('common_cancel')}}</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -24,10 +24,14 @@ export default {
         officeCode: '',
         stationCode: '',
         stationDesc: ''
-      },
-      rules: {
-        officeCode: [{ required: true, message: '部门不能为空' }],
-        stationCode: [{ required: true, message: '测量站/实验室不能为空' }]
+      }
+    }
+  },
+  computed: {
+    rules () {
+      return {
+        officeCode: [{ required: true, message: this.$t('measurStation_DeparCannBeEmpt') }],
+        stationCode: [{ required: true, message: this.$t('measurStation_SurveStat') + '/' + this.$t('measurStation_LabCannBeEmpt') }]
       }
     }
   },

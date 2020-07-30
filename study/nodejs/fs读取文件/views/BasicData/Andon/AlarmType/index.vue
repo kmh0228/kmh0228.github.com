@@ -1,12 +1,12 @@
 <template>
   <div class="mes-main mes-work-order">
-  <div class="mes-main-title">报警类型管理</div>
+  <div class="mes-main-title">{{$t('alarmType_AlarmTypeMana')}}</div>
   <el-row :gutter="20" class="mes-main-filte">
     <el-col :span="12">
       <cascader-select v-model="searchForm.officeCode" style="width:40%" dataType="1"></cascader-select>
     </el-col>
     <el-col :span="12">
-      <el-input placeholder="请输入报警类型代码" v-model.trim="searchForm.typeCode" size="mini" style="width:40%;float:right" clearable @keydown.enter.native="getTableData">
+      <el-input :placeholder="$t('alarmType_inputAlarTypeCode')" v-model.trim="searchForm.typeCode" size="mini" style="width:40%;float:right" clearable @keydown.enter.native="getTableData">
          <i slot="suffix" class="el-input__icon"  @click="getTableData"></i>
       </el-input>
     </el-col>
@@ -14,13 +14,13 @@
   <div class="mes-table">
     <el-row class="mes-table-handle">
       <el-col :span="12">
-        <el-button size="mini" icon="el-icon-search" @click="getTableData">查询</el-button>
+        <el-button size="mini" icon="el-icon-search" @click="getTableData">{{$t('common_Inquire')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-plus" @click="handletable('')">新增</el-button>
+        <el-button size="mini" icon="el-icon-plus" @click="handletable('')">{{$t('common_Add')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-delete-solid" @click="deleteTable('')">批量删除</el-button>
+        <el-button size="mini" icon="el-icon-delete-solid" @click="deleteTable('')">{{$t('common_Delete')}}</el-button>
         <span class="split-line">|</span>
-            <el-button size="mini" icon="el-icon-refresh" @click="getTableData">刷新</el-button>
+            <el-button size="mini" icon="el-icon-refresh" @click="getTableData">{{$t('common_Refresh')}}</el-button>
       </el-col>
       <el-col :span="12">
         <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -32,21 +32,21 @@
     <div class="mes-table-content">
       <el-table :data="tableData" border highlight-current-row size="mini"  @selection-change="tableSelectionChange">
         <el-table-column type="selection" width="50" align="center"></el-table-column>
-        <el-table-column type="index" label="序号" align="center" fixed="left" :index="indexMethod"></el-table-column>
-        <el-table-column prop="officeName" sortable label="工厂" align="center"></el-table-column>
-        <el-table-column prop="typeCode" sortable width="120" label="报警类型代码" align="center"></el-table-column>
-        <el-table-column prop="typeName" sortable width="120" label="报警类型名称" align="center"></el-table-column>
-        <el-table-column prop="remark" sortable label="备注" align="center"></el-table-column>
-        <el-table-column prop="responseTimeoutGroup" sortable width="145" label="响应超时上报群组" align="center"></el-table-column>
-        <el-table-column prop="firstLevelTimeoutGroup" sortable width="145" label="一级超时上报群组" align="center"></el-table-column>
-        <el-table-column prop="secondLevelTimeoutGroup" sortable width="145" label="二级超时上报群组" align="center"></el-table-column>
-        <el-table-column prop="thirdLevelTimeoutGroup" sortable width="145" label="三级超时上报群组" align="center"></el-table-column>
-        <el-table-column prop="creator" sortable width="90" label="创建人" align="center"></el-table-column>
-        <el-table-column prop="createdDt" sortable width="100" label="创建时间" align="center" :formatter="dateFormatter"></el-table-column>
-        <el-table-column label="操作" align="center" width="120" fixed="right">
+        <el-table-column type="index" :label="$t('common_Number')" align="center" fixed="left" :index="indexMethod"></el-table-column>
+        <el-table-column prop="officeName" sortable :label="$t('common_Factory')" align="center"></el-table-column>
+        <el-table-column prop="typeCode" sortable width="120" :label="$t('alarmType_AlarmTypeCode')" align="center"></el-table-column>
+        <el-table-column prop="typeName" sortable width="120" :label="$t('alarmType_AlarmTypeName')" align="center"></el-table-column>
+        <el-table-column prop="remark" sortable :label="$t('common_remarks')" align="center"></el-table-column>
+        <el-table-column prop="responseTimeoutGroup" sortable width="145" :label="$t('alarmType_RespoTimeRepoGrou')" align="center"></el-table-column>
+        <el-table-column prop="firstLevelTimeoutGroup" sortable width="145" :label="$t('alarmType_Level1OverRepoGrou')" align="center"></el-table-column>
+        <el-table-column prop="secondLevelTimeoutGroup" sortable width="145" :label="$t('alarmType_Level2OverRepoGrou')" align="center"></el-table-column>
+        <el-table-column prop="thirdLevelTimeoutGroup" sortable width="145" :label="$t('alarmType_ThreeLeveOverRepoGrou')" align="center"></el-table-column>
+        <el-table-column prop="creator" sortable width="90" :label="$t('common_Creator')" align="center"></el-table-column>
+        <el-table-column prop="createdDt" sortable width="100" :label="$t('common_CreateTime')" align="center" :formatter="dateFormatter"></el-table-column>
+        <el-table-column :label="$t('common_Operate')" align="center" width="120" fixed="right">
           <template slot-scope="scope">
-            <handle-button @click="handletable(scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-            <handle-button @click="deleteTable(scope.row.mAlmTypeId)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+            <handle-button @click="handletable(scope.row)" iconClass='el-icon-edit-outline' :placeholder="$t('common_Edit')"></handle-button>
+            <handle-button @click="deleteTable(scope.row.mAlmTypeId)" iconClass='el-icon-delete' :placeholder="$t('common_Del')" iconColor='#f56c6c'></handle-button>
           </template>
         </el-table-column>
       </el-table>
@@ -81,7 +81,7 @@ export default {
   },
   computed: {
     dialogTitle () {
-      return this.isEdit ? '编辑报警类型' : '新增报警类型'
+      return this.isEdit ? this.$t('alarmType_EditAlarType') : this.$t('alarmType_NewAlarType')
     }
   },
   methods: {
@@ -138,7 +138,7 @@ export default {
       let { selectList } = this
       let ids = mAlmTypeId ? [mAlmTypeId] : selectList
       if (ids.length > 0) {
-        const confirm = await this.$myPrompt.confirm('确定删除当前选中的报警类型信息吗？')
+        const confirm = await this.$myPrompt.confirm(this.$t('alarmType_AreYouSureTypeInfo'))
         if (confirm) {
           let res = await this.$api.deleteAlarmType(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -146,7 +146,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请选择要删除的报警类型信息')
+        this.$message.warning(this.$t('alarmType_selecAlarTypeBeDele'))
       }
     },
     cannel () {

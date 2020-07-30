@@ -1,17 +1,17 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">物料ESOP关联管理</h3>
+    <h3 class="mes-main-title">{{$t('materialDoc_materESLPMana')}}</h3>
      <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-        <el-input style="width:40%" placeholder="请输入料号" v-model="materialNo" @keydown.native.enter="getTableData" clearable></el-input>
+        <el-input style="width:40%" :placeholder="$t('common_PleasEnteItemNu')" v-model="materialNo" @keydown.native.enter="getTableData" clearable></el-input>
       </el-col>
     </el-row>
      <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="12">
-          <el-button  size="mini" icon="el-icon-search" @click="getTableData">查询</el-button>
+          <el-button  size="mini" icon="el-icon-search" @click="getTableData">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">{{$t('common_Refresh')}}</el-button>
         </el-col>
         <el-col :span="12">
           <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -22,27 +22,27 @@
       </el-row>
       <div class="mes-table-content">
         <el-table :data="tableData"  border size="mini" @cell-click="cellClick" highlight-current-row>
-          <el-table-column type="index" align="center" label="序号" :index="indexMethod"></el-table-column>
-          <el-table-column prop="materialNo" sortable label="料号" align="center"></el-table-column>
-          <el-table-column prop="materialName" sortable label="物料名称" align="center" ></el-table-column>
-          <el-table-column prop="version" sortable label="版次" align="center" ></el-table-column>
-          <el-table-column prop="mComMaterialtypeCode" sortable label="物料类型" align="center" ></el-table-column>
-          <el-table-column prop="materialDesc" sortable label="物料描述" align="center" ></el-table-column>
-          <el-table-column prop="createdDt" sortable label="创建时间" align="center" ></el-table-column>
+          <el-table-column type="index" align="center" :label="$t('common_Number')" :index="indexMethod"></el-table-column>
+          <el-table-column prop="materialNo" sortable :label="$t('common_PorN')" align="center"></el-table-column>
+          <el-table-column prop="materialName" sortable :label="$t('common_MaterialName')" align="center" ></el-table-column>
+          <el-table-column prop="version" sortable :label="$t('common_Edition')" align="center" ></el-table-column>
+          <el-table-column prop="mComMaterialtypeCode" sortable :label="$t('common_MaterialType')" align="center" ></el-table-column>
+          <el-table-column prop="materialDesc" sortable :label="$t('materialDoc_MaterDesc')" align="center" ></el-table-column>
+          <el-table-column prop="createdDt" sortable :label="$t('common_CreateTime')" align="center" ></el-table-column>
         </el-table>
       </div>
      </div>
       <div class="mes-main-tabs" v-if="showTas">
         <el-tabs v-model="activeName">
-          <el-tab-pane label="物料ESOP文档" name="detail">
+          <el-tab-pane :label="$t('materialDoc_materESOPDoc')" name="detail">
             <div  v-if="editDetail" style="margin-bottom:2vh">
-               <el-button type="success" plain size="mini" @click="saveDetailList">保存</el-button>
-               <el-button  type="warning" plain size="mini"  @click="goback">返回</el-button>
+               <el-button type="success" plain size="mini" @click="saveDetailList">{{$t('common_save')}}</el-button>
+               <el-button  type="warning" plain size="mini"  @click="goback">{{$t('common_retur')}}</el-button>
             </div>
-            <el-button style="margin-bottom:2vh" v-else type="primary" plain size="mini" @click="editDetail = true">编辑</el-button>
+            <el-button style="margin-bottom:2vh" v-else type="primary" plain size="mini" @click="editDetail = true">{{$t('common_Edit')}}</el-button>
             <el-table :data="detailList" border highlight-current-row size="mini">
-              <el-table-column type="index" label="序号" align="center"></el-table-column>
-              <el-table-column sortable label="文档编号" align="center">
+              <el-table-column type="index" :label="$t('common_Number')" align="center"></el-table-column>
+              <el-table-column sortable :label="$t('common_DocumNumb')" align="center">
                 <template slot-scope="scope">
                   <el-select v-if="editDetail" v-model="scope.row.mcomDocId"  size="mini" >
                     <el-option v-for="(option,i) in wordList" :key="i"  :label="option.docNo" :value="option.mComDocId" @click.native="getWordNameAndVer(option,scope.$index)"></el-option>
@@ -50,19 +50,19 @@
                   <p v-else>{{scope.row.docNo}}</p>
                 </template>
               </el-table-column>
-              <el-table-column sortable label="文档名称" align="center">
+              <el-table-column sortable :label="$t('materialDoc_DocumName')" align="center">
                  <template slot-scope="scope">
                   <el-input :disabled="true" v-if="editDetail" v-model="scope.row.docName"  size="mini"></el-input>
                   <p v-else>{{scope.row.docName}}</p>
                 </template>
               </el-table-column>
-              <el-table-column sortable label="版本" align="center">
+              <el-table-column sortable :label="$t('common_editi')" align="center">
                  <template slot-scope="scope">
                   <el-input :disabled="true" v-if="editDetail" v-model="scope.row.version"  size="mini"></el-input>
                   <p v-else>{{scope.row.version}}</p>
                 </template>
               </el-table-column>
-              <el-table-column sortable label="制程" align="center">
+              <el-table-column sortable :label="$t('common_Process')" align="center">
                  <template slot-scope="scope">
                   <el-select v-if="editDetail" v-model="scope.row.mcomProcessSegId"  size="mini">
                     <el-option v-for="(option,i) in processModuleList"  :key="i" :label="option.segCode" :value="option.mComProcessSegId"></el-option>
@@ -70,17 +70,17 @@
                   <p v-else>{{scope.row.segCode}}</p>
                 </template>
               </el-table-column>
-              <el-table-column sortable label="操作" align="center" v-if="editDetail">
+              <el-table-column sortable :label="$t('common_Operate')" align="center" v-if="editDetail">
               <template slot-scope="scope">
                 <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteRow(scope.$index)"></el-button>
               </template>
               </el-table-column>
             </el-table>
-             <el-button type="primary" plain size="mini" v-if="editDetail"  @click="addList" style="margin-top:1vh;">添加</el-button>
+             <el-button type="primary" plain size="mini" v-if="editDetail"  @click="addList" style="margin-top:1vh;">{{$t('common_add')}}</el-button>
           </el-tab-pane>
         </el-tabs>
       </div>
-      <!-- <el-dialog :visible.sync="dialogVisible" title="新增物料文档关系" class="handle-dialog" width="600px">
+      <!-- <el-dialog :visible.sync="dialogVisible" :title="$t('materialDoc_NewItemDocuRela')" class="handle-dialog" width="600px">
         <dialog-from v-if="dialogVisible" @cancel="cancel" ref="dialog" :onMaterialNo="onMaterialNo" :onMaterialId="onMaterialId"></dialog-from>
       </el-dialog> -->
 </div>
@@ -151,8 +151,8 @@ export default {
       detailList.forEach((item, index) => {
         for (i of keys) {
           if (item[i] === '') {
-            word = i === 'docNo' ? '文档编号' : '制程'
-            this.$message.warning(`请填写第${index + 1}行中${word}的内容`)
+            word = i === 'docNo' ? this.$t('common_DocumNumb') : this.$t('common_Process')
+            this.$message.warning(this.$t('materialDoc_fillInNo') + (index + 1) + this.$t('materialDoc_InLine') + word + this.$t('materialDoc_Conte'))
             status = false
           }
         }
@@ -208,7 +208,7 @@ export default {
       })
       let id = arr.indexOf(value)
       if (id !== -1) {
-        this.$message.warning('该文档编号已经被关联，请重新选择文档编号！')
+        this.$message.warning(this.$t('materialDoc_documNumbHasDocuNumb'))
         value = ''
       }
     },
@@ -220,7 +220,7 @@ export default {
           arr.push(item.docNo)
         })
         if (arr.indexOf(str) !== -1) {
-          this.$message.warning('该文档编号已经被关联，请重新选择文档编号！')
+          this.$message.warning(this.$t('materialDoc_documNumbHasDocuNumb'))
           this.detailList[index].mcomDocId = ''
           this.detailList[index].docNo = ''
           this.detailList[index].docName = ''

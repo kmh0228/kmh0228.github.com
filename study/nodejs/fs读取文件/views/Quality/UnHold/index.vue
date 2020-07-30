@@ -1,32 +1,32 @@
 <template>
   <div class="mes-main mes-main-common mes-workstation">
     <div class="main-common-head">
-      <el-button type="primary" plain size="mini" icon="el-icon-unlock" @click="unHoldHandle">解锁</el-button>
-      <el-button type="primary" plain size="mini" icon="el-icon-search" @click="getHoldOrUnHoldRecord">查询</el-button>
+      <el-button type="primary" plain size="mini" icon="el-icon-unlock" @click="unHoldHandle">{{$t('UnHold_Unlock')}}</el-button>
+      <el-button type="primary" plain size="mini" icon="el-icon-search" @click="getHoldOrUnHoldRecord">{{$t('common_Inquire')}}</el-button>
     </div>
     <el-form :model="formData" ref="formData" :rules="rules" label-width="30%" label-position="left" class="el-row mes-form-rule">
-      <el-form-item label="解锁编码" class="el-col el-col-11" prop="holdId">
-        <el-input size="mini" placeholder="请在下方进行扫描"  v-model="formData.holdId" readonly></el-input>
+      <el-form-item :label="$t('UnHold_UnlockCode')" class="el-col el-col-11" prop="holdId">
+        <el-input size="mini" :placeholder="$t('UnHold_PleaseScanBelow')"  v-model="formData.holdId" readonly></el-input>
       </el-form-item>
-      <el-form-item label="解锁范围类型" class="el-col el-col-11 el-col-offset-1" prop="holdScopeType">
+      <el-form-item :label="$t('UnHold_UnlockRangeType')" class="el-col el-col-11 el-col-offset-1" prop="holdScopeType">
         <dict-select v-model="formData.holdScopeType" dictType="HOLD_SCOPE_TYPE" @option-click="setScopeType"></dict-select>
       </el-form-item>
-      <el-form-item label="解锁类型" class="el-col el-col-11" prop="holdType">
+      <el-form-item :label="$t('UnHold_UnlockRange')" class="el-col el-col-11" prop="holdType">
         <dict-select v-model="formData.holdType" dictType="HOLD_TYPE" @change="holdTypeChange" @option-click="holdTypeClick"></dict-select>
       </el-form-item>
-      <el-form-item label="解锁范围" class="el-col el-col-11 el-col-offset-1" prop="holdScopeId">
+      <el-form-item :label="$t('UnHold_UnlockType')" class="el-col el-col-11 el-col-offset-1" prop="holdScopeId">
         <el-select style="width:100%;" clearable v-model="formData.holdScopeId" :no-data-text="holdScopeText" size="mini">
           <el-option v-for="(option,i) in holdScopes" :key="i" :label="option.holdScope" :value="option.holdScope"  @click.native="setHoldMainId(option.tPomHoldId)"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="解锁原因" class="el-col el-col-11" prop="unHoldReason">
+      <el-form-item :label="$t('UnHold_UnlockReason')" class="el-col el-col-11" prop="unHoldReason">
         <dict-select  v-model="formData.unHoldReason" dictType="UNHOLD_REASON" clearable @change="unHoldReasonChange" @option-click="unHoldReasonClick"></dict-select>
       </el-form-item>
-      <el-form-item label="解锁描述" class="el-col el-col-11 el-col-offset-1">
+      <el-form-item :label="$t('UnHold_UnlockDescription')" class="el-col el-col-11 el-col-offset-1">
         <el-input size="mini" type="textarea" v-model="formData.unHoldDesc"></el-input>
       </el-form-item>
     </el-form>
-    <station-logs logName="操作日志" recordName="UnHold记录" :recordTableLabel="recordTableLabel" ref="logs"></station-logs>
+    <station-logs :logName="$t('common_OperaLog')" :recordName="$t('UnHold_UnholdRecord')" :recordTableLabel="recordTableLabel" ref="logs"></station-logs>
     <scan-input :scanType="holdType" @scan-code="scanCode"></scan-input>
  </div>
 </template>
@@ -46,31 +46,9 @@ export default {
         holdScopeId: '',
         unHoldDesc: ''
       },
-      rules: {
-        holdId: [{ required: true, message: '解锁编码不能为空' }],
-        holdType: [{ required: true, message: '请选择解锁类型' }],
-        holdScopeType: [{ required: true, message: '请选择解锁范围类型' }],
-        unHoldReason: [{ required: true, message: '请选择解锁原因' }],
-        holdScopeId: [{ required: true, message: '请选择解锁范围' }]
-      },
       holdType: '',
       holdScopes: [],
       unHoldReason: '',
-      recordTableLabel: [
-        {
-          key: 'holdId',
-          label: '解锁编码'
-        }, {
-          key: 'holdType',
-          label: '解锁类型'
-        }, {
-          key: 'holdScopeId',
-          label: '解锁范围'
-        }, {
-          key: 'unHoldReason',
-          label: '解锁原因'
-        }
-      ],
       holdScopeTypeName: ''
     }
   },
@@ -78,10 +56,36 @@ export default {
     holdScopeText () {
       let { holdId, holdScopeType } = this.formData
       if (holdId && holdScopeType) {
-        return '解锁编码在当前解锁范围类型下暂无数据！ '
+        return this.$t('UnHold_Tips')
       } else {
-        return '请先扫描解锁编码，并选择解锁范围！'
+        return this.$t('UnHold_Tips1')
       }
+    },
+    rules () {
+      return {
+        holdId: [{ required: true, message: this.$t('UnHold_UnlockCodeCannotBeEmpty') }],
+        holdType: [{ required: true, message: this.$t('UnHold_PleaseSelectUnlockingType') }],
+        holdScopeType: [{ required: true, message: this.$t('UnHold_PleaseSelectUnlockingRangeType') }],
+        unHoldReason: [{ required: true, message: this.$t('UnHold_PleaseSelectUnlockingReason') }],
+        holdScopeId: [{ required: true, message: this.$t('UnHold_PleaseSelectUnlockingRange') }]
+      }
+    },
+    recordTableLabel () {
+      return [
+        {
+          key: 'holdId',
+          label: this.$t('UnHold_UnlockCode')
+        }, {
+          key: 'holdType',
+          label: this.$t('UnHold_UnlockRange')
+        }, {
+          key: 'holdScopeId',
+          label: this.$t('UnHold_UnlockType')
+        }, {
+          key: 'unHoldReason',
+          label: this.$t('UnHold_UnlockReason')
+        }
+      ]
     }
   },
   watch: {

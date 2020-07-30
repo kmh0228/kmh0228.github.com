@@ -1,6 +1,6 @@
 <template>
   <div class="mes-main mes-work-order">
-    <div class="mes-main-title">批次库存表</div>
+    <div class="mes-main-title">{{$t('BatchInventory_BatchInventoryTable')}}</div>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
         <el-select v-model="searchForm.warehouseCode" filterable clearable  style="width:40%"  @change="$refs.tableList.queryList(true)">
@@ -11,22 +11,22 @@
         <el-button size="mini" style="float:right;margin-left:10px;" @click="showMoreConditon = !showMoreConditon">
             <i class="fa fa-filter"></i>
         </el-button>
-        <el-input size="mini" placeholder="库位" v-model="searchForm.areaCode" style="width:40%;float:right;" @keydown.enter.native="$refs.tableList.queryList(true)">
+        <el-input size="mini" :placeholder="$t('BatchInventory_Location')" v-model="searchForm.areaCode" style="width:40%;float:right;" @keydown.enter.native="$refs.tableList.queryList(true)">
           <i slot="suffix" class="el-input__icon el-icon-search" @click="$refs.tableList.queryList(true)"></i>
         </el-input>
       </el-col>
       <el-col :span="24"   style="padding-top:1vh;">
         <el-form class="el-row mes-search-form" :model="searchForm" label-width="30%" label-position="left" v-show="showMoreConditon">
-          <el-form-item label="物料编码" class="el-col el-col-11">
+          <el-form-item :label="$t('common_MaterCode')" class="el-col el-col-11">
             <el-input size="mini" v-model="searchForm.materlalCode"></el-input>
           </el-form-item>
-          <el-form-item label="物料名称" class="el-col el-col-11 el-col-offset-1">
+          <el-form-item :label="$t('common_MaterialName')" class="el-col el-col-11 el-col-offset-1">
             <el-input size="mini" v-model="searchForm.materialName"></el-input>
           </el-form-item>
-          <el-form-item label="条码" class="el-col el-col-11">
+          <el-form-item :label="$t('BatchInventory_Barcode')" class="el-col el-col-11">
             <el-input size="mini" v-model="searchForm.pkgCode"></el-input>
           </el-form-item>
-          <el-form-item label="物料批次号" class="el-col el-col-11 el-col-offset-1">
+          <el-form-item :label="$t('BatchInventory_MaterialLotNo')" class="el-col el-col-11 el-col-offset-1">
             <el-input size="mini" v-model="searchForm.stockLotCode"></el-input>
           </el-form-item>
         </el-form>
@@ -35,31 +35,31 @@
     <div>
       <table-list ref="tableList" :tableData="tableData" :tableOption="option"  :queryListApi="getBatchStockList" :total="total">
         <div slot="buttonBox">
-          <el-button size="mini" icon="el-icon-search" @click="$refs.tableList.queryList(true)">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="$refs.tableList.queryList(true)">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <!-- <el-button size="mini" icon="el-icon-download">导出</el-button>
+          <!-- <el-button size="mini" icon="el-icon-download">{{$t('common_Export')}}</el-button>
           <span class="split-line">|</span> -->
-          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">{{$t('common_Refresh')}}</el-button>
         </div>
       </table-list>
     </div>
      <div class="mes-main-tabs mes-table" v-if="showTabs" style="margin-top:10px">
         <el-tabs v-model="activeName">
-          <el-tab-pane label="库存明细" name="inventoryDetails">
+          <el-tab-pane :label="$t('BatchInventory_InventoryDetails')" name="inventoryDetails">
             <el-table :data="detailList" border size="mini" style="margin-top:10px">
-              <el-table-column type="index" label="序号" align="center" fixed="left" width="80" :index="1"></el-table-column>
-              <el-table-column prop="pkgCode" sortable label="条码号" min-width="180" align="center"></el-table-column>
-              <el-table-column prop="materialLot" sortable label="物料批次号" min-width="150" align="center"></el-table-column>
-              <el-table-column prop="materlalCode" sortable label="物料编码" min-width="150" align="center"></el-table-column>
-              <el-table-column prop="materlalName" sortable label="物料名称" min-width="150" align="center"></el-table-column>
-              <el-table-column prop="parentPkgCode" sortable label="父条码" min-width="150" align="center"></el-table-column>
-              <el-table-column prop="pkgQty" sortable label="数量" min-width="150" align="center"></el-table-column>
-              <el-table-column prop="unitCode" sortable label="主单位" min-width="150" align="center"></el-table-column>
-              <el-table-column prop="receiveDate" sortable label="生产日期" min-width="150" align="center"></el-table-column>
-              <el-table-column prop="invalidDate" sortable label="失效日期" min-width="150" align="center"></el-table-column>
-              <el-table-column prop="warehouseCode" sortable label="仓库编码" min-width="180" align="center"></el-table-column>
-              <el-table-column prop="areaCode" sortable label="库位编码" min-width="180" align="center"></el-table-column>
-              <el-table-column prop="scrapped" sortable label="是否报废" min-width="150" align="center"></el-table-column>
+              <el-table-column type="index" :label="$t('common_Number')" align="center" fixed="left" width="80" :index="1"></el-table-column>
+              <el-table-column prop="pkgCode" sortable :label="$t('BatchInventory_BarcodeNo')" min-width="180" align="center"></el-table-column>
+              <el-table-column prop="materialLot" sortable :label="$t('BatchInventory_MaterialLotNo')" min-width="150" align="center"></el-table-column>
+              <el-table-column prop="materlalCode" sortable :label="$t('common_MaterCode')" min-width="150" align="center"></el-table-column>
+              <el-table-column prop="materlalName" sortable :label="$t('common_MaterialName')" min-width="150" align="center"></el-table-column>
+              <el-table-column prop="parentPkgCode" sortable :label="$t('BatchInventory_ParentBarcode')" min-width="150" align="center"></el-table-column>
+              <el-table-column prop="pkgQty" sortable :label="$t('common_numbe')" min-width="150" align="center"></el-table-column>
+              <el-table-column prop="unitCode" sortable :label="$t('BatchInventory_PrimaryUnit')" min-width="150" align="center"></el-table-column>
+              <el-table-column prop="receiveDate" sortable :label="$t('common_dateManu')" min-width="150" align="center"></el-table-column>
+              <el-table-column prop="invalidDate" sortable :label="$t('BatchInventory_ExpirationDate')" min-width="150" align="center"></el-table-column>
+              <el-table-column prop="warehouseCode" sortable :label="$t('BatchInventory_WarehouseCode')" min-width="180" align="center"></el-table-column>
+              <el-table-column prop="areaCode" sortable :label="$t('BatchInventory_LocationCode')" min-width="180" align="center"></el-table-column>
+              <el-table-column prop="scrapped" sortable :label="$t('BatchInventory_Scrap')" min-width="150" align="center"></el-table-column>
             </el-table>
           </el-tab-pane>
         </el-tabs>
@@ -134,7 +134,7 @@ export default {
     // 获取仓库列表
     async getWarehouses () {
       let res = await this.$api.getWarehouses({ keywords: '', pageSize: 10000, pageIndex: 1 })
-      // 过滤掉未启用仓库
+      // 获取仓库列表
       this.warehouseList = res.data.list ? res.data.list.filter(item => item.invalid) : []
     }
   },

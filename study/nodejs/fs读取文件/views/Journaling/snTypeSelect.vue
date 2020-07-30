@@ -1,9 +1,9 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">SN箱号栈板查询</h3>
+    <h3 class="mes-main-title">{{$t('snTypeQuery_CaseNumbPallInqu')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-       <el-select style="width:35%;" size="mini" v-model="type" clearable  placeholder="请选择" >
+       <el-select style="width:35%;" size="mini" v-model="type" clearable  :placeholder="$t('common_PleasSele')" >
           <el-option v-for="(option,i) in snTypeList" :key="i" :label="option.label" :value="option.value"></el-option>
         </el-select>
       </el-col>
@@ -11,7 +11,7 @@
         <el-button size="mini" style="float:right;margin-left:10px;">
           <i class="fa fa-filter"></i>
         </el-button>
-        <el-input placeholder="请输入值" v-model.trim="keyword" size="mini" style="width:40%;float:right;" @keydown.enter.native="initData">
+        <el-input :placeholder="$t('snTypeQuery_enterAValu')" v-model.trim="keyword" size="mini" style="width:40%;float:right;" @keydown.enter.native="initData">
           <!-- <i slot="suffix" class="el-input__icon el-icon-search" @click="initData"></i> -->
         </el-input>
       </el-col>
@@ -19,9 +19,9 @@
     <div class="mes-table">
        <el-row class="mes-table-handle">
         <el-col :span="12">
-           <el-button icon="el-icon-search" size="mini" @click="initData">查询</el-button>
+           <el-button icon="el-icon-search" size="mini" @click="initData">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button icon="el-icon-refresh-right" size="mini" @click="resestList">刷新</el-button>
+          <el-button icon="el-icon-refresh-right" size="mini" @click="resestList">{{$t('common_Refresh')}}</el-button>
         </el-col>
         <el-col :span="12">
           <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -32,12 +32,12 @@
       </el-row>
       <div class="mes-table-content">
         <el-table :data="tableData" border size="mini">
-          <el-table-column type="index" label="序号" align="center" :index="indexMethod"></el-table-column>
-          <el-table-column prop="sn" sortable label="成品SN" label-class-name="mes-table-label"  align="center"></el-table-column>
-          <el-table-column prop="mn" sortable label="成品料号" align="center"></el-table-column>
-          <el-table-column prop="dn" sortable label="工单号" align="center"></el-table-column>
-          <el-table-column prop="box" sortable label="箱号" align="center"></el-table-column>
-          <el-table-column prop="pallet" sortable label="栈板号" align="center"></el-table-column>
+          <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod"></el-table-column>
+          <el-table-column prop="sn" sortable :label="$t('snTypeQuery_finisProd')" label-class-name="mes-table-label"  align="center"></el-table-column>
+          <el-table-column prop="mn" sortable :label="$t('common_FinisProdNo')" align="center"></el-table-column>
+          <el-table-column prop="dn" sortable :label="$t('common_WorkOrdeNo')" align="center"></el-table-column>
+          <el-table-column prop="box" sortable :label="$t('snTypeQuery_CaseNumb')" align="center"></el-table-column>
+          <el-table-column prop="pallet" sortable :label="$t('common_PalleNo')" align="center"></el-table-column>
           <!-- <el-table-column prop="dn" sortable label="出货单" align="center"></el-table-column> -->
         </el-table>
       </div>
@@ -58,11 +58,11 @@ export default {
           value: 'sn'
         },
         {
-          label: '箱号',
+          label: this.$t('snTypeQuery_CaseNumb'),
           value: 'box'
         },
         {
-          label: '栈板号',
+          label: this.$t('common_PalleNo'),
           value: 'pallet'
         },
         {

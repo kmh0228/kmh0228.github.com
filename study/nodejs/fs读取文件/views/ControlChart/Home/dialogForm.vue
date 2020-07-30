@@ -25,8 +25,8 @@
         <el-input  v-model="dialogForm.σ2" style="width:100%"  ></el-input>
       </el-form-item>
       <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-       <el-button type="primary" size="mini" @click="savecontrol">保存</el-button>
-       <el-button size="mini" @click="$emit('cannel')">取消</el-button>
+       <el-button type="primary" size="mini" @click="savecontrol">{{$t('common_save')}}</el-button>
+       <el-button size="mini" @click="$emit('cannel')">{{$t('common_cancel')}}</el-button>
       </el-form-item>
     </el-form>
 </template>

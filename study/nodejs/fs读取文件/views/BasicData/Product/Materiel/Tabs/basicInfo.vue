@@ -162,7 +162,7 @@
         <el-input v-else size="mini" v-model.number="infoForm.upperQuantity" class="mes-form-item" @blur="maxCheckData"></el-input>
       </el-form-item>
     </div>
-    <el-form-item :label-width="0" class="el-col el-col-23 form-show-more">
+    <el-form-item label-width="0" class="el-col el-col-23 form-show-more">
       <el-button type="text" @click="isShowMore = !isShowMore"><i class="el-icon-d-arrow-right" :class="showMoreClass"></i> {{ showMoreText }}</el-button>
     </el-form-item>
   </el-form>

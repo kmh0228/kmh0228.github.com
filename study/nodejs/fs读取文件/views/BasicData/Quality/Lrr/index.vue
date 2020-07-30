@@ -1,56 +1,56 @@
 <template>
   <div class="mes-main mes-main-common">
     <div class="main-common-head">
-      <el-button type="primary" plain size="mini" @click="printingMethod">打印</el-button>
-      <el-button type="primary" plain size="mini" @click="getdata">查看</el-button>
+      <el-button type="primary" plain size="mini" @click="printingMethod">{{$t('common_Print')}}</el-button>
+      <el-button type="primary" plain size="mini" @click="getdata">{{$t('lrr_see')}}</el-button>
     </div>
     <el-row :gutter="20" style="margin-top:1vh">
     <el-col :span="15">
-      <span style="margin:0 1vw">检验类型：</span>
+      <span style="margin:0 1vw">{{$t('lrr_InspeType')}}</span>
        <el-select v-model="checkType" style="width:30%;line-height:2"  size="mini" >
          <el-option v-for="(option,i) in checkTypeList" :key="i" :label="option" :value="option"></el-option>
        </el-select>
-       <el-date-picker  style="width:30%;float:right" v-model="timeList" type="daterange"  align="right"  unlink-panels  range-separator="至"  start-placeholder="开始日期"  end-placeholder="结束日期"  :picker-options="pickerOptions" value-format="yyyy-MM-dd"></el-date-picker>
-       <span style="float:right;line-height:2;margin-right:1vw">检验时间段：</span>
+       <el-date-picker  style="width:30%;float:right" v-model="timeList" type="daterange"  align="right"  unlink-panels  :range-separator="$t('common_to')"  start-:placeholder="$t('common_StartDate')"  end-:placeholder="$t('common_EndDate')"  :picker-options="pickerOptions" value-format="yyyy-MM-dd"></el-date-picker>
+       <span style="float:right;line-height:2;margin-right:1vw">{{$t('lrr_InspePeri')}}</span>
     </el-col>
     </el-row>
    <div style="margin:5vh 0">
     <el-tabs v-model="activeName" type="card">
-      <el-tab-pane label="按时间轴" name="dateTime"></el-tab-pane>
-      <el-tab-pane label="按供应商" name="vendorCode"></el-tab-pane>
-      <el-tab-pane label="按料号" name="material"></el-tab-pane>
+      <el-tab-pane :label="$t('lrr_ByTime')" name="dateTime"></el-tab-pane>
+      <el-tab-pane :label="$t('lrr_BySupp')" name="vendorCode"></el-tab-pane>
+      <el-tab-pane :label="$t('lrr_ByItemNo')" name="material"></el-tab-pane>
     </el-tabs>
      <el-radio-group v-model="chartType"  v-if="activeName !== 'dateTime'" size="mini" style="margin-left:0.5vw">
         <el-radio-button label="pie"> <i style="font-size:0.8vw" class="fa fa-pie-chart" aria-hidden="true"></i></el-radio-button>
         <el-radio-button label="bar"> <i style="font-size:0.8vw" class="fa fa-bar-chart" aria-hidden="true"></i></el-radio-button>
      </el-radio-group>
       <el-form class="el-row mes-form-rule"  ref="dialogFrom"  label-position="left"  label-width="80px" v-if="activeName === 'dateTime'">
-        <el-form-item label="供应商" class="el-col el-col-7">
+        <el-form-item :label="$t('common_suppl')" class="el-col el-col-7">
           <el-select v-model="vendorCode"  style="width:70%">
             <el-option v-for="(option,i) in vendorList" :key="i" :label="option.mWmsVendorName" :value="option.mWmsVendorCode"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="料号" class="el-col el-col-7 el-col-offset-1">
+        <el-form-item :label="$t('common_PorN')" class="el-col el-col-7 el-col-offset-1">
            <material-select v-model="materialId"  style="width:70%"></material-select>
         </el-form-item>
-        <el-form-item label="时间段" class="el-col-9">
+        <el-form-item :label="$t('lrr_timeSlot')" class="el-col-9">
           <el-radio-group v-model="byType">
-            <el-radio-button label="byDay">按天</el-radio-button>
-            <el-radio-button label="byWeek">按周</el-radio-button>
-            <el-radio-button :disabled="disabledButton" label="byMonth">按月</el-radio-button>
+            <el-radio-button label="byDay">{{$t('lrr_ByDay')}}</el-radio-button>
+            <el-radio-button label="byWeek">{{$t('lrr_ByWeek')}}</el-radio-button>
+            <el-radio-button :disabled="disabledButton" label="byMonth">{{$t('lrr_month')}}</el-radio-button>
           </el-radio-group>
         </el-form-item>
       </el-form>
    </div>
    <div v-if="activeName === 'dateTime'">
       <div style="height:40vh;width:60%;float:left" >
-          <lrr-bar id="bar1" :xData="xData" :barSeiesData="barSeiesData" :barTitle="'时间段批退率报表'"></lrr-bar>
+          <lrr-bar id="bar1" :xData="xData" :barSeiesData="barSeiesData" :barTitle="this.$t('lrr_TimePeriBatcRateRepo')"></lrr-bar>
       </div>
       <div style="height:40vh;width:40%;float:right">
         <el-scrollbar style="height:100%;">
         <el-table :data="barTable" border>
-          <el-table-column label="时间段" prop="reportName" align="center"></el-table-column>
-          <el-table-column label="批退率" prop="reportValue" align="center"></el-table-column>
+          <el-table-column :label="$t('lrr_timeSlot')" prop="reportName" align="center"></el-table-column>
+          <el-table-column :label="$t('lrr_RejecRate')" prop="reportValue" align="center"></el-table-column>
         </el-table>
         </el-scrollbar>
       </div>
@@ -63,9 +63,9 @@
     <div style="height:40vh;width:40%;float:right">
       <el-scrollbar style="height:100%;">
       <el-table :data="pieTable" border>
-        <el-table-column label="供应商" prop="reportName" align="center" v-if="activeName === 'vendorCode'"></el-table-column>
-        <el-table-column label="料号" prop="reportName" align="center" v-if="activeName === 'material'"></el-table-column>
-        <el-table-column label="批退率" prop="reportValue" align="center"></el-table-column>
+        <el-table-column :label="$t('common_suppl')" prop="reportName" align="center" v-if="activeName === 'vendorCode'"></el-table-column>
+        <el-table-column :label="$t('common_PorN')" prop="reportName" align="center" v-if="activeName === 'material'"></el-table-column>
+        <el-table-column :label="$t('lrr_RejecRate')" prop="reportValue" align="center"></el-table-column>
       </el-table>
       </el-scrollbar>
     </div>
@@ -96,7 +96,7 @@ export default {
       timeList: [],
       pickerOptions: {
         shortcuts: [{
-          text: '最近一周',
+          text: this.$t('lrr_LastWeek'),
           onClick: (picker) => {
             const end = new Date()
             const start = new Date()
@@ -105,7 +105,7 @@ export default {
             this.dateType = 'week'
           }
         }, {
-          text: '最近一个月',
+          text: this.$t('lrr_LastMont'),
           onClick: (picker) => {
             const end = new Date()
             const start = new Date()
@@ -122,7 +122,7 @@ export default {
   },
   computed: {
     echartTitle () {
-      return this.activeName === 'vendorCode' ? '供应商批退率报表' : '料号批退率报表'
+      return this.activeName === 'vendorCode' ? this.$t('lrr_SupplRejeRateRepo') : this.$t('lrr_MaterNumbBatcRateRepo')
     },
     disabledButton () {
       return this.dateType === 'week'

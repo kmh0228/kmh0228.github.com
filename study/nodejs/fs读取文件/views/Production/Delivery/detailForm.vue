@@ -1,25 +1,25 @@
 <template>
 <el-form :model="detailForm" ref="detailForm" :rules="rules"   label-width="120px" label-position="left" class="el-row mes-form-rule">
 
-  <el-form-item label="料号" prop="mcomMaterialId" class="el-col el-col-24">
+  <el-form-item :label="$t('common_PorN')" prop="mcomMaterialId" class="el-col el-col-24">
     <!-- <el-input size="mini" v-model="detailForm.mcomMaterialId"></el-input> -->
-    <!-- <el-select style="width:100%;" size="mini" clearable filterable  placeholder="请选择维护的料号" v-model="detailForm.mcomMaterialId" >
+    <!-- <el-select style="width:100%;" size="mini" clearable filterable  :placeholder="$t('delivery_selecItemNumbForMain')" v-model="detailForm.mcomMaterialId" >
       <el-option v-for="(option,i) in materialList" :key="i" :label="option.materialNo" :value="option.mComMaterialId" ></el-option>
     </el-select> -->
     <materialSelect  v-model="detailForm.mcomMaterialId" :contentValue="materialNoVersion" ></materialSelect>
   </el-form-item>
-   <el-form-item label="目标数量" prop="requestQty" class="el-col el-col-24">
+   <el-form-item :label="$t('delivery_TargeQuan')" prop="requestQty" class="el-col el-col-24">
     <el-input size="mini"  v-model="detailForm.requestQty"></el-input>
   </el-form-item>
-   <el-form-item label="完成数量" prop="shippedQty" class="el-col el-col-24">
+   <el-form-item :label="$t('common_QuantComp')" prop="shippedQty" class="el-col el-col-24">
     <el-input size="mini" :disabled="true"  v-model="detailForm.shippedQty"></el-input>
   </el-form-item>
-   <el-form-item label="完成状态" prop="isCompleted" class="el-col el-col-24">
+   <el-form-item :label="$t('delivery_ComplStat')" prop="isCompleted" class="el-col el-col-24">
     <el-checkbox :disabled="true" v-model="detailForm.isCompleted"></el-checkbox>
   </el-form-item>
    <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-    <el-button type="primary" size="mini" @click="saveDetailForm">保存</el-button>
-      <el-button size="mini" @click="$emit('cannel')">取消</el-button>
+    <el-button type="primary" size="mini" @click="saveDetailForm">{{$t('common_save')}}</el-button>
+      <el-button size="mini" @click="$emit('cannel')">{{$t('common_cancel')}}</el-button>
   </el-form-item>
 </el-form>
 </template>
@@ -38,10 +38,7 @@ export default {
         shippedQty: '',
         isCompleted: ''
       },
-      materialList: [],
-      rules: {
-        mcomMaterialId: [{ required: true, message: '料号不能为空' }]
-      }
+      materialList: []
     }
   },
   computed: {
@@ -49,6 +46,11 @@ export default {
       const materialNo = this.detailForm.materialCode ? this.detaliForm.materialCode + ':' : ''
       const version = this.detailForm.version ? this.detaliForm.version : ''
       return `${materialNo}${version}`
+    },
+    rules () {
+      return {
+        mcomMaterialId: [{ required: true, message: this.$t('common_ItemNoCannBeEm') }]
+      }
     }
   },
   props: {

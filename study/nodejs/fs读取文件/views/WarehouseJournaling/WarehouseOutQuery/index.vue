@@ -1,11 +1,11 @@
 <template>
 <div class="mes-main mes-work-order ">
-  <h3 class="mes-main-title">出库单查询</h3>
+  <h3 class="mes-main-title">{{$t('warehouseOQ_StockOutOrdeQuer')}}</h3>
   <el-row :gutter="20" class="mes-main-filte">
     <el-col :span="12">
-      <!-- <el-select style="width:35%;" size="mini" v-model="searchForm.mWmsDeliveryStatus" clearable placeholder="请选择单号类型">
-        <el-option >开立</el-option>
-        <el-option >处理中</el-option>
+      <!-- <el-select style="width:35%;" size="mini" v-model="searchForm.mWmsDeliveryStatus" clearable :placeholder="$t('warehouseOQ_selecOrdeNumbType')">
+        <el-option >{{$t('common_open')}}</el-option>
+        <el-option >{{$t('common_Proce')}}</el-option>
       </el-select> -->
       <dict-select style="width:35%;"  v-model="searchForm.mWmsDeliveryStatus" clearable dictType="DOCUMENT_STATUS"></dict-select>
     </el-col>
@@ -13,18 +13,18 @@
       <el-button style="float:right;margin-left:10px" size="mini" @click="showMore = !showMore">
         <i class="fa fa-filter"></i>
       </el-button>
-      <el-input placeholder="请输入出库单单号" v-model="searchForm.mWmsDeliveryNo" style="float:right;width:40%" @keydown.native.enter="getOutboundOrder">
+      <el-input :placeholder="$t('warehouseOQ_inputDeliOrdeNo')" v-model="searchForm.mWmsDeliveryNo" style="float:right;width:40%" @keydown.native.enter="getOutboundOrder">
         <!-- <i slot="suffix" class="el-input__icon el-icon-search" @click="getOutboundOrder"></i> -->
       </el-input>
     </el-col>
     <el-col :span="24" style="padding-top:1vh">
       <el-form class="el-row mes-search-form" :model="searchForm" label-width="30%" label-position="left" v-show="showMore">
-        <el-form-item label="计划开始时间: " class="el-col el-col-11" >
-          <el-date-picker v-model="searchForm.startTime" style="width:100%" size="mini" type="datetime" placeholder="选择日期时间"  value-format="yyyy-MM-dd HH:mm:ss" align="right" :picker-options="pickerOptions">
+        <el-form-item :label="$t('common_PlannStarTime') + ': '" class="el-col el-col-11" >
+          <el-date-picker v-model="searchForm.startTime" style="width:100%" size="mini" type="datetime" :placeholder="$t('common_SelecDateTime')"  value-format="yyyy-MM-dd HH:mm:ss" align="right" :picker-options="pickerOptions">
           </el-date-picker>
         </el-form-item>
-         <el-form-item label="计划结束时间: " class="el-col el-col-11 el-col-offset-1" >
-          <el-date-picker v-model="searchForm.endTime" style="width:100%" size="mini" type="datetime" placeholder="选择日期时间"  value-format="yyyy-MM-dd HH:mm:ss" align="right" :picker-options="pickerOptions">
+         <el-form-item :label="$t('common_PlannEndTime') + ': '" class="el-col el-col-11 el-col-offset-1" >
+          <el-date-picker v-model="searchForm.endTime" style="width:100%" size="mini" type="datetime" :placeholder="$t('common_SelecDateTime')"  value-format="yyyy-MM-dd HH:mm:ss" align="right" :picker-options="pickerOptions">
           </el-date-picker>
         </el-form-item>
       </el-form>
@@ -33,9 +33,9 @@
   <div class="mes-table">
     <el-row class="mes-table-handle">
       <el-col :span="12">
-         <el-button icon="el-icon-search" size="mini" @click="getOutboundOrder">查询</el-button>
+         <el-button icon="el-icon-search" size="mini" @click="getOutboundOrder">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button icon="el-icon-refresh-right" @click="resetForm" size="mini">刷新</el-button>
+          <el-button icon="el-icon-refresh-right" @click="resetForm" size="mini">{{$t('common_Refresh')}}</el-button>
       </el-col>
       <el-col :span="12">
          <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -46,23 +46,23 @@
     </el-row>
     <div class="mes-table-content" >
       <el-table :data="tableData" size="mini" border highlight-current-row @cell-click="cellClick">
-        <el-table-column type="index" label="序号" align="center" :index="indexMethod"></el-table-column>
-        <el-table-column prop="mWmsDeliveryNo" sortable align="center" label="出库单号"></el-table-column>
-        <el-table-column prop="mWmsDeliveryRelateno" sortable align="center" label="关联单号"></el-table-column>
-        <el-table-column prop="mWmsDeliveryRelatenoitem" sortable align="center" label="关联单项次"></el-table-column>
-        <el-table-column prop="mWmsWarehouseCode" sortable align="center" label="出库库房"></el-table-column>
-        <el-table-column prop="mWmsDeliveryType" sortable align="center" label="出库方式"></el-table-column>
-        <el-table-column prop="mWmsDeliveryStatus" sortable align="center" label="单据状态"></el-table-column>
-        <el-table-column prop="mWmsDeliveryLevel" sortable align="center" label="紧急程度"></el-table-column>
-        <el-table-column prop="mWmsCustomerCode" sortable align="center" label="客户"></el-table-column>
-        <el-table-column prop="creator" sortable align="center" label="创建人"></el-table-column>
-        <!-- <el-table-column sortable align="center" label="修改人"></el-table-column>
-        <el-table-column sortable align="center" label="最后修改时间"></el-table-column> -->
+        <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod"></el-table-column>
+        <el-table-column prop="mWmsDeliveryNo" sortable align="center" :label="$t('warehouseOQ_DelivOrdeNo')"></el-table-column>
+        <el-table-column prop="mWmsDeliveryRelateno" sortable align="center" :label="$t('common_AssocOrdeNo')"></el-table-column>
+        <el-table-column prop="mWmsDeliveryRelatenoitem" sortable align="center" :label="$t('warehouseOQ_AssocSingItem')"></el-table-column>
+        <el-table-column prop="mWmsWarehouseCode" sortable align="center" :label="$t('warehouseOQ_WarehOut')"></el-table-column>
+        <el-table-column prop="mWmsDeliveryType" sortable align="center" :label="$t('warehouseOQ_DelivMode')"></el-table-column>
+        <el-table-column prop="mWmsDeliveryStatus" sortable align="center" :label="$t('common_DocumStat')"></el-table-column>
+        <el-table-column prop="mWmsDeliveryLevel" sortable align="center" :label="$t('warehouseOQ_DegreUrge')"></el-table-column>
+        <el-table-column prop="mWmsCustomerCode" sortable align="center" :label="$t('common_custo')"></el-table-column>
+        <el-table-column prop="creator" sortable align="center" :label="$t('common_Creator')"></el-table-column>
+        <!-- <el-table-column sortable align="center" :label="$t('common_ModifBy')"></el-table-column>
+        <el-table-column sortable align="center" :label="$t('common_LastModiTime')"></el-table-column> -->
       </el-table>
     </div>
     <div class="mes-main-tabs" v-if="outBorderDetail">
       <el-tabs v-model="activeName" >
-        <el-tab-pane label="出库单明细" name="warehouseOut">
+        <el-tab-pane :label="$t('warehouseOQ_DelivOrdeDeta')" name="warehouseOut">
            <el-row class="mes-table-handle">
             <el-col :span="24">
               <el-pagination background :page-size="page1.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -72,23 +72,23 @@
             </el-col>
         </el-row>
           <el-table :data="warehouseOutTable" size="mini" border highlight-current-row  @cell-click="cellClickDetail">
-            <el-table-column type="index" label="序号" align="center" sortable :index="indexMethod1"></el-table-column>
-            <el-table-column prop="materialNo" label="料号" align="center" sortable></el-table-column>
-            <el-table-column prop="materialName" label="物料名称" align="center" sortable></el-table-column>
-            <el-table-column prop="mWmsDeliveryDetailSourceno" label="来源单号" align="center" sortable></el-table-column>
-            <el-table-column prop="mWmsDeliveryDetailSourceitem" label="来源单项次" align="center" sortable></el-table-column>
-            <el-table-column prop="mWmsDeliveryDetailQty" label="出库数量" align="center" sortable></el-table-column>
-            <el-table-column prop="mWmsDeliveryDetailUnshelfno" label="下架数量" align="center" sortable></el-table-column>
-            <el-table-column prop="mWmsWarehouseBinCode" sortable label="储位" align="center"></el-table-column>
-            <el-table-column prop="mWmsDeliveryDetailCheckresult" label="检验结果" align="center" sortable></el-table-column>
-            <el-table-column prop="mWmsEntrylistDetailOutno" label="已出库数量" align="center" sortable></el-table-column>
+            <el-table-column type="index" :label="$t('common_Number')" align="center" sortable :index="indexMethod1"></el-table-column>
+            <el-table-column prop="materialNo" :label="$t('common_PorN')" align="center" sortable></el-table-column>
+            <el-table-column prop="materialName" :label="$t('common_MaterialName')" align="center" sortable></el-table-column>
+            <el-table-column prop="mWmsDeliveryDetailSourceno" :label="$t('warehouseOQ_SourcNo')" align="center" sortable></el-table-column>
+            <el-table-column prop="mWmsDeliveryDetailSourceitem" :label="$t('warehouseOQ_SourcItem')" align="center" sortable></el-table-column>
+            <el-table-column prop="mWmsDeliveryDetailQty" :label="$t('warehouseOQ_DelivQuan')" align="center" sortable></el-table-column>
+            <el-table-column prop="mWmsDeliveryDetailUnshelfno" :label="$t('warehouseOQ_OffShelQuan')" align="center" sortable></el-table-column>
+            <el-table-column prop="mWmsWarehouseBinCode" sortable :label="$t('common_StoraLoca')" align="center"></el-table-column>
+            <el-table-column prop="mWmsDeliveryDetailCheckresult" :label="$t('common_TestResu')" align="center" sortable></el-table-column>
+            <el-table-column prop="mWmsEntrylistDetailOutno" :label="$t('warehouseOQ_IssueQuan')" align="center" sortable></el-table-column>
           </el-table>
         </el-tab-pane>
       </el-tabs>
     </div>
     <div class="mes-main-tabs" v-if="showTabs">
       <el-tabs v-model="activeNameChild">
-        <el-tab-pane label="下架记录" name="undercarriage">
+        <el-tab-pane :label="$t('warehouseOQ_OffShelReco')" name="undercarriage">
            <el-row class="mes-table-handle">
             <el-col :span="24">
               <el-pagination background :page-size="page2.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -98,17 +98,17 @@
             </el-col>
         </el-row>
           <el-table :data="undercarriageTable" size="mini" border highlight-current-row>
-            <el-table-column type="index" label="序号" align="center" :index="indexMethod2"></el-table-column>
+            <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod2"></el-table-column>
               <el-table-column prop="mWmsPkgidPkgid" sortable label="PKGID" align="center" ></el-table-column>
               <el-table-column prop="mWmsPkgidDatecode" sortable label="DateCode" align="center" ></el-table-column>
-              <el-table-column prop="mWmsPkgidLot" sortable label="生产批次" align="center" ></el-table-column>
-              <el-table-column prop="mWmsWarehouseBinCode" label="实际储位" align="center" sortable></el-table-column>
-              <el-table-column prop="mWmsUnshelfHistoryUnshelfqty" sortable label="下架数量" align="center" ></el-table-column>
-              <el-table-column prop="creator" sortable label="操作人" align="center" ></el-table-column>
-              <el-table-column prop="createdDt" sortable label="操作时间" align="center" ></el-table-column>
+              <el-table-column prop="mWmsPkgidLot" sortable :label="$t('common_ProduBatc')" align="center" ></el-table-column>
+              <el-table-column prop="mWmsWarehouseBinCode" :label="$t('warehouseOQ_ActuaStorLoca')" align="center" sortable></el-table-column>
+              <el-table-column prop="mWmsUnshelfHistoryUnshelfqty" sortable :label="$t('warehouseOQ_OffShelQuan')" align="center" ></el-table-column>
+              <el-table-column prop="creator" sortable :label="$t('warehouseOQ_Opera')" align="center" ></el-table-column>
+              <el-table-column prop="createdDt" sortable :label="$t('warehouseOQ_OperaTime')" align="center" ></el-table-column>
           </el-table>
         </el-tab-pane>
-         <el-tab-pane label="出货记录" name="godown">
+         <el-tab-pane :label="$t('warehouseOQ_ShippReco')" name="godown">
            <el-row class="mes-table-handle">
             <el-col :span="24">
               <el-pagination background :page-size="page3.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -118,13 +118,13 @@
             </el-col>
           </el-row>
           <el-table :data="unloadTable" size="mini" border highlight-current-row>
-            <el-table-column type="index" label="序号" align="center" :index="indexMethod3"></el-table-column>
+            <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod3"></el-table-column>
               <el-table-column prop="mWmsPkgidPkgid" sortable label="PKGID" align="center" ></el-table-column>
               <el-table-column prop="mWmsPkgidDatecode" sortable label="DateCode" align="center" ></el-table-column>
-              <el-table-column prop="mWmsPkgidLot" sortable label="生产批次" align="center" ></el-table-column>
-              <el-table-column prop="mWmsOuthistoryOutqty" sortable label="出货数量" align="center" ></el-table-column>
-              <el-table-column prop="creator" sortable label="操作人" align="center" ></el-table-column>
-              <el-table-column prop="createdDt" sortable label="操作时间" align="center" ></el-table-column>
+              <el-table-column prop="mWmsPkgidLot" sortable :label="$t('common_ProduBatc')" align="center" ></el-table-column>
+              <el-table-column prop="mWmsOuthistoryOutqty" sortable :label="$t('warehouseOQ_ShipmQuan')" align="center" ></el-table-column>
+              <el-table-column prop="creator" sortable :label="$t('warehouseOQ_Opera')" align="center" ></el-table-column>
+              <el-table-column prop="createdDt" sortable :label="$t('warehouseOQ_OperaTime')" align="center" ></el-table-column>
           </el-table>
         </el-tab-pane>
       </el-tabs>
@@ -170,19 +170,19 @@ export default {
       total3: 0,
       pickerOptions: {
         shortcuts: [{
-          text: '今天',
+          text: this.$t('common_today'),
           onClick (picker) {
             picker.$emit('pick', new Date())
           }
         }, {
-          text: '昨天',
+          text: this.$t('common_yesterday'),
           onClick (picker) {
             const date = new Date()
             date.setTime(date.getTime() - 3600 * 1000 * 24)
             picker.$emit('pick', date)
           }
         }, {
-          text: '一周前',
+          text: this.$t('common_lastWeek'),
           onClick (picker) {
             const date = new Date()
             date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)

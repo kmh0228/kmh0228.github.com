@@ -1,25 +1,25 @@
 <template>
   <div>
     <el-form :model="userForm"  ref="userForm" label-position="left" label-width="100px" class="el-row mes-form-rule" :rules="userRules" size="mini" v-if="alarmFrom ===1" @submit.native.prevent>
-      <el-form-item label="员工：" class="el-col el-col-18">
+      <el-form-item :label="$t('andonHome_Staff')" class="el-col el-col-18">
         <el-input style="width:70%" v-model="userForm.cardId" clearable @keydown.enter.native="checkAndonUser"></el-input>
-        <el-button style="width:15%;float:right" @click="checkAndonUser">确认</el-button>
+        <el-button style="width:15%;float:right" @click="checkAndonUser">{{$t('andonHome_confi')}}</el-button>
       </el-form-item>
-      <el-form-item label="选中的人员"  class="el-col el-col-24 mes-table">
+      <el-form-item :label="$t('andonHome_SelecPeop')"  class="el-col el-col-24 mes-table">
         <el-table :data="userTable" border>
-          <el-table-column type="index" label="序号" align="center" width="50"></el-table-column>
-          <el-table-column prop="employeeCardId" label="人员工号" align="center"></el-table-column>
-          <el-table-column prop="employeeName" label="人员名字" align="center"></el-table-column>
-          <el-table-column label="操作" width="120" align="center">
+          <el-table-column type="index" :label="$t('common_Number')" align="center" width="50"></el-table-column>
+          <el-table-column prop="employeeCardId" :label="$t('andonHome_PersoJobNumb')" align="center"></el-table-column>
+          <el-table-column prop="employeeName" :label="$t('andonHome_NamePers')" align="center"></el-table-column>
+          <el-table-column :label="$t('common_Operate')" width="120" align="center">
             <template slot-scope="scope">
-              <handle-button iconClass='el-icon-delete' tipText="删除" iconColor="#f56c6c" @click="deleteAndonUser(scope.$index)" ></handle-button>
+              <handle-button iconClass='el-icon-delete' :placeholder="$t('common_Del')" iconColor="#f56c6c" @click="deleteAndonUser(scope.$index)" ></handle-button>
             </template>
           </el-table-column>
         </el-table>
       </el-form-item>
        <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-        <el-button type="primary" size="mini" @click="nextStep">下一步</el-button>
-        <el-button size="mini" @click="$emit('cannelHandleDialog')">取消</el-button>
+        <el-button type="primary" size="mini" @click="nextStep">{{$t('andonHome_nextStep')}}</el-button>
+        <el-button size="mini" @click="$emit('cannelHandleDialog')">{{$t('common_cancel')}}</el-button>
       </el-form-item>
     </el-form>
     <div class="mes-table" v-else-if="alarmFrom ===2">
@@ -33,40 +33,40 @@
       </el-row>
       <div class="mes-table-content">
         <el-table :data="alarmListTable" border>
-         <el-table-column type="index" label="序号" align="center" :index="indexMethod"></el-table-column>
-         <el-table-column prop="docNo" label="报警单号" align="center"></el-table-column>
-         <el-table-column prop="almStatus" label="报警状态" align="center"></el-table-column>
-         <el-table-column prop="typeName" label="报警类型" align="center"></el-table-column>
-         <el-table-column prop="failName" label="报警代码" align="center"></el-table-column>ty
-         <el-table-column prop="almLevel" label="严重等级" align="center"></el-table-column>
+         <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod"></el-table-column>
+         <el-table-column prop="docNo" :label="$t('andonHome_AlarmNumb')" align="center"></el-table-column>
+         <el-table-column prop="almStatus" :label="$t('andonHome_AlarmStat')" align="center"></el-table-column>
+         <el-table-column prop="typeName" :label="$t('andonHome_AlarmType')" align="center"></el-table-column>
+         <el-table-column prop="failName" :label="$t('andonHome_AlarmCode')" align="center"></el-table-column>ty
+         <el-table-column prop="almLevel" :label="$t('andonHome_SeverLeve')" align="center"></el-table-column>
          <el-table-column prop="almIp" label="报警终端ip" align="center"></el-table-column>
-         <el-table-column prop="createdDt" label="报警时间" align="center" :formatter="dateFormatter" ></el-table-column>
-         <el-table-column prop="employeeName" label="报警人" align="center"></el-table-column>
-         <el-table-column label="操作" width="120" align="center">
+         <el-table-column prop="createdDt" :label="$t('andonHome_AlarmTime')" align="center" :formatter="dateFormatter" ></el-table-column>
+         <el-table-column prop="employeeName" :label="$t('andonHome_Polic')" align="center"></el-table-column>
+         <el-table-column :label="$t('common_Operate')" width="120" align="center">
             <template slot-scope="scope">
               <span style="cursor: pointer;color:#409EFF" @click="nextHandleStep(scope.row)">{{handleMethod(scope.row.almStatus)}}</span>
             </template>
           </el-table-column>
         </el-table>
       </div>
-      <div style="text-align:end;margin-top:20px"><el-button type="primary" @click="cannelPage">关闭页面</el-button></div>
+      <div style="text-align:end;margin-top:20px"><el-button type="primary" @click="cannelPage">{{$t('andonHome_ClosePage')}}</el-button></div>
     </div>
     <el-form :model="alarmResonForm" ref="alarmResonForm" label-position="left" label-width="210px" :rules="reasonRules" class="el-row mes-form-rule" size="mini"  v-else-if="alarmFrom ===3" @submit.native.prevent>
-      <el-form-item label="请输入异常代码或者异常原因：" class="el-col el-col-23">
-        <el-input v-model="failReason" placeholder="过滤异常选项" @keydown.enter.native="getReasonData"></el-input>
+      <el-form-item :label="$t('andonHome_enterExceCodeOrReas')" class="el-col el-col-23">
+        <el-input v-model="failReason" :placeholder="$t('andonHome_FilteExceOpti')" @keydown.enter.native="getReasonData"></el-input>
       </el-form-item>
       <!-- form-item要给一个栅格布局  不然会盖住上面的输入框 -->
-      <el-form-item label-width="120px" label="异常原因：" prop="failReasonId" class="el-row el-col el-col-24">
+      <el-form-item label-width="120px" :label="$t('andonHome_AbnorReas')" prop="failReasonId" class="el-row el-col el-col-24">
         <el-radio-group  v-model="alarmResonForm.failReasonId" size="medium"  style="width:100%">
           <el-radio border v-for="(option,i) in reasonList" :key="i" :label="option.mMomFailreasonId" class="el-col el-col-7" style="margin:7px" size="medium">{{option.failReason}}</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="备注 :" label-width="120px" class="el-col el-col-23">
+      <el-form-item :label="$t('common_remarks') + ' :'" label-width="120px" class="el-col el-col-23">
         <el-input v-model="alarmResonForm.remark" type="textarea"></el-input>
       </el-form-item>
       <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
         <el-button type="primary" size="mini" @click="saveAndonReason">{{handleButton}}</el-button>
-        <el-button size="mini" @click="backStep">上一步</el-button>
+        <el-button size="mini" @click="backStep">{{$t('andonHome_Back')}}</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -98,7 +98,7 @@ export default {
       operateType: 0,
       mAlmAlarmlistId: '',
       reasonRules: {
-        failReasonId: [{ required: true, message: '请选择异常原因' }]
+        failReasonId: [{ required: true, message: this.$t('andonHome_selecAbnoReas') }]
       }
     }
   },
@@ -111,7 +111,7 @@ export default {
   },
   computed: {
     handleButton () {
-      return this.operateType === 1 ? '接警' : '关闭报警'
+      return this.operateType === 1 ? this.$t('andonHome_ReceiPoli') : this.$t('andonHome_turnOffAlar')
     }
   },
   methods: {
@@ -128,10 +128,10 @@ export default {
       this.getTableData()
     },
     // valueFormatter (row, column, cellValue, index) {
-    //   return cellValue === '0' ? '未处理' : '处理中'
+    //   return cellValue === '0' ? this.$t('andonHome_Untre') : this.$t('common_Proce')
     // },
     handleMethod (option) {
-      return option === '未处理' ? '接警' : '关闭'
+      return option === this.$t('andonHome_Untre') ? this.$t('andonHome_ReceiPoli') : this.$t('common_close')
     },
     dateFormatter (row, column, cellValue, index) {
       return cellValue ? this.$dayjs(cellValue).format('YYYY-MM-DD HH:mm:ss') : ''
@@ -147,10 +147,10 @@ export default {
               this.userIdList.push(res.data.employeeCardId)
               this.userForm.cardId = ''
             } else {
-              this.$message.warning('该员工号不存在！')
+              this.$message.warning(this.$t('andonHome_emploNumbDoesNotExis'))
             }
           } else {
-            this.$message.warning('该员工已经被选中')
+            this.$message.warning(this.$t('andonHome_emploHasBeenSele'))
           }
         }
       })
@@ -167,7 +167,7 @@ export default {
         this.$emit('handleDialogWidth', 2)
         this.getAlarmList()
       } else {
-        this.$message.warning('请先选中接警人员')
+        this.$message.warning(this.$t('andonHome_selecPoliOffiFirs'))
       }
     },
     // 获未关闭或待处理的报警列表
@@ -184,7 +184,7 @@ export default {
       }
     },
     nextHandleStep (option) {
-      if (option.almStatus === '未处理') {
+      if (option.almStatus === this.$t('andonHome_Untre')) {
         this.operateType = 1
       } else {
         this.operateType = 2

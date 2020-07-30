@@ -7,39 +7,39 @@ export let tableOption = (This) => {
     selection: false,
     tableTitle: [
       {
-        title: '物料编码',
+        title: 'common_MaterCode',
         prop: 'materialCode'
       },
       {
-        title: '物料名称',
+        title: 'common_MaterialName',
         prop: 'materialName'
       },
       {
-        title: '仓库编码',
+        title: 'BatchInventory_WarehouseCode',
         prop: 'warehouseCode'
       },
       {
-        title: '库位编码',
+        title: 'BatchInventory_LocationCode',
         prop: 'areaCode'
       },
       {
-        title: '物料批次号',
+        title: 'BatchInventory_MaterialLotNo',
         prop: 'stockLotCode'
       },
       {
-        title: '现有量',
+        title: 'BatchInventory_OnHand',
         prop: 'onhandQty'
       },
       {
-        title: '可用量',
+        title: 'BatchInventory_AvailableQuantity',
         prop: 'availableQty'
       },
       {
-        title: '占用量',
+        title: 'BatchInventory_OccupiedQuantity',
         prop: 'assignQty'
       },
       {
-        title: '冻结量',
+        title: 'BatchInventory_FrozenQuantity',
         prop: 'holdQty'
       }
     ],

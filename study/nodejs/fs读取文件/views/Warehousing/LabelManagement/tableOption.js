@@ -6,7 +6,7 @@ export let tableOption = (This) => {
     highlightCurrentRow: true,
     tableTitle: [
       {
-        title: '条码号',
+        title: 'LabelManagement_barcode',
         prop: 'mWmsPkgidPkgid',
         width: '150px'
       },
@@ -15,89 +15,89 @@ export let tableOption = (This) => {
       //   prop: 'name'
       // },
       {
-        title: '状态',
+        title: 'common_Status',
         prop: 'mWmsPkgidStatus',
         width: '100px',
         replaceFun: (row) => {
           return {
-            '1': '创建',
-            '2': '收货',
-            '3': '上架',
-            '4': '拣货',
-            '5': '出库'
+            '1': This.$t('LabelManagement_found'),
+            '2': This.$t('LabelManagement_takeDelivery'),
+            '3': This.$t('LabelManagement_OnTheShelf'),
+            '4': This.$t('LabelManagement_picking'),
+            '5': This.$t('LabelManagement_WarehouseOut')
           }[row.mWmsPkgidStatus]
         }
       },
       {
-        title: '物料批次号',
+        title: 'LabelManagement_MaterialBatchNumber',
         prop: 'mWmsPkgidMaterialLot',
         width: '150px'
       },
       {
-        title: '物料编码',
+        title: 'LabelManagement_MaterialCode',
         prop: 'materialCode',
         width: '150px'
       },
       {
-        title: '物料名称',
+        title: 'common_MaterialName',
         prop: 'materialName',
         width: '150px'
       },
       {
-        title: '父条码',
+        title: 'LabelManagement_ParentBarcode',
         prop: 'parentpkgCode',
         width: '150px'
       },
       {
-        title: '数量',
+        title: 'LabelManagement_Num',
         prop: 'mWmsPkgidQty',
         width: '100px'
       },
       {
-        title: '主单位',
+        title: 'LabelManagement_MainUnit',
         prop: 'uomCode',
         width: '150px'
       },
       {
-        title: '生产日期',
+        title: 'LabelManagement_dateOfManufacture',
         prop: 'produceDate',
         width: '180px'
       },
       {
-        title: '失效日期',
+        title: 'LabelManagement_ExpirationDate',
         prop: 'invalidDate',
         width: '180px'
       },
       {
-        title: '生产批次',
+        title: 'LabelManagement_ProductionBatch',
         prop: 'mWmsPkgidLot',
         width: '150px'
       },
       {
-        title: '收货日期',
+        title: 'LabelManagement_DateOfReceipt',
         prop: 'receiveTime',
         width: '180px'
       },
       {
-        title: '入库单号',
+        title: 'LabelManagement_StockInNo',
         prop: 'mWmsPkgidSourceno',
         width: '180px'
       },
       {
-        title: '明细行号',
+        title: 'LabelManagement_DetailLineNumber',
         prop: 'mWmsPkgidSourceitem',
         width: '150px'
       },
       {
-        title: '是否报废',
+        title: 'LabelManagement_IsItScrapped',
         prop: 'isScrapped',
         width: '150px',
         replaceFun: (row) => {
-          return row.isScrapped ? '是' : '否'
+          return row.isScrapped ? This.$t('common_Yes') : This.$t('common_No')
         }
       },
       {
-        title: '打印次数',
+        title: 'LabelManagement_PrintingTimes',
         prop: 'mWmsPkgidPrintTimes',
         width: '150px'
       }

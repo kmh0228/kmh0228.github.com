@@ -1,9 +1,9 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">进料检验登记</h3>
+    <h3 class="mes-main-title">{{$t('IqcRegister_IncomingInspectionRegistration')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-        <!-- <el-select style="width:40%" size="mini" v-model="docStatus" clearable placeholder="请选择进料单状态" @change="changeStatus">
+        <!-- <el-select style="width:40%" size="mini" v-model="docStatus" clearable :placeholder="$t('IqcRegister_PleaseSelectTheStatusOfTheIncomingMaterial')" @change="changeStatus">
           <el-option v-for="(option,i) in machineList" :key="i" :label="option.label" :value="option.value"></el-option>
         </el-select> -->
         <dict-select  v-model="searchForm.docStatus" dictType="INSPECT_STATUS"  style="width:35%" @change="changeStatus"></dict-select>
@@ -12,23 +12,23 @@
         <el-button size="mini" style="float:right;margin-left:10px;"  @click="showMoreConditon = !showMoreConditon">
           <i class="fa fa-filter"></i>
         </el-button>
-        <el-input size="mini" v-model="searchForm.keywords" placeholder="请输入关键词" style="width:40%;float:right;" @keydown.enter.native="getdata"></el-input>
+        <el-input size="mini" v-model="searchForm.keywords" :placeholder="$t('common_PleasEnteKeyWor')" style="width:40%;float:right;" @keydown.enter.native="getdata"></el-input>
       </el-col>
       <el-col :span="24"  style="padding-top:1vh;">
         <el-form class="el-row mes-search-form" :model="searchForm" label-width="30%" label-position="left" v-show="showMoreConditon">
-            <el-form-item label="进料单号" class="el-col el-col-11">
+            <el-form-item :label="$t('IqcRegister_IncomingMaterialNo')" class="el-col el-col-11">
               <el-input v-model="searchForm.grNo" style="width:100%" size="mini" >
               </el-input>
             </el-form-item>
-            <el-form-item label="供应商" class="el-col el-col-11 el-col-offset-1">
+            <el-form-item :label="$t('common_suppl')" class="el-col el-col-11 el-col-offset-1">
               <el-input v-model="searchForm.vendorName" style="width:100%" size="mini">
               </el-input>
             </el-form-item>
-            <el-form-item label="检验日期：" class="el-col el-col-11">
-              <el-date-picker style="width:100%"  v-model="changeTime"  type="daterange"  start-placeholder="开始日期" end-placeholder="结束日期"  value-format="yyyy-MM-dd"   :default-time="['12:00:00']">
+            <el-form-item :label="$t('common_InspeDate')" class="el-col el-col-11">
+              <el-date-picker style="width:100%"  v-model="changeTime"  type="daterange"  :start-placeholder="$t('common_StartDate')" :end-placeholder="$t('common_endTime')"  value-format="yyyy-MM-dd"   :default-time="['12:00:00']">
               </el-date-picker>
             </el-form-item>
-            <el-form-item label="料号" class="el-col el-col-11 el-col-offset-1">
+            <el-form-item :label="$t('common_PorN')" class="el-col el-col-11 el-col-offset-1">
               <el-input v-model="searchForm.mComMaterialId" style="width:100%" size="mini">
               </el-input>
             </el-form-item>
@@ -38,25 +38,25 @@
     <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="12" v-if="searchForm.docStatus === 'UN_REGISTER'">
-          <el-button size="mini" icon="el-icon-search" @click="getdata">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="getdata">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-plus" @click="handleIPQC('')" >新增</el-button>
+          <el-button size="mini" icon="el-icon-plus" @click="handleIPQC('')" >{{$t('common_Add')}}</el-button>
           <span class="split-line">|</span>
-          <!-- <el-button size="mini" @click="deleteTable">删除</el-button>
+          <!-- <el-button size="mini" @click="deleteTable">{{$t('common_Del')}}</el-button>
           <span class="split-line">|</span> -->
-          <el-button size="mini" icon="el-icon-upload2" @click="isUpload = true">批量导入</el-button>
+          <el-button size="mini" icon="el-icon-upload2" @click="isUpload = true">{{$t('IqcRegister_BatchImport')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" @click="changeEntrylistDialog">按入库单创建</el-button>
+          <el-button size="mini" @click="changeEntrylistDialog">{{$t('IqcRegister_CreateByStockInOrder')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" @click="IqcInfoByGrNos">批量生成检验单</el-button>
+          <el-button size="mini" @click="IqcInfoByGrNos">{{$t('IqcRegister_BatchGenerateInspection')}}</el-button>
         </el-col>
         <el-col :span="12" v-else-if="searchForm.docStatus === 'REGISTERED'" >
-          <el-button size="mini" icon="el-icon-search" @click="getdata">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="getdata">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" :disabled="dispatchDisabled" @click="dispatchMethod">派工</el-button>
+          <el-button size="mini" :disabled="dispatchDisabled" @click="dispatchMethod">{{$t('IqcRegister_Dispatch')}}</el-button>
         </el-col>
         <el-col :span="12" v-else >
-          <el-button size="mini" icon="el-icon-search" @click="getdata">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="getdata">{{$t('common_Inquire')}}</el-button>
         </el-col>
         <el-col :span="12">
             <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -68,19 +68,19 @@
       <div class="mes-table-content">
         <el-table :data="tableData" border size="mini" @selection-change="tableChange">
           <el-table-column type="selection" width="50" fixed="left"></el-table-column>
-          <el-table-column type="index" label="序号" align="center" :index="indexMethod" fixed="left"></el-table-column>
-          <el-table-column prop="grNo" label="进料单号" align="center" sortable></el-table-column>
-          <el-table-column prop="stockInNo" label="入库单号" align="center" sortable></el-table-column>
-          <el-table-column prop="qty" label="数量" align="center" sortable></el-table-column>
-          <el-table-column prop="qtyUom" label="单位" align="center" sortable></el-table-column>
-          <el-table-column prop="materialNo" label="料号" align="center" sortable></el-table-column>
-          <el-table-column prop="vendorName" label="供应商代码" align="center" sortable></el-table-column>
-          <el-table-column prop="poNo" label="采购单号" align="center" sortable></el-table-column>
-          <el-table-column prop="warehouseNo" label="仓库代码" align="center" sortable></el-table-column>
-          <el-table-column prop="docStatus" label="状态" align="center" sortable></el-table-column>
-          <el-table-column label="操作" align="center" width="80" fixed="right">
+          <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod" fixed="left"></el-table-column>
+          <el-table-column prop="grNo" :label="$t('IqcRegister_IncomingMaterialNo')" align="center" sortable></el-table-column>
+          <el-table-column prop="stockInNo" :label="$t('common_StockInNo')" align="center" sortable></el-table-column>
+          <el-table-column prop="qty" :label="$t('common_numbe')" align="center" sortable></el-table-column>
+          <el-table-column prop="qtyUom" :label="$t('common_Unit')" align="center" sortable></el-table-column>
+          <el-table-column prop="materialNo" :label="$t('common_PorN')" align="center" sortable></el-table-column>
+          <el-table-column prop="vendorName" :label="$t('common_SupplCode')" align="center" sortable></el-table-column>
+          <el-table-column prop="poNo" :label="$t('IqcRegister_PurchaseOrder')" align="center" sortable></el-table-column>
+          <el-table-column prop="warehouseNo" :label="$t('IqcRegister_WarehouseCode')" align="center" sortable></el-table-column>
+          <el-table-column prop="docStatus" :label="$t('common_Status')" align="center" sortable></el-table-column>
+          <el-table-column :label="$t('common_Operate')" align="center" width="80" fixed="right">
             <template slot-scope="scope">
-              <handle-button iconClass="el-icon-edit-outline" @click="handleIPQC(scope.row)" tipText="编辑"></handle-button>
+              <handle-button iconClass="el-icon-edit-outline" @click="handleIPQC(scope.row)" :tipText="$t('common_Edit')"></handle-button>
             </template>
           </el-table-column>
         </el-table>
@@ -88,25 +88,25 @@
       <el-dialog :visible.sync="dialogVisible" :title="dialogTitle" class="handle-dialog" :close-on-click-modal="false">
         <dialog-form v-if="dialogVisible" ref="dialog" @cannel="cannel" @getdata="getdata" :isEdit="isEdit" ></dialog-form>
       </el-dialog>
-      <el-dialog :visible.sync="dispatchDialog" title="进料派工" width="50%" class="handle-dialog" >
+      <el-dialog :visible.sync="dispatchDialog" :title="$t('IqcRegister_IncomingDispatch')" width="50%" class="handle-dialog" >
         <dispatch-form v-if="dispatchDialog" ref="dispatchDialog" @cannelDispatch="cannelDispatch" :ids="ids"  @getdata="getdata"></dispatch-form>
       </el-dialog>
-      <el-dialog :visible.sync="isUpload" title="请选择需要导入的文件" class="handle-dialog"  width="30vw">
+      <el-dialog :visible.sync="isUpload" :title="$t('IqcRegister_PleaseSelectTheFileToBeImported')" class="handle-dialog"  width="30vw">
           <el-upload
           style="text-align:center"  :before-upload="beforeUpload" drag action="">
           <mes-icon icon="excel-icon" size="67px" style="display:inline-block;margin:40px 0 16px;" v-if="fileName"></mes-icon>
           <p v-if="fileName">{{ fileName }}</p>
           <i class="el-icon-upload" v-else></i>
-          <div class="el-upload__text">将EXCEL文件拖到此处<em>点击上传</em>,或
-          <em><a href="static/download/Income_register.xlsx" style="color:#3B6F9A;text-decoration:none;" download="导入进料检验模板.xls" @click="downloadTemplate">模版下载</a></em></div>
-          <div class="el-upload__tip" slot="tip">只能上传EXCEL文件，且不超过500kb</div>
+          <div class="el-upload__text">{{$t('IqcRegister_Tips2')}}<em>{{$t('common_ClickUplo')}}</em>,{{$t('IqcRegister_Or')}}
+          <em><a href="static/download/Income_register.xlsx" style="color:#3B6F9A;text-decoration:none;" :download="$t('IqcRegister_ImportIncomingInspectionTemplate')" @click="downloadTemplate">{{$t('common_TemplDown')}}</a></em></div>
+          <div class="el-upload__tip" slot="tip">{{$t('IqcRegister_Tips3')}}</div>
         </el-upload>
         <div slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="importOnline">确 定</el-button>
-          <el-button @click="closeUploadDialog">取 消</el-button>
+          <el-button type="primary" @click="importOnline">{{$t('common_ok')}}</el-button>
+          <el-button @click="closeUploadDialog">{{$t('common_cancel')}}</el-button>
         </div>
       </el-dialog>
-      <el-dialog :visible.sync="entrylistDialog" title="入库单创建" class="handle-dialog" width="30vw">
+      <el-dialog :visible.sync="entrylistDialog" :title="$t('IqcRegister_StockInOrderCreate')" class="handle-dialog" width="30vw">
         <dialog-enter v-if="entrylistDialog" ref="dialog"   @cannelEnDialog="cannelEnDialog" @getdata="getdata" ></dialog-enter>
       </el-dialog>
     </div>
@@ -155,7 +155,7 @@ export default {
   },
   computed: {
     dialogTitle () {
-      return this.isEdit ? '编辑进料检验登记' : '新增进料检验登记'
+      return this.isEdit ? this.$t('IqcRegister_EditIncomingInspectionRegistration') : this.$t('IqcRegister_AddIncomingInspectionRegistration')
     },
     editDisabled () {
       return this.ids.length !== 1
@@ -241,7 +241,7 @@ export default {
         }
         // console.log(this.fileContent)
       } else {
-        this.$message.warning('文件类型必须是excel格式!')
+        this.$message.warning(this.$t('IqcRegister_Tips1'))
       }
       return false
     },
@@ -256,7 +256,7 @@ export default {
           this.getdata()
         })
       } else {
-        this.$message.warning('请上传需要导入的文件！')
+        this.$message.warning(this.$t('IqcRegister_PleaseUploadTheFileToBeImported'))
       }
     },
     async IqcInfoByGrNos () {
@@ -271,7 +271,7 @@ export default {
           this.getdata()
         })
       } else {
-        this.$message.warning('请选择要批量生成的检验单')
+        this.$message.warning(this.$t('IqcRegister_PleaseSelectTheInspectionOrderToBeGeneratedInBatch'))
       }
     },
     closeUploadDialog () {

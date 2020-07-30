@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     option () {
-      const seriesName = this.id === 'reponseNoOvertimeCount' ? '响应平均时间趋势' : '处理平均时间趋势'
+      const seriesName = this.id === 'reponseNoOvertimeCount' ? this.$t('processTime_RespoAverTimeTren') : this.$t('processTime_TrendAverProcTime')
       let xData = []
       let seriesData = []
       this.lineData.forEach(item => {

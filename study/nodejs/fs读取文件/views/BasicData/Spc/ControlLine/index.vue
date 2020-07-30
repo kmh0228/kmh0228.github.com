@@ -1,35 +1,35 @@
 <template>
   <div class="mes-main mes-work-order">
-    <div class="mes-main-title">自动计算管制线</div>
+    <div class="mes-main-title">{{$t('controlLine_AutomCalcContLine')}}</div>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-        <el-date-picker v-model="timeValue" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+        <el-date-picker v-model="timeValue" type="daterange" :range-separator="$t('common_to')" start-:placeholder="$t('common_StartDate')" end-:placeholder="$t('common_EndDate')"></el-date-picker>
       </el-col>
       <el-col :span="12">
         <el-button size="mini" style="float:right;margin-left:10px;" @click="showMoreConditon = !showMoreConditon">
           <i class="fa fa-filter"></i>
         </el-button>
-        <el-input placeholder="请输入关键词" v-model.trim="searchForm.keyWord" size="mini" style="width:40%;float:right" @keydown.enter.native="getControlLine"/>
+        <el-input :placeholder="$t('common_PleasEnteKeyWor')" v-model.trim="searchForm.keyWord" size="mini" style="width:40%;float:right" @keydown.enter.native="getControlLine"/>
       </el-col>
         <el-col :span="24" style="padding-top:1vh;">
         <el-form class="el-row mes-search-form" :model="searchForm" label-width="30%" label-position="left" v-show="showMoreConditon">
-          <el-form-item label="产品系列:" class="el-col el-col-11">
+          <el-form-item :label="$t('common_ProduSeries') + ':'" class="el-col el-col-11">
             <mes-select v-model="searchForm.mComMaterialfamilyId" clearable  method="getMachine" labelKey="mComMaterialfamilyName" valueKey="mComMaterialfamilyId"></mes-select>
           </el-form-item>
-          <el-form-item label="控制项名称:" class="el-col el-col-11 el-col-offset-1">
-            <el-input placeholder="请输入控制项名称" v-model.trim="searchForm.itemCode" size="mini" style="width:100%;" />
+          <el-form-item :label="$t('common_ContrName') + ':'" class="el-col el-col-11 el-col-offset-1">
+            <el-input :placeholder="$t('controlLine_enterAContName')" v-model.trim="searchForm.itemCode" size="mini" style="width:100%;" />
           </el-form-item>
-          <el-form-item label="线别:" class="el-col el-col-11">
+          <el-form-item :label="$t('common_Line') + ':'" class="el-col el-col-11">
             <mes-select v-model="searchForm.mPomLineId" clearable  method="getLineList" labelKey="lineName" valueKey="mPomLineId"></mes-select>
           </el-form-item>
-          <el-form-item label="料号:" class="el-col el-col-11 el-col-offset-1">
+          <el-form-item :label="$t('common_PorN') + ':'" class="el-col el-col-11 el-col-offset-1">
             <material-select v-model="searchForm.mComMaterialId" :materialNoVersion="materialNo" style="width:100%" ></material-select>
           </el-form-item>
-          <el-form-item label="控制图类型:" class="el-col el-col-11">
+          <el-form-item :label="$t('controlLine_ContrCharType') + ':'" class="el-col el-col-11">
             <dict-select style="width:100%;" v-model="searchForm.controlChartType" dictType="CONTROLCHART_TYPE" selectKey="dictCode" clearable></dict-select>
           </el-form-item>
-          <el-form-item label="模穴号/零件位置:" class="el-col el-col-11 el-col-offset-1">
-            <el-input placeholder="请输入模穴号" v-model.trim="searchForm.moldCavityNo" size="mini" style="width:100%;" />
+          <el-form-item :label="$t('common_MouldHoleNumb') + ':'" class="el-col el-col-11 el-col-offset-1">
+            <el-input :placeholder="$t('controlLine_inputDieHoleNumb')" v-model.trim="searchForm.moldCavityNo" size="mini" style="width:100%;" />
           </el-form-item>
         </el-form>
       </el-col>
@@ -37,9 +37,9 @@
     <div class="mes-table">
       <el-row  class="mes-table-handle">
         <el-col :span="12">
-          <el-button icon="el-icon-search" size="mini" @click="getControlLine">查询</el-button>
+          <el-button icon="el-icon-search" size="mini" @click="getControlLine">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button icon="el-icon-refresh-right" size="mini" @click="resetForm">刷新</el-button>
+          <el-button icon="el-icon-refresh-right" size="mini" @click="resetForm">{{$t('common_Refresh')}}</el-button>
         </el-col>
         <el-col :span="12">
           <mes-page ref="mesPage" :initData="getControlLine" :total="total" />
@@ -47,21 +47,21 @@
       </el-row>
       <div class="mes-table-content">
         <el-table :data="tableData" border size="mini" @cell-click="cellClick">
-          <el-table-column type="index" label="序号" align="center" fixed="left" :index="indexMethod"></el-table-column>
-          <el-table-column sortable prop="officeName" label="部门" align="center" min-width="100"></el-table-column>
-          <el-table-column prop="itemCode" sortable label="控制项名称" min-width="130" label-class-name="mes-table-label" class-name="mes-table-click" align="center"></el-table-column>
-          <el-table-column sortable prop="materialNo" label="料号" align="center" min-width="100"></el-table-column>
-          <el-table-column sortable prop="materialRev" label="料号版次" align="center" min-width="120"></el-table-column>
-          <el-table-column prop="lineCode" sortable label="线别" align="center"></el-table-column>
-          <el-table-column prop="stationCode" sortable label="量测站/实验室" align="center" min-width="150"></el-table-column>
-          <el-table-column prop="instrumentName" sortable label="测量仪器" align="center" min-width="120"></el-table-column>
-          <el-table-column prop="controlChartType" sortable label="控制图" align="center" min-width="120"></el-table-column>
-          <el-table-column prop="materialfamilyCode" sortable label="产品系列" width="180" align="center"></el-table-column>
-          <el-table-column sortable prop="moldCavityNo" label="模穴号/零件位置" align="center" min-width="150"></el-table-column>
-          <el-table-column prop="itemDesc" sortable label="控制项描述" width="150" align="center"></el-table-column>
-          <el-table-column sortable prop="mPomLineId" label="操作" align="center" min-width="120" fixed="right">
+          <el-table-column type="index" :label="$t('common_Number')" align="center" fixed="left" :index="indexMethod"></el-table-column>
+          <el-table-column sortable prop="officeName" :label="$t('common_Department')" align="center" min-width="100"></el-table-column>
+          <el-table-column prop="itemCode" sortable :label="$t('common_ContrName')" min-width="130" label-class-name="mes-table-label" class-name="mes-table-click" align="center"></el-table-column>
+          <el-table-column sortable prop="materialNo" :label="$t('common_PorN')" align="center" min-width="100"></el-table-column>
+          <el-table-column sortable prop="materialRev" :label="$t('common_ItemNoRev')" align="center" min-width="120"></el-table-column>
+          <el-table-column prop="lineCode" sortable :label="$t('common_Line')" align="center"></el-table-column>
+          <el-table-column prop="stationCode" sortable :label="$t('controlLine_measLabo')" align="center" min-width="150"></el-table-column>
+          <el-table-column prop="instrumentName" sortable :label="$t('common_MeasuInst')" align="center" min-width="120"></el-table-column>
+          <el-table-column prop="controlChartType" sortable :label="$t('common_ContrChar')" align="center" min-width="120"></el-table-column>
+          <el-table-column prop="materialfamilyCode" sortable :label="$t('common_ProduSeries')" width="180" align="center"></el-table-column>
+          <el-table-column sortable prop="moldCavityNo" :label="$t('common_MouldHoleNumb')" align="center" min-width="150"></el-table-column>
+          <el-table-column prop="itemDesc" sortable :label="$t('common_ContrDesc')" width="150" align="center"></el-table-column>
+          <el-table-column sortable prop="mPomLineId" :label="$t('common_Operate')" align="center" min-width="120" fixed="right">
             <template slot-scope="scope">
-              <el-button type="primary" plain size="mini" @click="saveDetailList(scope.row.tSpcControlItemId)">提交更新</el-button>
+              <el-button type="primary" plain size="mini" @click="saveDetailList(scope.row.tSpcControlItemId)">{{$t('controlLine_SubmiUpda')}}</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -69,22 +69,22 @@
     </div>
     <div class="mes-main-tabs" v-if="showTas">
       <el-tabs v-model="tabAciveName">
-        <el-tab-pane label="详细信息" name="info">
+        <el-tab-pane :label="$t('controlLine_detaiInfo')" name="info">
            <div class="mes-table">
             <el-table :data="detailData" border size="mini">
-              <el-table-column type="index" label="序号" align="center"></el-table-column>
-              <el-table-column prop="chartType" sortable label="管制图类型" align="center"></el-table-column>
+              <el-table-column type="index" :label="$t('common_Number')" align="center"></el-table-column>
+              <el-table-column prop="chartType" sortable :label="$t('controlLine_ContrCharTypeG')" align="center"></el-table-column>
               <el-table-column prop="ucl" sortable label="UCL" align="center"></el-table-column>
               <el-table-column prop="cl" sortable label="CL" align="center"></el-table-column>
               <el-table-column prop="lcl" sortable label="LCL" align="center"></el-table-column>
            </el-table>
            </div>
         </el-tab-pane>
-        <el-tab-pane label="历史信息" name="information">
+        <el-tab-pane :label="$t('controlLine_histoInfo')" name="information">
           <div class="mes-table">
             <el-table :data="historyRecordData" border size="mini">
-              <el-table-column type="index" label="序号" align="center"></el-table-column>
-              <el-table-column prop="chartType" sortable label="管制图类型" align="center"></el-table-column>
+              <el-table-column type="index" :label="$t('common_Number')" align="center"></el-table-column>
+              <el-table-column prop="chartType" sortable :label="$t('controlLine_ContrCharTypeG')" align="center"></el-table-column>
               <el-table-column prop="ucl" sortable label="UCL" align="center"></el-table-column>
               <el-table-column prop="cl" sortable label="CL" align="center"></el-table-column>
               <el-table-column prop="lcl" sortable label="LCL" align="center"></el-table-column>
@@ -93,7 +93,7 @@
         </el-tab-pane>
       </el-tabs>
     </div>
-    <el-dialog :visible.sync="dialogVisible" :title="'更新管制线'" class="handle-dialog" width="1000px">
+    <el-dialog :visible.sync="dialogVisible" :title="this.$t('controlLine_UpdatContLine')" class="handle-dialog" width="1000px">
       <dialog-form v-if="dialogVisible" ref="dialog" @cannel="cannel" :tSpcControlItemId="tSpcControlItemId" ></dialog-form>
     </el-dialog>
   </div>
@@ -128,16 +128,16 @@ export default {
       dialogVisible: false,
       materialColumns: [{
         key: 'materialNo',
-        label: '料号'
+        label: this.$t('common_PorN')
       }, {
         key: 'materialName',
-        label: '物料名称'
+        label: this.$t('common_MaterialName')
       }, {
         key: 'version',
-        label: '版次'
+        label: this.$t('common_Edition')
       }, {
         key: 'mComMaterialtypeCode',
-        label: '物料类型'
+        label: this.$t('common_MaterialType')
       }],
       timeValue: [],
       detailData: [],

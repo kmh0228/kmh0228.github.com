@@ -1,12 +1,12 @@
 <template>
   <div class="mes-main mes-work-order mes-material">
-    <h3 class="mes-main-title">终端用户管理</h3>
+    <h3 class="mes-main-title">{{$t('dictionary_userManagement')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-        <el-input v-model="keywords" placeholder="员工工号" size="mini" style="width:12vw;" @keydown.enter.native="getUsers"></el-input>
+        <el-input v-model="keywords" :placeholder="$t('user_DGDH')" size="mini" style="width:12vw;" @keydown.enter.native="getUsers"></el-input>
       </el-col>
       <el-col :span="12">
-        <el-select v-model="employeePost" size="mini" clearable placeholder="请选择岗位" style="width:40%;float:right;" @change="getUsers">
+        <el-select v-model="employeePost" size="mini" clearable :placeholder="$t('user_selectPost')" style="width:40%;float:right;" @change="getUsers">
           <el-option v-for="(item,i) in postList" :key="i" :label="item" :value="item"></el-option>
         </el-select>
       </el-col>
@@ -15,13 +15,13 @@
       <el-row class="mes-table-handle">
         <el-col :span="11">
           <div class="mes-btn-group">
-            <el-button size="mini" icon="el-icon-search" @click="getUsers">查询</el-button>
+            <el-button size="mini" icon="el-icon-search" @click="getUsers">{{$t('common_Inquire')}}</el-button>
             <span class="split-line">|</span>
-            <el-button size="mini" icon="el-icon-plus" @click="handleUser('')">新增</el-button>
+            <el-button size="mini" icon="el-icon-plus" @click="handleUser('')">{{$t('common_Add')}}</el-button>
             <span class="split-line">|</span>
-            <el-button size="mini" icon="el-icon-delete-solid" @click="deleteUsers('')">批量删除</el-button>
+            <el-button size="mini" icon="el-icon-delete-solid" @click="deleteUsers('')">{{$t('common_Delete')}}</el-button>
             <span class="split-line">|</span>
-            <el-button size="mini" icon="el-icon-refresh" @click="getUsers">刷新</el-button>
+            <el-button size="mini" icon="el-icon-refresh" @click="getUsers">{{$t('common_Refresh')}}</el-button>
           </div>
         </el-col>
         <el-col :span="13">
@@ -33,28 +33,28 @@
       </el-row>
       <el-table :data="userData" border size="mini" @selection-change="selectUser">
         <el-table-column type="selection" width="50" align="center" fixed="left"></el-table-column>
-        <el-table-column type="index" label="序号" align="center" :index="indexMethod" fixed="left"></el-table-column>
-        <el-table-column prop="department" sortable label="部门" align="center"></el-table-column>
-        <el-table-column prop="employeeCardId" sortable label="员工卡号" align="center"></el-table-column>
-        <el-table-column prop="employeeName" sortable label="姓名" align="center"></el-table-column>
-        <el-table-column prop="employeeSex" sortable label="性别" align="center">
+        <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod" fixed="left"></el-table-column>
+        <el-table-column prop="department" sortable :label="$t('common_Department')" align="center"></el-table-column>
+        <el-table-column prop="employeeCardId" sortable :label="$t('user_DGDH')" align="center"></el-table-column>
+        <el-table-column prop="employeeName" sortable :label="$t('user_Name')" align="center"></el-table-column>
+        <el-table-column prop="employeeSex" sortable :label="$t('user_Sex')" align="center">
           <template slot-scope="props">
-            <p>{{ props.row.employeeSex === 2 ? '男' : '女' }}</p>
+            <p>{{ props.row.employeeSex === 2 ? $t('user_male') : $t('user_female') }}</p>
           </template>
         </el-table-column>
-        <el-table-column prop="employeePost" sortable label="岗位" align="center" ></el-table-column>
-        <el-table-column prop="employeeEmail" sortable label="邮箱" align="center" ></el-table-column>
-        <el-table-column prop="employeeJoinedDate" sortable label="入职日期" align="center" ></el-table-column>
-        <el-table-column prop="employeeStatus" sortable label="在职状态" align="center" >
+        <el-table-column prop="employeePost" sortable :label="$t('user_Post')" align="center" ></el-table-column>
+        <el-table-column prop="employeeEmail" sortable :label="$t('user_Mail')" align="center" ></el-table-column>
+        <el-table-column prop="employeeJoinedDate" sortable :label="$t('user_Hiredate')" align="center" ></el-table-column>
+        <el-table-column prop="employeeStatus" sortable :label="$t('user_JobStatus')" align="center" >
           <template slot-scope="props">
-            <el-tag :type="props.row.employeeStatus === 0 ? '':'danger'"> {{props.row.employeeStatus === 0 ? '在职' :'离职'}}</el-tag>
+            <el-tag :type="props.row.employeeStatus === 0 ? '':'danger'"> {{props.row.employeeStatus === 0 ? $t('user_OnTheJob') :$t('user_quit')}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="lineName" label="线别" sortable align="center" ></el-table-column>
-        <el-table-column label="操作" align="center" width="120" fixed="right">
+        <el-table-column prop="lineName" :label="$t('common_Line')" sortable align="center" ></el-table-column>
+        <el-table-column :label="$t('common_Operate')" align="center" width="120" fixed="right">
           <template slot-scope="scope">
-            <handle-button @click="handleUser(scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-            <handle-button @click="deleteUsers(scope.row.mComEmployeeId)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+            <handle-button @click="handleUser(scope.row)" iconClass='el-icon-edit-outline' :tipText="$t('common_Edit')"></handle-button>
+            <handle-button @click="deleteUsers(scope.row.mComEmployeeId)" iconClass='el-icon-delete' :tipText="$t('common_Del')" iconColor='#f56c6c'></handle-button>
           </template>
         </el-table-column>
       </el-table>
@@ -84,12 +84,12 @@ export default {
       lineList: [],
       deptList: [],
       selectList: [],
-      postList: ['生产', '检验', '仓储', '设备', '管理']
+      postList: [this.$t('user_production'), this.$t('user_Inspect'), this.$t('user_storage'), this.$t('user_equipment'), this.$t('user_Management')]
     }
   },
   computed: {
     dialogTitle () {
-      return this.isEdit ? '编辑用户' : '新增用户'
+      return this.isEdit ? this.$t('user_EditUser') : this.$t('user_AddUsers')
     }
   },
   methods: {
@@ -160,13 +160,13 @@ export default {
       const { selectList } = this
       const ids = id ? [id] : selectList
       if (ids.length > 0) {
-        const isConfirm = await this.$myPrompt.confirm('确定删除当前选中的用户吗？')
+        const isConfirm = await this.$myPrompt.confirm(this.$t('user_deleteUser'))
         if (isConfirm) {
           const res = await this.$api.delEmployees(ids)
           this.$myPrompt.handleMsg(res, this.getUsers)
         }
       } else {
-        this.$message.warning('请选择需要删除的用户！')
+        this.$message.warning(this.$t('user_deleted'))
       }
     }
   },

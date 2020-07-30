@@ -1,44 +1,44 @@
 <template>
   <div class="mes-main mes-main-common">
     <div class="main-common-head">
-      <el-button type="primary" plain size="mini" @click="snUnfold">SN展开</el-button>
-      <el-button type="primary" plain size="mini" @click="printSn">打印</el-button>
+      <el-button type="primary" plain size="mini" @click="snUnfold">{{$t('partSN_open')}}</el-button>
+      <el-button type="primary" plain size="mini" @click="printSn">{{$t('common_Print')}}</el-button>
     </div>
     <el-form :model="partFrom" ref="part" :rules="rules" label-width="30%" label-position="left" class="el-row mes-form-rule">
-      <el-form-item label="零件料号" prop="mId" class="el-col el-col-11">
-        <dialogTableSelect ref="dialogTableSelect" v-model="partFrom.mId" :contentValue="''" @change="materialChange" selectId="mComMaterialId" searchPlaceholder="请选择料号" :searchForm="materialSearch" searchKey="materialNo" :showKey="['materialNo','version']" :tableColumns="materialColumns" getDataFunction="getMaterialMasters"></dialogTableSelect>
+      <el-form-item :label="$t('common_PartNo')" prop="mId" class="el-col el-col-11">
+        <dialogTableSelect ref="dialogTableSelect" v-model="partFrom.mId" :contentValue="''" @change="materialChange" selectId="mComMaterialId" :searchPlaceholder="$t('common_PleaseSelectPN')" :searchForm="materialSearch" searchKey="materialNo" :showKey="['materialNo','version']" :tableColumns="materialColumns" getDataFunction="getMaterialMasters"></dialogTableSelect>
       </el-form-item>
-      <el-form-item label="编码规则" prop="rulerName" class="el-col el-col-11 el-col-offset-1">
-        <el-select v-model="partFrom.rulerName" placeholder="请选择" clearable filterable style="width:100%" size="mini">
+      <el-form-item :label="$t('partSN_CodinRule')" prop="rulerName" class="el-col el-col-11 el-col-offset-1">
+        <el-select v-model="partFrom.rulerName" :placeholder="$t('common_PleasSele')" clearable filterable style="width:100%" size="mini">
           <el-option v-for="(item,i) in ruleList" :key="i" :label="item.M_SEQ_NAME" :value="item.M_SEQ_NAME">
             <span style="float: left">{{ item.M_SEQ_NAME}}</span>
             <span style="float: right; color: #8492a6; font-size: 13px">{{ item.SEQ_NO_FORMAT }}</span>
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="数量" prop="num" class="el-col el-col-11">
-        <el-input v-model.trim="partFrom.num" placeholder="请输入展开数量" size="mini"></el-input>
+      <el-form-item :label="$t('common_numbe')" prop="num" class="el-col el-col-11">
+        <el-input v-model.trim="partFrom.num" :placeholder="$t('partSN_enterExpaQuan')" size="mini"></el-input>
       </el-form-item>
-      <!-- <el-form-item label="展开原因" prop="reason" class="el-col el-col-11 el-col-offset-1">
-        <el-select v-model="partFrom.reason" placeholder="请选择" style="width:100%" size="mini">
-          <el-option label="一般生产" value="一般生产"></el-option>
-          <el-option label="维修补单" value="维修补单"></el-option>
+      <!-- <el-form-item :label="$t('partSN_ReasoForDepl')" prop="reason" class="el-col el-col-11 el-col-offset-1">
+        <el-select v-model="partFrom.reason" :placeholder="$t('common_PleasSele')" style="width:100%" size="mini">
+          <el-option :label="$t('partSN_GenerProd')" value="一般生产"></el-option>
+          <el-option :label="$t('partSN_RepaiOrde')" value="维修补单"></el-option>
         </el-select>
       </el-form-item> -->
     </el-form>
     <div class="barcode-table mes-table">
-      <p>零件SN详情</p>
+      <p>{{$t('partSN_sparePartSND')}}</p>
       <div class="mes-table-content">
-        <el-table :data="snTable" border size="mini" empty-text="暂无展开SN数据">
-          <el-table-column label="序号" align="center" width="60" prop="indexNum"></el-table-column>
-          <el-table-column label="零件SN" align="center" prop="SN"></el-table-column>
-          <el-table-column label="零件料号" align="center" prop="mNo">
+        <el-table :data="snTable" border size="mini" :empty-text="$t('partSN_NoExpaData')">
+          <el-table-column :label="$t('common_Number')" align="center" width="60" prop="indexNum"></el-table-column>
+          <el-table-column :label="$t('partSN_sparePartSN')" align="center" prop="SN"></el-table-column>
+          <el-table-column :label="$t('common_PartNo')" align="center" prop="mNo">
             <template>
               <span>{{ materialNoVersion }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="展开时间" align="center" prop="createDate"></el-table-column>
-          <!-- <el-table-column label="展开原因" align="center"></el-table-column> -->
+          <el-table-column :label="$t('partSN_DeploTime')" align="center" prop="createDate"></el-table-column>
+          <!-- <el-table-column :label="$t('partSN_ReasoForDepl')" align="center"></el-table-column> -->
         </el-table>
       </div>
       <el-row style="text-align:center;padding:1vh 0;">
@@ -71,16 +71,16 @@ export default {
       createdSnList: [],
       materialColumns: [{
         key: 'materialNo',
-        label: '料号'
+        label: this.$t('common_PorN')
       }, {
         key: 'materialName',
-        label: '物料名称'
+        label: this.$t('common_MaterialName')
       }, {
         key: 'version',
-        label: '版次'
+        label: this.$t('common_Edition')
       }, {
         key: 'mComMaterialtypeCode',
-        label: '物料类型'
+        label: this.$t('common_MaterialType')
       }],
       materialSearch: {
         materialNo: '',
@@ -94,10 +94,10 @@ export default {
       const nameRule = (rule, value, callback) => {
         let { mId } = this.partFrom
         if (!mId) {
-          callback(new Error('请先选择零件料号'))
+          callback(new Error(this.$t('partSN_selecPartNumbFirs')))
         } else {
           if (!value) {
-            callback(new Error('请选择条码规则'))
+            callback(new Error(this.$t('partSN_selecBarcRule')))
           } else {
             callback()
           }
@@ -107,16 +107,16 @@ export default {
         if (value) {
           let reg = /^[1-9]\d*$/
           if (!reg.test(value)) {
-            callback(new Error('展开数量只能为数字'))
+            callback(new Error(this.$t('partSN_expanQuanCanANumb')))
           } else {
             callback()
           }
         } else {
-          callback(new Error('展开数量不能为空'))
+          callback(new Error(this.$t('partSN_ExpanQuanCannBeEmpt')))
         }
       }
       return {
-        mId: [{ required: true, message: '零件料号不能为空' }],
+        mId: [{ required: true, message: this.$t('partSN_PartNoCannBeEmpt') }],
         rulerName: [{ required: true, validator: nameRule }],
         num: [{ required: true, validator: numRule }]
       }
@@ -157,7 +157,7 @@ export default {
         if (data.length > 0) {
           this.ruleList = data
         } else {
-          this.$message.warning('当前选择零件料号暂未配置条码规则！')
+          this.$message.warning(this.$t('partSN_BarCodeRulePartNumb'))
         }
       } else {
         this.$message.error(res.msg)
@@ -167,7 +167,7 @@ export default {
       this.$refs.part.validate(async valid => {
         if (valid) {
           if (this.createdSnList.length > 0) {
-            let res = await this.$myPrompt.confirm('确定清除SN列表，重新生成SN吗？')
+            let res = await this.$myPrompt.confirm(this.$t('partSN_deleteSNregene'))
             if (res) {
               this.creatSnList()
             }
@@ -204,7 +204,7 @@ export default {
           this.$message.error(res.msg)
         }
       } else {
-        this.$message.warning('当前未展开零件SN')
+        this.$message.warning(this.$t('partSN_partIsNotCurrUnfo'))
       }
     }
   },

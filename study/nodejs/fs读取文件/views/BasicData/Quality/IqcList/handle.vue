@@ -4,12 +4,12 @@
       <div class="mes-handle-content">
       <el-row :gutter="15">
         <el-col :span="24">
-          <el-button type="primary" plain size="mini" :disabled="checkState ==='已提交'" @click="saveIqc('DRAFT')">保存</el-button>
-          <el-button type="primary" plain size="mini" :disabled="checkState ==='已提交'" @click="saveIqc('SUBMITTED')">提交</el-button>
-          <el-button type="primary" plain size="mini" @click="saveIqcVdcs('DRAFT')" >生成vdcs</el-button>
-          <el-button type="primary" plain size="mini" @click="closeCurrentPage">关闭</el-button>
-          <span class="status_class">单号：{{unitNumber}}</span>
-          <span class="status_class" style="margin-left:3vw">状态：{{ checkState }}</span>
+          <el-button type="primary" plain size="mini" :disabled="checkState ===$t('common_Submitted')" @click="saveIqc('DRAFT')">{{$t('common_save')}}</el-button>
+          <el-button type="primary" plain size="mini" :disabled="checkState ===$t('common_Submitted')" @click="saveIqc('SUBMITTED')">{{$t('common_Submit')}}</el-button>
+          <el-button type="primary" plain size="mini" @click="saveIqcVdcs('DRAFT')" >{{$t('IQcList_GenerationVDCS')}}</el-button>
+          <el-button type="primary" plain size="mini" @click="closeCurrentPage">{{$t('common_close')}}</el-button>
+          <span class="status_class">{{$t('common_OddNumb')}}：{{unitNumber}}</span>
+          <span class="status_class" style="margin-left:3vw">{{$t('common_Status')}}：{{ checkState }}</span>
         </el-col>
       </el-row>
       <div class="mes-main-tabs" style="margin-top:10px;">
@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     setStatus () {
-      this.checkState = this.$route.query.status === 'DRAFT' ? '未提交' : '已提交'
+      this.checkState = this.$route.query.status === 'DRAFT' ? this.$t('common_NotSubm') : this.$t('common_Submitted')
     },
     async getInfoByGrNo () {
       this.unitNumber = this.$route.query.grNo
@@ -106,7 +106,7 @@ export default {
           this.closeCurrentPage()
         })
       } else {
-        this.$message.warning('抽样设置中检查水平是免检 ，且判定是拒收才能生成VDCS单!')
+        this.$message.warning(this.$t('IqcList_Tips1'))
       }
     },
     closeCurrentPage () {

@@ -4,8 +4,8 @@
     <div class="mes-handle-content">
       <el-row :gutter="15">
         <el-col :span="24">
-          <el-button type="primary" plain size="mini" @click="saveWorkTemplate">保存</el-button>
-          <el-button type="primary" plain size="mini" @click="closeCurrentPage">关闭</el-button>
+          <el-button type="primary" plain size="mini" @click="saveWorkTemplate">{{$t('common_save')}}</el-button>
+          <el-button type="primary" plain size="mini" @click="closeCurrentPage">{{$t('common_close')}}</el-button>
         </el-col>
       </el-row>
       <div class="mes-main-tabs" style="margin-top:10px;">

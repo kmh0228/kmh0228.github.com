@@ -1,27 +1,27 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">检规维护</h3>
+    <h3 class="mes-main-title">{{$t('feedRules_InspeReguMain')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-         <el-select style="width:35%;" size="mini" clearable filterable  placeholder="请选择维护的料号" v-model="searchForm.materialId" >
+         <el-select style="width:35%;" size="mini" clearable filterable  :placeholder="$t('feedRules_PleasSeleItemNu')" v-model="searchForm.materialId" >
           <el-option v-for="(option,i) in materialList" :key="i" :label="option.materialNo" :value="option.mComMaterialId" ></el-option>
         </el-select>
       </el-col>
       <el-col :span="12">
-        <el-input style="width:35%;float:right" v-model.trim="searchForm.sipNo" size="mini" clearable placeholder="请输入检验编号" @keydown.enter.native="initData">
+        <el-input style="width:35%;float:right" v-model.trim="searchForm.sipNo" size="mini" clearable :placeholder="$t('feedRules_PleasEnteInspNu')" @keydown.enter.native="initData">
         </el-input>
       </el-col>
     </el-row>
     <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="12">
-          <el-button size="mini" icon="el-icon-search" @click="initData">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="initData">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-plus"  @click="handleInspection('')">新增</el-button>
+          <el-button size="mini" icon="el-icon-plus"  @click="handleInspection('')">{{$t('common_Add')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-delete-solid" @click="delSipMain('')">批量删除</el-button>
+          <el-button size="mini" icon="el-icon-delete-solid" @click="delSipMain('')">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh"  @click="refreshData">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh"  @click="refreshData">{{$t('common_Refresh')}}</el-button>
         </el-col>
         <el-col :span="12">
            <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -33,56 +33,56 @@
       <div class="mes-table-content">
         <el-table :data="tableData" border size="mini" @selection-change="selectionChange" highlight-current-row @cell-click="cellClick">
           <el-table-column type="selection" align="center"></el-table-column>
-          <el-table-column type="index" label="序号" align="center" :index="indexMethod" ></el-table-column>
-          <el-table-column prop="sipNo" label="检规编号" align="center" sortable label-class-name="mes-table-label" class-name="mes-table-click"></el-table-column>
-          <el-table-column prop="sipVersion" label="检规版次" align="center" sortable></el-table-column>
-          <el-table-column prop="lastEditor" label="最后维护人" align="center" sortable></el-table-column>
-          <el-table-column prop="lastEditedDt" label="最后维护时间" align="center" sortable></el-table-column>
-          <el-table-column label="操作" align="center" width="120" fixed="right">
+          <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod" ></el-table-column>
+          <el-table-column prop="sipNo" :label="$t('feedRules_InspeReguNo')" align="center" sortable label-class-name="mes-table-label" class-name="mes-table-click"></el-table-column>
+          <el-table-column prop="sipVersion" :label="$t('feedRules_RevisInspRegu')" align="center" sortable></el-table-column>
+          <el-table-column prop="lastEditor" :label="$t('feedRules_LastMain')" align="center" sortable></el-table-column>
+          <el-table-column prop="lastEditedDt" :label="$t('feedRules_LastMainTime')" align="center" sortable></el-table-column>
+          <el-table-column :label="$t('common_Operate')" align="center" width="120" fixed="right">
             <template slot-scope="scope">
-              <handle-button @click="handleInspection(scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-              <handle-button @click="delSipMain(scope.row.mqomSipMainId)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+              <handle-button @click="handleInspection(scope.row)" iconClass='el-icon-edit-outline' :tipText="$t('common_Edit')"></handle-button>
+              <handle-button @click="delSipMain(scope.row.mqomSipMainId)" iconClass='el-icon-delete' :tipText="$t('common_Del')" iconColor='#f56c6c'></handle-button>
             </template>
           </el-table-column>
         </el-table>
       </div>
       <div class="mes-main-tabs" v-if="showTabs" style="margin-top:10px">
         <el-tabs v-model="activeName">
-          <el-tab-pane label="检规对应料号" name="inspectMaterial">
+          <el-tab-pane :label="$t('feedRules_CorreMateNumbIn')" name="inspectMaterial">
                 <el-row class="mes-table-handle">
                   <el-col :span="12">
                     <div  v-if="editDetail" >
-                      <el-button @click="addMaterialRow">添加</el-button>
+                      <el-button @click="addMaterialRow">{{$t('common_add')}}</el-button>
                       <span class="split-line">|</span>
-                      <el-button @click="saveMaterial">保存</el-button>
+                      <el-button @click="saveMaterial">{{$t('common_save')}}</el-button>
                       <span class="split-line">|</span>
-                      <el-button @click="revokeInspect">撤销</el-button>
+                      <el-button @click="revokeInspect">{{$t('common_revok')}}</el-button>
                     </div>
-                      <el-button  v-else type="primary" plain size="mini" @click="editDetail = true">编辑</el-button>
+                      <el-button  v-else type="primary" plain size="mini" @click="editDetail = true">{{$t('common_Edit')}}</el-button>
                   </el-col>
                 </el-row>
               <div class="mes-table-content">
                 <el-table :data="materialData" border size="mini">
-                  <el-table-column type="index" label="序号" align="center" ></el-table-column>
-                  <el-table-column  label="料号" align="center" sortable>
+                  <el-table-column type="index" :label="$t('common_Number')" align="center" ></el-table-column>
+                  <el-table-column  :label="$t('common_PorN')" align="center" sortable>
                     <template slot-scope="scope">
-                        <dialogTableSelect v-if="editDetail" ref="dialogTableSelect" class="mes-form-item" :contentValue="materialNoVersion(scope.$index)"  v-model="scope.row.mcomMaterialId" selectId="mComMaterialId" searchPlaceholder="请选择料号" :searchForm="materialSearch" searchKey="materialNo" :showKey="['materialNo','version']" :tableColumns="materialColumns" getDataFunction="getMaterialMasters" @change="getTypeAndNameByPartNo(scope.row.mcomMaterialId,scope.$index)"></dialogTableSelect>
+                        <dialogTableSelect v-if="editDetail" ref="dialogTableSelect" class="mes-form-item" :contentValue="materialNoVersion(scope.$index)"  v-model="scope.row.mcomMaterialId" selectId="mComMaterialId" :searchPlaceholder="$t('common_PleaseSelectPN')" :searchForm="materialSearch" searchKey="materialNo" :showKey="['materialNo','version']" :tableColumns="materialColumns" getDataFunction="getMaterialMasters" @change="getTypeAndNameByPartNo(scope.row.mcomMaterialId,scope.$index)"></dialogTableSelect>
                       <p v-else>{{ scope.row.materialNo }}</p>
                     </template>
                   </el-table-column>
-                  <el-table-column  label="料号类别" align="center" sortable>
+                  <el-table-column  :label="$t('feedRules_ItemNumbCate')" align="center" sortable>
                      <template slot-scope="scope">
                       <el-input   v-if="editDetail" size="mini" :disabled="true" v-model="scope.row.materialClassCode"></el-input>
                       <p v-else>{{ scope.row.materialClassCode }}</p>
                     </template>
                   </el-table-column>
-                  <el-table-column  label="品名" align="center" sortable>
+                  <el-table-column  :label="$t('common_ProduName')" align="center" sortable>
                      <template slot-scope="scope">
                       <el-input   v-if="editDetail" size="mini" v-model="scope.row.productName" ></el-input>
                       <p v-else>{{ scope.row.productName }}</p>
                     </template>
                   </el-table-column>
-                  <el-table-column label="操作" align="center" v-if="editDetail" >
+                  <el-table-column :label="$t('common_Operate')" align="center" v-if="editDetail" >
                     <template slot-scope="scope">
                       <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteMaterial(scope.$index)"></el-button>
                     </template>
@@ -90,30 +90,30 @@
                 </el-table>
               </div>
           </el-tab-pane>
-           <el-tab-pane label="检规项目" name="inspectItem">
+           <el-tab-pane :label="$t('feedRules_InspeItem')" name="inspectItem">
              <el-row class="mes-table-handle">
               <el-col :span="12">
-                <el-button size="mini" :disabled="iqcEditdisabled" @click="handleIqc(true)">编辑</el-button>
+                <el-button size="mini" :disabled="iqcEditdisabled" @click="handleIqc(true)">{{$t('common_Edit')}}</el-button>
                 <span class="split-line">|</span>
-                <el-button size="mini" @click="handleIqc(false)">新增</el-button>
+                <el-button size="mini" @click="handleIqc(false)">{{$t('common_Add')}}</el-button>
                 <span class="split-line">|</span>
-                <el-button size="mini" @click="delQomSipItem">删除</el-button>
+                <el-button size="mini" @click="delQomSipItem">{{$t('common_Del')}}</el-button>
                 <span class="split-line">|</span>
-                <el-button size="mini" :disabled="iqcDisabled" @click="iqcTypeDialog =true">检验类型</el-button>
+                <el-button size="mini" :disabled="iqcDisabled" @click="iqcTypeDialog =true">{{$t('feedRules_TypeInsp')}}</el-button>
               </el-col>
              </el-row>
              <div class="mes-table-content">
                <el-table :data="iqcData" border size="mini"  @selection-change="selectionChangeIqc">
                 <el-table-column  type="selection"></el-table-column>
-                <el-table-column type="index" label="序号" align="center" ></el-table-column>
-                <el-table-column prop="inspectItem" label="检验项目" align="center" sortable></el-table-column>
-                <el-table-column prop="inspectContent" label="检验内容" align="center" sortable></el-table-column>
-                <el-table-column prop="locationContent" label="图位" align="center" sortable></el-table-column>
-                <el-table-column prop="spec" label="规格" align="center" sortable></el-table-column>
-                <el-table-column prop="inspectMethod" label="检测方法" align="center" sortable></el-table-column>
-                <el-table-column prop="inspectTool" label="检测工具" align="center" sortable></el-table-column>
-                <el-table-column prop="frequency" label="检测频率" align="center" sortable></el-table-column>
-                <el-table-column prop="checkType" label="检验类型" align="center" sortable></el-table-column>
+                <el-table-column type="index" :label="$t('common_Number')" align="center" ></el-table-column>
+                <el-table-column prop="inspectItem" :label="$t('common_InspeItem')" align="center" sortable></el-table-column>
+                <el-table-column prop="inspectContent" :label="$t('common_InspeCont')" align="center" sortable></el-table-column>
+                <el-table-column prop="locationContent" :label="$t('common_MapLoca')" align="center" sortable></el-table-column>
+                <el-table-column prop="spec" :label="$t('common_Speci')" align="center" sortable></el-table-column>
+                <el-table-column prop="inspectMethod" :label="$t('feedRules_testMeth')" align="center" sortable></el-table-column>
+                <el-table-column prop="inspectTool" :label="$t('feedRules_TestiTool')" align="center" sortable></el-table-column>
+                <el-table-column prop="frequency" :label="$t('feedRules_DetecFreq')" align="center" sortable></el-table-column>
+                <el-table-column prop="checkType" :label="$t('feedRules_TypeInsp')" align="center" sortable></el-table-column>
               </el-table>
              </div>
           </el-tab-pane>
@@ -125,7 +125,7 @@
     <el-dialog :visible.sync="iqcDialogVisible" :title="iqcDialogTitle" width="900px" class="handle-dialog">
       <iqc-dialog  v-if="iqcDialogVisible" ref="iqcDialog" @cannelIqc="cannelIqc" :onMQomSipMainId="onMQomSipMainId" @findItemList="findItemList" :isEditIqc="isEditIqc"></iqc-dialog>
     </el-dialog>
-    <el-dialog :visible.sync="iqcTypeDialog" title="重新编辑检规类型" width="400px" class="handle-dialog">
+    <el-dialog :visible.sync="iqcTypeDialog" :title="$t('feedRules_ReEditGaugType')" width="400px" class="handle-dialog">
       <iqc-type v-if="iqcTypeDialog" ref="iqcTypeForm" @cannelType="cannelType" :sqcSelectList="sqcSelectList" @findItemList="findItemList"></iqc-type>
     </el-dialog>
     </div>
@@ -170,16 +170,16 @@ export default {
       onMQomSipMainId: '',
       materialColumns: [{
         key: 'materialNo',
-        label: '料号'
+        label: 'common_PorN'
       }, {
         key: 'materialName',
-        label: '物料名称'
+        label: 'common_MaterialName'
       }, {
         key: 'version',
-        label: '版次'
+        label: 'common_Edition'
       }, {
         key: 'mComMaterialtypeCode',
-        label: '物料类型'
+        label: 'common_MaterialType'
       }],
       materialSearch: {
         materialNo: '',
@@ -197,10 +197,10 @@ export default {
       return len < 1
     },
     dialogTitle () {
-      return this.isEdit ? '编辑进料检验规则' : '新增进料检验规则'
+      return this.isEdit ? this.$t('feedRules_EditIncoInspRul') : this.$t('feedRules_NewIncoInspRule')
     },
     iqcDialogTitle () {
-      return this.isEditIqc ? '编辑检规项目' : '新增检规项目'
+      return this.isEditIqc ? this.$t('feedRules_EditInspItem') : this.$t('feedRules_NewInspItem')
     }
 
   },
@@ -361,7 +361,7 @@ export default {
       let ids = id ? [id] : this.selectList
       let len = ids.length
       if (len > 0) {
-        const confirm = await this.$myPrompt.confirm('确定删除选择的检规信息吗?')
+        const confirm = await this.$myPrompt.confirm(this.$t('feedRules_AreYouSureDeleS'))
         if (confirm) {
           let res = await this.$api.delSipMain(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -372,7 +372,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请选择要删除的信息')
+        this.$message.warning(this.$t('common_PleasSeleInfoDe'))
       }
     },
     // 删除检规项目
@@ -380,7 +380,7 @@ export default {
       let ids = this.sqcSelectList
       const len = ids.length
       if (len > 0) {
-        const confirm = await this.$myPrompt.confirm('确定删除这些检规项吗？')
+        const confirm = await this.$myPrompt.confirm(this.$t('feedRules_AreYouSureDeleT'))
         if (confirm) {
           let res = await this.$api.delQomSipItem(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -388,7 +388,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请选择要删除的信息')
+        this.$message.warning(this.$t('common_PleasSeleInfoDe'))
       }
     },
     cannel () {

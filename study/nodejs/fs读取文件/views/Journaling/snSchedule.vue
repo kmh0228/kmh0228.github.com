@@ -1,30 +1,30 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">SN进度查询</h3>
+    <h3 class="mes-main-title">{{$t('snSchedule_SNProgrInqu')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-        <el-input size="mini" v-model.trim="searchForm.jobOrder" placeholder="请输入工单号" style="width:40%;" clearable></el-input>
-        <el-button size="mini" icon="el-icon-back" @click="$router.go(-1)">返回</el-button>
+        <el-input size="mini" v-model.trim="searchForm.jobOrder" :placeholder="$t('common_PleasInpuWorkOr')" style="width:40%;" clearable></el-input>
+        <el-button size="mini" icon="el-icon-back" @click="$router.go(-1)">{{$t('common_retur')}}</el-button>
       </el-col>
       <el-col :span="12">
         <el-button size="mini" style="float:right;margin-left:10px;" @click="showMoreConditon = !showMoreConditon">
           <i class="fa fa-filter"></i>
         </el-button>
-        <el-input placeholder="请输入SN" v-model.trim="searchForm.sn" size="mini" style="width:40%;float:right;" @keydown.enter.native="initData">
+        <el-input :placeholder="$t('common_PleasEnte') + 'SN'" v-model.trim="searchForm.sn" size="mini" style="width:40%;float:right;" @keydown.enter.native="initData">
           <!-- <i slot="suffix" class="el-input__icon el-icon-search" @click="initData"></i> -->
         </el-input>
       </el-col>
       <el-col :span="24"  >
         <el-form class="el-row mes-search-form" :model="searchForm" label-width="30%" label-position="left" v-show="showMoreConditon">
-          <el-form-item label="创建起始时间：" class="el-col el-col-11">
-            <el-date-picker v-model="searchForm.startTime" style="width:100%" size="mini" type="datetime" placeholder="选择日期时间"  align="right" value-format="yyyy-MM-dd HH:mm:ss" :picker-options="pickerOptions">
+          <el-form-item :label="$t('snSchedule_CreatStarTime')" class="el-col el-col-11">
+            <el-date-picker v-model="searchForm.startTime" style="width:100%" size="mini" type="datetime" :placeholder="$t('common_SelecDateTime')"  align="right" value-format="yyyy-MM-dd HH:mm:ss" :picker-options="pickerOptions">
             </el-date-picker>
           </el-form-item>
-          <el-form-item label="料号：" class="el-col el-col-11 el-col-offset-1">
+          <el-form-item :label="$t('snSchedule_ItemNo')" class="el-col el-col-11 el-col-offset-1">
             <el-input size="mini" v-model="searchForm.materialNo"></el-input>
           </el-form-item>
-          <el-form-item label="创建截止时间：" class="el-col el-col-11">
-            <el-date-picker v-model="searchForm.endTime" style="width:100%" size="mini" type="datetime" placeholder="选择日期时间" align="right" value-format="yyyy-MM-dd HH:mm:ss" :picker-options="pickerOptions">
+          <el-form-item :label="$t('snSchedule_CreatDead')" class="el-col el-col-11">
+            <el-date-picker v-model="searchForm.endTime" style="width:100%" size="mini" type="datetime" :placeholder="$t('common_SelecDateTime')" align="right" value-format="yyyy-MM-dd HH:mm:ss" :picker-options="pickerOptions">
             </el-date-picker>
           </el-form-item>
         </el-form>
@@ -33,9 +33,9 @@
     <div class="mes-table">
        <el-row class="mes-table-handle">
         <el-col :span="12">
-           <el-button icon="el-icon-search" size="mini" @click="initData">查询</el-button>
+           <el-button icon="el-icon-search" size="mini" @click="initData">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button icon="el-icon-refresh-right" size="mini" @click="resetForm">刷新</el-button>
+          <el-button icon="el-icon-refresh-right" size="mini" @click="resetForm">{{$t('common_Refresh')}}</el-button>
         </el-col>
         <el-col :span="12">
           <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -46,17 +46,17 @@
       </el-row>
       <div class="mes-table-content">
         <el-table :data="tableData" border size="mini" @cell-click="cellClick">
-          <el-table-column type="index" label="序号" align="center" :index="indexMethod" ></el-table-column>
-          <el-table-column prop="jobOrder" sortable label="工单号" width="140" show-overflow-tooltip label-class-name="mes-table-label" align="center"></el-table-column>
+          <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod" ></el-table-column>
+          <el-table-column prop="jobOrder" sortable :label="$t('common_WorkOrdeNo')" width="140" show-overflow-tooltip label-class-name="mes-table-label" align="center"></el-table-column>
           <el-table-column prop="sn" sortable label="产品SN" class-name="mes-table-click" align="center"></el-table-column>
-          <el-table-column prop="materialNo" sortable label="料号" align="center"></el-table-column>
-          <el-table-column prop="route" sortable label="路由" align="center"></el-table-column>
-          <el-table-column prop="line" sortable label="线别" align="center"></el-table-column>
-          <el-table-column prop="curWorkStation" sortable label="当前工站" align="center"></el-table-column>
-          <el-table-column prop="nextWorkStation" sortable label="下一工站" align="center"></el-table-column>
-          <el-table-column prop="onlineTime" sortable label="上线时间" align="center"></el-table-column>
-          <el-table-column prop="lastEditor" sortable label="最后扫描人" width="110" align="center"></el-table-column>
-          <el-table-column prop="lastEditedDt" sortable label="最后扫描时间" width="120" align="center" ></el-table-column>
+          <el-table-column prop="materialNo" sortable :label="$t('common_PorN')" align="center"></el-table-column>
+          <el-table-column prop="route" sortable :label="$t('snSchedule_route')" align="center"></el-table-column>
+          <el-table-column prop="line" sortable :label="$t('common_Line')" align="center"></el-table-column>
+          <el-table-column prop="curWorkStation" sortable :label="$t('snSchedule_CurreWorkStat')" align="center"></el-table-column>
+          <el-table-column prop="nextWorkStation" sortable :label="$t('snSchedule_NextStat')" align="center"></el-table-column>
+          <el-table-column prop="onlineTime" sortable :label="$t('snSchedule_OnlinTime')" align="center"></el-table-column>
+          <el-table-column prop="lastEditor" sortable :label="$t('snSchedule_lastPersScan')" width="110" align="center"></el-table-column>
+          <el-table-column prop="lastEditedDt" sortable :label="$t('snSchedule_LastScanTime')" width="120" align="center" ></el-table-column>
         </el-table>
       </div>
     </div>
@@ -79,19 +79,19 @@ export default {
       showMoreConditon: false,
       pickerOptions: {
         shortcuts: [{
-          text: '今天',
+          text: this.$t('common_today'),
           onClick (picker) {
             picker.$emit('pick', new Date())
           }
         }, {
-          text: '昨天',
+          text: this.$t('common_yesterday'),
           onClick (picker) {
             const date = new Date()
             date.setTime(date.getTime() - 3600 * 1000 * 24)
             picker.$emit('pick', date)
           }
         }, {
-          text: '一周前',
+          text: this.$t('common_lastWeek'),
           onClick (picker) {
             const date = new Date()
             date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)

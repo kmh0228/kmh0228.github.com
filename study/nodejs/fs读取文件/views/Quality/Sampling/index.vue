@@ -1,7 +1,7 @@
 <template>
   <div class="mes-main mes-main-common mes-workstation">
     <div class="main-common-head">
-      <p style="padding-left:45%;font-size:1vw;">抽检</p>
+      <p style="padding-left:45%;font-size:1vw;">{{$t('Sampling_SpotCheck')}}</p>
     </div>
     <el-row class="mes-workstation-info" :gutter="10">
       <el-col v-for="(item,i) in infoLabel" :key="i" :span="12" class="el-row">
@@ -9,7 +9,7 @@
         <p class="el-col el-col-18">{{ info[item.key] }}</p>
       </el-col>
     </el-row>
-    <station-logs logName="操作日志" recordName="抽检记录" :recordTableLabel="recordTableLabel" ref="logs"></station-logs>
+    <station-logs :logName="$t('common_OperaLog')" :recordName="$t('Sampling_SpotCheckRecord')" :recordTableLabel="recordTableLabel" ref="logs"></station-logs>
     <scan-input :scanType="scanType" @scan-code="scanCode"></scan-input>
   </div>
 </template>
@@ -20,36 +20,6 @@ import scanInput from '../../Production/DataAcquisition/Module/scanInput'
 export default {
   data () {
     return {
-      infoLabel: [
-        {
-          key: 'userName',
-          label: '员工号'
-        },
-        {
-          label: 'SN',
-          key: 'productSn'
-        },
-        {
-          label: '产品系列',
-          key: 'model'
-        },
-        {
-          label: '料号',
-          key: 'materialNo'
-        },
-        {
-          label: '工单号',
-          key: 'docNo'
-        },
-        {
-          label: '线别',
-          key: 'lineCode'
-        },
-        {
-          label: '当前工站',
-          key: 'lineStationName'
-        }
-      ],
       info: {
         userName: '',
         productSn: '',
@@ -58,40 +28,78 @@ export default {
         docNo: '',
         lineStationName: '',
         lineCode: ''
-      },
-      recordTableLabel: [
+      }
+    }
+  },
+  computed: {
+    infoLabel () {
+      return [
+        {
+          key: 'userName',
+          label: this.$t('common_EmploNumb')
+        },
+        {
+          label: 'SN',
+          key: 'productSn'
+        },
+        {
+          label: this.$t('common_ProduSeries'),
+          key: 'model'
+        },
+        {
+          label: this.$t('common_PorN'),
+          key: 'materialNo'
+        },
+        {
+          label: this.$t('common_WorkOrdeNo'),
+          key: 'docNo'
+        },
+        {
+          label: this.$t('common_Line'),
+          key: 'lineCode'
+        },
+        {
+          label: this.$t('Sampling_CurrentStation'),
+          key: 'lineStationName'
+        }
+      ]
+    },
+    recordTableLabel () {
+      return [
         {
           key: 'productSn',
-          label: '产品序列号'
+          label: this.$t('Sampling_ProductSerialNumber')
         },
         {
           key: 'materialNo',
-          label: '料号'
+          label: this.$t('common_PorN')
         },
         {
           key: 'docNo',
-          label: '工单号'
+          label: this.$t('common_WorkOrdeNo')
         },
         {
           key: 'dateTime',
-          label: '抽检时间'
+          label: this.$t('Sampling_SamplingTime')
         },
         {
           key: 'employeeName',
-          label: '检验人'
+          label: this.$t('Sampling_Inspector')
         },
         {
           key: 'result',
-          label: '判定结果'
+          label: this.$t('common_JudgmResu')
         }
-      ],
-      scanType: '员工号'
+      ]
+    },
+    scanType () {
+      return this.$t('common_EmploNumb')
     }
   },
   methods: {
     scanCode (code) {
       const { scanType } = this
-      if (scanType === '员工号') {
+      if (scanType === this.$t('common_EmploNumb')) {
         this.scanEmployeeCard(code)
       } else if (scanType === 'SSN') {
         this.scanSsn(code)
@@ -107,9 +115,9 @@ export default {
         this.info = Object.assign(this.info, { userName, employeeName: userInfo.employeeName, employeeCardId })
         const { nextStep } = userInfo
         this.scanType = res.data.nextStep
-        this.$refs.logs.createLogsInfo(employeeCardId, 1, `请扫描${nextStep}`)
+        this.$refs.logs.createLogsInfo(employeeCardId, 1, `${this.$t('common_PleasScan')}+${nextStep}`)
       } else {
-        this.$refs.logs.createLogsInfo(employeeCardId, 0, `请扫描${this.scanType}`)
+        this.$refs.logs.createLogsInfo(employeeCardId, 0, `${this.$t('common_PleasScan')}${this.scanType}`)
       }
     },
     async scanSsn (productSn) {
@@ -120,7 +128,7 @@ export default {
         this.info = Object.assign(this.info, res.data)
         this.info.productSn = productSn
         this.scanType = res.data.nextStep
-        this.$refs.logs.createLogsInfo(productSn, 1, `请扫描${this.scanType}`)
+        this.$refs.logs.createLogsInfo(productSn, 1, `${this.$t('common_PleasScan')}${this.scanType}`)
       } else {
         this.$refs.logs.createLogsInfo(productSn, 0, res.msg)
       }
@@ -132,7 +140,7 @@ export default {
       if (res.code === '200') {
         const { nextStep } = res.data
         this.scanType = nextStep
-        this.$refs.logs.createLogsInfo(command, 1, `请扫描${nextStep}`)
+        this.$refs.logs.createLogsInfo(command, 1, `${this.$t('common_PleasScan')}${nextStep}`)
         this.$refs.logs.recordList.push({
           productSn: this.info.productSn,
           materialNo: this.info.materialNo,

@@ -3,8 +3,8 @@
     <div class="alarm-table" v-if="alarmType ==='table'">
       <el-row :gutter="20">
         <el-col :span="24">
-          <el-input style="width:35%;" v-model="receiver" placeholder="输入接警人进行查找" suffix-icon="el-icon-search" @keydown.enter.native="getSpcAlarmSettingList"></el-input>
-          <el-button @click="$emit('changeAlarmType','form')">新增</el-button>
+          <el-input style="width:35%;" v-model="receiver" :placeholder="$t('controltermM_InputReceSear')" suffix-icon="el-icon-search" @keydown.enter.native="getSpcAlarmSettingList"></el-input>
+          <el-button @click="$emit('changeAlarmType','form')">{{$t('common_Add')}}</el-button>
         </el-col>
       </el-row>
       <el-table :data="tableData" border highlight-current-row @current-change="handleCurrentChange" style="margin:1.5vh 0;">
@@ -13,22 +13,22 @@
             <el-checkbox v-model="scope.row.checked"></el-checkbox>
           </template>
         </el-table-column>
-        <el-table-column prop="stReceiver1" label="一级接警人" align="center">
+        <el-table-column prop="stReceiver1" :label="$t('controltermM_FirstClasPoliRece')" align="center">
           <template slot-scope="props">
             <p v-for="(item,i) in props.row.stReceiver1" :key="i">{{ item }}</p>
           </template>
         </el-table-column>
-        <el-table-column prop="stEscalDura1" label="一级到二级未处理时限(H)" align="center"></el-table-column>
-        <el-table-column prop="ndReceiver2" label="二级接警人" align="center">
+        <el-table-column prop="stEscalDura1" :label="$t('controltermM_UntreTimeLimiLeve2') + '(H)'" align="center"></el-table-column>
+        <el-table-column prop="ndReceiver2" :label="$t('controltermM_SeconPoliRece')" align="center">
           <template slot-scope="props">
             <p v-for="(item,i) in props.row.ndReceiver2" :key="i">{{ item }}</p>
           </template>
         </el-table-column>
-        <el-table-column prop="remarks" label="备注" align="center"></el-table-column>
+        <el-table-column prop="remarks" :label="$t('common_remarks')" align="center"></el-table-column>
       </el-table>
       <div style="text-align:center;">
-        <el-button type="primary" @click="saveSpcAlertId">确定</el-button>
-        <el-button @click="$emit('cannel')">取消</el-button>
+        <el-button type="primary" @click="saveSpcAlertId">{{$t('common_ok')}}</el-button>
+        <el-button @click="$emit('cannel')">{{$t('common_cancel')}}</el-button>
       </div>
     </div>
     <div class="alarm-form" v-if="alarmType==='form'">
@@ -37,7 +37,7 @@
           <div class="alarm-user-card">
             <el-card shadow="never">
               <div slot="header" class="clearfix">
-                <span>一级接警</span>
+                <span>{{$t('controltermM_FirstLeveAlarRe')}}</span>
               </div>
               <div style="height:150px;padding:10px;">
                 <el-scrollbar style="height:100%;">
@@ -52,7 +52,7 @@
                 <el-button type="primary" icon="el-icon-arrow-left" circle @click="moveUserToReceiver('receiverOne')"></el-button>
               </div>
               <div>
-                <el-button type="primary" icon="el-icon-arrow-right" circle @click="removeReceiver(stReceiver1,'一级')"></el-button>
+                <el-button type="primary" icon="el-icon-arrow-right" circle @click="removeReceiver(stReceiver1,this.$t('controltermM_classA'))"></el-button>
               </div>
             </div>
           </div>
@@ -64,7 +64,7 @@
           <div class="alarm-user-card">
             <el-card shadow="never" style="width:100%;">
               <div slot="header" class="clearfix">
-                <span>所有接警人</span>
+                <span>{{$t('controltermM_AllCall')}}</span>
               </div>
               <div style="height:150px;padding:10px;">
                 <el-scrollbar style="height:100%;">
@@ -83,12 +83,12 @@
                 <el-button type="primary" icon="el-icon-arrow-right" @click="moveUserToReceiver('receiverTwo')" circle></el-button>
               </div>
               <div>
-                <el-button type="primary" icon="el-icon-arrow-left" @click="removeReceiver(ndReceiver2,'二级')" circle></el-button>
+                <el-button type="primary" icon="el-icon-arrow-left" @click="removeReceiver(ndReceiver2,this.$t('controltermM_seconLeve'))" circle></el-button>
               </div>
             </div>
             <el-card shadow="never" style="width:80%;">
               <div slot="header" class="clearfix">
-                <span>二级接警</span>
+                <span>{{$t('controltermM_SeconLeveAlarRece')}}</span>
               </div>
               <div style="height:150px;padding:10px;">
                 <el-scrollbar style="height:100%;">
@@ -105,22 +105,22 @@
         </el-col>
       </el-row>
       <el-form :model="alarmForm" label-position="top" class="el-row alarm-form-wrap">
-        <el-form-item label="一级报警" class="el-col el-col-11">
-          超过<el-input v-model="alarmForm.stEscalDura1" style="width:45px;margin-left:5px;"></el-input>
-          {{ alarmForm.stEscalDuraUom1 }}未处理则上报至二级
+        <el-form-item :label="$t('controltermM_FirstLeveAlar')" class="el-col el-col-11">
+          {{$t('controltermM_excee')}}<el-input v-model="alarmForm.stEscalDura1" style="width:45px;margin-left:5px;"></el-input>
+          {{ alarmForm.stEscalDuraUom1 + $t('controltermM_IfNotHandSecoLeve') }}
         </el-form-item>
-        <el-form-item label="二级报警" class="el-col el-col-12 el-col-offset-1">
-          是否重复提醒 <el-checkbox v-model="alarmForm.isAlertRepeat"></el-checkbox>
-          &emsp;重复次数上限<el-input v-model="alarmForm.repeatTimes" style="width:45px;margin-left:5px;"></el-input>
-          &emsp;间隔时间<el-input v-model="alarmForm.repeatDura" style="width:45px;margin-left:5px;"></el-input> H
+        <el-form-item :label="$t('controltermM_SeconAlar')" class="el-col el-col-12 el-col-offset-1">
+          {{$t('controltermM_RepeaRemi')}} <el-checkbox v-model="alarmForm.isAlertRepeat"></el-checkbox>
+          &emsp;{{$t('controltermM_MaximNumbRepe')}}<el-input v-model="alarmForm.repeatTimes" style="width:45px;margin-left:5px;"></el-input>
+          &emsp;{{$t('controltermM_InterTime')}}<el-input v-model="alarmForm.repeatDura" style="width:45px;margin-left:5px;"></el-input> H
         </el-form-item>
-        <el-form-item label="备注" class="el-col el-col-23">
+        <el-form-item :label="$t('common_remarks')" class="el-col el-col-23">
          <el-input type="textarea" v-model="alarmForm.remarks"></el-input>
         </el-form-item>
       </el-form>
       <div style="text-align:center;">
-        <el-button type="primary" @click="saveAlarmInfo">确定</el-button>
-        <el-button @click="$emit('changeAlarmType','table')">返回</el-button>
+        <el-button type="primary" @click="saveAlarmInfo">{{$t('common_ok')}}</el-button>
+        <el-button @click="$emit('changeAlarmType','table')">{{$t('common_retur')}}</el-button>
       </div>
     </div>
   </div>
@@ -131,7 +131,7 @@ export default {
   data () {
     return {
       receiver: '',
-      modeList: ['邮件', '短信', 'APP'],
+      modeList: [this.$t('controltermM_mail'), this.$t('controltermM_shortMess'), 'APP'],
       mode1: [],
       mode2: [],
       tableData: [],
@@ -184,7 +184,7 @@ export default {
         this.dialogForm.mSpcAlertId = mSpcAlert
         this.$emit('cannel')
       } else {
-        this.$message.warning('请先选择接警设置！')
+        this.$message.warning(this.$t('controltermM_selecAlarSettFirs'))
       }
     },
     async getSpcAlarmSettingList () {
@@ -225,12 +225,12 @@ export default {
           })
         })
       } else {
-        this.$message.warning(`请先选择需要接警的人员！`)
+        this.$message.warning(this.$t('controltermM_selecPersWhoPoliFirs'))
       }
     },
     removeReceiver (list, type) {
       if (list.length > 0) {
-        if (type === '一级') {
+        if (type === this.$t('controltermM_classA')) {
           const len = this.receiverOne.length - 1
           for (let i = len; i >= 0; i--) {
             list.forEach((userCode, index) => {
@@ -240,7 +240,7 @@ export default {
               }
             })
           }
-        } else if (type === '二级') {
+        } else if (type === this.$t('controltermM_seconLeve')) {
           const len = this.receiverTwo.length - 1
           for (let i = len; i >= 0; i--) {
             list.forEach((userCode, index) => {
@@ -252,7 +252,7 @@ export default {
           }
         }
       } else {
-        this.$message.warning(`${type}接警列表暂未选择人员！`)
+        this.$message.warning(type + this.$t('controltermM_NoPersHasReceList'))
       }
     },
     modeChange1 (valueList) {
@@ -280,7 +280,7 @@ export default {
           this.$emit('changeAlarmType', 'table')
         })
       } else {
-        this.$message.warning('请先添加一级/二级接警人！')
+        this.$message.warning(this.$t('controltermM_addALeveFirs'))
       }
     }
   },

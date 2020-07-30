@@ -1,4 +1,4 @@
-export let tableOption = (This) => {
+export let tableOption = This => {
   return {
     style: {
       width: '100%'
@@ -6,40 +6,41 @@ export let tableOption = (This) => {
     highlightCurrentRow: true,
     tableTitle: [
       {
-        title: '编码',
+        title: 'common_code',
         prop: 'code'
       },
       {
-        title: '名称',
+        title: 'common_Name',
         prop: 'name'
       },
       {
-        title: '描述',
+        title: 'common_Description',
         prop: 'description'
       },
       {
-        title: '状态',
+        title: 'common_Status',
         prop: 'isInvalid',
-        replaceFun: (row) => {
+        replaceFun: row => {
           return { '0': '不可用', '1': '可用' }[row.isInvalid]
         }
       },
       {
-        title: '类型',
+        title: 'common_type',
         prop: 'reasonType',
-        replaceFun: (row) => {
-          return { '0': '成本中心', '1': '退货原因', '2': '退料原因' }[row.reasonType]
+        replaceFun: row => {
+          let json = { '0': '成本中心', '1': '退货原因', '2': '退料原因' }
+          return json[row.reasonType]
         }
       },
       {
-        title: '移动方向',
+        title: 'busnessRea_MovinDire',
         prop: 'moveDirection',
-        replaceFun: (row) => {
+        replaceFun: row => {
           return { '1': '入库', '2': '出库', '3': '移动' }[row.moveDirection]
         }
       },
       {
-        title: '操作',
+        title: 'common_Operate',
         prop: 'operation',
         fixed: 'right',
         width: '120',
@@ -47,7 +48,7 @@ export let tableOption = (This) => {
         buttonArr: [
           {
             iconClass: 'el-icon-edit-outline',
-            text: '编辑',
+            text: 'common_Edit',
             operationClick (row) {
               This.addForm = {
                 ...row
@@ -58,7 +59,7 @@ export let tableOption = (This) => {
           {
             iconClass: 'el-icon-delete',
             iconColor: '#f56c6c',
-            text: '删除',
+            text: 'common_Del',
             operationClick (row) {
               This.deletetableData([row.mWmsTransactionReasonId])
             }

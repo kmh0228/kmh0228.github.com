@@ -34,7 +34,7 @@ export default {
         }
         seriesData.push(obj)
       }
-      const seriesTitle = id === 'reponseRate' ? '响应时间超时率' : '处理时间超时率'
+      const seriesTitle = id === 'reponseRate' ? this.$t('processTime_RespoTimeTimeRate') : this.$t('processTime_TimeoRateProc')
       return {
         title: {
           text: this.pieTitle,

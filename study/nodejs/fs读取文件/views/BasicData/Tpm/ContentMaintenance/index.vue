@@ -1,29 +1,29 @@
 <template>
   <div class="mes-main mes-work-order">
-    <div class="mes-main-title">保养内容</div>
+    <div class="mes-main-title">{{$t('contentMainT_MaintCont')}}</div>
      <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
         <cascader-select v-model="searchForm.officeCode" style="width:40%"></cascader-select>
-        <dict-select v-model="searchForm.maintainFrequency" dictType="MAINTAIN_FREQUENCY"  style="width:40%;float:right" placeholder="请选择保养方式"></dict-select>
+        <dict-select v-model="searchForm.maintainFrequency" dictType="MAINTAIN_FREQUENCY"  style="width:40%;float:right" :placeholder="$t('contentMainT_selecMainMeth')"></dict-select>
       </el-col>
       <el-col :span="12">
-        <mes-select placeholder="请选择设备" v-model.trim="searchForm.resourceName"  style="float:right;width:40%" @keydown.enter.native="getMainitemTable" clearable  labelKey="resourceName" valueKey="mMomResourceId" method="findResourceList"></mes-select>
+        <mes-select :placeholder="$t('contentMainT_selecDevi')" v-model.trim="searchForm.resourceName"  style="float:right;width:40%" @keydown.enter.native="getMainitemTable" clearable  labelKey="resourceName" valueKey="mMomResourceId" method="findResourceList"></mes-select>
       </el-col>
     </el-row>
      <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="12">
-          <el-button size="mini" icon="el-icon-search" @click="getMainitemTable">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="getMainitemTable">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-plus" @click="handletable('')">新增</el-button>
+          <el-button size="mini" icon="el-icon-plus" @click="handletable('')">{{$t('common_Add')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteMainTain('')">批量删除</el-button>
+          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteMainTain('')">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh" @click="refreshTableData">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh" @click="refreshTableData">{{$t('common_Refresh')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini"  :disabled="publisDisabled" @click="publishMaintain('1')">发布</el-button>
+          <el-button size="mini"  :disabled="publisDisabled" @click="publishMaintain('1')">{{$t('contentMainT_relea')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini"  :disabled="publisDisabled" @click="publishMaintain('0')">取消发布</el-button>
+          <el-button size="mini"  :disabled="publisDisabled" @click="publishMaintain('0')">{{$t('contentMainT_Cancelpub')}}</el-button>
         </el-col>
         <el-col :span="12">
             <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -35,20 +35,20 @@
       <div class="mes-table-content">
         <el-table :data="tableData" border highlight-current-row size="mini"  @selection-change="tableSelectionChange"  @cell-click="cellClick">
           <el-table-column type="selection" width="50" align="center"></el-table-column>
-          <el-table-column type="index" label="序号" align="center" :index="indexMethod" fixed="left"></el-table-column>
-          <el-table-column prop="officeName"  sortable label="工厂" align="center"></el-table-column>
-          <el-table-column prop="workKindId" sortable label="工种" align="center"></el-table-column>
-          <el-table-column prop="typeCode" sortable min-width="130" label="设备类别代码" align="center"></el-table-column>
-          <el-table-column prop="typeName" sortable min-width="130" label="设备类别名称" align="center"></el-table-column>
-          <el-table-column prop="productionTimes" sortable width="100" label="生产次数" align="center"></el-table-column>
-          <el-table-column prop="maintainDate" sortable min-width="130" label="保养日期" align="center" :formatter="dateFormatter"></el-table-column>
-          <el-table-column prop="maintainStatus" sortable width="100" label="状态" align="center" :formatter="statusFormatter"></el-table-column>
-          <el-table-column prop="isDowmtime" sortable width="100" label="是否停机" align="center" :formatter="isDowmtimeFormatter"></el-table-column>
-          <el-table-column prop="planWorktime" sortable width="100" label="计划工时" align="center" ></el-table-column>
-          <el-table-column label="操作" align="center" width="120" fixed="right">
+          <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod" fixed="left"></el-table-column>
+          <el-table-column prop="officeName"  sortable :label="$t('common_Factory')" align="center"></el-table-column>
+          <el-table-column prop="workKindId" sortable :label="$t('common_TypeWork')" align="center"></el-table-column>
+          <el-table-column prop="typeCode" sortable min-width="130" :label="$t('contentMainT_EquipCateCode')" align="center"></el-table-column>
+          <el-table-column prop="typeName" sortable min-width="130" :label="$t('common_EquipCateName')" align="center"></el-table-column>
+          <el-table-column prop="productionTimes" sortable width="100" :label="$t('contentMainT_ProduTime')" align="center"></el-table-column>
+          <el-table-column prop="maintainDate" sortable min-width="130" :label="$t('contentMainT_MaintDate')" align="center" :formatter="dateFormatter"></el-table-column>
+          <el-table-column prop="maintainStatus" sortable width="100" :label="$t('common_Status')" align="center" :formatter="statusFormatter"></el-table-column>
+          <el-table-column prop="isDowmtime" sortable width="100" :label="$t('contentMainT_ShutdOrNot')" align="center" :formatter="isDowmtimeFormatter"></el-table-column>
+          <el-table-column prop="planWorktime" sortable width="100" :label="$t('contentMainT_PlannHour')" align="center" ></el-table-column>
+          <el-table-column :label="$t('common_Operate')" align="center" width="120" fixed="right">
             <template slot-scope="scope">
-              <handle-button @click="handletable(scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-              <handle-button @click="deleteMainTain(scope.row.mMomMaintainitemId)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+              <handle-button @click="handletable(scope.row)" iconClass='el-icon-edit-outline' :placeholder="$t('common_Edit')"></handle-button>
+              <handle-button @click="deleteMainTain(scope.row.mMomMaintainitemId)" iconClass='el-icon-delete' :placeholder="$t('common_Del')" iconColor='#f56c6c'></handle-button>
             </template>
           </el-table-column>
         </el-table>
@@ -58,12 +58,12 @@
       </el-dialog>
       <div class="mes-main-tabs" v-if="showTabs" style="margin-top:10px">
         <el-tabs v-model="activeName">
-          <el-tab-pane label="保养项目明细" name="maintainContent">
+          <el-tab-pane :label="$t('contentMainT_DetaiMainItem')" name="maintainContent">
               <el-row class="mes-table-handle">
                 <el-col :span="12">
-                  <el-button size="mini" @click="handleDetailtable('')">新增保养项目明细</el-button>
+                  <el-button size="mini" @click="handleDetailtable('')">{{$t('contentMainT_DetaiNewMainItem')}}</el-button>
                   <span class="split-line">|</span>
-                  <el-button size="mini"  @click="deleteDetailMainTain('')">批量删除</el-button>
+                  <el-button size="mini"  @click="deleteDetailMainTain('')">{{$t('common_Delete')}}</el-button>
                 </el-col>
                 <el-col :span="12">
                     <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -75,15 +75,15 @@
               <div class="mes-table-content" >
                 <el-table :data="detailData"  size="mini" border highlight-current-row  @selection-change="selectionDetailChange" @cell-click="cellDetailClick">
                   <el-table-column type="selection" width="50" align="center"></el-table-column>
-                  <el-table-column type="index" label="序号" align="center" ></el-table-column>
-                  <el-table-column label="保养内容" align="center" prop="maintainContent"></el-table-column>
-                  <el-table-column label="保养方法" align="center" prop="maintainMethod"></el-table-column>
-                  <el-table-column label="附件" align="center" prop="attachment" label-class-name="mes-table-label" class-name="mes-table-click" :formatter="downFormatter"></el-table-column>
-                  <el-table-column label="标准时长（分）" align="center" prop="standardTime"></el-table-column>
-                  <el-table-column label="操作" align="center" >
+                  <el-table-column type="index" :label="$t('common_Number')" align="center" ></el-table-column>
+                  <el-table-column :label="$t('contentMainT_MaintCont')" align="center" prop="maintainContent"></el-table-column>
+                  <el-table-column :label="$t('contentMainT_MaintMeth')" align="center" prop="maintainMethod"></el-table-column>
+                  <el-table-column :label="$t('common_enclo')" align="center" prop="attachment" label-class-name="mes-table-label" class-name="mes-table-click" :formatter="downFormatter"></el-table-column>
+                  <el-table-column :label="$t('contentMainT_StandDuraMin')" align="center" prop="standardTime"></el-table-column>
+                  <el-table-column :label="$t('common_Operate')" align="center" >
                     <template slot-scope="scope">
-                      <handle-button @click="handleDetailtable(scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-                      <handle-button @click="deleteDetailMainTain(scope.row.mMomMaintainitemDetailId)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+                      <handle-button @click="handleDetailtable(scope.row)" iconClass='el-icon-edit-outline' :placeholder="$t('common_Edit')"></handle-button>
+                      <handle-button @click="deleteDetailMainTain(scope.row.mMomMaintainitemDetailId)" iconClass='el-icon-delete' :placeholder="$t('common_Del')" iconColor='#f56c6c'></handle-button>
                     </template>
                   </el-table-column>
                 </el-table>
@@ -92,11 +92,11 @@
             <detail-dialog v-if="dialogDetailVisible" ref="detailDialog" :isDetailEdit="isDetailEdit" @detailDialogCannel="detailDialogCannel" @getMainitemDetailTable="getMainitemDetailTable" :mMomMaintainitemId="mMomMaintainitemId"></detail-dialog>
           </el-dialog>
           </el-tab-pane>
-           <el-tab-pane label="设备明细" name="equipmentDetails">
+           <el-tab-pane :label="$t('contentMainT_EquipDeta')" name="equipmentDetails">
             <div class="mes-table">
                 <el-row class="mes-table-handle">
                   <!-- <el-col :span="12">
-                    <el-button size="mini" @click="refreshCheckitemResource">重新导入设备</el-button>
+                    <el-button size="mini" @click="refreshCheckitemResource">{{$t('contentMainT_ReImpoDevi')}}</el-button>
                   </el-col> -->
                   <el-col :span="12" style="float:right">
                     <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -106,11 +106,11 @@
                   </el-col>
                 </el-row>
                 <div class="mes-table-content">
-                  <el-table :data="resourceData" border highlight-current-row size="mini" @selection-change="deviceSelectionChange">
+                  <el-table :data="resourceData" border highlight-current-row size="mini">
                     <el-table-column type="selection" width="50" align="center"></el-table-column>
-                    <el-table-column prop="lineCode" sortable label="线别" align="center"></el-table-column>
-                    <el-table-column prop="resourceName" sortable label="设备代码" align="center"></el-table-column>
-                    <el-table-column prop="resourceName" sortable label="设备名称" align="center"></el-table-column>
+                    <el-table-column prop="lineCode" sortable :label="$t('common_Line')" align="center"></el-table-column>
+                    <el-table-column prop="resourceName" sortable :label="$t('common_EquipCode')" align="center"></el-table-column>
+                    <el-table-column prop="resourceName" sortable :label="$t('common_EquipName')" align="center"></el-table-column>
                   </el-table>
                 </div>
               </div>
@@ -165,10 +165,10 @@ export default {
   },
   computed: {
     dialogTitle () {
-      return this.isEdit ? '编辑保养内容' : '新增保养内容'
+      return this.isEdit ? this.$t('contentMainT_EditMainCont') : this.$t('contentMainT_NewMainCont')
     },
     dialogDetailTitle () {
-      return this.isDetailEdit ? '编辑保养项目明细' : '新增保养项目明细'
+      return this.isDetailEdit ? this.$t('contentMainT_EditMainItemDeta') : this.$t('contentMainT_DetaiNewMainItem')
     },
     publisDisabled () {
       return this.selectedList.length === 0
@@ -213,13 +213,13 @@ export default {
       return cellValue ? this.$dayjs(cellValue).format('YYYY-MM-DD HH:mm:ss') : ''
     },
     statusFormatter (row, column, cellValue, index) {
-      return cellValue === '0' ? '未发布' : '已发布'
+      return cellValue === '0' ? this.$t('contentMainT_Unpub') : this.$t('contentMainT_Publi')
     },
     isDowmtimeFormatter (row, column, cellValue, index) {
-      return cellValue ? '已停机' : '未停机'
+      return cellValue ? this.$t('contentMainT_ShutDown') : this.$t('contentMainT_NoShut')
     },
     downFormatter (row, column, cellValue, index) {
-      return cellValue ? '下载' : ''
+      return cellValue ? this.$t('common_downLoad') : ''
     },
     refreshTableData () {
       for (let i in this.searchForm) {
@@ -351,8 +351,8 @@ export default {
       let ids = id ? [id] : this.selectedList
       let len = ids.length
       if (ids.length > 0) {
-        let text = id ? '当前' : '选中'
-        let confirmRes = await this.$myPrompt.confirm(`确定删除${text}的保养内容吗？`)
+        let text = id ? this.$t('contentMainT_curre') : this.$t('contentMainT_Selec')
+        let confirmRes = await this.$myPrompt.confirm(this.$t('contentMainT_AreYouSureDele') + text + this.$t('contentMainT_theMain'))
         if (confirmRes) {
           let res = await this.$api.deleteMaintainitem(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -364,15 +364,15 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请选择需要删除的保养内容！')
+        this.$message.warning(this.$t('contentMainT_selecMainContBeDele'))
       }
     },
     // 删除保养内容明细
     async deleteDetailMainTain (id) {
       let ids = id ? [id] : this.selectedDetailList
       if (ids.length > 0) {
-        let text = id ? '当前' : '选中'
-        let confirmRes = await this.$myPrompt.confirm(`确定删除${text}的保养内容明细吗？`)
+        let text = id ? this.$t('contentMainT_curre') : this.$t('contentMainT_Selec')
+        let confirmRes = await this.$myPrompt.confirm(this.$t('contentMainT_AreYouSureDele') + text + this.$t('contentMainT_sMainContDeta'))
         if (confirmRes) {
           let res = await this.$api.deleteMaintainDetail(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -380,7 +380,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请选择需要删除的保养内容明细！')
+        this.$message.warning(this.$t('contentMainT_selecMainDetaBeDele'))
       }
     }
   },

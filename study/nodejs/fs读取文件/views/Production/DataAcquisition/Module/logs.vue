@@ -4,12 +4,12 @@
       <el-tabs v-model="logActiveName" class="mes-table">
         <el-tab-pane :label="logName" name="log">
           <div class="workstation-logs-item" style="margin-top:15px;" v-if="logsInfo.length===0">
-            <p>暂无{{logName}}</p>
+            <p>{{$t('common_NoDataAvai')}}</p>
           </div>
           <el-scrollbar ref="scrollbarLogs">
             <div class="workstation-logs-item" v-for="(logs,i) in logsInfo" :key="i">
               <span class="workstation-logs-time">{{ logs.time }}</span>
-              <span :class="logs.status===1?'workstation-logs-success':'workstation-logs-error'">扫描 [{{ logs.code }}] {{ logs.status | statusFormat }}! {{ logs.info }}</span>
+              <span :class="logs.status===1?'workstation-logs-success':'workstation-logs-error'">{{$t('common_scann')}} [{{ logs.code }}] {{ logs.status | statusFormat }}! {{ logs.info }}</span>
             </div>
           </el-scrollbar>
         </el-tab-pane>

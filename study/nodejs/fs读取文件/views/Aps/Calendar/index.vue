@@ -1,11 +1,11 @@
 <template>
   <div class="mes-main mes-work-order ">
-     <h3 class="mes-main-title">生产日历</h3>
+     <h3 class="mes-main-title">{{$t('calendar_ProduCale')}}</h3>
         <el-row :gutter="20" class="mes-main-filte">
         <el-col :span="12">
-           <el-date-picker style="width:60%"  v-model="timeList"  type="daterange"  range-separator="至"  start-placeholder="开始日期"  end-placeholder="结束日期"></el-date-picker>
+           <el-date-picker style="width:60%"  v-model="timeList"  type="daterange"  :range-separator="$t('common_to')"  start-:placeholder="$t('common_StartDate')"  end-:placeholder="$t('common_EndDate')"></el-date-picker>
             <el-tooltip class="item" effect="dark"  placement="top-start">
-              <div slot="content">开始时间必须是周一 <br> 结束时间必须是周日<br/>且跨度不能超过两个自然月</div>
+              <div slot="content">{{$t('calendar_startTimeMustBeMond')}}<br> {{$t('calendar_endTimeMustBeSund')}}<br/>{{$t('calendar_AndSpanShouNatuMont')}}</div>
               <span style="color:#c3c3c3;font-size:20px;margin-left:0.3vw"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
             </el-tooltip>
          </el-col>
@@ -18,11 +18,11 @@
       <div class="mes-table">
         <el-row class="mes-table-handle">
           <el-col :span="12">
-            <el-button size="mini" icon="el-icon-search" @click="findData">查询</el-button>
+            <el-button size="mini" icon="el-icon-search" @click="findData">{{$t('common_Inquire')}}</el-button>
             <span class="split-line">|</span>
-            <el-button size="mini" icon="el-icon-plus"  @click="editCalendar">编辑</el-button>
+            <el-button size="mini" icon="el-icon-plus"  @click="editCalendar">{{$t('common_Edit')}}</el-button>
             <span class="split-line">|</span>
-            <el-button size="mini" icon="el-icon-upload2" @click="isUpload = true">导入</el-button>
+            <el-button size="mini" icon="el-icon-upload2" @click="isUpload = true">{{$t('common_Impor')}}</el-button>
           </el-col>
         </el-row>
       </div>
@@ -34,25 +34,25 @@
           >
           <div :class="data.isSelected ? 'is-selected' : ''">
             <p > {{ data.day.split('-').slice(1).join('-') }}</p>
-            <p :class="getTextByDate(data.day)==='未配置' ? 'noCalendarText':'calendarText'"><span v-if="getTextByDate(data.day)!=='未配置'">生产时间：</span>{{ getTextByDate(data.day) }}<span v-if="getTextByDate(data.day)!=='未配置'">H</span></p>
-            <p v-if="getTextByDate(data.day)!=='未配置'"  class="noProduct">非生产时间: {{ getNoProduct(data.day) }} H</p>
+            <p :class="getTextByDate(data.day)===$t('calendar_notConf') ? 'noCalendarText':'calendarText'"><span v-if="getTextByDate(data.day)!==$t('calendar_notConf')">{{$t('calendar_ProduTime')}}</span>{{ getTextByDate(data.day) }}<span v-if="getTextByDate(data.day)!==$t('calendar_notConf')">H</span></p>
+            <p v-if="getTextByDate(data.day)!==$t('calendar_notConf')"  class="noProduct">{{$t('calendar_NonProdTime')}}: {{ getNoProduct(data.day) }} H</p>
           </div>
         </template>
       </el-calendar>
-       <el-dialog :visible.sync="isUpload" title="请选择需要导入的生产日历文件" class="handle-dialog"  width="30vw">
+       <el-dialog :visible.sync="isUpload" :title="$t('calendar_selecProdCaleFileImpo')" class="handle-dialog"  width="30vw">
         <el-upload
         style="text-align:center"  :before-upload="beforeUpload" drag action="">
         <mes-icon icon="excel-icon" size="67px" style="display:inline-block;margin:40px 0 16px;" v-if="fileName"></mes-icon>
         <i class="el-icon-upload" v-else></i>
         <p v-if="fileName">{{ fileName }}</p>
          <div class="el-upload__text" v-else>
-          拖动文件至此处，<em>点击上传</em> 或
-          <em><a href="static/download/Calendar.xls" style="color:#3B6F9A;text-decoration:none;" download="生产日历模版.xls" @click="downloadTemplate">模版下载</a></em>
+          {{$t('common_DragFileHere')}}<em>{{$t('common_ClickUplo')}}</em> {{$t('common_or')}}
+          <em><a href="static/download/Calendar.xls" style="color:#3B6F9A;text-decoration:none;" :download="$t('calendar_ProduCaleTemp') + '.xls'" @click="downloadTemplate">{{$t('common_TemplDown')}}</a></em>
         </div>
       </el-upload>
        <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="importOnline">确 定</el-button>
-        <el-button @click="closeUploadDialog">取 消</el-button>
+        <el-button type="primary" @click="importOnline">{{$t('common_ok')}}</el-button>
+        <el-button @click="closeUploadDialog">{{$t('common_cancel')}}</el-button>
       </div>
     </el-dialog>
   </div>
@@ -88,7 +88,7 @@ export default {
           value = resourceData[i].productionTimeLength ? resourceData[i].productionTimeLength : 0
         }
       }
-      return value || '未配置'
+      return value || this.$t('calendar_notConf')
     },
     getNoProduct (date) {
       const { resourceData } = this
@@ -154,7 +154,7 @@ export default {
         this.$myPrompt.handleMsg(res, () => {
         })
       } else {
-        this.$message.warning('请上传需要导入的文件！')
+        this.$message.warning(this.$t('calendar_uploaFileBeImpo'))
       }
     },
     closeUploadDialog () {
@@ -173,7 +173,7 @@ export default {
         let res = await this.$api.getCalendar(data)
         this.resourceData = res.data
       } else {
-        this.$message.warning('请先选择资源名称')
+        this.$message.warning(this.$t('calendar_selecResoNameFirs'))
       }
     },
     defaultmethods () {

@@ -1,11 +1,11 @@
 <template>
  <el-form :model="form" ref="form" label-position="left" label-width="120px" class="el-row mes-form-rule" :rules="rules">
-    <el-form-item label="处理方法" prop="method" class="el-col el-col-24">
+    <el-form-item :label="$t('troubleReason_proceMeth')" prop="method" class="el-col el-col-24">
       <el-input type="textarea" v-model="form.method" style="width:100%"></el-input>
     </el-form-item>
     <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-      <el-button type="primary" size="mini" @click="saveFailReasonMethod">保存</el-button>
-      <el-button size="mini" @click="$emit('cannel')">取消</el-button>
+      <el-button type="primary" size="mini" @click="saveFailReasonMethod">{{$t('common_save')}}</el-button>
+      <el-button size="mini" @click="$emit('cannel')">{{$t('common_cancel')}}</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -18,7 +18,7 @@ export default {
         method: ''
       },
       rules: {
-        method: [{ required: true, message: '处理方法不能为空' }]
+        method: [{ required: true, message: this.$t('troubleReason_ProceMethCannBeEmpt') }]
       }
     }
   },

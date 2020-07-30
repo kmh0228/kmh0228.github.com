@@ -65,115 +65,115 @@ export default {
       let { workStationStype } = this
       if (workStationStype === 'pack') {
         return [{
-          label: '用户名',
+          label: this.$t('dataAcqLogin_userName'),
           key: 'userName'
         }, {
-          label: 'IP地址',
+          label: this.$t('dataAcqLogin_IPaddre'),
           key: 'ip'
         }, {
-          label: '工站类型',
+          label: this.$t('dataAcqLogin_StatiType'),
           key: 'stationType'
         }, {
-          label: '产品系列',
+          label: this.$t('common_ProduSeries'),
           key: 'model'
         }, {
-          label: '工站名称',
+          label: this.$t('dataAcqLogin_NameWorkStat'),
           key: 'lineStationName'
         }, {
-          label: '线别',
+          label: this.$t('common_Line'),
           key: 'lineCode'
         }, {
-          label: '工单号',
+          label: this.$t('common_WorkOrdeNo'),
           key: 'docNo'
         }, {
-          label: '成品料号',
+          label: this.$t('common_FinisProdNo'),
           key: 'materialNo'
         }, {
-          label: '产品SN',
+          label: this.$t('dataAcqLogin_produSN'),
           key: 'productSn'
         }, {
-          label: '包装号',
+          label: this.$t('dataAcqLogin_PackaNumb'),
           key: 'pack_no'
         }]
       } else if (workStationStype === 'storage') {
         return [{
-          label: '用户名',
+          label: this.$t('dataAcqLogin_userName'),
           key: 'userName'
         }, {
-          label: 'IP地址',
+          label: this.$t('dataAcqLogin_IPaddre'),
           key: 'ip'
         }, {
-          label: '工站类型',
+          label: this.$t('dataAcqLogin_StatiType'),
           key: 'stationType'
         }, {
-          label: '工站名称',
+          label: this.$t('dataAcqLogin_NameWorkStat'),
           key: 'lineStationName'
         }, {
-          label: '线别',
+          label: this.$t('common_Line'),
           key: 'lineCode'
         }, {
-          label: '栈板号',
+          label: this.$t('common_PalleNo'),
           key: 'pack_no'
         }]
       } else if (workStationStype === 'shipout') {
         return [{
-          label: '用户名',
+          label: this.$t('dataAcqLogin_userName'),
           key: 'userName'
         }, {
-          label: 'IP地址',
+          label: this.$t('dataAcqLogin_IPaddre'),
           key: 'ip'
         }, {
-          label: '工站类型',
+          label: this.$t('dataAcqLogin_StatiType'),
           key: 'stationType'
         }, {
-          label: '工站名称',
+          label: this.$t('dataAcqLogin_NameWorkStat'),
           key: 'lineStationName'
         }, {
-          label: '线别',
+          label: this.$t('common_Line'),
           key: 'lineCode'
         }, {
           label: 'DN',
           key: 'docNo'
         }, {
-          label: '销售单号',
+          label: this.$t('dataAcqLogin_SalesOrdeNo'),
           key: 'salesOrder'
         }, {
-          label: 'DN项次',
+          label: this.$t('dataAcqLogin_DNItems'),
           key: 'itemNo'
         }, {
-          label: '出货地点',
+          label: this.$t('dataAcqLogin_PlaceShip'),
           key: 'itemNo'
         }, {
-          label: '栈板号',
+          label: this.$t('common_PalleNo'),
           key: 'packNo'
         }]
       } else {
         return [{
-          label: '用户名',
+          label: this.$t('dataAcqLogin_userName'),
           key: 'userName'
         }, {
-          label: 'IP地址',
+          label: this.$t('dataAcqLogin_IPaddre'),
           key: 'ip'
         }, {
-          label: '工站类型',
+          label: this.$t('dataAcqLogin_StatiType'),
           key: 'stationType'
         }, {
-          label: '产品系列',
+          label: this.$t('common_ProduSeries'),
           key: 'model'
         }, {
-          label: '工站名称',
+          label: this.$t('dataAcqLogin_NameWorkStat'),
           key: 'lineStationName'
         }, {
-          label: '线别',
+          label: this.$t('common_Line'),
           key: 'lineCode'
         }, {
-          label: '工单号',
+          label: this.$t('common_WorkOrdeNo'),
           key: 'docNo'
         }, {
-          label: '成品料号',
+          label: this.$t('common_FinisProdNo'),
           key: 'materialNo'
         }, {
-          label: '产品SN',
+          label: this.$t('dataAcqLogin_produSN'),
           key: 'productSn'
         }]
       }
@@ -193,9 +193,9 @@ export default {
         await this.$store.dispatch('workStation/getWorkStationInfo', { lineStationCode })
         this.workStationInfo = Object.assign(this.workStationInfo, this.workStationStates)
       } else {
-        this.$alert('系统检测到当前未扫描工站代码，请先扫描工站代码！', '提示', {
+        this.$alert(this.$t('dataAcqLogin_systeHasDeteCodeFirs'), this.$t('common_tips'), {
           type: 'warning',
-          confirmButtonText: '确定',
+          confirmButtonText: this.$t('common_ok'),
           callback: action => {
             this.$router.push('/WorkStation/Login')
           }
@@ -211,7 +211,7 @@ export default {
       const res = await this.$api.scanEmployeeCardId({ employeeCardId })
       if (res.code === '200') {
         const userInfo = res.data
-        const userName = `${code}（${userInfo.employeeName}）`
+        const userName = `${code}(${userInfo.employeeName})`
         this.workStationInfo = Object.assign(this.workStationInfo, { userName, employeeCardId })
         return { status: 1, nextStep: userInfo.nextStep }
       } else {

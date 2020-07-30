@@ -33,11 +33,11 @@ export default {
         legend: {
           orient: 'vertical',
           left: 'left',
-          data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+          data: [this.$t('lrr_DirecAcce'), this.$t('lrr_MailMark'), this.$t('lrr_AlliaAdve'), this.$t('lrr_VideoAdve'), this.$t('lrr_SearcEngi')]
         },
         series: [
           {
-            name: '访问来源',
+            name: this.$t('lrr_SourcVisi'),
             type: 'pie',
             radius: '75%',
             center: ['50%', '60%'],

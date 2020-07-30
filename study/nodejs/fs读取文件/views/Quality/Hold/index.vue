@@ -1,34 +1,34 @@
 <template>
   <div class="mes-main mes-main-common mes-workstation">
     <div class="main-common-head">
-      <el-button type="primary" plain size="mini" icon="el-icon-lock" @click="holdHandle">锁定</el-button>
-      <el-button type="primary" plain size="mini" icon="el-icon-search" @click="getHoldOrUnHoldRecord">查询</el-button>
+      <el-button type="primary" plain size="mini" icon="el-icon-lock" @click="holdHandle">{{$t('Hold_Lock')}}</el-button>
+      <el-button type="primary" plain size="mini" icon="el-icon-search" @click="getHoldOrUnHoldRecord">{{$t('common_Inquire')}}</el-button>
     </div>
     <el-form :model="formData" ref="formData" :rules="rules" label-width="30%" label-position="left" class="el-row mes-form-rule">
-      <el-form-item label="锁定编码" class="el-col el-col-11" prop="holdId">
-        <el-input size="mini" placeholder="请在下方进行扫描"  v-model="formData.holdId" readonly clearable></el-input>
+      <el-form-item :label="$t('Hold_LockCode')" class="el-col el-col-11" prop="holdId">
+        <el-input size="mini" :placeholder="$t('Hold_PleaseScanBelow')"  v-model="formData.holdId" readonly clearable></el-input>
       </el-form-item>
-      <el-form-item label="锁定范围类型" class="el-col el-col-11 el-col-offset-1" prop="holdScopeType">
+      <el-form-item :label="$t('Hold_LockRangeType')" class="el-col el-col-11 el-col-offset-1" prop="holdScopeType">
         <dict-select v-model="formData.holdScopeType" dictType="HOLD_SCOPE_TYPE" clearable @change="holdScopeTypeChange" @option-click="setScopeType"></dict-select>
       </el-form-item>
-      <el-form-item label="锁定类型" class="el-col el-col-11" prop="holdType">
+      <el-form-item :label="$t('Hold_LockType')" class="el-col el-col-11" prop="holdType">
         <dict-select v-model="formData.holdType" dictType="HOLD_TYPE" clearable @clear="holdTypeLabel=''" @option-click="setHoldType"></dict-select>
       </el-form-item>
-      <el-form-item label="锁定范围" class="el-col el-col-11 el-col-offset-1" prop="holdScopeId">
-        <el-input v-model="formData.holdScopeId" placeholder="请搜索" size="mini" readonly @focus="openScopeDialog">
+      <el-form-item :label="$t('Hold_LockRange')" class="el-col el-col-11 el-col-offset-1" prop="holdScopeId">
+        <el-input v-model="formData.holdScopeId" :placeholder="$t('Hold_SearchFor')" size="mini" readonly @focus="openScopeDialog">
           <i slot="suffix" class="el-input__icon el-icon-search" @click="openScopeDialog"></i>
         </el-input>
       </el-form-item>
-      <el-form-item label="锁定原因" class="el-col el-col-11" prop="holdReason">
+      <el-form-item :label="$t('Hold_LockReason')" class="el-col el-col-11" prop="holdReason">
         <dict-select  v-model="formData.holdReason" dictType="HOLD_REASON" clearable @change="holdReasonChange" @option-click="holdReasonClick"></dict-select>
       </el-form-item>
-      <el-form-item label="锁定描述" class="el-col el-col-11 el-col-offset-1">
+      <el-form-item :label="$t('Hold_LockDescription')" class="el-col el-col-11 el-col-offset-1">
         <el-input size="mini" type="textarea" v-model="formData.holdDesc"></el-input>
       </el-form-item>
     </el-form>
-    <station-logs logName="操作日志" recordName="Hold记录" :recordTableLabel="recordTableLabel" ref="logs"></station-logs>
+    <station-logs :logName="$t('common_OperaLog')" :recordName="$t('Hold_HoldRecord')" :recordTableLabel="recordTableLabel" ref="logs"></station-logs>
     <scan-input :scanType="holdTypeLabel" @scan-code="scanCode"></scan-input>
-    <el-dialog title="请选择" :visible.sync="dialogVisible" class="handle-dialog">
+    <el-dialog :title="$t('common_PleasSele')" :visible.sync="dialogVisible" class="handle-dialog">
       <el-row style="padding-bottom:1vh;">
         <el-col :span="7">
           <el-input v-model="keyWord" :placeholder="searchPlaceholder" size="mini" @keydown.enter.native="getHoldScopeList">
@@ -38,9 +38,9 @@
       </el-row>
       <div style="padding:1vh 0; overflow: hidden;border-top:1px solid #d4d4d4;">
         <div class="mes-btn-group" style="float:left;">
-          <el-button size="mini" type="primary" @click="dialogConfrim">确定</el-button>
+          <el-button size="mini" type="primary" @click="dialogConfrim">{{$t('common_ok')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" @click="dialogVisible = false">取消</el-button>
+          <el-button size="mini" @click="dialogVisible = false">{{$t('common_cancel')}}</el-button>
         </div>
         <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
           layout="total,sizes, prev, pager, next, jumper, ->" :total="total"
@@ -50,7 +50,7 @@
       <div class="mes-table">
         <el-table :data="tableData" border @selection-change="selectTable">
           <el-table-column type="selection" align="center"></el-table-column>
-          <el-table-column type="index" label="序号" align="center"></el-table-column>
+          <el-table-column type="index" :label="$t('common_Number')" align="center"></el-table-column>
           <el-table-column v-for="(col,i) in tableColumns" :key="i" :prop="col.key" :label="col.label" align="center"></el-table-column>
         </el-table>
       </div>
@@ -76,29 +76,9 @@ export default {
         holdScopeId: '',
         holdDesc: ''
       },
-      rules: {
-        holdId: [{ required: true, message: '请扫描锁定编码' }],
-        holdType: [{ required: true, message: '请选择锁定类型' }],
-        holdScopeType: [{ required: true, message: '请选择锁定范围类型' }],
-        holdReason: [{ required: true, message: '请选择锁定原因' }],
-        holdScopeId: [{ required: true, message: '请选择锁定范围' }]
-      },
       holdTypeLabel: '',
       holdReasonLabel: '',
       holdTypes: [],
-      recordTableLabel: [{
-        key: 'holdId',
-        label: '锁定编码'
-      }, {
-        key: 'holdTypeLabel',
-        label: '锁定类型'
-      }, {
-        key: 'holdScopeLabel',
-        label: '锁定范围'
-      }, {
-        key: 'holdReasonLabel',
-        label: '锁定原因'
-      }],
       scopeTypeName: '',
       dialogVisible: false,
       tableData: [],
@@ -109,7 +89,6 @@ export default {
         pageSize: 10
       },
       keyWord: '',
-      searchPlaceholder: '请输入',
       recordList: [],
       selectList: [],
       pageDict: {
@@ -117,45 +96,72 @@ export default {
         pageIndex: 1,
         dictName: '',
         dictType: ''
+      },
+      searchPlaceholder: ' '
+    }
+  },
+  computed: {
+    rules () {
+      return {
+        holdId: [{ required: true, message: this.$t('Hold_PleaseScanTheLockCode') }],
+        holdType: [{ required: true, message: this.$t('Hold_PleaseSelectLockType') }],
+        holdScopeType: [{ required: true, message: this.$t('Hold_PleaseSelectLockRangeType') }],
+        holdReason: [{ required: true, message: this.$t('Hold_PleaseSelectLockingReason') }],
+        holdScopeId: [{ required: true, message: this.$t('Hold_PleaseSelectLockingRange') }]
       }
+    },
+    recordTableLabel () {
+      return [{
+        key: 'holdId',
+        label: this.$t('Hold_LockCode')
+      }, {
+        key: 'holdTypeLabel',
+        label: this.$t('Hold_LockType')
+      }, {
+        key: 'holdScopeLabel',
+        label: this.$t('Hold_LockRange')
+      }, {
+        key: 'holdReasonLabel',
+        label: this.$t('Hold_LockReason')
+      }]
     }
   },
   watch: {
     scopeTypeName (val) {
       this.getHoldScopeList()
       if (val === '线别工站') {
-        this.searchPlaceholder = '工站名称'
+        this.searchPlaceholder = this.$t('Hold_StationName')
         this.tableColumns = [
           {
-            label: '工站代码',
+            label: this.$t('common_StationCode'),
             key: 'lineStationCode'
           },
           {
-            label: '工站名称',
+            label: this.$t('Hold_StationName'),
             key: 'lineStationName'
           },
           {
-            label: '线别',
+            label: this.$t('common_Line'),
             key: 'lineName'
           },
           {
-            label: '制程名称',
+            label: this.$t('Hold_ProcessName'),
             key: 'segName'
           }
         ]
       } else if (val === '制程') {
-        this.searchPlaceholder = '制程代码'
+        this.searchPlaceholder = this.$t('Hold_ProcessCode')
         this.tableColumns = [
           {
-            label: '制程代码',
+            label: this.$t('Hold_ProcessCode'),
             key: 'segCode'
           },
           {
-            label: '制程名称',
+            label: this.$t('Hold_ProcessName'),
             key: 'segName'
           },
           {
-            label: '制程描述',
+            label: this.$t('Hold_ProcessDescription'),
             key: 'defectReasonDesc'
           }
         ]
@@ -221,7 +227,7 @@ export default {
       if (holdScopeType) {
         this.dialogVisible = true
       } else {
-        this.$message.warning('请先选择锁定范围类型！')
+        this.$message.warning(this.$t('Hold_PleaseSelectLockRangeType'))
       }
     },
     dialogConfrim () {
@@ -238,7 +244,7 @@ export default {
         })
         this.dialogVisible = false
       } else {
-        this.$message.warning('未选择锁定范围')
+        this.$message.warning(this.$t('Hold_LockRangeNotSelected'))
       }
     },
     holdReasonChange (val) {
@@ -249,7 +255,7 @@ export default {
     holdReasonClick (option) {
       this.holdReasonLabel = option.dictName
     },
-    // 验证当前扫描编码是否有效 产品系列管理
+    // 验证当前扫描编码是否有效产品系列管理
     validCode () {
       this.$refs.formData.validate(async valid => {
         if (valid) {

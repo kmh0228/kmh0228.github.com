@@ -1,59 +1,59 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">点检达成率</h3>
+    <h3 class="mes-main-title">{{$t('achievemRate_SpotInspAchiRate')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
         <cascader-select v-model="searchForm.factoryCode" style="width:35%" ></cascader-select>
-        <el-button size="mini" icon="el-icon-search" @click="getRateData">查询</el-button>
+        <el-button size="mini" icon="el-icon-search" @click="getRateData">{{$t('common_Inquire')}}</el-button>
       </el-col>
       <el-col :span="12">
         <el-button size="mini" style="float:right;margin-left:10px;" @click="showMore = !showMore">
           <i class="fa fa-filter"></i>
         </el-button>
-         <el-select size="mini" clearable placeholder="请选择责任层级"  style="width:35%;float:right"  v-model="searchForm.hierarchyId" >
+         <el-select size="mini" clearable :placeholder="$t('achievemRate_selecRespLeve')"  style="width:35%;float:right"  v-model="searchForm.hierarchyId" >
             <el-option v-for="(option,i) in hierarchyList" :key="i" :label="option.hierarchyName" :value="option.mMomHierarchyId" @change="getRateData"></el-option>
           </el-select>
       </el-col>
       <el-col :span="24" style="padding-top:1vh;" v-show="showMore">
         <el-form class="el-row mes-search-form" :model="searchForm" label-width="30%" label-position="left">
-          <el-form-item label="故障起始时间"  class="el-col el-col-12">
-            <el-date-picker  v-model="dateList"  type="daterange"  range-separator="至"  start-placeholder="开始日期"  end-placeholder="结束日期" style="width:100%"></el-date-picker>
+          <el-form-item :label="$t('achievemRate_FaultStarTime')"  class="el-col el-col-12">
+            <el-date-picker  v-model="dateList"  type="daterange"  :range-separator="$t('common_to')"  start-:placeholder="$t('common_StartDate')"  end-:placeholder="$t('common_EndDate')" style="width:100%"></el-date-picker>
           </el-form-item>
         </el-form>
       </el-col>
     </el-row>
     <el-row  :gutter="20">
       <!-- <el-col :span="8">
-        <p>已达成数量</p>
+        <p>{{$t('achievemRate_QuantAchi')}}</p>
         <p style="color:#67C23A">{{resData.finishNum}}</p>
       </el-col>
        <el-col :span="8">
-        <p>未达成数量</p>
+        <p>{{$t('achievemRate_QuantNotReac')}}</p>
         <p style="color:#F56C6C">{{resData.notFinishNum}}</p>
       </el-col>
        <el-col :span="8">
-        <p>点检达成率</p>
+        <p>{{$t('achievemRate_SpotInspAchiRate')}}</p>
         <p style="color:#409EFF">{{resData.rate}}</p>
       </el-col> -->
       <el-col :span="8" style="height:22vh;padding-top:1vh">
-         <pie-echart id="achieveRate" pieTitle="点检达成率分析" :seriesData="checkRateData" :labelData="labelData"></pie-echart>
+         <pie-echart id="achieveRate" :pieTitle="$t('achievemRate_AnalySpotInspAchiRate')" :seriesData="checkRateData" :labelData="labelData"></pie-echart>
       </el-col>
       <el-col :span="8" style="height:22vh;padding-top:1vh">
-         <pie-echart id="maintainRate" pieTitle="保养达成率分析" :seriesData="maintainRateData" :labelData="labelData"></pie-echart>
+         <pie-echart id="maintainRate" :pieTitle="$t('achievemRate_MaintAchiRateAnal')" :seriesData="maintainRateData" :labelData="labelData"></pie-echart>
       </el-col>
       <el-col :span="8" style="height:22vh;padding-top:1vh">
-         <bar-echart id="rate" barTitle="保养达成率分析" :reachData="reachData" :notReachData="notReachData"></bar-echart>
+         <bar-echart id="rate" :barTitle="$t('achievemRate_MaintAchiRateAnal')" :reachData="reachData" :notReachData="notReachData"></bar-echart>
       </el-col>
     </el-row>
     <el-divider></el-divider>
     <div class="mes-table"  style="margin-top:2.5vh" >
       <el-row class="mes-table-handle">
          <el-col :span="12" >
-          <el-button size="mini" icon="el-icon-search" @click="getTpmCheckList">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="getTpmCheckList">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button  size="mini" icon="el-icon-search" @click="exportCheckExcel">导出Excel</el-button>
+          <el-button  size="mini" icon="el-icon-search" @click="exportCheckExcel">{{$t('common_Export')}} Excel</el-button>
           <span class="split-line">|</span>
-          <el-button icon="el-icon-refresh" @click="exportCheckPdf">打印pdf</el-button>
+          <el-button icon="el-icon-refresh" @click="exportCheckPdf">{{$t('common_Print')}} pdf</el-button>
         </el-col>
         <el-col :span="12" >
             <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -64,35 +64,35 @@
       </el-row>
       <div class="mes-table-content" id="check">
         <el-table :data="cehckTable" border highlight-current-row size="mini" height="180">
-          <el-table-column type="index" label="序号" align="center" :index="indexMethod" width="50"></el-table-column>
-           <el-table-column prop="officeName"  width="120" label="工厂" align="center"></el-table-column>
-          <el-table-column prop="hierarchyCode"  width="120" label="责任层级" align="center" min-width="120"></el-table-column>
-          <el-table-column prop="lineCode" label="线别名称" align="center" min-width="120"></el-table-column>
-          <el-table-column prop="resourceCode" width="150" label="设备名称" align="center" min-width="120"></el-table-column>
-          <el-table-column prop="frequency" label="点检周期" align="center"  min-width="120">
+          <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod" width="50"></el-table-column>
+           <el-table-column prop="officeName"  width="120" :label="$t('common_Factory')" align="center"></el-table-column>
+          <el-table-column prop="hierarchyCode"  width="120" :label="$t('common_RespoLeve')" align="center" min-width="120"></el-table-column>
+          <el-table-column prop="lineCode" :label="$t('common_LineName')" align="center" min-width="120"></el-table-column>
+          <el-table-column prop="resourceCode" width="150" :label="$t('common_EquipName')" align="center" min-width="120"></el-table-column>
+          <el-table-column prop="frequency" :label="$t('achievemRate_SpotChecCycl')" align="center"  min-width="120">
             <template slot-scope="scope">
-              <p>{{ scope.row.frequency === '1'  ? '日' : scope.row.frequency === '2' ? '周' : '月' }}</p>
+              <p>{{ scope.row.frequency === '1'  ? this.$t('common_day') : scope.row.frequency === '2' ? this.$t('common_week') : this.$t('common_month') }}</p>
             </template>
           </el-table-column>
-          <el-table-column prop="status" label="点检状态" align="center"  min-width="120">
+          <el-table-column prop="status" :label="$t('achievemRate_SpotChecStat')" align="center"  min-width="120">
             <template slot-scope="scope">
               <el-tag :type="checkStatusTag(scope.row.status)">{{ fliterCheckStatus(scope.row.status) }}</el-tag>
             </template>
           </el-table-column>
-          <el-table-column prop="planTime"  width="140" label="计划点检时间" align="center"  min-width="150"></el-table-column>
-          <el-table-column prop="startTime" width="140" label="点检开始时间" align="center"  min-width="150"></el-table-column>
-          <el-table-column prop="endTime"  width="140" label="点检结束时间" align="center"  min-width="150"></el-table-column>
+          <el-table-column prop="planTime"  width="140" :label="$t('achievemRate_PlannSpotChecTime')" align="center"  min-width="150"></el-table-column>
+          <el-table-column prop="startTime" width="140" :label="$t('achievemRate_StartTimeSpotChec')" align="center"  min-width="150"></el-table-column>
+          <el-table-column prop="endTime"  width="140" :label="$t('achievemRate_EndTimeSpotChec')" align="center"  min-width="150"></el-table-column>
         </el-table>
       </div>
     </div>
     <div class="mes-table"  style="margin-top:2.5vh">
       <el-row class="mes-table-handle">
          <el-col :span="12" >
-          <el-button size="mini" icon="el-icon-search" @click="getMaintainTable">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="getMaintainTable">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button  size="mini" icon="el-icon-search" @click="exportMaintainExcel">导出Excel</el-button>
+          <el-button  size="mini" icon="el-icon-search" @click="exportMaintainExcel">{{$t('common_Export')}} Excel</el-button>
           <span class="split-line">|</span>
-          <el-button icon="el-icon-refresh" @click="exportMaintainPdf">打印pdf</el-button>
+          <el-button icon="el-icon-refresh" @click="exportMaintainPdf">{{$t('common_Print')}} pdf</el-button>
         </el-col>
         <el-col :span="12" >
             <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -103,16 +103,16 @@
       </el-row>
       <div class="mes-table-content" id="maintain">
         <el-table :data="maintainTable" border highlight-current-row size="mini" height="190">
-          <el-table-column type="index" label="序号" align="center" :index="indexMethod1" width="50"></el-table-column>
-          <el-table-column prop="frequencyDictName" sortable label="保养方式" align="center" ></el-table-column>
-          <el-table-column prop="officeName" sortable label="工厂" align="center"></el-table-column>
-          <el-table-column prop="hierarchy" sortable label="责任层级" align="center" min-width="140"></el-table-column>
-          <el-table-column prop="lineName" sortable label="线别名称" align="center" ></el-table-column>
-          <el-table-column prop="typeName" sortable label="设备名称" align="center" min-width="120"></el-table-column>
-          <el-table-column prop="maintainStatusDictName" sortable label="保养状态" align="center" min-width="120"></el-table-column>
-          <el-table-column prop="planTime" sortable label="排配日期" align="center" min-width="150" :formatter="dateFormatter"></el-table-column>
-          <el-table-column prop="startTime" sortable label="保养开始时间" align="center" min-width="150" :formatter="dateFormatter"></el-table-column>
-          <el-table-column prop="endTime" sortable label="保养结束时间" align="center" min-width="150" :formatter="dateFormatter"></el-table-column>
+          <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod1" width="50"></el-table-column>
+          <el-table-column prop="frequencyDictName" sortable :label="$t('achievemRate_MaintMode')" align="center" ></el-table-column>
+          <el-table-column prop="officeName" sortable :label="$t('common_Factory')" align="center"></el-table-column>
+          <el-table-column prop="hierarchy" sortable :label="$t('common_RespoLeve')" align="center" min-width="140"></el-table-column>
+          <el-table-column prop="lineName" sortable :label="$t('common_LineName')" align="center" ></el-table-column>
+          <el-table-column prop="typeName" sortable :label="$t('common_EquipName')" align="center" min-width="120"></el-table-column>
+          <el-table-column prop="maintainStatusDictName" sortable :label="$t('achievemRate_MaintStat')" align="center" min-width="120"></el-table-column>
+          <el-table-column prop="planTime" sortable :label="$t('achievemRate_SchedDate')" align="center" min-width="150" :formatter="dateFormatter"></el-table-column>
+          <el-table-column prop="startTime" sortable :label="$t('achievemRate_MaintStarTime')" align="center" min-width="150" :formatter="dateFormatter"></el-table-column>
+          <el-table-column prop="endTime" sortable :label="$t('achievemRate_EndTimeMain')" align="center" min-width="150" :formatter="dateFormatter"></el-table-column>
         </el-table>
       </div>
     </div>
@@ -134,7 +134,7 @@ export default {
       dateList: [],
       showMore: false,
       hierarchyList: [],
-      labelData: ['未达成数量', '已达成数量'],
+      labelData: [this.$t('achievemRate_QuantNotReac'), this.$t('achievemRate_QuantAchi')],
       checkRateData: [],
       maintainRateData: [],
       page: {
@@ -150,19 +150,19 @@ export default {
       cehckTable: [],
       checkStatusList: [
         {
-          label: '未开始',
+          label: this.$t('achievemRate_NotStar'),
           value: '0'
         },
         {
-          label: '处理中',
+          label: this.$t('common_Proce'),
           value: '1'
         },
         {
-          label: '待确认',
+          label: this.$t('achievemRate_beConf'),
           value: '2'
         },
         {
-          label: '已完成',
+          label: this.$t('common_Compl'),
           value: '3'
         }
       ],
@@ -311,13 +311,13 @@ export default {
       const objectUrl = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = objectUrl
-      a.download = '点检表'
+      a.download = this.$t('achievemRate_SpotChecList')
       a.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }))
       window.URL.revokeObjectURL(blob)
     },
     // 导出点检pdf
     async exportCheckPdf () {
-      this.getPdf('check', '点检表')
+      this.getPdf('check', this.$t('achievemRate_SpotChecList'))
     },
     // 导出保养表
     async  exportMaintainExcel () {
@@ -328,13 +328,13 @@ export default {
       const objectUrl = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = objectUrl
-      a.download = '保养表'
+      a.download = this.$t('achievemRate_MaintShee')
       a.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }))
       window.URL.revokeObjectURL(blob)
     },
     // 导出保养pdf
     async exportMaintainPdf () {
-      this.getPdf('maintain', '点检表')
+      this.getPdf('maintain', this.$t('achievemRate_SpotChecList'))
     }
 
   },

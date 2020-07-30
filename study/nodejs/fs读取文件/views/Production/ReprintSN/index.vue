@@ -1,37 +1,37 @@
 <template>
    <div class="mes-main mes-main-common">
     <div class="main-common-head">
-      <el-button type="primary" plain size="mini" @click="reprintSn">补印</el-button>
+      <el-button type="primary" plain size="mini" @click="reprintSn">{{$t('reprintSN_SupplPrin')}}</el-button>
     </div>
     <el-form :model="reprintFrom" ref="reprint" label-width="30%" label-position="left" class="el-row mes-form-rule">
       <el-form-item label="SN" prop="snInfo" class="el-col el-col-11">
-        <el-input v-model="reprintFrom.snInfo" placeholder="请输入SN，多个用逗号分隔" style="width:100%" size="mini">
+        <el-input v-model="reprintFrom.snInfo" :placeholder="$t('reprintSN_multiSepaByComm')" style="width:100%" size="mini">
           <i slot="suffix" style="cursor:pointer;" @click="snSearchDialog = true" class="el-input__icon el-icon-search"></i>
         </el-input>
       </el-form-item>
       <!-- <el-form-item label="结束SN" prop="end" class="el-col el-col-11 el-col-offset-1">
-        <el-input v-model="reprintFrom.end" placeholder="请输入" clearable filterable style="width:100%" size="mini">
+        <el-input v-model="reprintFrom.end" :placeholder="$t('common_PleasEnte')" clearable filterable style="width:100%" size="mini">
           <i slot="suffix" style="cursor:pointer;" @click="snSearchDialog = true" class="el-input__icon el-icon-search"></i>
         </el-input>
       </el-form-item> -->
-      <el-form-item label="补印数量" prop="num" class="el-col el-col-11 el-col-offset-1">
-        <el-input v-model="reprintFrom.num" placeholder="请输入补印数量" size="mini"></el-input>
+      <el-form-item :label="$t('reprintSN_QuantSuppPrin')" prop="num" class="el-col el-col-11 el-col-offset-1">
+        <el-input v-model="reprintFrom.num" :placeholder="$t('reprintSN_inputNumbAddiPrin')" size="mini"></el-input>
       </el-form-item>
-      <!-- <el-form-item label="补印原因" prop="reason" class="el-col el-col-11 el-col-offset-1">
-        <el-select v-model="reprintFrom.reason" placeholder="请选择" style="width:100%" size="mini">
-          <el-option label="标签损坏" value="标签损坏"></el-option>
-          <el-option label="一般生产" value="一般生产"></el-option>
+      <!-- <el-form-item :label="$t('reprintSN_ReasoForSuppPrin')" prop="reason" class="el-col el-col-11 el-col-offset-1">
+        <el-select v-model="reprintFrom.reason" :placeholder="$t('common_PleasSele')" style="width:100%" size="mini">
+          <el-option :label="$t('reprintSN_LabelDama')" value="标签损坏"></el-option>
+          <el-option :label="$t('reprintSN_GenerProd')" value="一般生产"></el-option>
         </el-select>
       </el-form-item> -->
     </el-form>
     <div class="barcode-table mes-table">
-      <p>SN 补印详情</p>
+      <p>SN {{$t('reprintSN_RepriDeta')}}</p>
       <div class="mes-table-content">
-        <el-table :data="reprintList" border size="mini" empty-text="暂无数据">
-          <el-table-column type="index" label="序号" align="center" width="60" :index="indexMethod"></el-table-column>
-          <el-table-column label="零件SN" prop="productSn" align="center"></el-table-column>
-          <el-table-column label="零件料号" prop="materialNo" align="center"></el-table-column>
-          <el-table-column label="打印次数" prop="printTimes" align="center"></el-table-column>
+        <el-table :data="reprintList" border size="mini" :empty-text="$t('common_NoDataAvai')">
+          <el-table-column type="index" :label="$t('common_Number')" align="center" width="60" :index="indexMethod"></el-table-column>
+          <el-table-column :label="$t('reprintSN_sparePartSN')" prop="productSn" align="center"></el-table-column>
+          <el-table-column :label="$t('common_PartNo')" prop="materialNo" align="center"></el-table-column>
+          <el-table-column :label="$t('reprintSN_PrintTime')" prop="printTimes" align="center"></el-table-column>
           <!-- <el-table-column label="打印时间" align="center"></el-table-column> -->
         </el-table>
       </div>
@@ -40,9 +40,9 @@
         :page-size="20" layout="total, prev, pager, next, jumper" :total="total" background>
         </el-pagination>
       </el-row> -->
-      <el-dialog title="零件SN查询" :visible.sync="snSearchDialog" class="handle-dialog" top="12vh">
+      <el-dialog :title="$t('reprintSN_sparePartSNQue')" :visible.sync="snSearchDialog" class="handle-dialog" top="12vh">
         <el-form label-width="20%" label-position="left" class="el-row" style="border-bottom:1px solid #B2B2B2;margin-bottom:0;">
-          <el-form-item label="料号" class="el-col el-col-7">
+          <el-form-item :label="$t('common_PorN')" class="el-col el-col-7">
             <el-select size="mini" v-model="mComMaterialId" filterable clearable style="width:100%;">
               <el-option v-for="(option,i) in materialList" :key="i" :label="option.MATERIAL_NO" :value="option.M_COM_MATERIAL_ID"></el-option>
             </el-select>
@@ -51,17 +51,17 @@
             <el-input size="mini" v-model="keyWord"></el-input>
           </el-form-item>
           <el-form-item class="el-col el-col-2">
-            <el-button type="primary" size="mini" @click="searchSnPrint">查询</el-button>
+            <el-button type="primary" size="mini" @click="searchSnPrint">{{$t('common_Inquire')}}</el-button>
           </el-form-item>
         </el-form>
         <div class="mes-table">
           <el-table :data="snList" ref="multipleTable" border @selection-change="handleSelectionChange" @select="selectRows">
             <el-table-column type="selection" width="50" align="center"></el-table-column>
-            <el-table-column type="index" :index="dialogIndexMethod" label="序号"></el-table-column>
+            <el-table-column type="index" :index="dialogIndexMethod" :label="$t('common_Number')"></el-table-column>
             <el-table-column label="SN" prop="productSn"></el-table-column>
-            <el-table-column label="零件料号" prop="materialNo"></el-table-column>
-            <el-table-column label="打印次数" prop="printTimes"></el-table-column>
-            <!-- <el-table-column label="创建时间"></el-table-column> -->
+            <el-table-column :label="$t('common_PartNo')" prop="materialNo"></el-table-column>
+            <el-table-column :label="$t('reprintSN_PrintTime')" prop="printTimes"></el-table-column>
+            <!-- <el-table-column :label="$t('common_CreateTime')"></el-table-column> -->
           </el-table>
         </div>
         <div style="text-align:center">
@@ -70,8 +70,8 @@
             </el-pagination>
         </div>
         <div slot="footer">
-          <el-button type="primary" @click="setCheckedSn">确 定</el-button>
-          <el-button @click="snSearchDialog = false">取 消</el-button>
+          <el-button type="primary" @click="setCheckedSn">{{$t('common_ok')}}</el-button>
+          <el-button @click="snSearchDialog = false">{{$t('common_cancel')}}</el-button>
         </div>
       </el-dialog>
     </div>
@@ -86,7 +86,7 @@ export default {
         snInfo: '',
         end: '',
         num: 1,
-        reason: '标签损坏'
+        reason: this.$t('reprintSN_LabelDama')
       },
       total: 0,
       page: {
@@ -157,7 +157,7 @@ export default {
       let { keyWord, prevKeyWord, mComMaterialId, dialogPage } = this
       if (mComMaterialId) {
         if (prevKeyWord && prevKeyWord !== keyWord) {
-          let isClear = await this.$myPrompt.confirm('搜索关键字发生变化，是否将上次选中的SN列表清空？')
+          let isClear = await this.$myPrompt.confirm(this.$t('reprintSN_SearcKeywChanLastSele'))
           if (isClear) {
             this.checkedSn = []
           }
@@ -171,7 +171,7 @@ export default {
           this.toggleSelection()
         })
       } else {
-        this.$message.warning('请先选择料号信息')
+        this.$message.warning(this.$t('reprintSN_selecItemNumbInfoFirs'))
       }
     },
     handleSelectionChange (rows) {
@@ -209,7 +209,7 @@ export default {
         this.reprintFrom.snInfo = checkedSn.join(',')
         this.snSearchDialog = false
       } else {
-        this.$message.warning('当前未选中SN信息!')
+        this.$message.warning(this.$t('reprintSN_NotCurrSeleSN'))
       }
     },
     async reprintSn () {
@@ -231,7 +231,7 @@ export default {
           this.$message.error(msg)
         }
       } else {
-        this.$message.warning('请输入或选择需要补印的SN!')
+        this.$message.warning(this.$t('reprintSN_inputOrSeleBeRepr'))
       }
     }
   },

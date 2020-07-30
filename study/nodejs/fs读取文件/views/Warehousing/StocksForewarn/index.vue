@@ -1,17 +1,17 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">库存预警</h3>
+    <h3 class="mes-main-title">{{$t('StocksForewarn_InventoryWarning')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-        <el-input style="width:35%" v-model="materialNo" placeholder="请输入料号"></el-input>
+        <el-input style="width:35%" v-model="materialNo" :placeholder="$t('StocksForewarn_PleaseEnterThe')"></el-input>
       </el-col>
     </el-row>
     <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="12">
-          <el-button size="mini" icon="el-icon-search" @click="getWarningList">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="getWarningList">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">{{$t('common_Refresh')}}</el-button>
         </el-col>
         <el-col :span="12">
           <mes-page ref="mesPage" :initData="getWarningList" :total="total" />
@@ -19,13 +19,13 @@
       </el-row>
       <div class="mes-table-content">
         <el-table :data="tableData" border :row-style="tableRowStyle">
-          <el-table-column type="index" label="序号" align="center" :index="indexMethod" fixed="left"></el-table-column>
-          <el-table-column prop="materialNo" label="料号" align="center" sortable></el-table-column>
-          <el-table-column prop="materialName" label="名称" align="center" sortable></el-table-column>
-          <el-table-column prop="warningType" label="报警类型" align="center" :formatter="warningTypeFormatter" sortable></el-table-column>
-          <el-table-column prop="qty" label="当前库存" align="center" sortable></el-table-column>
-          <el-table-column prop="lowerQuantity" label="最低水位" align="center" sortable></el-table-column>
-          <el-table-column prop="upperQuantity" label="最高水位" align="center" sortable></el-table-column>
+          <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod" fixed="left"></el-table-column>
+          <el-table-column prop="materialNo" :label="$t('StocksForewarn_PN')" align="center" sortable></el-table-column>
+          <el-table-column prop="materialName" :label="$t('StocksForewarn_Name')" align="center" sortable></el-table-column>
+          <el-table-column prop="warningType" :label="$t('StocksForewarn_AlarmType')" align="center" :formatter="warningTypeFormatter" sortable></el-table-column>
+          <el-table-column prop="qty" :label="$t('StocksForewarn_CurrentInventory')" align="center" sortable></el-table-column>
+          <el-table-column prop="lowerQuantity" :label="$t('StocksForewarn_MinimumWaterLevel')" align="center" sortable></el-table-column>
+          <el-table-column prop="upperQuantity" :label="$t('StocksForewarn_MaximumWaterLevel')" align="center" sortable></el-table-column>
         </el-table>
       </div>
     </div>
@@ -58,10 +58,10 @@ export default {
     warningTypeFormatter (row, column, cellValue, index) {
       const { qty, lowerQuantity, upperQuantity } = row
       if (qty < lowerQuantity) {
-        return '库存不足'
+        return this.$t('StocksForewarn_InsufficientStock')
       }
       if (qty > upperQuantity) {
-        return '库存过量'
+        return this.$t('StocksForewarn_Overstocking')
       }
     },
     async getWarningList () {

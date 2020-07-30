@@ -1,64 +1,64 @@
 <template>
   <div class="mes-main mes-work-order mes-material">
-    <h3 class="mes-main-title">{{handleName}}编码规则</h3>
+    <h3 class="mes-main-title">{{handleName}}{{$t('CodingRule_Rule')}}</h3>
     <div class="mes-material-handle">
       <div class="mes-btn-group">
-        <el-button type="primary" plain size="mini" @click="saveCodingRule">保存</el-button>
-        <el-button type="primary" plain size="mini" @click="closeCurrentPage">关闭</el-button>
+        <el-button type="primary" plain size="mini" @click="saveCodingRule">{{$t('common_save')}}</el-button>
+        <el-button type="primary" plain size="mini" @click="closeCurrentPage">{{$t('common_cancel')}}</el-button>
       </div>
     </div>
     <el-form :model="formData" ref="codingForm" :rules="rules" label-width="8vw" label-position="left" class="el-row mes-form-rule">
-      <el-form-item label="编码名称" prop="mSeqName" class="el-col el-col-11">
+      <el-form-item :label="$t('CodingRule_Name')" prop="mSeqName" class="el-col el-col-11">
         <el-input v-model.trim="formData.mSeqName" size="mini"></el-input>
       </el-form-item>
-      <el-form-item label="进制编码" prop="digitString" class="el-col el-col-11 el-col-offset-1">
+      <el-form-item :label="$t('CodingRule_BinaryEncoding')" prop="digitString" class="el-col el-col-11 el-col-offset-1">
         <el-input v-model.trim="formData.digitString" size="mini"></el-input>
       </el-form-item>
-      <el-form-item label="星期首日" prop="firstDayOfWeek" class="el-col el-col-11">
-        <el-select v-model="formData.firstDayOfWeek" placeholder="请选择" style="width:100%" size="mini" clearable>
+      <el-form-item :label="$t('CodingRule_FirstDay')" prop="firstDayOfWeek" class="el-col el-col-11">
+        <el-select v-model="formData.firstDayOfWeek" :placeholder="$t('CodingRule_PleaseSelect')" style="width:100%" size="mini" clearable>
           <el-option v-for="(week,i) in weekList" :key="i" :value="week.value" :label="week.label"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="重置类型" prop="resetType" class="el-col el-col-11 el-col-offset-1">
-        <el-select v-model="formData.resetType" placeholder="请选择" style="width:100%" size="mini" clearable>
+      <el-form-item :label="$t('CodingRule_ResetType')" prop="resetType" class="el-col el-col-11 el-col-offset-1">
+        <el-select v-model="formData.resetType" :placeholder="$t('CodingRule_PleaseSelect')" style="width:100%" size="mini" clearable>
           <el-option v-for="(list,i) in resetTypeList" :key="i" :value="list" :label="list"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="起始码" prop="minNo" class="el-col el-col-11">
+      <el-form-item :label="$t('CodingRule_StartCode')" prop="minNo" class="el-col el-col-11">
         <el-input v-model="formData.minNo" size="mini"></el-input>
       </el-form-item>
-      <el-form-item label="截止码" prop="maxNo" class="el-col el-col-11 el-col-offset-1">
+      <el-form-item :label="$t('CodingRule_CutoffCode')" prop="maxNo" class="el-col el-col-11 el-col-offset-1">
         <el-input v-model="formData.maxNo" size="mini"></el-input>
       </el-form-item>
-      <el-form-item label="编码规则" prop="description" class="el-col el-col-23" v-if="useType===2">
+      <el-form-item :label="$t('CodingRule_Rule')" prop="description" class="el-col el-col-23" v-if="useType===2">
         <el-input v-model="formData.seqNoFormat" size="mini" disabled></el-input>
       </el-form-item>
-      <el-form-item label="描述" prop="description" class="el-col el-col-23">
+      <el-form-item :label="$t('common_Description')" prop="description" class="el-col el-col-23">
         <el-input type="textarea" :rows="2" v-model="formData.description" size="mini"></el-input>
       </el-form-item>
     </el-form>
     <div class="mes-table" style="border:1px solid #d4d4d4;padding:1.5vh 0.5vw;border-radius:3px;">
-      <h3>编码规则明细</h3>
+      <h3>{{$t('CodingRule_RuleDetails')}}</h3>
       <div class="mes-table-handle" style="padding:1.5vh 0;">
-        <el-button type="primary" icon="el-icon-circle-plus-outline" size="mini" @click="addCodingRuleRows">添加行</el-button>
-        <el-button type="primary" icon="el-icon-circle-close-outline" size="mini" @click="delCodingRuleRows">删除</el-button>
+        <el-button type="primary" icon="el-icon-circle-plus-outline" size="mini" @click="addCodingRuleRows">{{$t('CodingRule_AddRows')}}</el-button>
+        <el-button type="primary" icon="el-icon-circle-close-outline" size="mini" @click="delCodingRuleRows">{{$t('common_Del')}}</el-button>
       </div>
       <div class="mes-table-content">
         <el-table :data="codingRuleList" size="mini" ref="codingTable" @selection-change="ruleSelectChange">
           <el-table-column type="selection" width="50" align="center"></el-table-column>
-          <el-table-column type="index" label="参数序号" width="80" :index="indexMethod" align="center"></el-table-column>
-          <el-table-column align="center" prop="type" label="参数类型">
+          <el-table-column type="index" :label="$t('CodingRule_ParameterNumber')" width="80" :index="indexMethod" align="center"></el-table-column>
+          <el-table-column align="center" prop="type" :label="$t('CodingRule_ParameterType')">
             <template slot-scope="scope">
-              <el-select v-model="scope.row.type" @change="changeParameterType(scope.row)" placeholder="请选择参数类型" style="width:100%" size="mini" clearable>
-                <el-option value="1" label="固定值"></el-option>
-                <el-option value="2" label="系统参数"></el-option>
-                <el-option value="3" label="参数"></el-option>
+              <el-select v-model="scope.row.type" @change="changeParameterType(scope.row)" :placeholder="$t('CodingRule_selectType')" style="width:100%" size="mini" clearable>
+                <el-option value="1" :label="$t('CodingRule_FixedValue')"></el-option>
+                <el-option value="2" :label="$t('CodingRule_systemParameter')"></el-option>
+                <el-option value="3" :label="$t('CodingRule_parameter')"></el-option>
               </el-select>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="values" label="参数值">
+          <el-table-column align="center" prop="values" :label="$t('CodingRule_parameterValues')">
             <template slot-scope="scope">
-              <el-select v-model="scope.row.values" placeholder="请选择参数值" style="width:100%" size="mini" clearable v-if="scope.row.type === '2'">
+              <el-select v-model="scope.row.values" :placeholder="$t('CodingRule_selectParameterValues')" style="width:100%" size="mini" clearable v-if="scope.row.type === '2'">
                 <el-option v-for="(item,i) in systemParameterList" :key="i" :value="item.value" :label="item.label">
                   <span style="float:left;">{{ item.label }}</span>
                   <span style="float:right;">{{ item.describe }}</span>
@@ -67,7 +67,7 @@
                <el-input v-model.trim="scope.row.values" size="mini" v-else></el-input>
             </template>
           </el-table-column>
-           <el-table-column align="center" prop="values" label="操作">
+           <el-table-column align="center" prop="values" :label="$t('common_Operate')">
             <template slot-scope="scope">
               <i class="el-icon-delete mes-table-handle-icon"  style="color:#F56C6C" @click="delCodingRuleRow(scope.$index)"></i>
             </template>
@@ -93,60 +93,60 @@ export default {
         seqNoFormat: ''
       },
       weekList: [{
-        label: '星期一',
+        label: this.$t('CodingRule_Monday'),
         value: 1
       }, {
-        label: '星期二',
+        label: this.$t('CodingRule_Tuesday'),
         value: 2
       }, {
-        label: '星期三',
+        label: this.$t('CodingRule_Wednesday'),
         value: 3
       }, {
-        label: '星期四',
+        label: this.$t('CodingRule_Thursday'),
         value: 4
       }, {
-        label: '星期五',
+        label: this.$t('CodingRule_Friday'),
         value: 5
       }, {
-        label: '星期六',
+        label: this.$t('CodingRule_Saturday'),
         value: 6
       }, {
-        label: '星期日',
+        label: this.$t('CodingRule_Sunday'),
         value: 7
       }],
       resetTypeList: ['NO_RESET', 'DAILY', 'WEEK'],
       systemParameterList: [{
         label: 'SEQ',
         value: '[SEQ]',
-        describe: '流水号'
+        describe: this.$t('CodingRule_serialNumber')
       }, {
         label: 'YYYY',
         value: '[YYYY]',
-        describe: '四位年份'
+        describe: this.$t('CodingRule_Year')
       }, {
         label: 'MM',
         value: '[MM]',
-        describe: '两位月份'
+        describe: this.$t('CodingRule_Months')
       }, {
         label: 'DD',
         value: '[DD]',
-        describe: '两位日期'
+        describe: this.$t('CodingRule_Dates')
       }, {
         label: 'YY',
         value: '[YY]',
-        describe: '当前年份后两位'
+        describe: this.$t('CodingRule_LastTwoDigit')
       }, {
         label: 'M',
         value: '[M]',
-        describe: '当前月份'
+        describe: this.$t('CodingRule_CurrentMonth')
       }, {
         label: 'D',
         value: '[D]',
-        describe: '当前日期'
+        describe: this.$t('CodingRule_CurrentDate')
       }, {
         label: 'WW',
         value: '[WW]',
-        describe: '当前周数'
+        describe: this.$t('CodingRule_CurrentWeek')
       }],
       codingRuleList: [],
       selectedList: []
@@ -159,34 +159,34 @@ export default {
   },
   computed: {
     handleName () {
-      return this.useType === 1 ? '新增' : '编辑'
+      return this.useType === 1 ? this.$t('common_Add') : this.$t('common_Edit')
     },
     rules () {
       const minNoRule = (rule, value, callback) => {
         if (!value) {
-          callback(new Error('请输入起始码'))
+          callback(new Error(this.$t('CodingRule_startCode')))
         } else {
           callback()
         }
       }
       const maxNoRule = (rule, value, callback) => {
         if (!value) {
-          callback(new Error('请输入截止码'))
+          callback(new Error(this.$t('CodingRule_cutOffCode')))
         } else {
           let len1 = this.formData.minNo.length
           let len2 = value.length
           if (len1 !== len2) {
-            callback(new Error('起始码与截止码长度必须一致'))
+            callback(new Error(this.$t('CodingRule_MustBeConsistent')))
           } else {
             callback()
           }
         }
       }
       return {
-        mSeqName: [{ required: true, message: '编码名称不能为空' }],
-        digitString: [{ required: true, message: '进制编码不能为空' }],
-        firstDayOfWeek: [{ required: true, message: '请选择星期首日' }],
-        resetType: [{ required: true, message: '请选择重置类型' }],
+        mSeqName: [{ required: true, message: this.$t('CodingRule_cannotbeempty') }],
+        digitString: [{ required: true, message: this.$t('CodingRule_Binarybeempty') }],
+        firstDayOfWeek: [{ required: true, message: this.$t('CodingRule_selectFirstDay') }],
+        resetType: [{ required: true, message: this.$t('CodingRule_resetType') }],
         minNo: [{ required: true, validator: minNoRule, trigger: 'blur' }],
         maxNo: [{ required: true, validator: maxNoRule, trigger: 'blur' }]
       }
@@ -311,17 +311,17 @@ export default {
       if (len > 0) {
         if (codingRuleStr) {
           if (codingRuleStr.indexOf('[SEQ]') === -1) {
-            this.$message.warning('编码规则明细中参数值必须选择流水号！')
+            this.$message.warning(this.$t('CodingRule_selectSerialNumber'))
             return false
           } else {
             return true
           }
         } else {
-          this.$message.warning('请选择或填写编码规则明细！')
+          this.$message.warning(this.$t('CodingRule_selectRulesDetails'))
           return false
         }
       } else {
-        this.$message.warning('请添加编码规则明细！')
+        this.$message.warning(this.$t('CodingRule_addRuleDetails'))
         return false
       }
     },

@@ -1,7 +1,7 @@
 <template>
   <el-table :data="templateMaterials.materialList" border size="mini">
-    <el-table-column type="index" label="序号" :index="indexMethod" align="center"></el-table-column>
-    <el-table-column label="料号" align="center">
+    <el-table-column type="index" :label="$t('common_Number')" :index="indexMethod" align="center"></el-table-column>
+    <el-table-column :label="$t('common_PorN')" align="center">
       <template slot-scope="props">
         <p v-if="isRead">{{ props.row.materialNo }}</p>
         <el-select v-else v-model="props.row.mComMaterialId" size="mini" clearable filterable style="width:100%;" @clear="setMaterialObj('',props.$index)">
@@ -10,16 +10,16 @@
         </el-select>
       </template>
     </el-table-column>
-    <el-table-column label="名称" align="center" prop="materialName"></el-table-column>
-    <el-table-column label="版次" align="center" prop="version" width="80"></el-table-column>
-    <el-table-column label="物料类型" align="center" prop="mComMaterialtypeCode" width="100"></el-table-column>
-    <el-table-column label="组装类别" prop="assemblyType" align="center">
+    <el-table-column :label="$t('common_Name')" align="center" prop="materialName"></el-table-column>
+    <el-table-column :label="$t('common_Edition')" align="center" prop="version" width="80"></el-table-column>
+    <el-table-column :label="$t('common_MaterialType')" align="center" prop="mComMaterialtypeCode" width="100"></el-table-column>
+    <el-table-column :label="$t('workingTemp_AssemCate')" prop="assemblyType" align="center">
       <template slot-scope="props">
         <p v-if="isRead">{{ props.row.assemblyType }}</p>
         <el-input v-else v-model="props.row.assemblyType" size="mini"></el-input>
       </template>
     </el-table-column>
-    <el-table-column label="制程" align="center">
+    <el-table-column :label="$t('common_Process')" align="center">
       <template slot-scope="props">
         <p v-if="isRead">{{ props.row.segName }}</p>
         <el-select v-else filterable clearable v-model="props.row.mPomWorkMasterSpecMProcess" size="mini" style="width:100%;">
@@ -27,30 +27,30 @@
         </el-select>
       </template>
     </el-table-column>
-    <el-table-column label="数量" align="center">
+    <el-table-column :label="$t('common_numbe')" align="center">
       <template slot-scope="props">
         <p v-if="isRead">{{ props.row.qty }}</p>
         <el-input v-else v-model.number="props.row.qty" size="mini"></el-input>
       </template>
     </el-table-column>
-    <el-table-column label="组装顺序" prop="assemblyStep" align="center">
+    <el-table-column :label="$t('workingTemp_AssemSequ')" prop="assemblyStep" align="center">
       <template slot-scope="props">
         <p v-if="isRead">{{ props.row.assemblyStep }}</p>
         <el-input v-else v-model="props.row.assemblyStep" size="mini"></el-input>
       </template>
     </el-table-column>
-    <el-table-column label="描述" prop="specDesc" align="center">
+    <el-table-column :label="$t('common_Description')" prop="specDesc" align="center">
       <template slot-scope="props">
         <p v-if="isRead">{{ props.row.specDesc }}</p>
         <el-input v-else v-model="props.row.specDesc" size="mini"></el-input>
       </template>
     </el-table-column>
-    <el-table-column label="是否启用" align="center" width="80">
+    <el-table-column :label="$t('common_Enable')" align="center" width="80">
       <template slot-scope="prop">
         <el-checkbox v-model="prop.row.isInvalid" true-label="0" false-label="1"  :disabled="useType===0"></el-checkbox>
       </template>
     </el-table-column>
-    <el-table-column label="操作" v-if="useType!==0" width="80" align="center">
+    <el-table-column :label="$t('common_Operate')" v-if="useType!==0" width="80" align="center">
       <template slot-scope="scope">
         <el-button type="text" size="mini" style="color:#F56C6C;font-size:0.8vw;" icon="el-icon-delete" @click="delCurrentRow(scope.$index)"></el-button>
       </template>
@@ -134,7 +134,7 @@ export default {
           this.$message.error(msg)
         }
       } else {
-        this.$message.warning('请先保存基本信息!')
+        this.$message.warning(this.$t('workingTemp_PleasSaveBasiIn'))
       }
     }
   },

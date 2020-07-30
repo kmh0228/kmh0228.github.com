@@ -11,6 +11,7 @@ const getFileType = require('get-file-type');
 */
 var result = {}
 function findDirFiles(dirPath, inChild) {
+	let fileNum = 0, $tNum = 0;
 	let fileTypeArr = [];
 	let todo = (_Path) => {
 		try {
@@ -21,29 +22,41 @@ function findDirFiles(dirPath, inChild) {
 				if (val.type == 'dir' && inChild) {
 					todo(path.join(_Path, val.name))
 				}else{
+					//计算个数
+					fileNum ++
 					var data = fs.readFileSync(path.join(_Path, val.name));
 					var buf = Buffer.from(data);
 					var str = buf.toString();
-					var reg = /[\u4e00-\u9fa5，？）（。！]*/g;
-					// var pageChinaArr = Array.from(new Set(str.match(reg).filter(item => !!item)))
-					var pageChinaArr = Array.from(new Set(str.match(reg)));
-					var length = pageChinaArr.length;
-					for(var i = 0;i<length;i++){
-						var name = pageChinaArr[i];
-						if(result[name]){result[name]++}else{result[name]=1}
-					}
+					let arr = str.match(/\$t/g)
+					$tNum += arr?arr.length:0
+
+
+					// 获取文件文字的方法
+					// var data = fs.readFileSync(path.join(_Path, val.name));
+					// var buf = Buffer.from(data);
+					// var str = buf.toString();
+					// var reg = /[\u4e00-\u9fa5，？）（。！]*/g;
+						// var pageChinaArr = Array.from(new Set(str.match(reg).filter(item => !!item)))
+					// var pageChinaArr = Array.from(new Set(str.match(reg)));
+					// var length = pageChinaArr.length;
+					// for(var i = 0;i<length;i++){
+					// 	var name = pageChinaArr[i];
+					// 	if(result[name]){result[name]++}else{result[name]=1}
+					// }
 				}
 			})
 		} catch (err) {
 		}
 	}
 	todo(dirPath);
+	return {fileNum:fileNum,$tNum:$tNum}
 }
 
-findDirFiles('./views',true)
-fs.writeFile('./result.txt',JSON.stringify(result),function(){
-	console.log('写入成功')
-})
+var numJson = findDirFiles('./views',true)
+console.log(numJson)
+// fs.writeFile('./result.txt',JSON.stringify(result),function(){
+// 	console.log('写入成功')
+// })
 
 // fs.readFile('./test/a.txt',function(err,data){
 // 	console.log(data);

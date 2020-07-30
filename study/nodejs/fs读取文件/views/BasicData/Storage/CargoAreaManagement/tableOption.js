@@ -1,4 +1,4 @@
-export let tableOption = (This) => {
+export let tableOption = This => {
   return {
     style: {
       width: '100%'
@@ -6,31 +6,31 @@ export let tableOption = (This) => {
     highlightCurrentRow: true,
     tableTitle: [
       {
-        title: '区域代码',
+        title: 'common_AreaCode',
         prop: 'mWmsWarehouseAreaCode'
       },
       {
-        title: '区域名称',
+        title: 'warehouse_AreaName',
         prop: 'mWmsWarehouseAreaName'
       },
       {
-        title: '功能作用',
+        title: 'cargoAreaMana_Funct',
         prop: 'fName'
       },
       {
-        title: '存储环境',
+        title: 'cargoAreaMana_StoraEnvi',
         prop: 'cName'
       },
       {
-        title: '存储贵重类型',
+        title: 'cargoAreaMana_StoraValuType',
         prop: 'vName'
       },
       {
-        title: '储位使用情况',
+        title: 'common_UsageStorSpac',
         prop: 'mWmsWarehouseAreaUse'
       },
       {
-        title: '操作',
+        title: 'common_Operate',
         prop: 'operation',
         fixed: 'right',
         width: '120',
@@ -38,7 +38,7 @@ export let tableOption = (This) => {
         buttonArr: [
           {
             iconClass: 'el-icon-edit-outline',
-            text: '编辑',
+            text: 'common_Edit',
             operationClick (row) {
               This.areaForm = {
                 ...row
@@ -49,7 +49,7 @@ export let tableOption = (This) => {
           {
             iconClass: 'el-icon-delete',
             iconColor: '#f56c6c',
-            text: '删除',
+            text: 'common_Del',
             operationClick (row) {
               This.deleteArea([row.mWmsWarehouseAreaId])
             }

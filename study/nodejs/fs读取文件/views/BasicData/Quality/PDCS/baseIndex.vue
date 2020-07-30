@@ -1,34 +1,34 @@
 <template>
 <div>
     <div class="main-common-head" v-if="type!== 'details'">
-      <el-button type="primary" plain size="mini" :loading="saveLoading" @click="saveData('DRAFT')">保存</el-button>
-      <el-button type="primary" plain size="mini" :loading="saveLoading" @click="saveData('SUBMITTED')">提交</el-button>
-      <el-button type="primary" plain size="mini" @click="closePage">关闭</el-button>
-      <span class="status_class">{{pdcsNo ? '单号:'+ pdcsNo : ''}}</span>
-       <span class="status_class">状态：{{ status === 'DRAFT' ? '未提交' : '已提交' }}</span>
+      <el-button type="primary" plain size="mini" :loading="saveLoading" @click="saveData('DRAFT')">{{$t('common_save')}}</el-button>
+      <el-button type="primary" plain size="mini" :loading="saveLoading" @click="saveData('SUBMITTED')">{{$t('common_Submit')}}</el-button>
+      <el-button type="primary" plain size="mini" @click="closePage">{{$t('common_close')}}</el-button>
+      <span class="status_class">{{pdcsNo ? $t('common_OddNumb') + ':'+ pdcsNo : ''}}</span>
+       <span class="status_class">{{$t('PDCS_Statu')}}{{ status === 'DRAFT' ? $t('common_NotSubm') : this.$t('common_Submitted') }}</span>
     </div>
      <el-card class="box-card"  shadow="never" >
        <div slot="header" class="clearfix">
-        <span>基本资料</span>
+        <span>{{$t('common_BasicInfo')}}</span>
       </div>
       <base-info ref="baseInfo"  :isEdit="type!== 'details'" :formData="data" :userList="userList"></base-info>
    </el-card>
    <div v-show="type!== 'add'">
     <el-card class="box-card"  shadow="never" style="margin-top:1.6vh">
       <div slot="header" class="clearfix">
-        <span>原因分析</span>
+        <span>{{$t('PDCS_CauseAnal')}}</span>
       </div>
       <cause-analysis ref="causeAnalysis" :isEdit="type!== 'details'" :formData="data" :userList="userList"></cause-analysis>
     </el-card>
     <el-card class="box-card"  shadow="never" style="margin-top:1.6vh">
       <div slot="header" class="clearfix">
-        <span>责任单位</span>
+        <span>{{$t('PDCS_RespoUnit')}}</span>
       </div>
       <responsible-unit ref="responsibleUnit" :pdcsId="pdcsId" :isEdit="type!== 'details'" :userList="userList" :formData="data.pdcsUnitList ? data.pdcsUnitList : []"></responsible-unit>
     </el-card>
     <el-card class="box-card"  shadow="never" style="margin-top:1.6vh">
       <div slot="header" class="clearfix">
-        <span>效果追踪</span>
+        <span>{{$t('PDCS_EffecTrac')}}</span>
       </div>
       <effect-ttracking ref="effectTtracking" :isEdit="type!== 'details'" :userList="userList" :formData="data"></effect-ttracking>
     </el-card>
@@ -75,11 +75,11 @@ export default {
     ...mapActions(['changeQmsStatus', 'closeCurrentPage']),
     async saveData (status) {
       if (this.type === 'add' && !this.$refs.baseInfo.checkData()) {
-        this.$message.warning('请完善表单')
+        this.$message.warning(this.$t('PDCS_complForm'))
         return false
       }
       if (this.type === 'update' && (!this.$refs.baseInfo.checkData() || !this.$refs.causeAnalysis.checkData() || !this.$refs.responsibleUnit.checkData() || !this.$refs.effectTtracking.checkData())) {
-        this.$message.warning('请完善表单')
+        this.$message.warning(this.$t('PDCS_complForm'))
         return false
       }
       this.saveLoading = true
@@ -94,7 +94,7 @@ export default {
       let res = await this.$api.savePdcs(data)
       if (res.code === '200') {
         this.saveLoading = false
-        this.$message.success('保存成功')
+        this.$message.success(this.$t('common_SavedSuccessfully'))
         this.$router.push('/Quality/PDCS')
       }
     },
@@ -144,7 +144,7 @@ export default {
 }
 .status_class {
   font-size: 1vw;
-  margin-left: 20vw;
+  margin-left: 10vw;
   color: #3b6f9a;
 }
 </style>

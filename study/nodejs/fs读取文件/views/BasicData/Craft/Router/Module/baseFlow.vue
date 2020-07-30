@@ -2,18 +2,18 @@
   <div class="mes-main editor">
     <div class="top-container">
       <div class="toolbar" ref="toolbar">
-        <i data-command="undo" class="command iconfont icon-undo" title="撤销"></i>
-        <i data-command="redo" class="command iconfont icon-redo disable" title="重做"></i>
-        <i data-command="copy" class="command iconfont icon-copy-o" title="复制"></i>
-        <i data-command="paste" class="command iconfont icon-paster-o disable" title="粘贴"></i>
-        <i data-command="delete" class="command iconfont icon-delete-o" title="删除"></i>
-        <i data-command="zoomIn" class="command iconfont icon-zoom-in-o" title="放大"></i>
-        <i data-command="zoomOut" class="command iconfont icon-zoom-out-o" title="缩小"></i>
-        <i data-command="autoZoom" class="command iconfont icon-fit"  title="适应画布"></i>
-        <i data-command="resetZoom" class="command iconfont icon-actual-size-o" title="实际尺寸"></i>
-        <i data-command="toBack" class="command iconfont icon-to-back" title="层级后置"></i>
-        <i data-command="toFront" class="command iconfont icon-to-front" title="层级前置"></i>
-        <i data-command="multiSelect" class="command iconfont icon-select" title="多选"></i>
+        <i data-command="undo" class="command iconfont icon-undo" :title="$t('common_revok')"></i>
+        <i data-command="redo" class="command iconfont icon-redo disable" :title="$t('router_redo')"></i>
+        <i data-command="copy" class="command iconfont icon-copy-o" :title="$t('router_copy')"></i>
+        <i data-command="paste" class="command iconfont icon-paster-o disable" :title="$t('router_paste')"></i>
+        <i data-command="delete" class="command iconfont icon-delete-o" :title="$t('common_Del')"></i>
+        <i data-command="zoomIn" class="command iconfont icon-zoom-in-o" :title="$t('router_enlar')"></i>
+        <i data-command="zoomOut" class="command iconfont icon-zoom-out-o" :title="$t('router_narro')"></i>
+        <i data-command="autoZoom" class="command iconfont icon-fit"  :title="$t('router_AdaptCanv')"></i>
+        <i data-command="resetZoom" class="command iconfont icon-actual-size-o" :title="$t('router_ActuaSize')"></i>
+        <i data-command="toBack" class="command iconfont icon-to-back" :title="$t('router_PostHier')"></i>
+        <i data-command="toFront" class="command iconfont icon-to-front" :title="$t('router_LevelFron')"></i>
+        <i data-command="multiSelect" class="command iconfont icon-select" :title="$t('router_MultiChoi')"></i>
         <!-- <i data-command="addGroup" class="command iconfont icon-group disable" title="成组"></i>
         <i data-command="unGroup" class="command iconfont icon-ungroup disable" title="解组"></i> -->
       </div>
@@ -82,48 +82,48 @@
         <div class="contextmenu" ref="contextmenu" style="position: absolute; z-index: 2;">
           <div data-status="node-selected" class="menu" style="display: none;">
             <div data-command="copy" class="command disable">
-              <span>复制</span>
+              <span>{{$t('router_copy')}}</span>
             </div>
             <div data-command="delete" class="command disable">
-              <span>删除</span>
+              <span>{{$t('common_Del')}}</span>
             </div>
           </div>
           <div data-status="edge-selected" class="menu" style="display: none;">
             <div data-command="delete" class="command disable">
-              <span>删除</span>
+              <span>{{$t('common_Del')}}</span>
             </div>
           </div>
           <div data-status="group-selected" class="menu" style="display: none;">
             <div data-command="copy" class="command disable">
-              <span>复制</span>
+              <span>{{$t('router_copy')}}</span>
             </div>
             <div data-command="delete" class="command disable">
-              <span>删除</span>
+              <span>{{$t('common_Del')}}</span>
             </div>
             <div data-command="unGroup" class="command disable">
-              <span>解组</span>
+              <span>{{$t('router_Disag')}}</span>
             </div>
           </div>
           <div data-status="canvas-selected" class="menu" style="display: block;">
             <div data-command="undo" class="command disable">
-              <span>撤销</span>
+              <span>{{$t('common_revok')}}</span>
             </div>
             <div data-command="redo" class="command disable">
-              <span>重做</span>
+              <span>{{$t('router_redo')}}</span>
             </div>
             <div data-command="pasteHere" class="command disable">
-              <span>粘贴</span>
+              <span>{{$t('router_paste')}}</span>
             </div>
           </div>
           <div data-status="multi-selected" class="menu" style="display: none;">
             <div data-command="copy" class="command disable">
-              <span>复制</span>
+              <span>{{$t('router_copy')}}</span>
             </div>
             <div data-command="paste" class="command disable">
-              <span>粘贴</span>
+              <span>{{$t('router_paste')}}</span>
             </div>
             <div data-command="delete" class="command disable">
-              <span>删除</span>
+              <span>{{$t('common_Del')}}</span>
             </div>
           </div>
         </div>
@@ -132,55 +132,55 @@
         <div class="detail-pannel">
           <div ref="detailpannel">
             <div class="navigator">
-              <div class="pannel-title">当前路由</div>
+              <div class="pannel-title">{{$t('router_CurreRout')}}</div>
               <div class="block-container">
                  <p style="text-align:center;color:#3B6F9A;font-size:0.8vw" v-if="workflowObj.workflowName">{{ workflowObj.workflowName }}</p>
-                <p style="text-align:center;color:#F56C6C;" v-else>当前未选择路由</p>
+                <p style="text-align:center;color:#F56C6C;" v-else>{{$t('router_NoRoutIsCurrSel')}}</p>
               </div>
             </div>
             <div data-status="node-selected" class="pannel" style="display: none;">
-              <div class="pannel-title">节点</div>
+              <div class="pannel-title">{{$t('router_node')}}</div>
               <div class="block-container">
                 <!-- <div class="p name">名称：<el-input size="mini" v-model="nodeName"></el-input></div> -->
-                <div class="p size">投入：<el-checkbox v-model="isInput"></el-checkbox></div>
-                <div class="p size">产出：<el-checkbox v-model="isOutput"></el-checkbox></div>
-                <div class="p size">长：<el-input size="mini" v-model="nodeWidth"></el-input></div>
-                <div class="p size">宽：<el-input size="mini" v-model="nodeHeight"></el-input></div>
-                <div class="p color">颜色：<el-color-picker v-model="nodeColor" size="mini"></el-color-picker></div>
+                <div class="p size">{{$t('router_inves')}}：<el-checkbox v-model="isInput"></el-checkbox></div>
+                <div class="p size">{{$t('router_produ')}}：<el-checkbox v-model="isOutput"></el-checkbox></div>
+                <div class="p size">{{$t('common_long')}}：<el-input size="mini" v-model="nodeWidth"></el-input></div>
+                <div class="p size">{{$t('common_width')}}：<el-input size="mini" v-model="nodeHeight"></el-input></div>
+                <div class="p color">{{$t('router_colou')}}：<el-color-picker v-model="nodeColor" size="mini"></el-color-picker></div>
               </div>
             </div>
             <div data-status="edge-selected" class="pannel" id="edge_detailpannel" style="display: none;">
-              <div class="pannel-title">边</div>
+              <div class="pannel-title">{{$t('router_edge')}}</div>
               <div class="block-container">
-                <div class="p name"> 名称：
+                <div class="p name"> {{$t('common_Name')}}：
                   <!-- <el-input size="mini" v-model.trim="edgeName"></el-input> -->
                    <dict-select style="width:120px;" v-model="edgeName" dictType="WORKFLOW_CONDITION" selectKey="dictCode" clearable ></dict-select>
                 </div>
               </div>
             </div>
             <div data-status="group-selected" class="pannel" id="group_detailpannel" style="display: none;">
-              <div class="pannel-title">组</div>
+              <div class="pannel-title">{{$t('router_group')}}</div>
               <div class="block-container">
-                <div class="p name">名称：<el-input size="mini" v-model="groupName"></el-input></div>
-                  <div class="p color">颜色：<el-color-picker v-model="groupColor" size="mini"></el-color-picker></div>
+                <div class="p name">{{$t('common_Name')}}：<el-input size="mini" v-model="groupName"></el-input></div>
+                  <div class="p color">{{$t('router_colou')}}：<el-color-picker v-model="groupColor" size="mini"></el-color-picker></div>
               </div>
             </div>
             <div data-status="canvas-selected" class="pannel" id="canvas_detailpannel" style="display: none;">
-              <div class="pannel-title">画布</div>
+              <div class="pannel-title">{{$t('router_canva')}}</div>
               <div class="block-container">
-                <el-checkbox v-model="gridCheck">网格对齐</el-checkbox>
+                <el-checkbox v-model="gridCheck">{{$t('router_GridAlig')}}</el-checkbox>
               </div>
             </div>
             <div data-status="multi-selected" class="pannel" id="multi_detailpannel" style="display: block;">
-              <div class="pannel-title">多选</div>
+              <div class="pannel-title">{{$t('router_MultiChoi')}}</div>
               <div class="block-container">
-                <div class="p color"> 颜色：<el-color-picker v-model="multiColor" size="mini" ></el-color-picker></div>
+                <div class="p color"> {{$t('router_colou')}}：<el-color-picker v-model="multiColor" size="mini" ></el-color-picker></div>
               </div>
             </div>
           </div>
         </div>
         <div class="navigator">
-          <span class="pannel-title">导航器</span>
+          <span class="pannel-title">{{$t('router_Navig')}}</span>
           <div class="mini-map" ref="minimap"></div>
         </div>
         <div class="zoom-slider">
@@ -257,7 +257,7 @@ export default {
         })
       } else {
         this.editor.executeCommand('clear')
-        this.$message.warning('操作有误，请先添加或选择路由！')
+        this.$message.warning(this.$t('router_OperaErroPleaAd'))
         this.nodeName = null
       }
     },

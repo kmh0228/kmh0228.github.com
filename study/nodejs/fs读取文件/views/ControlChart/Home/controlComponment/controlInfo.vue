@@ -1,61 +1,61 @@
 <template>
-  <el-form :model="infoDataFrom" ref="infoFrom" label-position="left"  label-width="120px" class="el-row mes-form-rule" :rules="rules" size="mini">
-    <el-form-item label="部门" prop="mPomLineId" :class="elClass">
+  <el-form :model="infoDataFrom" ref="infoFrom" label-position="left"  label-width="180px" class="el-row mes-form-rule" :rules="rules" size="mini">
+    <el-form-item :label="$t('common_Department')" prop="mPomLineId" :class="elClass">
       <el-input  v-model="infoDataFrom.officeName" style="width:100%"  disabled ></el-input>
     </el-form-item>
-    <el-form-item label="量测站/实验室"  :class="otherClass">
+    <el-form-item :label="$t('conChartHome_measLabo')"  :class="otherClass">
      <el-input  v-model="infoDataFrom.stationCode" style="width:100%"  disabled></el-input>
     </el-form-item>
-    <el-form-item label="控制项名称" :class="otherClass">
+    <el-form-item :label="$t('common_ContrName')" :class="otherClass">
       <el-input  v-model="infoDataFrom.itemCode" style="width:100%"  disabled></el-input>
     </el-form-item>
-    <el-form-item label="测量仪器" prop="mPomLineId" :class="elClass">
+    <el-form-item :label="$t('common_MeasuInst')" prop="mPomLineId" :class="elClass">
       <el-input  v-model="infoDataFrom.instrumentName" style="width:100%"  disabled></el-input>
     </el-form-item>
-    <el-form-item label="控制项描述" :class="otherClass">
+    <el-form-item :label="$t('common_ContrDesc')" :class="otherClass">
      <el-input  v-model="infoDataFrom.itemDesc" style="width:100%"  disabled></el-input>
     </el-form-item>
-    <el-form-item label="线别" :class="otherClass">
+    <el-form-item :label="$t('common_Line')" :class="otherClass">
       <el-input  v-model="infoDataFrom.lineCode" style="width:100%"  disabled></el-input>
     </el-form-item>
-    <el-form-item label="料号" prop="mPomLineId" :class="elClass">
+    <el-form-item :label="$t('common_PorN')" prop="mPomLineId" :class="elClass">
       <el-input  v-model="infoDataFrom.materialNo" style="width:100%"  disabled></el-input>
     </el-form-item>
-    <el-form-item label="模穴号/零件位置" :class="otherClass">
+    <el-form-item :label="$t('common_MouldHoleNumb')" :class="otherClass">
      <el-input  v-model="infoDataFrom.moldCavityNo" style="width:100%"  disabled></el-input>
     </el-form-item>
-    <el-form-item label="料号版次" :class="otherClass">
+    <el-form-item :label="$t('common_ItemNoRev')" :class="otherClass">
       <el-input  v-model="infoDataFrom.materialRev" style="width:100%"  disabled></el-input>
     </el-form-item>
-    <el-form-item label="控制图" prop="mPomLineId" :class="elClass">
+    <el-form-item :label="$t('common_ContrChar')" prop="mPomLineId" :class="elClass">
       <el-input  v-model="infoDataFrom.controlChartType" style="width:100%"  disabled></el-input>
     </el-form-item>
-    <el-form-item label="产品系列" :class="otherClass">
+    <el-form-item :label="$t('common_ProduSeries')" :class="otherClass">
      <el-input  v-model="infoDataFrom.materialfamilyCode" style="width:100%"  disabled></el-input>
     </el-form-item>
-    <el-form-item label="控制阶段" :class="otherClass">
+    <el-form-item :label="$t('conChartHome_ContrPhas')" :class="otherClass">
       <el-input  v-model="infoDataFrom.itemStatusName" style="width:100%"  disabled></el-input>
     </el-form-item>
-    <el-form-item label="Cpk目标值" prop="mPomLineId" :class="elClass">
+    <el-form-item label="$t('conChartHome_cpkValue')" prop="mPomLineId" :class="elClass">
       <el-input  v-model="infoDataFrom.cpkTarget" style="width:100%"  disabled></el-input>
     </el-form-item>
-    <el-form-item label="子组容量" :class="otherClass">
+    <el-form-item :label="$t('conChartHome_SubgrCapa')" :class="otherClass">
      <el-input  v-model="infoDataFrom.subgroupSize" style="width:100%"  disabled></el-input>
     </el-form-item>
-    <el-form-item label="子组个数" :class="otherClass">
+    <el-form-item :label="$t('conChartHome_NumbeSubg')" :class="otherClass">
       <el-input  v-model="infoDataFrom.location" style="width:100%"  disabled></el-input>
     </el-form-item>
     <el-form-item label="" prop="mPomLineId" :class="elClass">
-      <el-button v-if="hiddenButton" type="primary" style="width:100%" @click="showAbnormalDialog">异常判定规则</el-button>
+      <el-button v-if="hiddenButton" type="primary" style="width:100%" @click="showAbnormalDialog">{{$t('conChartHome_AbnorJudgRule')}}</el-button>
     </el-form-item>
-    <el-dialog width="800px" title="异常判定规则" :visible.sync="abnormalDialog" append-to-body>
+    <el-dialog width="800px" :title="$t('conChartHome_AbnorJudgRule')" :visible.sync="abnormalDialog" append-to-body>
       <el-row class="mes-main-tabs" :gutter="20" v-if="abnormalDialog">
         <el-col v-for="(item,i) in chartList" :key="i" :span="chartList.length>1?12:24">
           <abnormal-one :chartType="item.chartType" :ref="'chart'+i" v-model="item.exceptionRule"></abnormal-one>
         </el-col>
       </el-row>
       <div style="text-align:center;">
-        <el-button @click="abnormalDialog=false">取消</el-button>
+        <el-button @click="abnormalDialog=false">{{$t('common_cancel')}}</el-button>
       </div>
     </el-dialog>
   </el-form>

@@ -4,15 +4,15 @@
       <el-col :span="24">
         <el-alert type="warning" :closable="false">
           <div class="workstation-head-progress" :class="changeSize">
-            <p>当前工单扫描进度：<span>0/0</span></p>
+            <p>{{$t('dataAcqLogin_CurreWorkOrdeScanProg')}}<span>0/0</span></p>
             <p>SSN Count：<span>0</span></p>
           </div>
         </el-alert>
       </el-col>
     </el-row>
     <station-info :workStationInfo="workStationInfo" workStationCode="login" :isCheck="false"></station-info>
-    <station-logs logName="操作日志" ref="logs"></station-logs>
-    <scan-input scanType="工站代码" @scan-code="scaStationCode"></scan-input>
+    <station-logs :logName="$t('common_OperaLog')" ref="logs"></station-logs>
+    <scan-input :scanType="$t('common_StationCode')" @scan-code="scaStationCode"></scan-input>
   </div>
 </template>
 
@@ -57,27 +57,27 @@ export default {
       await this.$store.dispatch('workStation/getWorkStationInfo', { lineStationCode })
       let stationType = this.workStationType
       switch (stationType) {
-        case '组装':
+        case this.$t('dataAcqLogin_assem'):
           sessionStorage.assembleCode = lineStationCode
           this.$router.push('/WorkStation/Assemble')
           break
-        case '测试':
+        case this.$t('dataAcqLogin_test'):
           sessionStorage.testCode = lineStationCode
           this.$router.push('/WorkStation/Test')
           break
-        case '包装':
+        case this.$t('dataAcqLogin_packi'):
           sessionStorage.packCode = lineStationCode
           this.$router.push('/WorkStation/Pack')
           break
-        case '上栈板':
+        case this.$t('dataAcqLogin_UpperPlan'):
           sessionStorage.storageCode = lineStationCode
           this.$router.push('/WorkStation/Storage')
           break
-        case '维修':
+        case this.$t('dataAcqLogin_repai'):
           sessionStorage.repairCode = lineStationCode
           this.$router.push('/WorkStation/Repair')
           break
-        case '出货':
+        case this.$t('dataAcqLogin_Shipm'):
           sessionStorage.shipoutCode = lineStationCode
           this.$router.push('/WorkStation/Shipout')
           break

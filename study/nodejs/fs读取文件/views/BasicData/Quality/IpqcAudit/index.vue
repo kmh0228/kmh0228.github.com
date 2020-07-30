@@ -1,6 +1,6 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">IPQC稽核</h3>
+    <h3 class="mes-main-title">{{$t('ipqcAudit_audit')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
         <dict-select  v-model="searchForm.status" dictType="QMS_CHECK_NO_STATUS"  style="width:35%" selectKey="dictCode" @change="initData"></dict-select>
@@ -9,21 +9,21 @@
         <el-button size="mini" style="float:right;margin-left:10px;" @click="showMoreConditon = !showMoreConditon">
             <i class="fa fa-filter"></i>
         </el-button>
-        <el-input  size="mini" style="width:35%;float:right" clearable placeholder="请输入关键词" v-model="searchForm.keywords" @keydown.enter.native="initData"></el-input>
+        <el-input  size="mini" style="width:35%;float:right" clearable :placeholder="$t('common_PleasEnteKeyWor')" v-model="searchForm.keywords" @keydown.enter.native="initData"></el-input>
       </el-col>
       <el-col :span="24"   style="padding-top:1vh;">
         <el-form class="el-row mes-search-form" :model="searchForm" label-width="30%" label-position="left" v-show="showMoreConditon">
-          <el-form-item label="检验日期：" class="el-col el-col-11 ">
-            <el-date-picker style="width:100%"  v-model="timeValueArray"  type="daterange"   start-placeholder="开始日期" end-placeholder="结束日期"  value-format="yyyy-MM-dd" >
+          <el-form-item :label="$t('ipqcAudit_InspeDate')" class="el-col el-col-11 ">
+            <el-date-picker style="width:100%"  v-model="timeValueArray"  type="daterange"   start-:placeholder="$t('common_StartDate')" end-:placeholder="$t('common_EndDate')"  value-format="yyyy-MM-dd" >
             </el-date-picker>
           </el-form-item>
-          <el-form-item label="产品系列" class="el-col el-col-11 el-col-offset-1">
-            <el-select style="width:100%" size="mini" clearable placeholder="请选择产品系列"  v-model="searchForm.model" >
+          <el-form-item :label="$t('common_ProduSeries')" class="el-col el-col-11 el-col-offset-1">
+            <el-select style="width:100%" size="mini" clearable :placeholder="$t('common_PleasSeleProdSe')"  v-model="searchForm.model" >
               <el-option v-for="(option,i) in modelList" :key="i" :label="option.mComMaterialfamilyCode" :value="option.mComMaterialfamilyId"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="线别" class="el-col el-col-11 ">
-            <el-select style="width:100%" size="mini" clearable placeholder="请选择线别"  v-model="searchForm.mPomLineId">
+          <el-form-item :label="$t('common_Line')" class="el-col el-col-11 ">
+            <el-select style="width:100%" size="mini" clearable :placeholder="$t('common_PleasSeleLineTy')"  v-model="searchForm.mPomLineId">
               <el-option v-for="(option,i) in lineList" :key="i" :label="option.lineName" :value="option.mPomLineId"></el-option>
             </el-select>
           </el-form-item>
@@ -33,13 +33,13 @@
     <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="12">
-          <el-button size="mini" icon="el-icon-search" @click="initData">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="initData">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-plus" @click="handleIpqcAudit('')" >新增</el-button>
+          <el-button size="mini" icon="el-icon-plus" @click="handleIpqcAudit('')" >{{$t('common_Add')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteMainAndDetail('')">批量删除</el-button>
+          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteMainAndDetail('')">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh" @click="refreshData">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh" @click="refreshData">{{$t('common_Refresh')}}</el-button>
         </el-col>
         <el-col :span="12">
           <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -51,56 +51,56 @@
       <div class="mes-table-content">
         <el-table :data="tableData" border size="mini" highlight-current-row @cell-click="cellClick" @selection-change="tableChange">
           <el-table-column type="selection" width="50" fixed="left"></el-table-column>
-          <el-table-column type="index" label="序号" align="center" :index="indexMethod" fixed="left"></el-table-column>
-          <el-table-column prop="batchNo" label="批号" align="center" sortable></el-table-column>
-          <el-table-column prop="modelCode" label="产品系列" align="center" sortable></el-table-column>
-          <el-table-column prop="productionUnitCode" label="生产部门" align="center" sortable></el-table-column>
-          <el-table-column prop="inspectDate" label="稽核日期" align="center" sortable></el-table-column>
-          <el-table-column prop="location" label="位置" align="center" sortable></el-table-column>
-          <el-table-column prop="lineCode" label="线别" align="center" sortable></el-table-column>
-          <el-table-column prop="statusName" label="状态" align="center" sortable></el-table-column>
-          <el-table-column label="操作" align="center" width="120" fixed="right">
+          <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod" fixed="left"></el-table-column>
+          <el-table-column prop="batchNo" :label="$t('common_BatchNumb')" align="center" sortable></el-table-column>
+          <el-table-column prop="modelCode" :label="$t('common_ProduSeries')" align="center" sortable></el-table-column>
+          <el-table-column prop="productionUnitCode" :label="$t('ipqcAudit_ProduDepa')" align="center" sortable></el-table-column>
+          <el-table-column prop="inspectDate" :label="$t('common_AuditDate')" align="center" sortable></el-table-column>
+          <el-table-column prop="location" :label="$t('common_posit')" align="center" sortable></el-table-column>
+          <el-table-column prop="lineCode" :label="$t('common_Line')" align="center" sortable></el-table-column>
+          <el-table-column prop="statusName" :label="$t('common_Status')" align="center" sortable></el-table-column>
+          <el-table-column :label="$t('common_Operate')" align="center" width="120" fixed="right">
             <template slot-scope="scope">
-              <handle-button iconClass="el-icon-edit-outline" @click="handleIpqcAudit(scope.row)" tipText="编辑"></handle-button>
-              <handle-button iconClass="el-icon-delete" @click="deleteMainAndDetail(scope.row.tqomIpqcauditMainId)" tipText="删除" iconColor='#f56c6c'></handle-button>
+              <handle-button iconClass="el-icon-edit-outline" @click="handleIpqcAudit(scope.row)" :placeholder="$t('common_Edit')"></handle-button>
+              <handle-button iconClass="el-icon-delete" @click="deleteMainAndDetail(scope.row.tqomIpqcauditMainId)" :placeholder="$t('common_Del')" iconColor='#f56c6c'></handle-button>
             </template>
           </el-table-column>
         </el-table>
       </div>
       <div class="mes-main-tabs" v-if="showTabs" style="margin-top:10px">
           <el-tabs v-model="activeName">
-          <el-tab-pane label="基本资料" name="infoName">
+          <el-tab-pane :label="$t('common_BasicInfo')" name="infoName">
             <el-form :model="infoForm"  label-width="120px" label-position="left" class="el-row mes-form-rule">
-                <el-form-item label="产品系列" class="el-col el-col-7">
+                <el-form-item :label="$t('common_ProduSeries')" class="el-col el-col-7">
                   <p>{{ infoForm.modelCode }}</p>
                 </el-form-item>
-                <el-form-item label="生产单位" class="el-col el-col-7 el-col-offset-1">
+                <el-form-item :label="$t('common_ProduUnit')" class="el-col el-col-7 el-col-offset-1">
                   <p>{{ infoForm.productionUnitCode }}</p>
                 </el-form-item>
-                <el-form-item label="线别" class="el-col el-col-7 el-col-offset-1">
+                <el-form-item :label="$t('common_Line')" class="el-col el-col-7 el-col-offset-1">
                   <p>{{ infoForm.lineCode }}</p>
                 </el-form-item>
-                <el-form-item label="位置" class="el-col el-col-7 ">
+                <el-form-item :label="$t('common_posit')" class="el-col el-col-7 ">
                   <p>{{ infoForm.location }}</p>
                 </el-form-item>
-                <el-form-item label="班别" class="el-col el-col-7 el-col-offset-1">
+                <el-form-item :label="$t('common_Shift')" class="el-col el-col-7 el-col-offset-1">
                   <p>{{ infoForm.shiftName }}</p>
                 </el-form-item>
-                <el-form-item label="稽核日期" class="el-col el-col-7 el-col-offset-1">
+                <el-form-item :label="$t('common_AuditDate')" class="el-col el-col-7 el-col-offset-1">
                   <p>{{ infoForm.inspectDate }}</p>
                 </el-form-item>
-                <!-- <el-form-item label="稽核人" class="el-col el-col-7 ">
+                <!-- <el-form-item :label="$t('ipqcAudit_Audit')" class="el-col el-col-7 ">
                   <p>{{ infoForm.material }}</p>
                 </el-form-item> -->
             </el-form>
           </el-tab-pane>
-            <el-tab-pane label="检验记录" name="checkRecord">
+            <el-tab-pane :label="$t('common_InspeRecord')" name="checkRecord">
               <el-table :data="checkData" border>
-                <el-table-column type="index" label="序号"></el-table-column>
-                <el-table-column prop="inspectItem" label="稽核项目" align="center"></el-table-column>
-                <el-table-column prop="inspectContent" label="稽核内容" align="center"></el-table-column>
-                <el-table-column prop="" label="图片" align="center"></el-table-column>
-                <el-table-column prop="inspectResult" label="判定结果" align="center"></el-table-column>
+                <el-table-column type="index" :label="$t('common_Number')"></el-table-column>
+                <el-table-column prop="inspectItem" :label="$t('common_AuditItem')" align="center"></el-table-column>
+                <el-table-column prop="inspectContent" :label="$t('common_AuditCont')" align="center"></el-table-column>
+                <el-table-column prop="" :label="$t('ipqcAudit_pictu')" align="center"></el-table-column>
+                <el-table-column prop="inspectResult" :label="$t('common_JudgmResu')" align="center"></el-table-column>
               </el-table>
           </el-tab-pane>
           </el-tabs>
@@ -228,7 +228,7 @@ export default {
       const ids = id ? [id] : this.IpqcauditMainIdList
       const len = ids.length
       if (len > 0) {
-        let confirm = await this.$myPrompt.confirm('确定删除所选择的IPQC稽核信息吗？')
+        let confirm = await this.$myPrompt.confirm(this.$t('ipqcAudit_AreYouSureDeleSeleI'))
         if (confirm) {
           let res = await this.$api.deleteMainAndDetail(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -239,7 +239,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请选择要删除的IPQC稽核信息')
+        this.$message.warning(this.$t('ipqcAudit_selecDeleIPQC'))
       }
     }
   },

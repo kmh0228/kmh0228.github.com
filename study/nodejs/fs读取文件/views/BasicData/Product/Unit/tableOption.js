@@ -1,4 +1,4 @@
-export let tableOption = (This) => {
+export let tableOption = This => {
   return {
     style: {
       width: '100%'
@@ -6,34 +6,36 @@ export let tableOption = (This) => {
     highlightCurrentRow: true,
     tableTitle: [
       {
-        title: '编码',
+        title: 'common_code',
         prop: 'uomCode'
       },
       {
-        title: '名称',
+        title: 'common_Name',
         prop: 'uomName'
       },
       {
-        title: '类型',
+        title: 'common_type',
         prop: 'uomCategoryName'
       },
       {
-        title: '精度',
+        title: 'unit_accur',
         prop: 'standardPrecision'
       },
       {
-        title: '创建时间',
+        title: 'common_CreateTime',
         prop: 'createdDt',
-        replaceFun: (row) => {
-          return row.createdDt ? This.$dayjs(row.createdDt).format('YYYY-MM-DD HH:mm:ss') : ''
+        replaceFun: row => {
+          return row.createdDt
+            ? This.$dayjs(row.createdDt).format('YYYY-MM-DD HH:mm:ss')
+            : ''
         }
       },
       {
-        title: '创建人',
+        title: 'common_Creator',
         prop: 'creatorName'
       },
       {
-        title: '操作',
+        title: 'common_Operate',
         prop: 'operation',
         fixed: 'right',
         width: '120',
@@ -41,7 +43,7 @@ export let tableOption = (This) => {
         buttonArr: [
           {
             iconClass: 'el-icon-edit-outline',
-            text: '编辑',
+            text: 'common_Edit',
             operationClick (row) {
               This.addForm = {
                 ...row
@@ -52,7 +54,7 @@ export let tableOption = (This) => {
           {
             iconClass: 'el-icon-delete',
             iconColor: '#f56c6c',
-            text: '删除',
+            text: 'common_Del',
             operationClick (row) {
               This.deletetableData([row.mComUomId])
             }

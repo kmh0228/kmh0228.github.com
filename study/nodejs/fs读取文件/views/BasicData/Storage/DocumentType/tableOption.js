@@ -1,4 +1,4 @@
-export let tableOption = (This) => {
+export let tableOption = This => {
   return {
     style: {
       width: '100%'
@@ -7,34 +7,34 @@ export let tableOption = (This) => {
     selection: false,
     tableTitle: [
       {
-        title: '编码',
+        title: 'common_code',
         prop: 'code'
       },
       {
-        title: '名称',
+        title: 'common_Name',
         prop: 'name'
       },
       {
-        title: '描述',
+        title: 'common_Description',
         prop: 'description'
       },
       {
-        title: '状态',
+        title: 'common_Status',
         prop: 'isInvalid',
-        replaceFun: (row) => {
+        replaceFun: row => {
           return { '0': '无效', '1': '有效' }[row.isInvalid]
         }
       },
       {
-        title: '交易方向',
+        title: 'documentType_TradiDire',
         prop: 'transactionDirection'
       },
       {
-        title: '创建时间',
+        title: 'common_CreateTime',
         prop: 'createdDt'
       },
       {
-        title: '修改人',
+        title: 'common_ModifBy',
         prop: 'lastEditor'
       }
     ],

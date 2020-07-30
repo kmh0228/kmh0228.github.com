@@ -1,22 +1,22 @@
 <template>
   <div class="mes-main mes-work-order mes-material">
-    <h3 class="mes-main-title">编码规则管理</h3>
+    <h3 class="mes-main-title">{{$t('dictionary_encodingRules')}}</h3>
     <el-form label-position="left">
       <el-form-item>
-        <el-input v-model="mSeqName" size="mini" placeholder="编码名称" style="width:12vw;" @keydown.native.enter="searchCodingRules">
+        <el-input v-model="mSeqName" size="mini" :placeholder="$t('CodingRule_Name')" style="width:12vw;" @keydown.native.enter="searchCodingRules">
           <i slot="suffix" class="el-input__icon" @click="searchCodingRules"></i>
         </el-input>
       </el-form-item>
     </el-form>
     <div class="mes-material-handle mes-table-handle">
       <div class="mes-btn-group">
-        <el-button size="mini" icon="el-icon-search" @click="searchCodingRules">查询</el-button>
+        <el-button size="mini" icon="el-icon-search" @click="searchCodingRules">{{$t('common_Inquire')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-plus" @click="handlePage('')">新增</el-button>
+        <el-button size="mini" icon="el-icon-plus" @click="handlePage('')">{{$t('common_Add')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-delete-solid" @click="delCodingRule('')">批量删除</el-button>
+        <el-button size="mini" icon="el-icon-delete-solid" @click="delCodingRule('')">{{$t('common_Delete')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-refresh" @click="getCodingRules">刷新</el-button>
+        <el-button size="mini" icon="el-icon-refresh" @click="getCodingRules">{{$t('common_Refresh')}}</el-button>
       </div>
       <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
         layout="total,sizes, prev, pager, next, jumper, ->" :total="total"
@@ -26,13 +26,13 @@
     <div class="mes-table">
       <el-table :data="codingData" border highlight-current-row size="mini" @selection-change="selectRule">
         <el-table-column type="selection" width="50" align="center"></el-table-column>
-          <el-table-column type="index" label="序号" align="center" :index="indexMethod" fixed="left"></el-table-column>
-          <el-table-column prop="mSeqName" sortable label="编码名称" align="center"></el-table-column>
-          <el-table-column prop="seqNoFormat" sortable label="编码规则" :formatter="formatterRule" align="center"></el-table-column>
-          <el-table-column prop="description" sortable label="描述" align="center"></el-table-column>
-          <el-table-column prop="resetType" sortable label="重置类型" align="center"></el-table-column>
-          <el-table-column prop="lastEditedDt" sortable label="最后编辑时间" align="center" show-overflow-tooltip></el-table-column>
-          <el-table-column label="操作" align="center" fixed="right">
+          <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod" fixed="left"></el-table-column>
+          <el-table-column prop="mSeqName" sortable :label="$t('CodingRule_Name')" align="center"></el-table-column>
+          <el-table-column prop="seqNoFormat" sortable :label="$t('CodingRule_Rule')" :formatter="formatterRule" align="center"></el-table-column>
+          <el-table-column prop="description" sortable :label="$t('common_Description')" align="center"></el-table-column>
+          <el-table-column prop="resetType" sortable :label="$t('CodingRule_ResetType')" align="center"></el-table-column>
+          <el-table-column prop="lastEditedDt" sortable :label="$t('common_Lastedittime')" align="center" show-overflow-tooltip></el-table-column>
+          <el-table-column :label="$t('common_Operate')" align="center" fixed="right">
             <template slot-scope="scope">
               <i class="el-icon-edit-outline mes-table-handle-icon" @click="handlePage(scope.row.mSeqId)"></i>
               <i class="el-icon-delete mes-table-handle-icon"  style="color:#F56C6C" @click="delCodingRule(scope.row.mSeqId)"></i>
@@ -117,8 +117,8 @@ export default {
       let ids = id ? [id] : this.selectedList
       let len = ids.length
       if (ids.length > 0) {
-        let text = id ? '当前' : '选中'
-        let confirmRes = await this.$myPrompt.confirm(`确定删除${text}的编码规则吗？`)
+        let text = id ? this.$t('CodingRule_deleteRules') : this.$t('CodingRule_selectedRules')
+        let confirmRes = await this.$myPrompt.confirm(text)
         if (confirmRes) {
           let res = await this.$api.delCodingRules(ids)
           if ((this.total - len) % this.page.pageSize === 0) {
@@ -128,7 +128,7 @@ export default {
           this.$message.success(res.msg)
         }
       } else {
-        this.$message.warning('请选择需要删除的编码规则！')
+        this.$message.warning(this.$t('CodingRule_selected'))
       }
     }
   },

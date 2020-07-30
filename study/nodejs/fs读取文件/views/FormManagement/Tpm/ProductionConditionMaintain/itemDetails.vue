@@ -1,18 +1,18 @@
 <template>
   <div v-loading="loading">
     <div class="buttonBox">
-       <el-button size="mini" icon="el-icon-edit" @click="isEdit = true" v-if="!isEdit">编辑</el-button>
-        <el-button size="mini" icon="el-icon-plus" @click="addTable" v-if="isEdit">新增行</el-button>
+       <el-button size="mini" icon="el-icon-edit" @click="isEdit = true" v-if="!isEdit">{{$t('common_Edit')}}</el-button>
+        <el-button size="mini" icon="el-icon-plus" @click="addTable" v-if="isEdit">{{$t('productCondM_NewLine')}}</el-button>
         <span class="split-line" v-if="isEdit">|</span>
-         <el-button size="mini" v-if="isEdit" :loading="saveLoading"  @click="saveTable">保存</el-button>
+         <el-button size="mini" v-if="isEdit" :loading="saveLoading"  @click="saveTable">{{$t('common_save')}}</el-button>
         <span class="split-line" v-if="isEdit">|</span>
-        <el-button size="mini" icon="el-icon-delete-solid" v-if="isEdit" @click="deletetableData(selectIds)">批量删除</el-button>
+        <el-button size="mini" icon="el-icon-delete-solid" v-if="isEdit" @click="deletetableData(selectIds)">{{$t('common_Delete')}}</el-button>
     </div>
     <div class="tableBox" style="margin-top:10px">
        <el-table :data="tableData" style="width: 100%"  border @selection-change="selectionChange">
         <el-table-column type="selection" width="50" fixed="left"></el-table-column>
-        <el-table-column type="index"  width="60" label="序号" align="center" :index="1" fixed="left"></el-table-column>
-        <el-table-column  prop="conditionItem" label="设定项目" sortable align="center">
+        <el-table-column type="index"  width="60" :label="$t('common_Number')" align="center" :index="1" fixed="left"></el-table-column>
+        <el-table-column  prop="conditionItem" :label="$t('productCondM_SetProj')" sortable align="center">
           <template slot-scope="scope">
             <el-input v-model="scope.row.conditionItem" v-if="isEdit"></el-input>
             <span  v-else >
@@ -20,7 +20,7 @@
             </span>
             </template>
         </el-table-column>
-        <el-table-column prop="conditionItemEng" label="英文名" sortable align="center">
+        <el-table-column prop="conditionItemEng" :label="$t('productCondM_EngliName')" sortable align="center">
           <template slot-scope="scope">
             <el-input v-model="scope.row.conditionItemEng" v-if="isEdit"></el-input>
             <span  v-else >
@@ -28,7 +28,7 @@
             </span>
             </template>
         </el-table-column>
-        <el-table-column prop="setUnit" label="单位" sortable align="center">
+        <el-table-column prop="setUnit" :label="$t('common_Unit')" sortable align="center">
           <template slot-scope="scope">
             <el-input v-model="scope.row.setUnit" v-if="isEdit"></el-input>
             <span  v-else >
@@ -36,7 +36,7 @@
             </span>
             </template>
         </el-table-column>
-        <el-table-column prop="setValue" label="设定值" sortable align="center">
+        <el-table-column prop="setValue" :label="$t('productCondM_SettiValu')" sortable align="center">
           <template slot-scope="scope">
             <el-input v-model="scope.row.setValue" v-if="isEdit"></el-input>
             <span  v-else >
@@ -44,7 +44,7 @@
             </span>
             </template>
         </el-table-column>
-        <el-table-column prop="upperDeviation" label="上公差" sortable align="center">
+        <el-table-column prop="upperDeviation" :label="$t('productCondM_UpperTole')" sortable align="center">
           <template slot-scope="scope">
             <el-input v-model="scope.row.upperDeviation" v-if="isEdit"></el-input>
             <span  v-else >
@@ -52,7 +52,7 @@
             </span>
             </template>
         </el-table-column>
-         <el-table-column prop="lowerDeviation" label="下公差" sortable align="center">
+         <el-table-column prop="lowerDeviation" :label="$t('productCondM_LowerTole')" sortable align="center">
           <template slot-scope="scope">
             <el-input v-model="scope.row.lowerDeviation" v-if="isEdit"></el-input>
             <span  v-else >
@@ -60,7 +60,7 @@
             </span>
             </template>
         </el-table-column>
-         <el-table-column prop="recordDescD" label="备注" sortable align="center">
+         <el-table-column prop="recordDescD" :label="$t('common_remarks')" sortable align="center">
           <template slot-scope="scope">
             <el-input v-model="scope.row.recordDescD" v-if="isEdit"></el-input>
             <span  v-else >
@@ -142,7 +142,7 @@ export default {
       this.saveLoading = true
       let res = await this.$api.saveConditionRecordDetailList({ mmomEqpConditionrecordId: this.mmomEqpConditionrecordId, conditionRecordDetailList: this.tableData })
       if (res.code === '200') {
-        this.$message.success('保存成功！')
+        this.$message.success(this.$t('productCondM_SaveSucc'))
         this.isEdit = false
         this.saveLoading = false
         this.getDetailList(this.mmomEqpConditionrecordId)

@@ -36,7 +36,7 @@ export default {
           }
         }
       })
-      let ydata = this.id === 'deviceTrobleNumber' ? '单位/次' : '单位/分钟'
+      let ydata = this.id === 'deviceTrobleNumber' ? this.$t('common_Unit') + '/' + this.$t('anomalyAna_secon') : this.$t('common_Unit') + '/' + this.$t('anomalyAna_minut')
       return {
         title: {
           text: this.barTitle,

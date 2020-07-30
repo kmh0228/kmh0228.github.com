@@ -1,20 +1,20 @@
 <template>
    <div class="mes-main mes-main-common">
     <div class="main-common-head" >
-      <el-button type="primary" plain size="mini"  @click="saveData">保存</el-button>
-      <el-button type="primary" plain size="mini" @click="$router.replace('/Aps/Calendar')">关闭</el-button>
+      <el-button type="primary" plain size="mini"  @click="saveData">{{$t('common_save')}}</el-button>
+      <el-button type="primary" plain size="mini" @click="$router.replace('/Aps/Calendar')">{{$t('common_close')}}</el-button>
     </div>
     <div class="mes-main mes-work-order ">
-     <h3 class="mes-main-title">基本资料</h3>
+     <h3 class="mes-main-title">{{$t('common_BasicInfo')}}</h3>
         <el-row :gutter="20" class="mes-main-filte">
         <el-col :span="12">
-          <el-date-picker   type="daterange" v-model="dateList"  range-separator="至"  start-placeholder="开始日期"  end-placeholder="结束日期" value-format="yyyy-MM-dd"></el-date-picker>
+          <el-date-picker   type="daterange" v-model="dateList"  :range-separator="$t('common_to')"  start-:placeholder="$t('common_StartDate')"  end-:placeholder="$t('common_EndDate')" value-format="yyyy-MM-dd"></el-date-picker>
         </el-col>
          <el-col :span="12" >
            <div style="font-size:25px;float:right;margin:0 1vw">
              <i style="cursor:pointer" class="el-icon-edit-outline" @click="dialogVisible = true"></i>
            </div>
-           <el-select v-model="onTemplate" style="width:40%;float:right" clearable placeholder="选中是修改，不选中是新增" @change="ssss">
+           <el-select v-model="onTemplate" style="width:40%;float:right" clearable :placeholder="$t('calendar_SelecModiNotAdd')" @change="ssss">
              <el-option v-for="(option,i) in templateList" :key="i" :label="option" :value="option"></el-option>
            </el-select>
         </el-col>
@@ -22,19 +22,19 @@
       <div class="mes-table">
         <el-row class="mes-table-handle">
           <el-col :span="12">
-            <el-button>清空</el-button>
+            <el-button>{{$t('calendar_empty')}}</el-button>
           </el-col>
         </el-row>
         <table-component  ref="tableComponent"></table-component>
       </div>
       <div  class="checkBox_css">
-        <el-checkbox style="float:left"  v-model="checkAll" @change="handleCheckAllChange">每天</el-checkbox>
+        <el-checkbox style="float:left"  v-model="checkAll" @change="handleCheckAllChange">{{$t('calendar_EveryDay')}}</el-checkbox>
         <el-checkbox-group style="float:left;margin-left:1vw" v-model="checkboxGroup">
           <el-checkbox :disabled="checkAll" v-for="day in dayList" :label="day" :key="day">{{day}}</el-checkbox>
         </el-checkbox-group>
       </div>
       <div class="transfer">
-         <el-transfer  v-model="value"   :data="allResourceData"  :props="{key:'mPsmResourceId',label:'resourceCode'}" :titles="['资源列表', '被选中的资源列表']"></el-transfer>
+         <el-transfer  v-model="value"   :data="allResourceData"  :props="{key:'mPsmResourceId',label:'resourceCode'}" :titles="[this.$t('calendar_resouList'), this.$t('calendar_ListSeleReso')]"></el-transfer>
       </div>
       <el-dialog :visible.sync="dialogVisible" :title="dialogTitle" width="45vw" class="handle-dialog" >
         <dialog-from v-if="dialogVisible" @cannel="cannel" :onTemplate="onTemplate" @getAllTemplate="getAllTemplate" @getDeleteAfterTemplate="getDeleteAfterTemplate"></dialog-from>
@@ -54,8 +54,8 @@ export default {
       onTemplate: '',
       templateList: [],
       dialogVisible: false,
-      dayList: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
-      checkboxGroup: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+      dayList: [this.$t('calendar_Monda'), this.$t('calendar_Tuesd'), this.$t('calendar_Wedne'), this.$t('calendar_Thurs'), this.$t('calendar_Frida'), this.$t('calendar_Satur'), this.$t('calendar_Sunda')],
+      checkboxGroup: [this.$t('calendar_Monda'), this.$t('calendar_Tuesd'), this.$t('calendar_Wedne'), this.$t('calendar_Thurs'), this.$t('calendar_Frida'), this.$t('calendar_Satur'), this.$t('calendar_Sunda')],
       checkAll: true,
       dayStatus: {
         mon: true,
@@ -72,7 +72,7 @@ export default {
   },
   computed: {
     dialogTitle () {
-      return this.onTemplate ? '编辑选中的日历模板' : '新增日历模板'
+      return this.onTemplate ? this.$t('calendar_EditSeleCaleTemp') : this.$t('calendar_NewCaleTemp')
     }
   },
   methods: {
@@ -102,7 +102,7 @@ export default {
     async  saveData () {
       if (this.$refs.tableComponent.isNumber) {
         if (this.$refs.tableComponent.workTime + this.$refs.tableComponent.noWorkTime > 24) {
-          this.$message('每天只有24小时，请注意分配时间')
+          this.$message(this.$t('calendar_HoursPayAtteAlloTime'))
         } else {
           let { dayStatus, checkboxGroup, value } = this
           for (let i in dayStatus) {
@@ -110,19 +110,19 @@ export default {
           }
           let arr = checkboxGroup
           arr.forEach(item => {
-            if (item === '周一') {
+            if (item === this.$t('calendar_Monda')) {
               dayStatus.mon = true
-            } else if (item === '周二') {
+            } else if (item === this.$t('calendar_Tuesd')) {
               dayStatus.tues = true
-            } else if (item === '周三') {
+            } else if (item === this.$t('calendar_Wedne')) {
               dayStatus.wed = true
-            } else if (item === '周四') {
+            } else if (item === this.$t('calendar_Thurs')) {
               dayStatus.thur = true
-            } else if (item === '周五') {
+            } else if (item === this.$t('calendar_Frida')) {
               dayStatus.fri = true
-            } else if (item === '周六') {
+            } else if (item === this.$t('calendar_Satur')) {
               dayStatus.sat = true
-            } else if (item === '周日') {
+            } else if (item === this.$t('calendar_Sunda')) {
               dayStatus.sun = true
             }
           })
@@ -137,7 +137,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请处理错误时间')
+        this.$message.warning(this.$t('calendar_handlErroTime'))
       }
     },
     // 获取资源列表

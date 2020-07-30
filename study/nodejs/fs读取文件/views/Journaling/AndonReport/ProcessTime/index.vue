@@ -1,25 +1,25 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">响应处理时间报表</h3>
+    <h3 class="mes-main-title">{{$t('processTime_RespoProcTimeRepo')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
         <cascader-select v-model="searchForm.factoryCode" style="width:35%" ></cascader-select>
-        <el-button size="mini" icon="el-icon-search" @click="getTimeData">查询</el-button>
+        <el-button size="mini" icon="el-icon-search" @click="getTimeData">{{$t('common_Inquire')}}</el-button>
       </el-col>
       <el-col :span="12">
         <el-button size="mini" style="float:right;margin-left:10px;" @click="showMore = !showMore">
           <i class="fa fa-filter"></i>
         </el-button>
-        <el-select style="float:right;width:35%" size="mini" clearable placeholder="请选择线别"  v-model="searchForm.lineId">
+        <el-select style="float:right;width:35%" size="mini" clearable :placeholder="$t('common_PleasSeleLineTy')"  v-model="searchForm.lineId">
           <el-option v-for="(option,i) in lineList" :key="i" :label="option.lineName" :value="option.mPomLineId"></el-option>
         </el-select>
       </el-col>
       <el-col :span="24" style="padding-top:1vh;" v-show="showMore">
         <el-form class="el-row mes-search-form" :model="searchForm" label-width="30%" label-position="left">
-          <el-form-item label="故障起始时间"  class="el-col el-col-11">
-            <el-date-picker  v-model="dateList"  type="daterange"  range-separator="至"  start-placeholder="开始日期"  end-placeholder="结束日期" style="width:100%" value-format="yyyy-MM-dd 00:00:00"></el-date-picker>
+          <el-form-item :label="$t('processTime_FaultStarTime')"  class="el-col el-col-11">
+            <el-date-picker  v-model="dateList"  type="daterange"  range-separator="至"  start-:placeholder="$t('common_StartDate')"  end-:placeholder="$t('common_EndDate')" style="width:100%" value-format="yyyy-MM-dd 00:00:00"></el-date-picker>
           </el-form-item>
-          <el-form-item label="报警类型 :" class="el-col el-col-11 el-col-offset-2" >
+          <el-form-item :label="$t('processTime_AlarmType') + ' :'" class="el-col el-col-11 el-col-offset-2" >
             <el-select style="width:100%" v-model="searchForm.mAlmTypeId" @focus="getAlarmType">
               <el-option v-for="(option,i) in alarmList" :key="i" :label="option.typeName" :value="option.typeCode"></el-option>
             </el-select>
@@ -29,22 +29,22 @@
     </el-row>
     <el-row>
       <el-col :span="8" style="height:35vh;padding:1vh 1.5vw">
-        <pie-echart id="reponseRate" pieTitle="响应时间超时率" :pieData="reponseRateData" :legendData="reponseLegendData"></pie-echart>
+        <pie-echart id="reponseRate" :pieTitle="$t('processTime_RespoTimeTimeRate')" :pieData="reponseRateData" :legendData="reponseLegendData"></pie-echart>
       </el-col>
       <el-col :span="8" style="height:35vh;padding:1vh 1.5vw">
-        <line-echart id="reponseNoOvertimeCount" lineTitle="响应平均时间趋势" :lineData="reponseNoOvertimeCountList"></line-echart>
+        <line-echart id="reponseNoOvertimeCount" :lineTitle="$t('processTime_RespoAverTimeTren')" :lineData="reponseNoOvertimeCountList"></line-echart>
       </el-col>
       <el-col :span="8" style="height:35vh;padding:1vh 1.5vw">
-        <bar-echart id="alarmQuestionTop" barTitle="报警问题TOP5" :barData="alarmProblemTopList"></bar-echart>
+        <bar-echart id="alarmQuestionTop" :barTitle="$t('common_AlarmProb') + ' TOP5'" :barData="alarmProblemTopList"></bar-echart>
       </el-col>
       <el-col :span="8" style="height:35vh;padding:1vh 1.5vw">
-        <pie-echart id="processRateRate" pieTitle="处理时间超时率" :pieData="processRateData" :legendData="processLegendData"></pie-echart>
+        <pie-echart id="processRateRate" :pieTitle="$t('processTime_TimeoRateProc')" :pieData="processRateData" :legendData="processLegendData"></pie-echart>
       </el-col>
       <el-col :span="8" style="height:35vh;padding:1vh 1.5vw">
-        <line-echart id="processNoOvertimeCount" lineTitle="处理平均时间趋势"  :lineData="processNoOvertimeCountList"></line-echart>
+        <line-echart id="processNoOvertimeCount" :lineTitle="$t('processTime_TrendAverProcTime')"  :lineData="processNoOvertimeCountList"></line-echart>
       </el-col>
       <el-col :span="8" style="height:35vh;padding:1vh 1.5vw">
-        <bar-echart id="alarmTimeTop" barTitle="报警处理时间TOP5" :barData="alarmProcessTimeTop"></bar-echart>
+        <bar-echart id="alarmTimeTop" :barTitle="$t('processTime_AlarmProcTime') + ' TOP5'" :barData="alarmProcessTimeTop"></bar-echart>
       </el-col>
 
     </el-row>
@@ -71,8 +71,8 @@ export default {
       dateList: [],
       reponseRateData: [],
       processRateData: [],
-      reponseLegendData: ['响应时间超时数量', '响应时间未超时数量'],
-      processLegendData: ['处理时间超时数量', '处理时间未超时数量'],
+      reponseLegendData: [this.$t('processTime_NumbeRespTimeTime'), this.$t('processTime_NumbeRespTimeTimeOut')],
+      processLegendData: [this.$t('processTime_NumbeProcTimeOuts'), this.$t('processTime_NumbeProcTimeTimeOut')],
       reponseNoOvertimeCountList: [],
       processNoOvertimeCountList: [],
       alarmProblemTopList: [],
@@ -122,7 +122,7 @@ export default {
           this.alarmList = []
         }
       } else {
-        this.$message.warning('请先选择工厂')
+        this.$message.warning(this.$t('processTime_selecFactFirs'))
       }
     }
   },

@@ -1,18 +1,18 @@
 <template>
   <div class="" v-loading="loading">
     <div class="buttonBox">
-       <el-button size="mini" icon="el-icon-edit" @click="isEdit = true" v-if="!isEdit">编辑</el-button>
-        <el-button size="mini" icon="el-icon-plus" @click="addTable" v-if="isEdit">新增行</el-button>
+       <el-button size="mini" icon="el-icon-edit" @click="isEdit = true" v-if="!isEdit">{{$t('common_Edit')}}</el-button>
+        <el-button size="mini" icon="el-icon-plus" @click="addTable" v-if="isEdit">{{$t('productCheckM_NewLine')}}</el-button>
         <span class="split-line" v-if="isEdit">|</span>
-         <el-button size="mini" v-if="isEdit" :loading="saveLoading"  @click="saveTable">保存</el-button>
+         <el-button size="mini" v-if="isEdit" :loading="saveLoading"  @click="saveTable">{{$t('common_save')}}</el-button>
         <span class="split-line" v-if="isEdit">|</span>
-        <el-button size="mini" icon="el-icon-delete-solid" v-if="isEdit" @click="deletetableData(selectIds)">批量删除</el-button>
+        <el-button size="mini" icon="el-icon-delete-solid" v-if="isEdit" @click="deletetableData(selectIds)">{{$t('common_Delete')}}</el-button>
     </div>
     <div class="tableBox" style="margin-top:10px">
        <el-table :data="tableData" style="width: 100%"  border @selection-change="selectionChange">
         <el-table-column type="selection" width="50" fixed="left"></el-table-column>
-        <el-table-column type="index" label="序号" align="center" :index="1" fixed="left"></el-table-column>
-        <el-table-column  prop="stationName" label="工站名称" sortable align="center">
+        <el-table-column type="index" :label="$t('common_Number')" align="center" :index="1" fixed="left"></el-table-column>
+        <el-table-column  prop="stationName" :label="$t('productCheckM_NameWorkStat')" sortable align="center">
           <template slot-scope="scope">
             <el-input v-model="scope.row.stationName" v-if="isEdit"></el-input>
             <span  v-else >
@@ -20,7 +20,7 @@
             </span>
             </template>
         </el-table-column>
-        <el-table-column prop="eqpType" label="设备型号" sortable align="center">
+        <el-table-column prop="eqpType" :label="$t('productCheckM_EquipMode')" sortable align="center">
           <template slot-scope="scope">
             <el-input v-model="scope.row.eqpType" v-if="isEdit"></el-input>
             <span  v-else >
@@ -28,7 +28,7 @@
             </span>
             </template>
         </el-table-column>
-        <el-table-column prop="controlType" label="管制类别" sortable align="center">
+        <el-table-column prop="controlType" :label="$t('productCheckM_ContrCate')" sortable align="center">
           <template slot-scope="scope">
             <el-input v-model="scope.row.controlType" v-if="isEdit"></el-input>
             <span  v-else >
@@ -36,7 +36,7 @@
             </span>
             </template>
         </el-table-column>
-        <el-table-column prop="controlProject" label="管制项目" sortable align="center">
+        <el-table-column prop="controlProject" :label="$t('productCheckM_ContrItem')" sortable align="center">
           <template slot-scope="scope">
             <el-input v-model="scope.row.controlProject" v-if="isEdit"></el-input>
             <span  v-else >
@@ -44,7 +44,7 @@
             </span>
             </template>
         </el-table-column>
-        <el-table-column prop="setValue" label="设定值" sortable align="center">
+        <el-table-column prop="setValue" :label="$t('productCheckM_SettiValu')" sortable align="center">
           <template slot-scope="scope">
             <el-input v-model="scope.row.setValue" v-if="isEdit"></el-input>
             <span  v-else >
@@ -52,7 +52,7 @@
             </span>
             </template>
         </el-table-column>
-        <el-table-column prop="uom" label="单位" sortable align="center">
+        <el-table-column prop="uom" :label="$t('common_Unit')" sortable align="center">
           <template slot-scope="scope">
             <el-input v-model="scope.row.uom" v-if="isEdit"></el-input>
             <span  v-else >
@@ -60,7 +60,7 @@
             </span>
             </template>
         </el-table-column>
-        <el-table-column prop="checkReason" label="检查方法" sortable align="center">
+        <el-table-column prop="checkReason" :label="$t('productCheckM_InspeMeth')" sortable align="center">
           <template slot-scope="scope">
             <el-input v-model="scope.row.checkReason" v-if="isEdit"></el-input>
             <span  v-else >
@@ -128,19 +128,19 @@ export default {
     async saveTable () {
       let errorItem = this.tableData.find(item => !item.stationName.trim() || !item.eqpType.trim() || !item.controlType.trim() || !item.controlProject.trim() || !item.setValue.trim() || !item.uom.trim() || !item.checkReason.trim())
       if (errorItem) {
-        this.$message.warning('工站名称、设备型号、管制类别、管制项目、设定值、单位、检查方法不能为空')
+        this.$message.warning(this.$t('productCheckM_CheckMethCannBeEmpt'))
         return false
       }
       let reg = /^\d+(\.\d+)?$/
       let obj = this.tableData.find(item => !reg.test(item.setValue))
       if (obj) {
-        this.$message.warning('设定值只能是数字')
+        this.$message.warning(this.$t('productCheckM_settiValuCanANumb'))
         return false
       }
       this.saveLoading = true
       let res = await this.$api.saveAutonomyCheckDetailList({ autonomyCheckId: this.autonomyCheckId, autonomyCheckDetailList: this.tableData })
       if (res.code === '200') {
-        this.$message.success('保存成功！')
+        this.$message.success(this.$t('productCheckM_SaveSucc'))
         this.isEdit = false
         this.saveLoading = false
         this.getDetailList(this.autonomyCheckId)

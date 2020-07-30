@@ -30,7 +30,7 @@ export default {
         seriesData.push(obj)
         xData.push(item.failCode)
       })
-      let seriesName = this.id === 'trobleNumber' ? '故障异常次数' : '故障异常时间'
+      let seriesName = this.id === 'trobleNumber' ? this.$t('anomalyAna_NumbeAbnoFaul') : this.$t('anomalyAna_AbnorFaulTime')
       return {
         title: {
           text: this.pieTitle,

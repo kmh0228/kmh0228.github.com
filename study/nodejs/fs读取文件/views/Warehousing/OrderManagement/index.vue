@@ -1,44 +1,44 @@
 <template>
   <div class="mes-main mes-work-order">
-    <div class="mes-main-title">采购订单管理</div>
+    <div class="mes-main-title">{{$t('OrderManagement_PurchaseOrderManagement')}}</div>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-        <el-select size="mini" placeholder="订单状态"  v-model="searchForm.orderState" clearable filterable style="width:40%" @change="$refs.tableList.queryList(true)">
-            <el-option label="开立" value="0"></el-option>
-            <el-option label="取消" value="1"></el-option>
-            <el-option label="收货中" value="2"></el-option>
-            <el-option label="完成" value="3"></el-option>
+        <el-select size="mini" :placeholder="$t('OrderManagement_OrderStatus')"  v-model="searchForm.orderState" clearable filterable style="width:40%" @change="$refs.tableList.queryList(true)">
+            <el-option :label="$t('common_open')" value="0"></el-option>
+            <el-option :label="$t('common_cancel')" value="1"></el-option>
+            <el-option :label="$t('OrderManagement_Receiving')" value="2"></el-option>
+            <el-option :label="$t('common_compl')" value="3"></el-option>
           </el-select>
       </el-col>
       <el-col :span="12">
         <el-button size="mini" style="float:right;margin-left:10px;" @click="showMoreConditon = !showMoreConditon">
             <i class="fa fa-filter"></i>
         </el-button>
-        <el-input size="mini" placeholder="采购订单号" v-model="searchForm.poNo" style="width:40%;float:right;" @keydown.enter.native="$refs.tableList.queryList(true)">
+        <el-input size="mini" :placeholder="$t('OrderManagement_PurchaseOrderNumber')" v-model="searchForm.poNo" style="width:40%;float:right;" @keydown.enter.native="$refs.tableList.queryList(true)">
           <i slot="suffix" class="el-input__icon el-icon-search" @click="$refs.tableList.queryList(true)"></i>
         </el-input>
       </el-col>
       <el-col :span="24"   style="padding-top:1vh;">
         <el-form class="el-row mes-search-form" :model="searchForm" label-width="30%" label-position="left" v-show="showMoreConditon">
-          <el-form-item label="物料编码" class="el-col el-col-11">
+          <el-form-item :label="$t('common_MaterCode')" class="el-col el-col-11">
             <el-input size="mini" v-model="searchForm.materialNo"></el-input>
           </el-form-item>
-          <el-form-item label="物料名称" class="el-col el-col-11 el-col-offset-1">
+          <el-form-item :label="$t('common_MaterialName')" class="el-col el-col-11 el-col-offset-1">
             <el-input size="mini" v-model="searchForm.materialName"></el-input>
           </el-form-item>
-          <el-form-item label="供应商编码" class="el-col el-col-11">
+          <el-form-item :label="$t('OrderManagement_SupplierCode')" class="el-col el-col-11">
             <el-input size="mini" v-model="searchForm.vendorCode"></el-input>
           </el-form-item>
-          <el-form-item label="供应商名称" class="el-col el-col-11 el-col-offset-1">
+          <el-form-item :label="$t('common_SupplName')" class="el-col el-col-11 el-col-offset-1">
             <el-input size="mini" v-model="searchForm.vendorName"></el-input>
           </el-form-item>
-          <el-form-item label="制单日期" class="el-col el-col-11">
+          <el-form-item :label="$t('OrderManagement_PreparationDate')" class="el-col el-col-11">
             <el-date-picker
               v-model="searchForm.time"
               type="daterange"
-              range-separator="至"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"  format="yyyy-MM-dd"
+              :range-separator="$t('common_')"
+              start-:placeholder="$t('common_StartDate')"
+              end-:placeholder="$t('common_dDate')"  format="yyyy-MM-dd"
               value-format="yyyy-MM-dd"
               size="mini"
               style="width:100%;">
@@ -50,31 +50,31 @@
     <div>
       <table-list ref="tableList" :tableData="tableData" :tableOption="option"  :queryListApi="getPoList" :total="total">
         <div slot="buttonBox">
-          <el-button size="mini" icon="el-icon-search" @click="$refs.tableList.queryList(true)">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="$refs.tableList.queryList(true)">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-plus" @click="showPop">新增</el-button>
+          <el-button size="mini" icon="el-icon-plus" @click="showPop">{{$t('common_Add')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-delete-solid" @click="deletetableData($refs.tableList.getSelectData().map(item => item.mwmsPoId))">批量删除</el-button>
+          <el-button size="mini" icon="el-icon-delete-solid" @click="deletetableData($refs.tableList.getSelectData().map(item => item.mwmsPoId))">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">{{$t('common_Refresh')}}</el-button>
         </div>
       </table-list>
     </div>
      <div class="mes-main-tabs mes-table" v-if="showTabs" style="margin-top:10px">
         <el-tabs v-model="activeName">
-          <el-tab-pane label="采购订单明细" name="detailed">
-            <div v-if="!isEdit"><el-button size="mini" icon="el-icon-edit" @click="isEdit = true">编辑</el-button></div>
+          <el-tab-pane :label="$t('OrderManagement_PurchaseOrderDetails')" name="detailed">
+            <div v-if="!isEdit"><el-button size="mini" icon="el-icon-edit" @click="isEdit = true">{{$t('common_Edit')}}</el-button></div>
             <div v-else>
-              <el-button size="mini" icon="el-icon-plus" @click="addDetail">新增</el-button>
+              <el-button size="mini" icon="el-icon-plus" @click="addDetail">{{$t('common_Add')}}</el-button>
               <span class="split-line">|</span>
-              <el-button size="mini" icon="el-icon-delete-solid" @click="delDetail">删除</el-button>
+              <el-button size="mini" icon="el-icon-delete-solid" @click="delDetail">{{$t('common_Del')}}</el-button>
               <span class="split-line">|</span>
-              <el-button size="mini" icon="el-icon-refresh-right" @click="savePoDetail()">保存</el-button>
+              <el-button size="mini" icon="el-icon-refresh-right" @click="savePoDetail()">{{$t('common_save')}}</el-button>
             </div>
             <el-table :data="detailList" border size="mini" style="margin-top:10px" @selection-change="selectionChange">
               <el-table-column type="selection" align="center" fixed="left" ></el-table-column>
-              <el-table-column type="index" label="序号" align="center" fixed="left" width="80" :index="1"></el-table-column>
-              <el-table-column prop="materialId" sortable label="物料" min-width="180" align="center">
+              <el-table-column type="index" :label="$t('common_Number')" align="center" fixed="left" width="80" :index="1"></el-table-column>
+              <el-table-column prop="materialId" sortable :label="$t('common_Material')" min-width="180" align="center">
                 <template slot-scope="scope">
                   <el-select v-if="isEdit" v-model="scope.row.materialId" filterable clearable  style="width:100%" @change="changeMaterial(scope.row)">
                     <el-option v-for="(option,i) in masterialList" :key="i" :label="option.materialNo" :value="option.mComMaterialId"></el-option>
@@ -82,19 +82,19 @@
                   <div v-else>{{findMaterial(scope.row.materialId).materialNo}}</div>
                 </template>
               </el-table-column>
-              <el-table-column prop="materialName" sortable label="物料名称" min-width="150" align="center"></el-table-column>
-              <el-table-column prop="uomName" sortable label="主单位" min-width="150" align="center">
+              <el-table-column prop="materialName" sortable :label="$t('common_MaterialName')" min-width="150" align="center"></el-table-column>
+              <el-table-column prop="uomName" sortable :label="$t('OrderManagement_PrimaryUnit')" min-width="150" align="center">
                  <template slot-scope="scope">
                   <div>{{findMaterial(scope.row.materialId).uomName}}</div>
                 </template>
               </el-table-column>
-              <el-table-column prop="poQty" sortable label="采购数量" min-width="150" align="center">
+              <el-table-column prop="poQty" sortable :label="$t('OrderManagement_PurchaseQuantity')" min-width="150" align="center">
                  <template slot-scope="scope">
                   <el-input v-if="isEdit" size="mini"  v-model="scope.row.poQty" @change="checkPoQty(scope.row)"></el-input>
                   <div v-else>{{scope.row.poQty}}</div>
                  </template>
               </el-table-column>
-              <el-table-column prop="receiveWarehouseId" sortable label="收货仓库" min-width="150" align="center">
+              <el-table-column prop="receiveWarehouseId" sortable :label="$t('OrderManagement_ReceivingWarehouse')" min-width="150" align="center">
                 <template slot-scope="scope">
                   <el-select v-if="isEdit" v-model="scope.row.receiveWarehouseId" filterable clearable  style="width:100%">
                     <el-option v-for="(option,i) in warehouseList" :key="i" :label="option.mWmsWarehouseName" :value="option.mWmsWarehouseId"></el-option>
@@ -102,7 +102,7 @@
                   <div v-else>{{scope.row.receiveWarehouseName}}</div>
                 </template>
               </el-table-column>
-              <el-table-column prop="workOrderNo" sortable label="工单号" min-width="150" align="center">
+              <el-table-column prop="workOrderNo" sortable :label="$t('common_WorkOrdeNo')" min-width="150" align="center">
                 <template slot-scope="scope">
                   <el-select v-if="isEdit" v-model="scope.row.workOrderNo" filterable clearable  style="width:100%">
                     <el-option v-for="(option,i) in jobOrderList" :key="i" :label="option.DOC_NO" :value="option.DOC_NO"></el-option>
@@ -110,30 +110,30 @@
                   <div v-else>{{scope.row.workOrderNo}}</div>
                 </template>
               </el-table-column>
-              <el-table-column prop="receiveQty" sortable label="已收数量" min-width="150" align="center"></el-table-column>
-              <el-table-column prop="notReceiveQty" sortable label="未收数量" min-width="150" align="center"></el-table-column>
-              <el-table-column prop="returnQty" sortable label="退货数量" min-width="150" align="center"></el-table-column>
-              <el-table-column prop="createUnReceiveQty" sortable label="已建单未收数量" min-width="180" align="center"></el-table-column>
-              <el-table-column prop="unCreateUnReceiveQty" sortable label="未建单未收数量" min-width="180" align="center"></el-table-column>
-              <el-table-column prop="shelveQty" sortable label="上架数量" min-width="150" align="center"></el-table-column>
-              <el-table-column prop="createReturnQty" sortable label="已建单待退数量" min-width="180" align="center"></el-table-column>
-              <el-table-column prop="unCreateReturnQty" sortable label="未建单可退数量" min-width="180" align="center"></el-table-column>
+              <el-table-column prop="receiveQty" sortable :label="$t('OrderManagement_ReceivedQuantity')" min-width="150" align="center"></el-table-column>
+              <el-table-column prop="notReceiveQty" sortable :label="$t('OrderManagement_UncollectedQuantity')" min-width="150" align="center"></el-table-column>
+              <el-table-column prop="returnQty" sortable :label="$t('OrderManagement_ReturnedQuantity')" min-width="150" align="center"></el-table-column>
+              <el-table-column prop="createUnReceiveQty" sortable :label="$t('OrderManagement_BuiltOrderButNotReceivedQuantity')" min-width="180" align="center"></el-table-column>
+              <el-table-column prop="unCreateUnReceiveQty" sortable :label="$t('OrderManagement_NoBuiltOrderButNotReceivedQuantity')" min-width="180" align="center"></el-table-column>
+              <el-table-column prop="shelveQty" sortable :label="$t('OrderManagement_OnShelfQuantity')" min-width="150" align="center"></el-table-column>
+              <el-table-column prop="createReturnQty" sortable :label="$t('OrderManagement_BuiltOrderToBeReturnedQuantity')" min-width="180" align="center"></el-table-column>
+              <el-table-column prop="unCreateReturnQty" sortable :label="$t('OrderManagement_NonBuiltOrderReturnableQuantity')" min-width="180" align="center"></el-table-column>
             </el-table>
           </el-tab-pane>
         </el-tabs>
       </div>
-      <!-- 新增弹窗 -->
+     <!-- 新增弹窗 -->
     <el-dialog
-        :title="addForm.mwmsPoId ? '编辑采购订单' : '新增采购订单' "
+        :title="addForm.mwmsPoId ? this.$t('OrderManagement_EditPurchaseOrderOrder') : this.$t('OrderManagement_AddPurchaseOrder') "
         :visible.sync="addVisible"
         width="1200px">
         <el-form class="el-row" ref="addForm" :model="addForm" :rules="rules" label-width="120px" label-position="left">
           <el-row>
-            <el-form-item label="采购订单号"  prop="mwmsPoNo" class="el-col el-col-11 ">
+            <el-form-item :label="$t('OrderManagement_PurchaseOrderNumber')"  prop="mwmsPoNo" class="el-col el-col-11 ">
               <el-input  v-model="addForm.mwmsPoNo" style="width:60%"></el-input>
-              <el-button type="primary" style="width:35%;float: right;" @click="getJobOrderNo()">按规则产生单号</el-button>
+              <el-button type="primary" style="width:35%;float: right;" @click="getJobOrderNo()">{{$t('OrderManagement_GenerateOrderNumber')}}</el-button>
             </el-form-item>
-            <el-form-item label="供应商"  prop="vendorId" class="el-col el-col-11 el-col-offset-1">
+            <el-form-item :label="$t('common_suppl')"  prop="vendorId" class="el-col el-col-11 el-col-offset-1">
               <el-select v-model="addForm.vendorId" filterable clearable  style="width:100%" @change="changeVendor">
                 <el-option v-for="(option,i) in vendorList" :key="i" :label="option.mWmsVendorName" :value="option.mWmsVendorId">
                   <span style="float: left">{{ option.mWmsVendorCode }}</span>
@@ -142,22 +142,22 @@
               </el-select>
             </el-form-item>
           </el-row>
-          <el-form-item label="供应商编码"  prop="vendorCode" class="el-col el-col-11">
+          <el-form-item :label="$t('OrderManagement_SupplierCode')"  prop="vendorCode" class="el-col el-col-11">
             <el-input v-model="addForm.vendorCode" disabled></el-input>
           </el-form-item>
-          <el-form-item label="订单类型"  prop="billType" class="el-col el-col-11 el-col-offset-1">
+          <el-form-item :label="$t('OrderManagement_OrderType')"  prop="billType" class="el-col el-col-11 el-col-offset-1">
             <dict-select v-model="addForm.billType" dictType="PURCHASE_ORDER_TYPE"  selectKey="dictCode"></dict-select>
           </el-form-item>
-          <el-form-item label="联系电话"  prop="contactNumber" class="el-col el-col-11">
+          <el-form-item :label="$t('OrderManagement_ContactNumber')"  prop="contactNumber" class="el-col el-col-11">
             <el-input v-model="addForm.contactNumber"></el-input>
           </el-form-item>
-          <el-form-item label="联系人"  prop="contacts" class="el-col el-col-11  el-col-offset-1">
+          <el-form-item :label="$t('common_conta')"  prop="contacts" class="el-col el-col-11  el-col-offset-1">
             <el-input v-model="addForm.contacts"></el-input>
           </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
-          <el-button @click="addVisible = false">取 消</el-button>
-          <el-button type="primary" @click="savePo" :loading="saveLoading">确 定</el-button>
+          <el-button @click="addVisible = false">{{$t('OrderManagement_Cancel')}}</el-button>
+          <el-button type="primary" @click="savePo" :loading="saveLoading">{{$t('OrderManagement_ConfirmOrder')}}</el-button>
         </span>
       </el-dialog>
   </div>
@@ -188,12 +188,6 @@ export default {
         vendorId: '',
         vendorCode: ''
       },
-      rules: {
-        mwmsPoNo: [{ required: true, message: '订单号不能为空' }],
-        vendorId: [{ required: true, message: '供应商不能为空' }],
-        billType: [{ required: true, message: '订单类型不能为空' }],
-        contactNumber: [{ pattern: /^1[3456789]\d{9}$|^0\d{2,3}-?\d{7,8}$/, message: '请输入正确的手机或电话号码' }]
-      },
       saveLoading: false,
       vendorList: [],
       masterialList: [],
@@ -201,7 +195,6 @@ export default {
       jobOrderList: [],
       showMoreConditon: false,
       total: 0,
-      option: tableOption(this),
       tableData: [],
       showTabs: false,
       addVisible: false,
@@ -213,6 +206,17 @@ export default {
     }
   },
   computed: {
+    rules () {
+      return {
+        mwmsPoNo: [{ required: true, message: this.$t('OrderManagement_OrderNumberCannotBeEmpty') }],
+        vendorId: [{ required: true, message: this.$t('OrderManagement_SupplierCannotBeEmpty') }],
+        billType: [{ required: true, message: this.$t('OrderManagement_OrderTypeCannotBeEmpty') }],
+        contactNumber: [{ pattern: /^1[3456789]\d{9}$|^0\d{2,3}-?\d{7,8}$/, message: this.$t('OrderManagement_PleaseEnterCorrectMobilePhoneOrPhoneNumber') }]
+      }
+    },
+    option () {
+      return tableOption(this)
+    }
   },
   watch: {
     mwmsPoId (n) {
@@ -289,7 +293,7 @@ export default {
           this.saveLoading = false
           if (res.code === '200') {
             this.addVisible = false
-            this.$message.success('保存成功')
+            this.$message.success(this.$t('common_SavedSuccessfully'))
             this.$refs.tableList.queryList(true)
           }
         }
@@ -298,7 +302,7 @@ export default {
     async deletetableData (ids) {
       const len = ids.length
       if (len > 0) {
-        const confirmRes = await this.$myPrompt.confirm('确定删除当前选中的数据吗?')
+        const confirmRes = await this.$myPrompt.confirm(this.$t('common_PleasSeleInfoDe'))
         if (confirmRes) {
           const res = await this.$api.deletePo(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -306,7 +310,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('确定删除当前选中的数据吗')
+        this.$message.warning(this.$t('common_PleasSeleInfoDe'))
       }
     },
     async getPoDetailList () {
@@ -361,7 +365,7 @@ export default {
       let reg = /^\d+(\.\d+)?$/
       if (!reg.test(row.poQty)) {
         row.poQty = ''
-        this.$message.error('采购数量格式不正确')
+        this.$message.error(this.$t('OrderManagement_PurchaseQuantityFormatIsIncorrect'))
         return false
       }
     },
@@ -395,13 +399,13 @@ export default {
     async savePoDetail () {
       let obj = this.detailList.find(item => !item.materialId || !item.unitId || !item.poQty)
       if (obj) {
-        this.$message.warning('物料、主单位、采购数量不能为空')
+        this.$message.warning(this.$t('OrderManagement_Tips'))
         return false
       }
       let res = await this.$api.savePoDetail({ mwmsPoId: this.mwmsPoId, items: this.detailList })
       if (res.code === '200') {
         this.isEdit = false
-        this.$message.success('保存成功')
+        this.$message.success(this.$t('common_SavedSuccessfully'))
         this.getPoDetailList()
       }
     }

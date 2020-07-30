@@ -1,9 +1,9 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">TOP5不良查询</h3>
+    <h3 class="mes-main-title">{{$t('top5badQ_BadInqu')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-        <el-input placeholder="请输入工站名称" v-model.trim="searchForm.workStation" size="mini" style="width:40%;" @keydown.enter.native="getTopDefectCode">
+        <el-input :placeholder="$t('top5badQ_inputStatName')" v-model.trim="searchForm.workStation" size="mini" style="width:40%;" @keydown.enter.native="getTopDefectCode">
           <!-- <i slot="suffix" class="el-input__icon el-icon-search" @click="getTopDefectCode"></i> -->
         </el-input>
          <el-button size="mini" style="margin-left:10px;" @click="showMoreConditon = !showMoreConditon">
@@ -12,15 +12,15 @@
       </el-col>
       <el-col :span="24" style="padding-top:1vh;">
         <el-form class="el-row mes-search-form" :model="searchForm" label-width="30%" label-position="left" v-show="showMoreConditon">
-          <el-form-item label="创建起始时间：" class="el-col el-col-12">
-            <el-date-picker v-model="searchForm.startTime" style="width:100%" size="mini" type="datetime" placeholder="选择日期时间" value-format="yyyy-MM-dd HH:mm:ss" align="right" :picker-options="pickerOptions">
+          <el-form-item :label="$t('top5badQ_CreatStarTime')" class="el-col el-col-12">
+            <el-date-picker v-model="searchForm.startTime" style="width:100%" size="mini" type="datetime" :placeholder="$t('common_SelecDateTime')" value-format="yyyy-MM-dd HH:mm:ss" align="right" :picker-options="pickerOptions">
             </el-date-picker>
           </el-form-item>
-            <el-form-item label="料号：" class="el-col el-col-11 el-col-offset-1">
+            <el-form-item :label="$t('top5badQ_ItemNo')" class="el-col el-col-11 el-col-offset-1">
             <el-input size="mini" v-model="searchForm.materialNo"></el-input>
           </el-form-item>
-           <el-form-item label="创建截止时间：" class="el-col el-col-12">
-            <el-date-picker v-model="searchForm.endTime" style="width:100%" size="mini" type="datetime"  placeholder="选择日期时间" value-format="yyyy-MM-dd HH:mm:ss" align="right" :picker-options="pickerOptions">
+           <el-form-item :label="$t('top5badQ_CreatDead')" class="el-col el-col-12">
+            <el-date-picker v-model="searchForm.endTime" style="width:100%" size="mini" type="datetime"  :placeholder="$t('common_SelecDateTime')" value-format="yyyy-MM-dd HH:mm:ss" align="right" :picker-options="pickerOptions">
             </el-date-picker>
           </el-form-item>
         </el-form>
@@ -29,9 +29,9 @@
     <div class="mes-table">
        <el-row class="mes-table-handle">
         <el-col :span="12">
-           <el-button icon="el-icon-search" size="mini" @click="getTopDefectCode">查询</el-button>
+           <el-button icon="el-icon-search" size="mini" @click="getTopDefectCode">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button icon="el-icon-refresh-right" size="mini" @click="resetForm">刷新</el-button>
+          <el-button icon="el-icon-refresh-right" size="mini" @click="resetForm">{{$t('common_Refresh')}}</el-button>
         </el-col>
         <el-col :span="12">
           <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -42,10 +42,10 @@
       </el-row>
       <div class="mes-table-content">
         <el-table :data="tableData" border size="mini">
-          <el-table-column type="index" label="序号" align="center" :index="indexMethod"></el-table-column>
-          <el-table-column prop="defectCode" sortable label="不良代码" label-class-name="mes-table-label"  align="center"></el-table-column>
-          <el-table-column prop="defectDesc" sortable label="不良描述" align="center"></el-table-column>
-          <el-table-column prop="count" sortable label="不良记录数量" align="center"></el-table-column>
+          <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod"></el-table-column>
+          <el-table-column prop="defectCode" sortable :label="$t('top5badQ_BadCode')" label-class-name="mes-table-label"  align="center"></el-table-column>
+          <el-table-column prop="defectDesc" sortable :label="$t('top5badQ_BadDesc')" align="center"></el-table-column>
+          <el-table-column prop="count" sortable :label="$t('top5badQ_NumbeBadReco')" align="center"></el-table-column>
         </el-table>
       </div>
     </div>
@@ -60,19 +60,19 @@ export default {
       showMoreConditon: false,
       pickerOptions: {
         shortcuts: [{
-          text: '今天',
+          text: this.$t('common_today'),
           onClick (picker) {
             picker.$emit('pick', new Date())
           }
         }, {
-          text: '昨天',
+          text: this.$t('common_yesterday'),
           onClick (picker) {
             const date = new Date()
             date.setTime(date.getTime() - 3600 * 1000 * 24)
             picker.$emit('pick', date)
           }
         }, {
-          text: '一周前',
+          text: this.$t('common_lastWeek'),
           onClick (picker) {
             const date = new Date()
             date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)

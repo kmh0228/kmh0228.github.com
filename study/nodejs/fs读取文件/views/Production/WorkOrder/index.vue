@@ -1,37 +1,37 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">工单管理</h3>
+    <h3 class="mes-main-title">{{$t('WorkOrder_WO')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-        <dict-select style="width:35%;" placeholder="工单状态" v-model="orderStatus" dictType="WORK_ORDER_STATUS" clearable @change="changeOrderStatus"></dict-select>
+        <dict-select style="width:35%;" :placeholder="$t('WorkOrder_orderStatus')" v-model="orderStatus" dictType="WORK_ORDER_STATUS" clearable @change="changeOrderStatus"></dict-select>
       </el-col>
       <el-col :span="12">
         <el-button size="mini" style="float:right;margin-left:10px;">
           <i class="fa fa-filter"></i>
         </el-button>
-        <el-input placeholder="请输入工单号" v-model.trim="keyWord" size="mini" style="width:40%;float:right;" @keydown.enter.native="searchWorkOrder"></el-input>
+        <el-input :placeholder="$t('WorkOrder_enterOrderNumber')" v-model.trim="keyWord" size="mini" style="width:40%;float:right;" @keydown.enter.native="searchWorkOrder"></el-input>
       </el-col>
     </el-row>
     <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="11">
-          <el-button size="mini" icon="el-icon-search" @click="searchWorkOrder">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="searchWorkOrder">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-plus" @click="workOrderHandle('')">新增</el-button>
+          <el-button size="mini" icon="el-icon-plus" @click="workOrderHandle('')">{{$t('common_Add')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-delete-solid" @click="delJobOrders('')" :disabled="deleteBtnDisabled">批量删除</el-button>
+          <el-button size="mini" icon="el-icon-delete-solid" @click="delJobOrders('')" :disabled="deleteBtnDisabled">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-data-line" @click="workOrderOnline" :disabled="onlineBtnDisabled">上线</el-button>
+          <el-button size="mini" icon="el-icon-data-line" @click="workOrderOnline" :disabled="onlineBtnDisabled">{{$t('WorkOrder_online')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">{{$t('common_Refresh')}}</el-button>
           <span class="split-line">|</span>
           <el-dropdown>
-            <el-button size="mini">操作<i class="el-icon-arrow-down el-icon--right"></i></el-button>
+            <el-button size="mini">{{$t('common_Operate')}}<i class="el-icon-arrow-down el-icon--right"></i></el-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click.native="jobBooking">报工上传</el-dropdown-item>
-              <el-dropdown-item @click.native="downDialog = true">工单下载</el-dropdown-item>
-              <el-dropdown-item @click.native="openSplitDialig">工单拆分</el-dropdown-item>
-              <el-dropdown-item>导出</el-dropdown-item>
+              <el-dropdown-item @click.native="jobBooking">{{$t('WorkOrder_NewspaperUpload')}}</el-dropdown-item>
+              <el-dropdown-item @click.native="downDialog = true">{{$t('WorkOrder_TicketDownload')}}</el-dropdown-item>
+              <el-dropdown-item @click.native="openSplitDialig">{{$t('WorkOrder_orderSplit')}}</el-dropdown-item>
+              <el-dropdown-item>{{$t('common_Export')}}</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </el-col>
@@ -40,33 +40,33 @@
             layout="slot, sizes, prev, pager, next, jumper, ->" :total="total" :current-page="page.pageIndex"
             @current-change="handleCurrentChange" @size-change="handleSizeChange">
           </el-pagination>
-          <span class="page-total">共{{ pageTotal }}页</span>
+          <span class="page-total">Total:{{ pageTotal }}</span>
         </el-col>
       </el-row>
       <!-- 工单列表 -->
       <div class="mes-table-content">
         <el-table :data="tableData" border highlight-current-row @current-change="tableCurrentChange" @selection-change="tableSelectChange"  @cell-click="cellClick" size="mini">
           <el-table-column type="selection" width="50" align="center" fixed="left"></el-table-column>
-          <el-table-column type="index" label="序号" align="center" :index="indexMethod" fixed="left"></el-table-column>
-          <el-table-column prop="DOC_NO" sortable label="工单号" label-class-name="mes-table-label" class-name="mes-table-click" align="center"></el-table-column>
-          <el-table-column sortable label="料号" align="center">
+          <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod" fixed="left"></el-table-column>
+          <el-table-column prop="DOC_NO" sortable :label="$t('WorkOrder_WONumber')" label-class-name="mes-table-label" class-name="mes-table-click" align="center"></el-table-column>
+          <el-table-column sortable :label="$t('common_PorN')" align="center">
             <template slot-scope="props">
               <span>{{ props.row.MATERIAL_NO}}{{ props.row.VERSION? `:${props.row.VERSION}` : '' }}</span>
             </template>
           </el-table-column>
-          <el-table-column prop="REQUEST_QTY" sortable width="100" label="需求数量" align="center"></el-table-column>
-          <el-table-column prop="T_POM_JOB_ORDER_SNTYPE" sortable label="SN来源" align="center" width="100"></el-table-column>
-          <el-table-column prop="SCH_START_DT" sortable label="计划开始日期" show-overflow-tooltip :formatter="formatterDate" align="center"></el-table-column>
-          <el-table-column prop="SCH_CLOSED_DT" sortable label="计划结束日期" show-overflow-tooltip :formatter="formatterDate" align="center"></el-table-column>
-          <el-table-column prop="DOC_STATUS_NAME" sortable label="工单状态" :filters="fileterArray" width="130" :filter-method="filterTag" align="center" filter-placement="bottom-end">
+          <el-table-column prop="REQUEST_QTY" sortable width="100" :label="$t('common_DemanQuan')" align="center"></el-table-column>
+          <el-table-column prop="T_POM_JOB_ORDER_SNTYPE" sortable :label="$t('WorkOrder_SNSource')" align="center" width="100"></el-table-column>
+          <el-table-column prop="SCH_START_DT" sortable :label="$t('common_StartDate')" show-overflow-tooltip :formatter="formatterDate" align="center"></el-table-column>
+          <el-table-column prop="SCH_CLOSED_DT" sortable :label="$t('common_EndDate')" show-overflow-tooltip :formatter="formatterDate" align="center"></el-table-column>
+          <el-table-column prop="DOC_STATUS_NAME" sortable :label="$t('WorkOrder_WOStatus')" :filters="fileterArray" width="130" :filter-method="filterTag" align="center" filter-placement="bottom-end">
             <template slot-scope="scope">
               <el-tag :type="setTagColor(scope.row.DOC_STATUS_NAME)" size="mini">{{scope.row.DOC_STATUS_NAME }}</el-tag>
             </template>
           </el-table-column>
-          <el-table-column label="操作" align="center" width="120" fixed="right">
+          <el-table-column :label="$t('common_Operate')" align="center" width="120" fixed="right">
             <template slot-scope="scope">
-              <handle-button @click="workOrderHandle(scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-              <handle-button @click="delJobOrders(scope.row.T_POM_JOB_ORDER_ID)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+              <handle-button @click="workOrderHandle(scope.row)" iconClass='el-icon-edit-outline' :tipText="$t('common_Edit')"></handle-button>
+              <handle-button @click="delJobOrders(scope.row.T_POM_JOB_ORDER_ID)" iconClass='el-icon-delete' :tipText="$t('common_Del')" iconColor='#f56c6c'></handle-button>
             </template>
           </el-table-column>
         </el-table>
@@ -77,49 +77,49 @@
       <work-order-tabs :useType="0" :workOrderId="pickWorkOrder" ref="tabs"></work-order-tabs>
     </div>
     <!-- 导入SN上线 -->
-    <el-dialog title="请选择需要导入的SN文件" :visible.sync="importDialog" width="600px" @close="closeUploadDialog" class="handle-dialog">
+    <el-dialog :title="$t('WorkOrder_selectSN')" :visible.sync="importDialog" width="600px" @close="closeUploadDialog" class="handle-dialog">
       <el-upload action="" drag style="text-align:center;" :before-upload="beforeUpload">
         <mes-icon icon="excel-icon" size="67px" style="display:inline-block;margin:40px 0 16px;" v-if="fileName"></mes-icon>
         <i class="el-icon-upload" v-else></i>
         <p v-if="fileName">{{ fileName }}</p>
         <div class="el-upload__text" v-else>
-          拖动文件至此处，<em>点击上传</em> 或
-          <em><a href="static/download/exportSSN.xlsx" style="color:#3B6F9A;text-decoration:none;" download="导入SSN模版.xlsx" @click="downloadSSNTemplate">模版下载</a></em>
+          {{$t('WorkOrder_DragHere')}},<em>{{$t('WorkOrder_upload')}}</em> or
+          <em><a href="static/download/exportSSN.xlsx" style="color:#3B6F9A;text-decoration:none;" download="导入SSN模版.xlsx" @click="downloadSSNTemplate">{{$t('WorkOrder_TemplateDownload')}}</a></em>
         </div>
       </el-upload>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="importOnline">确 定</el-button>
-        <el-button @click="closeUploadDialog">取 消</el-button>
+        <el-button type="primary" @click="importOnline">{{$t('common_ok')}}</el-button>
+        <el-button @click="closeUploadDialog">{{$t('common_cancel')}}</el-button>
       </div>
     </el-dialog>
     <!-- 展开SN上线 -->
-    <el-dialog title="工单SN展开" :visible.sync="uploadDialog" width="850px" top="10vh" class="handle-dialog mes-table">
+    <el-dialog :title="$t('WorkOrder_SNExpand')" :visible.sync="uploadDialog" width="850px" top="10vh" class="handle-dialog mes-table">
       <div class="dialog-btn-group">
-        <el-button size="mini" @click="simulateExpandSn">模拟展开</el-button>
+        <el-button size="mini" @click="simulateExpandSn">{{$t('WorkOrder_Simulation')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" @click="unfoldOnline">确定</el-button>
+        <el-button size="mini" @click="unfoldOnline">{{$t('common_ok')}}</el-button>
       </div>
       <el-form :model="uploadForm" ref="uploadForm" label-width="30%" label-position="left" class="el-row work-order-info">
-        <el-form-item label="工单号" class="el-col el-col-12" >
+        <el-form-item :label="$t('WorkOrder_WONumber')" class="el-col el-col-12" >
           <p>{{ uploadForm.DOC_NO }}</p>
         </el-form-item>
-        <el-form-item label="料号" class="el-col el-col-12" >
+        <el-form-item :label="$t('common_PorN')" class="el-col el-col-12" >
           <p>{{ uploadForm.MATERIAL_NO }}:{{ uploadForm.VERSION }}</p>
         </el-form-item>
-        <el-form-item label="需求数量" class="el-col el-col-12" >
+        <el-form-item :label="$t('common_DemanQuan')" class="el-col el-col-12" >
           <p>{{ uploadForm.REQUEST_QTY }}</p>
         </el-form-item>
-        <el-form-item label="已展开数量" class="el-col el-col-12" >
+        <el-form-item :label="$t('WorkOrder_ExpandedQuantity')" class="el-col el-col-12" >
           <p>{{ uploadForm.onLineNum }}</p>
         </el-form-item>
-        <el-form-item label="本次展开数量" class="el-col el-col-12" >
+        <el-form-item :label="$t('WorkOrder_NumberOfExpansions')" class="el-col el-col-12" >
           <el-input v-model="uploadForm.num" size="mini" disabled style="width:90%;"></el-input>
         </el-form-item>
       </el-form>
       <el-table :data="uploadSnList">
-        <el-table-column type="index" label="序号" align="center" :index="uploadIndexMethod"></el-table-column>
+        <el-table-column type="index" :label="$t('common_Number')" align="center" :index="uploadIndexMethod"></el-table-column>
         <el-table-column label="SN" align="center" prop="SN"></el-table-column>
-          <el-table-column label="料号" align="center" prop="mNo">
+          <el-table-column :label="$t('common_PorN')" align="center" prop="mNo">
             <template>
               <span>{{ uploadForm.MATERIAL_NO }}:{{ uploadForm.VERSION }}</span>
             </template>
@@ -132,69 +132,69 @@
       </el-row>
     </el-dialog>
      <!-- 下载工单 -->
-    <el-dialog title="工单的下载" :visible.sync="downDialog" width="600px" class="handle-dialog">
+    <el-dialog :title="$t('WorkOrder_Download')" :visible.sync="downDialog" width="600px" class="handle-dialog">
       <el-form class="el-row mes-search-form" label-width="25%" label-position="left" >
-          <el-form-item label="请选择日期范围" class="el-col el-col-24">
-            <el-date-picker v-model="downloadTime" type="daterange"  range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" align="right" :picker-options="pickerOptions"></el-date-picker>
+          <el-form-item :label="$t('WorkOrder_selectDateRange')" class="el-col el-col-24">
+            <el-date-picker v-model="downloadTime" type="daterange"  range-separator="to" :start-placeholder="$t('common_StartDate')" :end-placeholder="$t('common_EndDate')" align="right" :picker-options="pickerOptions"></el-date-picker>
           </el-form-item>
           <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-         <el-button type="primary" @click="gorder" >确 定</el-button>
-        <el-button @click="downDialog = false">取 消</el-button>
+         <el-button type="primary" @click="gorder" >{{$t('common_ok')}}</el-button>
+        <el-button @click="downDialog = false">{{$t('common_cancel')}}</el-button>
       </el-form-item>
       </el-form>
     </el-dialog>
     <!-- 工单拆分 -->
-    <el-dialog title="工单SN展开" :visible.sync="splitDialog" width="1000px" top="8vh" class="handle-dialog mes-table">
+    <el-dialog :title="$t('WorkOrder_SNExpand')" :visible.sync="splitDialog" width="1000px" top="8vh" class="handle-dialog mes-table">
       <div class="dialog-btn-group">
-        <el-button size="mini" @click="splitJobOrder">模拟拆分</el-button>
+        <el-button size="mini" @click="splitJobOrder">{{$t('WorkOrder_SimulateSplit')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" @click="saveChildJobOrder">确定</el-button>
+        <el-button size="mini" @click="saveChildJobOrder">{{$t('common_ok')}}</el-button>
       </div>
       <el-form :model="splitForm" ref="splitForm" :rules="spitRules" label-width="30%" label-position="left" class="el-row work-order-info">
-        <el-form-item label="工单号" class="el-col el-col-12" >
+        <el-form-item :label="$t('WorkOrder_WONumber')" class="el-col el-col-12" >
           <p>{{ splitForm.docNo }}</p>
         </el-form-item>
-        <el-form-item label="料号" class="el-col el-col-12" >
+        <el-form-item :label="$t('common_PorN')" class="el-col el-col-12" >
           <p>{{ splitForm.materialNo }}:{{ splitForm.version }}</p>
         </el-form-item>
-        <el-form-item label="需求数量" class="el-col el-col-12" >
+        <el-form-item :label="$t('common_DemanQuan')" class="el-col el-col-12" >
           <p>{{ splitForm.requestQty }}</p>
         </el-form-item>
-        <el-form-item label="本次拆分数量" prop="splitQty" class="el-col el-col-12" >
+        <el-form-item :label="$t('WorkOrder_thisSplit')" prop="splitQty" class="el-col el-col-12" >
          <el-input v-model.number="splitForm.splitQty" size="mini" style="width:90%;"></el-input>
         </el-form-item>
-        <el-form-item label="子工单数量" prop="childOrderCount" class="el-col el-col-12" >
+        <el-form-item :label="$t('WorkOrder_subWork')" prop="childOrderCount" class="el-col el-col-12" >
           <el-input v-model.number="splitForm.childOrderCount" size="mini" style="width:90%;"></el-input>
         </el-form-item>
-        <el-form-item label="计划开始日期" class="el-col el-col-12" prop="schStartDt">
-          <el-date-picker type="datetime" placeholder="选择日期" v-model="splitForm.schStartDt" style="width:90%;" size="mini"
+        <el-form-item :label="$t('WorkOrder_startDate')" class="el-col el-col-12" prop="schStartDt">
+          <el-date-picker type="datetime" :placeholder="$t('common_SelecDate')" v-model="splitForm.schStartDt" style="width:90%;" size="mini"
             value-format="yyyy-MM-dd HH:mm:ss" :picker-options="splitPickerOptions" :default-time="startDefaultTime"></el-date-picker>
         </el-form-item>
-        <el-form-item label="计划结束日期" class="el-col el-col-12" prop="schClosedDt">
-          <el-date-picker type="datetime" placeholder="选择日期" v-model="splitForm.schClosedDt" style="width:90%;" size="mini"
+        <el-form-item :label="$t('WorkOrder_endDate')" class="el-col el-col-12" prop="schClosedDt">
+          <el-date-picker type="datetime" :placeholder="$t('common_SelecDate')" v-model="splitForm.schClosedDt" style="width:90%;" size="mini"
             value-format="yyyy-MM-dd HH:mm:ss" :picker-options="splitPickerOptions" default-time="12:00:00"></el-date-picker>
         </el-form-item>
       </el-form>
       <el-table :data="splitOrderList">
-        <el-table-column type="index" label="序号" align="center" :index="uploadIndexMethod"></el-table-column>
-        <el-table-column label="工单号" prop="docNo" align="center"></el-table-column>
-        <el-table-column label="父工单号" align="center">
+        <el-table-column type="index" :label="$t('common_Number')" align="center" :index="uploadIndexMethod"></el-table-column>
+        <el-table-column :label="$t('WorkOrder_WONumber')" prop="docNo" align="center"></el-table-column>
+        <el-table-column :label="$t('WorkOrder_ParentWO')" align="center">
           <template>
             <span>{{ splitForm.docNo }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="料号" align="center" prop="mNo">
+        <el-table-column :label="$t('common_PorN')" align="center" prop="mNo">
           <template>
             <span>{{ splitForm.materialNo }}:{{ splitForm.version }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="需求数量" prop="requestQty" align="center"></el-table-column>
-        <el-table-column label="预计开始日期" align="center" prop="mNo">
+        <el-table-column :label="$t('common_DemanQuan')" prop="requestQty" align="center"></el-table-column>
+        <el-table-column :label="$t('WorkOrder_EstimatedStart')" align="center" prop="mNo">
           <template>
             <span>{{ splitForm.schStartDt }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="预计结束日期" align="center" prop="mNo">
+        <el-table-column :label="$t('WorkOrder_EstimatedEnd')" align="center" prop="mNo">
           <template>
             <span>{{ splitForm.schClosedDt }}</span>
           </template>
@@ -216,12 +216,12 @@ export default {
   data () {
     const startDtRule = (rule, value, callback) => {
       if (!value) {
-        callback(new Error('请选择预计开始日期'))
+        callback(new Error(this.$t('WorkOrder_selectEstimatedStart')))
       } else {
         let nowTimestamp = this.$dayjs().valueOf()
         let selectTimestamp = this.$dayjs(value).valueOf()
         if (selectTimestamp < nowTimestamp - 60 * 1000) {
-          callback(new Error('预计开始时间不能小于当前时间'))
+          callback(new Error(this.$t('WorkOrder_lessCurrent')))
         } else {
           callback()
         }
@@ -229,13 +229,13 @@ export default {
     }
     const endDtRule = (rule, value, callback) => {
       if (!value) {
-        callback(new Error('请选择预计结束日期'))
+        callback(new Error(this.$t('WorkOrder_selectEstimatedEnd')))
       } else {
         let startDt = this.splitForm.schStartDt
         let startTimestamp = this.$dayjs(startDt).valueOf()
         let selectTimestamp = this.$dayjs(value).valueOf()
         if (selectTimestamp < startTimestamp) {
-          callback(new Error('预计结束时间不能小于预计开始时间'))
+          callback(new Error(this.$t('WorkOrder_lessEstimated')))
         } else {
           callback()
         }
@@ -243,11 +243,11 @@ export default {
     }
     const splitOrderQtyRule = (rule, value, callback) => {
       if (!value) {
-        callback(new Error('工单拆分数量不能为空'))
+        callback(new Error(this.$t('WorkOrder_WOSplitEmpty')))
       } else {
         const { requestQty } = this.splitForm
         if (requestQty < value) {
-          callback(new Error('工单拆分数量不得超出需求数量'))
+          callback(new Error(this.$t('WorkOrder_notExceed')))
         } else {
           callback()
         }
@@ -255,11 +255,11 @@ export default {
     }
     const splitCountRule = (rule, value, callback) => {
       if (!value) {
-        callback(new Error('子工单数量不能为空'))
+        callback(new Error(this.$t('WorkOrder_subWorkEmpty')))
       } else {
         const { splitQty } = this.splitForm
         if (splitQty < value) {
-          callback(new Error('子工单数量不得超出工单拆分数量'))
+          callback(new Error(this.$t('WorkOrder_subWorkExceed')))
         } else {
           callback()
         }
@@ -302,19 +302,19 @@ export default {
           return time.getTime() > Date.now() - 24 * 3600 * 1000
         },
         shortcuts: [{
-          text: '今天',
+          text: this.$t('common_today'),
           onClick (picker) {
             picker.$emit('pick', new Date())
           }
         }, {
-          text: '昨天',
+          text: this.$t('common_yesterday'),
           onClick (picker) {
             const date = new Date()
             date.setTime(date.getTime() - 3600 * 1000 * 24)
             picker.$emit('pick', date)
           }
         }, {
-          text: '一周前',
+          text: this.$t('common_lastWeek'),
           onClick (picker) {
             const date = new Date()
             date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
@@ -439,10 +439,10 @@ export default {
             let workOrderId = row['T_POM_JOB_ORDER_ID']
             this.$router.push(`/Production/WorkOrder/Edit?Work_Order=${workOrderId}`)
           } else {
-            this.$message.warning(`${workOrderStatus}工单无法进行编辑！`)
+            this.$message.warning(`${workOrderStatus}${this.$t('WorkOrder_cannotBeEdited')}`)
           }
         } else {
-          this.$message.error(`当前工单状态有误，无法进行编辑！`)
+          this.$message.error(this.$t('WorkOrder_statusIncorrect'))
         }
       }
     },
@@ -457,7 +457,7 @@ export default {
           const orderId = row.T_POM_JOB_ORDER_ID
           this.$router.push(`/Production/WorkOrder/Edit?Work_Order=${orderId}`)
         } else {
-          this.$message.warning(`${statusName}工单无法进行编辑！`)
+          this.$message.warning(`${statusName}${this.$t('WorkOrder_cannotBeEdited')}`)
         }
       } else {
         this.$router.push('/Production/WorkOrder/Add')
@@ -527,7 +527,7 @@ export default {
           this.getWorkOrderList()
         })
       } else {
-        this.$message.warning('请先选择日期范围！')
+        this.$message.warning(this.$t('WorkOrder_selectDateRange'))
       }
     },
     // 工单上线
@@ -549,7 +549,7 @@ export default {
           this.importDialog = true
         }
       } else {
-        this.$message.warning('请选择一条需要上线的工单！')
+        this.$message.warning(this.$t('WorkOrder_needOnline'))
       }
     },
     // 上传文件 (并验证文件类型是否是excel)
@@ -565,7 +565,7 @@ export default {
           this.fileContent = e.target.result
         }
       } else {
-        this.$message.warning('文件类型必须是excel格式!')
+        this.$message.warning(this.$t('WorkOrder_mustBeExcel'))
       }
       return false
     },
@@ -590,7 +590,7 @@ export default {
             this.$message.error(msg)
           }
         } else {
-          let isConfirm = await this.$myPrompt.confirm('确定清除SN列表，重新生成SN吗？')
+          let isConfirm = await this.$myPrompt.confirm(this.$t('WorkOrder_clearSN'))
           if (isConfirm) {
             let res = await this.$api.simulateExpandSn(data)
             let { code, msg } = res
@@ -605,7 +605,7 @@ export default {
           }
         }
       } else {
-        this.$message.warning('当前工单SN数量已到达需求数量！')
+        this.$message.warning(this.$t('WorkOrder_reached'))
       }
     },
     // 展开上线
@@ -632,7 +632,7 @@ export default {
           this.$message.error(msg)
         }
       } else {
-        this.$message.warning('请先模拟展开SN!')
+        this.$message.warning(this.$t('WorkOrder_expandSN'))
       }
     },
     // 导入SN上线
@@ -650,7 +650,7 @@ export default {
           this.$message.error(res.msg)
         }
       } else {
-        this.$message.warning('请上传需要导入的SN文件！')
+        this.$message.warning(this.$t('WorkOrder_uploadSN'))
       }
     },
     // 删除工单
@@ -658,7 +658,7 @@ export default {
       let ids = id ? [id] : this.ids
       let len = ids.length
       if (len > 0) {
-        let isConfirm = await this.$myPrompt.confirm('确定删除选中的工单吗？')
+        let isConfirm = await this.$myPrompt.confirm(this.$t('WorkOrder_deleteTicket'))
         if (isConfirm) {
           let res = await this.$api.delJobOrders(ids)
           let { code, msg } = res
@@ -674,7 +674,7 @@ export default {
           }
         }
       } else {
-        this.$message.warning('请选择需要删除的工单！')
+        this.$message.warning(this.$t('WorkOrder_selectTicket'))
       }
     },
     uploadIndexMethod (index) {
@@ -710,13 +710,13 @@ export default {
           statusArr.push(item.DOC_STATUS_NAME)
         })
         if (statusArr.indexOf('新建') !== -1) {
-          this.$message.warning('所选工单中存在新建工单，无法报工上传，请重新选择！')
+          this.$message.warning(this.$t('WorkOrder_selectagain'))
         } else {
-          this.$message.success('报工上传成功！')
+          this.$message.success(this.$t('WorkOrder_SubmitSuccess'))
           this.getWorkOrderList()
         }
       } else {
-        this.$message.warning('请先选择需要报工的工单！')
+        this.$message.warning(this.$t('WorkOrder_selectReported'))
       }
     },
     splitHandleCurrentChange (index) {
@@ -744,10 +744,10 @@ export default {
           }
           this.splitDialog = true
         } else {
-          this.$message.warning(`${orderStatus}工单无法进行拆分，请重新选择!`)
+          this.$message.warning(`${orderStatus}${this.$t('WorkOrder_ticketCannotSplit')}`)
         }
       } else {
-        this.$message.warning('请选择一条需要拆分的工单！')
+        this.$message.warning(this.$t('WorkOrder_workorderSplit'))
       }
     },
     splitJobOrder () {
@@ -788,7 +788,7 @@ export default {
           this.getWorkOrderList()
         })
       } else {
-        this.$message.error('请先模拟展开子工单！')
+        this.$message.error(this.$t('WorkOrder_simulatingOrder'))
       }
     }
   },

@@ -1,33 +1,33 @@
 <template>
    <div class="mes-main mes-main-common">
     <div class="main-common-head" >
-      <el-button v-if="listIndex===0" type="primary" plain size="mini" @click="$router.push('/ControlChart/Home')">关闭</el-button>
+      <el-button v-if="listIndex===0" type="primary" plain size="mini" @click="$router.push('/ControlChart/Home')">{{$t('common_close')}}</el-button>
       <el-button v-else type="primary">{{listIndex+1}}</el-button>
     </div>
     <div  id="imageWrapper">
       <el-card class="box-card"  shadow="never">
        <div slot="header" class="clearfix">
-        <span>控制项信息</span>
+        <span>{{$t('conChartHome_ContrInfo')}}</span>
       </div>
       <control-info ref="controlInfo" :tSpcControlItemId="tSpcControlItemId" :hiddenButton="hiddenButton" :len="len"></control-info>
       </el-card>
       <el-card class="box-card"  shadow="never" style="margin-top:15px">
        <div slot="header" class="clearfix">
-        <span>控制图SL&CL</span>
+        <span>{{$t('common_ContrChar')}}SL&CL</span>
       </div>
       <control-chart ref="controlChart"></control-chart>
       </el-card>
       <el-card class="box-card"  shadow="never" style="margin-top:15px">
        <div slot="header" class="clearfix">
-        <span>测量数据表</span>
+        <span>{{$t('conChartHome_MeasuDataShee')}}</span>
       </div>
       <measurement-table v-if="tableData.length>0" :tableData="tableData"></measurement-table>
       </el-card>
       <el-card class="box-card"  shadow="never" style="margin-top:15px">
        <div slot="header" class="clearfix">
-        <span>控制图图表</span>
-        <el-button v-if="hiddenButton" type="primary" style="margin-left:20px"  @click="enterControl">进入管控阶段</el-button>
-        <el-button v-if="hiddenButton" type="primary" style="margin-left:20px"  @click="exportChart">导出数据图</el-button>
+        <span>{{$t('conChartHome_ContrChar')}}</span>
+        <el-button v-if="hiddenButton" type="primary" style="margin-left:20px"  @click="enterControl">{{$t('conChartHome_EnterContStag')}}</el-button>
+        <el-button v-if="hiddenButton" type="primary" style="margin-left:20px"  @click="exportChart">{{$t('conChartHome_ExporDataGrap')}}</el-button>
       </div>
         <el-row>
           <el-col :span="24" style="height:40vh">
@@ -45,7 +45,7 @@
         </el-row>
       </el-card>
     </div>
-      <el-dialog :visible.sync="dialogVisible" title="更改管控"  width="600px" class="handle-dialog" >
+      <el-dialog :visible.sync="dialogVisible" :title="$t('conChartHome_ChangCont')"  width="600px" class="handle-dialog" >
         <dialog-form v-if="dialogVisible" ref="dialog" @cannel="cannel" :tSpcControlItemId="tSpcControlItemId" @setDefaultId="setDefaultId"></dialog-form>
       </el-dialog>
    </div>
@@ -139,7 +139,7 @@ export default {
       })
     },
     exportChart () {
-      this.getPdf('imageWrapper', '控制图图表PDF文件')
+      this.getPdf('imageWrapper', this.$t('conChartHome_ContrCharPDF'))
     },
     resetData (data, i) {
       this.chartTitle1 = data.chartData[0].chartType

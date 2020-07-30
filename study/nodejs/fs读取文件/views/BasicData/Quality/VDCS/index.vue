@@ -9,22 +9,22 @@
         <el-button size="mini" style="float:right;margin-left:10px;" @click="showMoreConditon = !showMoreConditon">
             <i class="fa fa-filter"></i>
         </el-button>
-        <el-input size="mini" placeholder="请输入料号查询" v-model="searchForm.partNoFilter" style="width:40%;float:right;" @keydown.enter.native="findVdcsList">
+        <el-input size="mini" :placeholder="$t('VDCS_PleaseEnterItemNumberToQuery')" v-model="searchForm.partNoFilter" style="width:40%;float:right;" @keydown.enter.native="findVdcsList">
           <i slot="suffix" class="el-input__icon el-icon-search" @click="findVdcsList"></i>
         </el-input>
       </el-col>
       <el-col :span="24"   style="padding-top:1vh;">
         <el-form class="el-row mes-search-form" :model="searchForm" label-width="30%" label-position="left" v-show="showMoreConditon">
-          <el-form-item label="VDCS编号" class="el-col el-col-11">
+          <el-form-item :label="$t('VDCS_VDCSNo')" class="el-col el-col-11">
             <el-input v-model="searchForm.VDCSFilter"></el-input>
           </el-form-item>
-          <el-form-item label="供应商" class="el-col el-col-11  el-col-offset-1">
-            <el-select v-model="searchForm.vendorFilter" filterable placeholder="请选择供应商" style="width:100%">
+          <el-form-item :label="$t('common_suppl')" class="el-col el-col-11  el-col-offset-1">
+            <el-select v-model="searchForm.vendorFilter" filterable :placeholder="$t('VDCS_PleaseSelectSupplier')" style="width:100%">
               <el-option v-for="(option,i) in mWmsEntrylistVendList" :key="i" :label="option.mWmsVendorCode" :value="option.mWmsVendorId"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="稽核日期" class="el-col el-col-11 ">
-            <el-date-picker style="width:100%"  v-model="timeValue"  type="datetimerange"   start-placeholder="开始日期" end-placeholder="结束日期"  value-format="yyyy-MM-dd HH:mm:ss" clearable></el-date-picker>
+          <el-form-item :label="$t('common_AuditDate')" class="el-col el-col-11 ">
+            <el-date-picker style="width:100%"  v-model="timeValue"  type="datetimerange"   :start-placeholder="$t('common_StartDate')" :end-placeholder="$t('common_endTime')"  value-format="yyyy-MM-dd HH:mm:ss" clearable></el-date-picker>
           </el-form-item>
         </el-form>
       </el-col>
@@ -32,13 +32,13 @@
       <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="12">
-          <el-button size="mini" icon="el-icon-search" @click="findVdcsList">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="findVdcsList">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-plus" @click="handleCheck('')">新增</el-button>
+          <el-button size="mini" icon="el-icon-plus" @click="handleCheck('')">{{$t('common_Add')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-delete-solid" @click="deletetableData(selectIds)">批量删除</el-button>
+          <el-button size="mini" icon="el-icon-delete-solid" @click="deletetableData(selectIds)">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">{{$t('common_Refresh')}}</el-button>
         </el-col>
         <el-col :span="12">
           <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -50,30 +50,30 @@
       <div class="mes-table-content">
         <el-table :data="tableData" highlight-current-row border size="mini" @cell-click="cellClick"  @selection-change="selectionChange">
           <el-table-column type="selection" width="50" fixed="left"></el-table-column>
-          <el-table-column type="index" label="序号" align="center" :index="indexMethod" fixed="left"></el-table-column>
-          <el-table-column prop="vdcsNo" label="VDCS编号" align="center" sortable></el-table-column>
-          <el-table-column prop="vendorVn" label="供应商" align="center" sortable></el-table-column>
-          <el-table-column prop="vdcsDate" label="日期" align="center" sortable></el-table-column>
-          <el-table-column prop="partNoVn" label="料号" align="center" sortable>
+          <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod" fixed="left"></el-table-column>
+          <el-table-column prop="vdcsNo" :label="$t('VDCS_VDCSNo')" align="center" sortable></el-table-column>
+          <el-table-column prop="vendorVn" :label="$t('common_suppl')" align="center" sortable></el-table-column>
+          <el-table-column prop="vdcsDate" :label="$t('common_Date')" align="center" sortable></el-table-column>
+          <el-table-column prop="partNoVn" :label="$t('common_PorN')" align="center" sortable>
             <template slot-scope="scope">
               {{scope.row.sipVer ? `${scope.row.partNoVn}:${scope.row.sipVer}` : scope.row.partNoVn}}
             </template>
           </el-table-column>
-          <el-table-column prop="isVendorReply" label="是否回复" align="center" sortable>
+          <el-table-column prop="isVendorReply" :label="$t('VDCS_Reply')" align="center" sortable>
             <template slot-scope="scope">
-              {{scope.row.isVendorReply ? '是' : '否'}}
+              {{scope.row.isVendorReply ? $t('common_Yes') : $t('common_No')}}
             </template>
           </el-table-column>
-          <el-table-column prop="handleMethodVn" label="处理方式" align="center" sortable></el-table-column>
-           <el-table-column prop="status" label="状态" align="center" sortable>
+          <el-table-column prop="handleMethodVn" :label="$t('VDCS_ProcessingMethod')" align="center" sortable></el-table-column>
+           <el-table-column prop="status" :label="$t('common_Status')" align="center" sortable>
               <template slot-scope="scope">
-              {{scope.row.status ? scope.row.status : '未提交'}}
+              {{scope.row.status ? scope.row.status : $t('common_NotSubm')}}
             </template>
            </el-table-column>
-          <el-table-column label="操作" align="center" width="120" fixed="right">
+          <el-table-column :label="$t('common_Operate')" align="center" width="120" fixed="right">
             <template slot-scope="scope">
-              <handle-button @click="handleCheck(scope.row)" iconClass="el-icon-edit-outline" tipText="编辑"></handle-button>
-              <handle-button @click="deletetableData([scope.row.vdcsId])" iconClass="el-icon-delete" tipText="删除" iconColor='#f56c6c'></handle-button>
+              <handle-button @click="handleCheck(scope.row)" iconClass="el-icon-edit-outline" :tipText="$t('common_Edit')"></handle-button>
+              <handle-button @click="deletetableData([scope.row.vdcsId])" iconClass="el-icon-delete" :tipText="$t('common_Del')" iconColor='#f56c6c'></handle-button>
             </template>
           </el-table-column>
         </el-table>
@@ -81,7 +81,7 @@
     </div>
       <div class="mes-main-tabs" v-if="showTabs" style="margin-top:10px">
         <el-tabs v-model="activeName">
-        <el-tab-pane label="详细资料" name="infoName">
+        <el-tab-pane :label="$t('VDCS_Details')" name="infoName">
           <base-index type="details" :vdcsId="vdcsId"></base-index>
         </el-tab-pane>
         </el-tabs>
@@ -149,7 +149,7 @@ export default {
     },
     async deletetableData (ids) {
       if (ids.length > 0) {
-        let confirm = await this.$myPrompt.confirm('确定删除所选择的VDCS信息吗？')
+        let confirm = await this.$myPrompt.confirm(this.$t('VDCS_Tips1'))
         if (confirm) {
           let res = await this.$api.deleteVdcs(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -160,7 +160,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请选择要删除的VDCS信息')
+        this.$message.warning(this.$t('common_PleasSeleInfoDe'))
       }
     },
     refreshPage () {

@@ -1,24 +1,24 @@
 <template>
 <div class="mes-main mes-work-order">
-  <div class="mes-main-title">配置项管理</div>
+  <div class="mes-main-title">{{$t('dictionary_configurationManagement')}}</div>
   <el-row :gutter="20" class="mes-main-filte">
     <el-col :span="12">
-       <el-input placeholder="请输入配置项代码" v-model.trim="searchFrom.configureCode" clearable size="mini" style="width:40%" @keydown.enter.native="getTableData"></el-input>
+       <el-input :placeholder="$t('Management_itemCode')" v-model.trim="searchFrom.configureCode" clearable size="mini" style="width:40%" @keydown.enter.native="getTableData"></el-input>
     </el-col>
     <el-col :span="12">
-       <el-input placeholder="请输入配置项名称" v-model.trim="searchFrom.configureName" clearable size="mini" style="width:40%;float:right" @keydown.enter.native="getTableData"></el-input>
+       <el-input :placeholder="$t('Management_itemName')" v-model.trim="searchFrom.configureName" clearable size="mini" style="width:40%;float:right" @keydown.enter.native="getTableData"></el-input>
     </el-col>
   </el-row>
   <div class="mes-table">
     <el-row class="mes-table-handle">
       <el-col :span="12">
-        <el-button size="mini" icon="el-icon-search" @click="getTableData">查询</el-button>
+        <el-button size="mini" icon="el-icon-search" @click="getTableData">{{$t('common_Inquire')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-plus" @click="handletable('')">新增</el-button>
+        <el-button size="mini" icon="el-icon-plus" @click="handletable('')">{{$t('common_Add')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-delete-solid" @click="deleteTable('')">批量删除</el-button>
+        <el-button size="mini" icon="el-icon-delete-solid" @click="deleteTable('')">{{$t('common_Delete')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-refresh" @click="getTableData">刷新</el-button>
+        <el-button size="mini" icon="el-icon-refresh" @click="getTableData">{{$t('common_Refresh')}}</el-button>
       </el-col>
       <el-col :span="12">
           <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -30,15 +30,15 @@
     <div class="mes-table-content">
       <el-table :data="tableData" border highlight-current-row size="mini"  @selection-change="tableSelectionChange">>
         <el-table-column type="selection" width="50" align="center"></el-table-column>
-        <el-table-column type="index" label="序号" align="center" :index="indexMethod"></el-table-column>
-        <el-table-column prop="configureCode" sortable label="配置项编码" align="center"></el-table-column>
-        <el-table-column prop="configureName" sortable label="配置项名称" align="center"></el-table-column>
-        <el-table-column prop="configureValue" sortable label="配置项值" align="center"></el-table-column>
-        <el-table-column prop="remark" sortable label="备注" align="center"></el-table-column>
-         <el-table-column label="操作" align="center" width="120">
+        <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod"></el-table-column>
+        <el-table-column prop="configureCode" sortable :label="$t('Management_Code')" align="center"></el-table-column>
+        <el-table-column prop="configureName" sortable :label="$t('Management_Name')" align="center"></el-table-column>
+        <el-table-column prop="configureValue" sortable :label="$t('Management_Value')" align="center"></el-table-column>
+        <el-table-column prop="remark" sortable :label="$t('common_remarks')" align="center"></el-table-column>
+         <el-table-column :label="$t('common_Operate')" align="center" width="120">
           <template slot-scope="scope">
-            <handle-button @click="handletable(scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-            <handle-button @click="deleteTable(scope.row.mComConfigureID)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+            <handle-button @click="handletable(scope.row)" iconClass='el-icon-edit-outline' :tipText="$t('common_Edit')"></handle-button>
+            <handle-button @click="deleteTable(scope.row.mComConfigureID)" iconClass='el-icon-delete' :tipText="$t('common_Del')" iconColor='#f56c6c'></handle-button>
           </template>
         </el-table-column>
       </el-table>
@@ -72,7 +72,7 @@ export default {
   },
   computed: {
     dialogTitle () {
-      return this.isEdit ? '编辑配置项' : '新增配置项'
+      return this.isEdit ? this.$t('Management_EditItem') : this.$t('Management_AddItem')
     },
     editDisabeld () {
       let len = this.selectList.length
@@ -126,7 +126,7 @@ export default {
       let { selectList } = this
       const ids = mComConfigureID ? [mComConfigureID] : selectList
       if (ids.length > 0) {
-        const confirm = await this.$myPrompt.confirm('确定删除当前选中的配置项吗？')
+        const confirm = await this.$myPrompt.confirm(this.$t('Management_deleteItem'))
         if (confirm) {
           if (mComConfigureID !== '') {
             selectList = [mComConfigureID]
@@ -137,7 +137,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请选择需要删除的配置项！')
+        this.$message.warning(this.$t('Management_selectDeleteItem'))
       }
     },
     cannel () {

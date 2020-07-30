@@ -1,25 +1,25 @@
 <template>
   <div class="mes-main mes-work-order">
-  <h3 class="mes-main-title">调拨单管理</h3>
+  <h3 class="mes-main-title">{{$t('Allocation_TransferOrderManagement')}}</h3>
   <el-row :gutter="20" class="mes-main-filte">
     <el-col :span="12">
-      <el-input placeholder="请输入调拨单号" v-model.trim="searchForm.allocatelistNo" size="mini" style="width:40%;">
+      <el-input :placeholder="$t('Allocation_NoRequired')" v-model.trim="searchForm.allocatelistNo" size="mini" style="width:40%;">
       </el-input>
     </el-col>
     <el-col :span="12">
-      <dict-select v-model="searchForm.noStatus" style="width:40%;float:right;" dictType="WMS_ALLOCATELIST_STATUS" placeholder="单据状态" clearable></dict-select>
+      <dict-select v-model="searchForm.noStatus" style="width:40%;float:right;" dictType="WMS_ALLOCATELIST_STATUS" :placeholder="$t('Allocation_DocumentStatus')" clearable></dict-select>
     </el-col>
   </el-row>
   <div class="mes-table">
     <el-row class="mes-table-handle">
       <el-col :span="12">
-          <el-button icon="el-icon-search" size="mini" @click="initData">查询</el-button>
+          <el-button icon="el-icon-search" size="mini" @click="initData">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-plus" @click="allocationHandle('')">新增</el-button>
+          <el-button size="mini" icon="el-icon-plus" @click="allocationHandle('')">{{$t('common_Add')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteEntrylist('')">批量删除</el-button>
+          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteEntrylist('')">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button icon="el-icon-refresh-right" size="mini" @click="resetForm">刷新</el-button>
+          <el-button icon="el-icon-refresh-right" size="mini" @click="resetForm">{{$t('common_Refresh')}}</el-button>
         </el-col>
         <el-col :span="12">
           <mes-page ref="mesPage" :initData="initData" :total="total" />
@@ -28,22 +28,22 @@
       <div class="mes-table-content">
         <el-table :data="tableData" border size="mini" @cell-click="cellClick" @selection-change="selectionChange">
           <el-table-column type="selection" width="50" align="center" ></el-table-column>
-          <el-table-column type="index" label="序号" align="center" fixed="left" :index="indexMethod"></el-table-column>
-          <el-table-column prop="allocatelistNo" sortable label="调拨单号" min-width="110" show-overflow-tooltip label-class-name="mes-table-label" class-name="mes-table-click" align="center"></el-table-column>
-          <el-table-column prop="outStockName" sortable label="调出仓库" min-width="110" align="center"></el-table-column>
-          <el-table-column prop="inStockName" sortable label="调入仓库" min-width="100" align="center"></el-table-column>
-          <el-table-column prop="remarks" sortable label="备注" min-width="110" align="center"></el-table-column>
-          <el-table-column prop="noStatusName" sortable label="单据状态" min-width="110" align="center">
+          <el-table-column type="index" :label="$t('common_Number')" align="center" fixed="left" :index="indexMethod"></el-table-column>
+          <el-table-column prop="allocatelistNo" sortable :label="$t('Allocation_allocatelistNo')" min-width="110" show-overflow-tooltip label-class-name="mes-table-label" class-name="mes-table-click" align="center"></el-table-column>
+          <el-table-column prop="outStockName" sortable :label="$t('Allocation_outStockName')" min-width="110" align="center"></el-table-column>
+          <el-table-column prop="inStockName" sortable :label="$t('Allocation_inStockName')" min-width="100" align="center"></el-table-column>
+          <el-table-column prop="remarks" sortable :label="$t('common_remarks')" min-width="110" align="center"></el-table-column>
+          <el-table-column prop="noStatusName" sortable :label="$t('Allocation_DocumentStatus')" min-width="110" align="center">
             <template slot-scope="scope">
               <el-tag :type="setTagColor(scope.row.noStatus)" size="mini">{{scope.row.noStatusName}}</el-tag>
             </template>
           </el-table-column>
-          <el-table-column prop="creatorName" sortable label="创建人" min-width="100" align="center"></el-table-column>
-          <el-table-column prop="createdDt" sortable label="创建时间" min-width="110" align="center"></el-table-column>
-          <el-table-column label="操作" width="120" align="center" fixed="right">
+          <el-table-column prop="creatorName" sortable :label="$t('common_Creator')" min-width="100" align="center"></el-table-column>
+          <el-table-column prop="createdDt" sortable :label="$t('common_CreateTime')" min-width="110" align="center"></el-table-column>
+          <el-table-column :label="$t('common_Operate')" width="120" align="center" fixed="right">
           <template slot-scope="scope">
-            <handle-button @click="allocationHandle(scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-            <handle-button iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c' @click="deleteEntrylist(scope.row.mwmsAllocatelistId)"></handle-button>
+            <handle-button @click="allocationHandle(scope.row)" iconClass='el-icon-edit-outline' :tipText="$t('common_Edit')"></handle-button>
+            <handle-button iconClass='el-icon-delete' :tipText="$t('common_Del')" iconColor='#f56c6c' @click="deleteEntrylist(scope.row.mwmsAllocatelistId)"></handle-button>
           </template>
         </el-table-column>
         </el-table>
@@ -51,15 +51,15 @@
     </div>
     <div class="mes-main-tabs" v-if="showTas">
       <el-tabs>
-        <el-tab-pane label="调拨单明细">
+        <el-tab-pane :label="$t('Allocation_TransferOrderDetails')">
           <div class="mes-table">
             <el-table :data="detailData" border highlight-current-row @selection-change="detailTableSelect" size="mini">
-              <el-table-column type="index" label="序号" align="center"></el-table-column>
-              <el-table-column prop="mcomMaterialNo" sortable label="料号" align="center"></el-table-column>
-              <el-table-column prop="mcomMaterialName" sortable label="料号名称" align="center"></el-table-column>
-              <el-table-column prop="allocateQuantity" sortable label="调拨数量" align="center" min-width="120"></el-table-column>
-              <el-table-column prop="outQty" sortable label="调出数量" align="center" min-width="120"></el-table-column>
-              <el-table-column prop="inQty" sortable label="调入数量" align="center" min-width="120"></el-table-column>
+              <el-table-column type="index" :label="$t('common_Number')" align="center"></el-table-column>
+              <el-table-column prop="mcomMaterialNo" sortable :label="$t('common_PorN')" align="center"></el-table-column>
+              <el-table-column prop="mcomMaterialName" sortable :label="$t('common_PorN_Name')" align="center"></el-table-column>
+              <el-table-column prop="allocateQuantity" sortable :label="$t('Allocation_quantity')" align="center" min-width="120"></el-table-column>
+              <el-table-column prop="outQty" sortable :label="$t('Allocation_outQuantity')" align="center" min-width="120"></el-table-column>
+              <el-table-column prop="inQty" sortable :label="$t('Allocation_inQuantity')" align="center" min-width="120"></el-table-column>
             </el-table>
           </div>
         </el-tab-pane>
@@ -97,7 +97,7 @@ export default {
   },
   computed: {
     dialogTitle () {
-      return this.isEdit ? '编辑调拨单' : '新增调拨单'
+      return this.isEdit ? this.$t('Allocation_EditTransfer') : this.$t('Allocation_NewTransfer')
     }
   },
   methods: {
@@ -157,7 +157,7 @@ export default {
       const res = await this.$api.saveAllocationDetailList({ mwmsAllocateListDetailList: data, mwmsAllocatelistId: this.checkId })
       const { code, msg } = res
       if (code === '200') {
-        this.$message.success('编辑成功')
+        this.$message.success(this.$t('common_EditSucceeded'))
         this.saveCurrentPage()
       } else {
         this.$message.error(msg)
@@ -188,7 +188,7 @@ export default {
             this.$refs.dialog.dialogForm.mwmsAllocatelistId = row.mwmsAllocatelistId
           })
         } else {
-          this.$message.error('非开立状态不允许任何操作!')
+          this.$message.error(this.$t('Allocation_NoOperation'))
         }
       } else {
         this.isEdit = false
@@ -199,7 +199,7 @@ export default {
       let ids = id ? [id] : this.selectList
       const len = ids.length
       if (len > 0) {
-        let confirmRes = await this.$myPrompt.confirm('确定删除当前选中的调拨单信息吗?')
+        let confirmRes = await this.$myPrompt.confirm(this.$t('Allocation_DeletePrompt1'))
         if (confirmRes) {
           let res = await this.$api.deleteAllocation({ mwmsAllocatelistIdList: ids })
           const { code, msg } = res
@@ -213,7 +213,7 @@ export default {
           this.cannel()
         }
       } else {
-        this.$message.warning('请选择要删除的调拨单信息')
+        this.$message.warning(this.$t('Allocation_DeletePrompt2'))
       }
     }
   },

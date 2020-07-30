@@ -4,7 +4,7 @@
       <el-alert :title="scanTips" type="warning" v-if="showScanTips" show-icon @close="showScanTips=false"></el-alert>
     </el-col>
     <el-col :span="24" class="scan-area-input">
-      <el-input v-model.trim="code" ref="scanIpnut" :placeholder="'请扫描'+scanType" size="medium" @keydown.enter.native="scanCode" :autofocus="true"></el-input>
+      <el-input v-model.trim="code" ref="scanIpnut" :placeholder="$t('common_PleasScan')+scanType" size="medium" @keydown.enter.native="scanCode" :autofocus="true"></el-input>
     </el-col>
   </el-row>
 </template>

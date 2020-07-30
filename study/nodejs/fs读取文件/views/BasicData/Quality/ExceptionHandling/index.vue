@@ -1,6 +1,6 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">异常处理</h3>
+    <h3 class="mes-main-title">{{$t('exceptionHan_excepHand')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
         <dict-select  v-model="searchForm.docStatus" dictType="SUBMIT_STATUS"  style="width:35%" selectKey="dictCode" @change="findExceptList"></dict-select>
@@ -9,20 +9,20 @@
         <el-button size="mini" style="float:right;margin-left:10px;" @click="showMoreConditon = !showMoreConditon">
             <i class="fa fa-filter"></i>
         </el-button>
-        <el-input size="mini" placeholder="请输入关键字" v-model="searchForm.keywords" style="width:40%;float:right;" @keydown.enter.native="findExceptList">
+        <el-input size="mini" :placeholder="$t('common_PleasEnteKeyw')" v-model="searchForm.keywords" style="width:40%;float:right;" @keydown.enter.native="findExceptList">
           <i slot="suffix" class="el-input__icon el-icon-search" @click="findExceptList"></i>
         </el-input>
       </el-col>
       <el-col :span="24"   style="padding-top:1vh;">
         <el-form class="el-row mes-search-form" :model="searchForm" label-width="30%" label-position="left" v-show="showMoreConditon">
-          <el-form-item label="产品系列" class="el-col el-col-11">
+          <el-form-item :label="$t('common_ProduSeries')" class="el-col el-col-11">
             <mes-select v-model="searchForm.model" labelKey="mComMaterialfamilyCode" valueKey="mComMaterialfamilyId" method="getMachine"></mes-select>
           </el-form-item>
-          <el-form-item label="生产单位" class="el-col el-col-11  el-col-offset-1">
+          <el-form-item :label="$t('common_ProduUnit')" class="el-col el-col-11  el-col-offset-1">
             <mes-select v-model="searchForm.productionUnit" labelKey="officeCode" valueKey="companyCode" method="getProductionUnit"></mes-select>
           </el-form-item>
-          <el-form-item label="稽核日期" class="el-col el-col-11 ">
-            <el-date-picker style="width:100%"  v-model="timeValue"  type="datetimerange"   start-placeholder="开始日期" end-placeholder="结束日期"  value-format="yyyy-MM-dd HH:mm:ss" clearable></el-date-picker>
+          <el-form-item :label="$t('common_AuditDate')" class="el-col el-col-11 ">
+            <el-date-picker style="width:100%"  v-model="timeValue"  type="datetimerange"   :start-placeholder="$t('common_StartDate')" :end-placeholder="$t('common_EndDate')"  value-format="yyyy-MM-dd HH:mm:ss" clearable></el-date-picker>
           </el-form-item>
         </el-form>
       </el-col>
@@ -30,13 +30,13 @@
       <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="12">
-          <el-button size="mini" icon="el-icon-search" @click="findExceptList">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="findExceptList">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
           <!-- <el-button size="mini" icon="el-icon-plus" @click="handleCheck('')">新增</el-button>
           <span class="split-line">|</span> -->
-          <el-button size="mini" icon="el-icon-delete-solid" @click="deletetableData('')">批量删除</el-button>
+          <el-button size="mini" icon="el-icon-delete-solid" @click="deletetableData('')">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">{{$t('common_Refresh')}}</el-button>
         </el-col>
         <el-col :span="12">
           <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -48,19 +48,19 @@
       <div class="mes-table-content">
         <el-table :data="tableData" highlight-current-row border size="mini"  @selection-change="selectionChange">
           <el-table-column type="selection" width="50" fixed="left"></el-table-column>
-          <el-table-column type="index" label="序号" align="center" :index="indexMethod" fixed="left"></el-table-column>
-          <el-table-column prop="docNo" label="异常单号" align="center" sortable></el-table-column>
-          <el-table-column prop="batchNo" label="检验单号" align="center" sortable></el-table-column>
-          <el-table-column prop="model" label="产品系列" align="center" sortable></el-table-column>
-          <el-table-column prop="productionUnit" label="生产单位" align="center" sortable></el-table-column>
-          <el-table-column prop="inspectItem" label="稽核项目" align="center" sortable></el-table-column>
-          <el-table-column prop="inspectContent" label="稽核内容" align="center" sortable></el-table-column>
-          <el-table-column prop="failTypeName" label="不良类型" align="center" sortable></el-table-column>
-          <el-table-column prop="failCategoryName" label="不良种类" align="center" sortable></el-table-column>
-          <el-table-column label="操作" align="center" width="120" fixed="right">
+          <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod" fixed="left"></el-table-column>
+          <el-table-column prop="docNo" :label="$t('exceptionHan_AbnorOrdeNumb')" align="center" sortable></el-table-column>
+          <el-table-column prop="batchNo" :label="$t('common_InspeOrdeNo')" align="center" sortable></el-table-column>
+          <el-table-column prop="model" :label="$t('common_ProduSeries')" align="center" sortable></el-table-column>
+          <el-table-column prop="productionUnit" :label="$t('common_ProduUnit')" align="center" sortable></el-table-column>
+          <el-table-column prop="inspectItem" :label="$t('common_AuditItem')" align="center" sortable></el-table-column>
+          <el-table-column prop="inspectContent" :label="$t('common_AuditCont')" align="center" sortable></el-table-column>
+          <el-table-column prop="failTypeName" :label="$t('exceptionHan_TypesDefects')" align="center" sortable></el-table-column>
+          <el-table-column prop="failCategoryName" :label="$t('exceptionHan_kindsDefects')" align="center" sortable></el-table-column>
+          <el-table-column :label="$t('common_Operate')" align="center" width="120" fixed="right">
             <template slot-scope="scope">
-              <handle-button @click="handleCheck(scope.row)" iconClass="el-icon-edit-outline" tipText="编辑"></handle-button>
-              <handle-button @click="deletetableData(scope.row.tQomFqcMainId)" iconClass="el-icon-delete" tipText="删除" iconColor='#f56c6c'></handle-button>
+              <handle-button @click="handleCheck(scope.row)" iconClass="el-icon-edit-outline" :tipText="$t('common_Edit')"></handle-button>
+              <handle-button @click="deletetableData(scope.row.tQomFqcMainId)" iconClass="el-icon-delete" :tipText="$t('common_Del')" iconColor='#f56c6c'></handle-button>
             </template>
           </el-table-column>
         </el-table>
@@ -98,7 +98,7 @@ export default {
   },
   computed: {
     dialogTitle () {
-      return this.isEdit ? '编辑异常处理列表' : '新增异常处理列表'
+      return this.isEdit ? this.$t('exceptionHan_EditExceHandLis') : this.$t('exceptionHan_AddExceHandList')
     }
   },
   methods: {

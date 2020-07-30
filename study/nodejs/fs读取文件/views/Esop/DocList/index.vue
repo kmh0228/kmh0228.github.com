@@ -1,21 +1,21 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">文档列表管理</h3>
+    <h3 class="mes-main-title">{{$t('docList_DocumListMana')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-        <el-input size="mini" v-model="docName" style="width:35%" placeholder="文档名称" clearable @keydown.enter.native="getEsopDocList"></el-input>
+        <el-input size="mini" v-model="docName" style="width:35%" :placeholder="$t('docList_DocumName')" clearable @keydown.enter.native="getEsopDocList"></el-input>
       </el-col>
     </el-row>
     <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="12">
-          <el-button  size="mini" icon="el-icon-search" @click="getEsopDocList">查询</el-button>
+          <el-button  size="mini" icon="el-icon-search" @click="getEsopDocList">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-plus" @click="handleDialog('')">新增</el-button>
+          <el-button size="mini" icon="el-icon-plus" @click="handleDialog('')">{{$t('common_Add')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteEsopDocList('')">批量删除</el-button>
+          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteEsopDocList('')">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">{{$t('common_Refresh')}}</el-button>
         </el-col>
         <el-col :span="12">
           <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :page-count="5"
@@ -25,22 +25,22 @@
       </el-row>
       <el-table :data="tableData" border highlight-current-row size="mini" @selection-change="tableChange" >
         <el-table-column type="selection" width="50" align="center" fixed="left"></el-table-column>
-        <el-table-column type="index" label="序号" align="center" :index="indexMethod" fixed="left"></el-table-column>
-        <el-table-column prop="department" label="所属部门" align="center" sortable></el-table-column>
-        <el-table-column prop="docType" label="文档类型" align="center" sortable></el-table-column>
-        <el-table-column prop="docNo" label="文档编号" align="center" width="140" sortable></el-table-column>
-        <el-table-column prop="docName" label="文档名称" align="center" sortable></el-table-column>
-        <el-table-column prop="version" label="版本" align="center" sortable></el-table-column>
-        <el-table-column prop="docDesc" label="描述" align="center" sortable></el-table-column>
-        <el-table-column prop="size" label="文件大小" :formatter="formatFileSize" align="center" sortable></el-table-column>
-        <el-table-column prop="creator" label="上传人" align="center" sortable></el-table-column>
-        <el-table-column prop="createdDt" label="上传时间" align="center" width="150" sortable></el-table-column>
-        <el-table-column label="操作" align="center" min-width="130px" fixed="right">
+        <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod" fixed="left"></el-table-column>
+        <el-table-column prop="department" :label="$t('docList_Depar')" align="center" sortable></el-table-column>
+        <el-table-column prop="docType" :label="$t('docList_DocumType')" align="center" sortable></el-table-column>
+        <el-table-column prop="docNo" :label="$t('common_DocumNumb')" align="center" width="140" sortable></el-table-column>
+        <el-table-column prop="docName" :label="$t('docList_DocumName')" align="center" sortable></el-table-column>
+        <el-table-column prop="version" :label="$t('common_editi')" align="center" sortable></el-table-column>
+        <el-table-column prop="docDesc" :label="$t('common_Description')" align="center" sortable></el-table-column>
+        <el-table-column prop="size" :label="$t('docList_fileSize')" :formatter="formatFileSize" align="center" sortable></el-table-column>
+        <el-table-column prop="creator" :label="$t('docList_UploaBy')" align="center" sortable></el-table-column>
+        <el-table-column prop="createdDt" :label="$t('docList_UploaTime')" align="center" width="150" sortable></el-table-column>
+        <el-table-column :label="$t('common_Operate')" align="center" min-width="130px" fixed="right">
           <template slot-scope="scope">
-            <handle-button @click="handleDialog(scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-            <handle-button @click="previewFile(scope.row)" iconClass='el-icon-view' tipText="浏览"></handle-button>
-            <handle-button @click="downloadFile(scope.row)" iconClass='el-icon-download' tipText="下载"></handle-button>
-            <handle-button @click="deleteEsopDocList(scope.row.mComDocId)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+            <handle-button @click="handleDialog(scope.row)" iconClass='el-icon-edit-outline' :placeholder="$t('common_Edit')"></handle-button>
+            <handle-button @click="previewFile(scope.row)" iconClass='el-icon-view' :placeholder="$t('docList_brows')"></handle-button>
+            <handle-button @click="downloadFile(scope.row)" iconClass='el-icon-download' :placeholder="$t('common_downLoad')"></handle-button>
+            <handle-button @click="deleteEsopDocList(scope.row.mComDocId)" iconClass='el-icon-delete' :placeholder="$t('common_Del')" iconColor='#f56c6c'></handle-button>
           </template>
         </el-table-column>
       </el-table>
@@ -55,30 +55,30 @@
         <div class="pdf-preview-wrap" ref="pdfPreview">
           <div class="pdf-preview-toolbar el-row">
             <div class="el-col-8">
-              <el-tooltip placement="top" content="上一页">
+              <el-tooltip placement="top" :content="$t('docList_previPage')">
                 <span class="el-icon-back" @click="pdfPageHandle(false)"></span>
               </el-tooltip>
-              <el-tooltip placement="top" content="下一页">
+              <el-tooltip placement="top" :content="$t('docList_nextPage')">
                 <span class="el-icon-right" @click="pdfPageHandle"></span>
               </el-tooltip>
-              <el-tooltip placement="top" content="放大">
+              <el-tooltip placement="top" :content="$t('docList_enlar')">
                 <span class="el-icon-zoom-in" @click="zoomIn"></span>
               </el-tooltip>
-              <el-tooltip placement="top" content="缩小">
+              <el-tooltip placement="top" :content="$t('docList_narro')">
                 <span class="el-icon-zoom-out" @click="zoomOut"></span>
               </el-tooltip>
-              <el-tooltip placement="top" content="向左旋转">
+              <el-tooltip placement="top" :content="$t('docList_RotatLeft')">
                 <span class="el-icon-refresh-left" @click="pdfRotate += 90"></span>
               </el-tooltip>
-              <el-tooltip placement="top" content="向右旋转">
+              <el-tooltip placement="top" :content="$t('docList_TurnRigh')">
                 <span class="el-icon-refresh-right" @click="pdfRotate -= 90"></span>
               </el-tooltip>
-              <el-tooltip placement="top" content="全屏">
+              <el-tooltip placement="top" :content="$t('docList_FullScre')">
                 <span class="el-icon-full-screen" @click="fullScreenHandle"></span>
               </el-tooltip>
             </div>
             <div class="el-col-8">
-              <p>共{{ pdfPage }}/{{ pdfTotal }}页</p>
+              <p>{{$t('docList_total')}}{{ pdfPage }}/{{ pdfTotal }}{{$t('docList_page')}}</p>
             </div>
           </div>
           <div :style="{width:`${pdfWidth}%`}" style="height:89%;margin:3vh auto 0;overflow:hidden;" >
@@ -121,7 +121,7 @@ export default {
   },
   computed: {
     dialogTitle () {
-      return this.isEdit ? '编辑文档' : '新增文档'
+      return this.isEdit ? this.$t('docList_EditDocu') : this.$t('docList_NewDocu')
     }
   },
   methods: {
@@ -210,7 +210,7 @@ export default {
     async deleteEsopDocList (id) {
       const ids = id ? [id] : this.selectList
       if (ids.length > 0) {
-        const confirm = await this.$myPrompt.confirm('确定删除选中的文档吗？')
+        const confirm = await this.$myPrompt.confirm(this.$t('docList_AreYouSureSeleDocu'))
         if (confirm) {
           const res = await this.$api.deleteEsopDocList(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -218,7 +218,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请选择要删除的信息?')
+        this.$message.warning(this.$t('common_PleasSeleInfoDe') + '?')
       }
     },
     // 预览文件
@@ -235,7 +235,7 @@ export default {
         this.fileSrc = objectUrl
         this.showFile = true
       } else {
-        this.$message.warning('暂时仅支持PDF文件浏览！')
+        this.$message.warning(this.$t('docList_OnlySuppForTimeBein'))
         // this.fileSrc = `https://view.officeapps.live.com/op/view.aspx?src=${docAddress}`
       }
     },
@@ -261,14 +261,14 @@ export default {
       if (this.pdfWidth < 100) {
         this.pdfWidth += 10
       } else {
-        this.$message.warning('文件已放大至最大宽度！')
+        this.$message.warning(this.$t('docList_FileEnlaMaxiWidt'))
       }
     },
     zoomOut () {
       if (this.pdfWidth > 30) {
         this.pdfWidth -= 10
       } else {
-        this.$message.warning('文件已缩小至最小宽度！')
+        this.$message.warning(this.$t('docList_FileReduMiniWidt'))
       }
     },
     // 开启全屏

@@ -1,58 +1,58 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">维修详情查询</h3>
+    <h3 class="mes-main-title">{{$t('repairDet_MaintDetaInqu')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-        <el-input placeholder="请输入零件SN" v-model.trim="searchFrom.sn" size="mini" style="width:40%;" @keydown.enter.native="getRepairDetailReport">
+        <el-input :placeholder="$t('repairDet_inputPartSN')" v-model.trim="searchFrom.sn" size="mini" style="width:40%;" @keydown.enter.native="getRepairDetailReport">
           <i slot="suffix" class="el-input__icon el-icon-search" @click="getRepairDetailReport"></i>
         </el-input>
-        <el-button size="mini" icon="el-icon-back" style="margin-left:10px;"  @click="$router.go(-1)">返回</el-button>
+        <el-button size="mini" icon="el-icon-back" style="margin-left:10px;"  @click="$router.go(-1)">{{$t('common_retur')}}</el-button>
       </el-col>
     </el-row>
     <el-form class="el-row mes-main-filte " :model="repairForm" label-width="30%" label-position="left" >
-      <el-form-item label="SN：" class="el-col el-col-11">
+      <el-form-item label="SN:" class="el-col el-col-11">
         <p>{{ repairForm.sn }}</p>
       </el-form-item>
-      <el-form-item label="工单号：" class="el-col el-col-11 el-col-offset-1">
+      <el-form-item :label="$t('repairDet_WorkOrdeNo')" class="el-col el-col-11 el-col-offset-1">
         <p>{{ repairForm.jobOrder }}</p>
       </el-form-item>
-        <el-form-item label="料号：" class="el-col el-col-11">
+        <el-form-item :label="$t('repairDet_ItemNo')" class="el-col el-col-11">
         <p>{{ repairForm.materialNo }}</p>
       </el-form-item>
-      <el-form-item label="送修工站：" class="el-col el-col-11 el-col-offset-1">
+      <el-form-item :label="$t('repairDet_RepaiStat')" class="el-col el-col-11 el-col-offset-1">
         <p>{{ repairForm.repairStation }}</p>
       </el-form-item>
-        <el-form-item label="原因代码：" class="el-col el-col-11">
+        <el-form-item :label="$t('repairDet_ReasoCodeF')" class="el-col el-col-11">
         <p>{{ repairForm.defectCode }}</p>
       </el-form-item>
-      <el-form-item label="维修工站：" class="el-col el-col-11 el-col-offset-1">
+      <el-form-item :label="$t('repairDet_MaintStat')" class="el-col el-col-11 el-col-offset-1">
         <p>{{ repairForm.repairStation }}</p>
       </el-form-item>
-        <el-form-item label="维修结果：" class="el-col el-col-11">
+        <el-form-item :label="$t('repairDet_MaintResu')" class="el-col el-col-11">
         <p>{{ repairForm.result }}</p>
       </el-form-item>
-      <el-form-item label="维修人：" class="el-col el-col-11 el-col-offset-1">
+      <el-form-item :label="$t('repairDet_MaintPers')" class="el-col el-col-11 el-col-offset-1">
         <p>{{ repairForm.creator }}</p>
       </el-form-item>
-        <el-form-item label="送修时间：" class="el-col el-col-11">
+        <el-form-item :label="$t('repairDet_DelivTime')" class="el-col el-col-11">
         <p>{{ repairForm.fromTime }}</p>
       </el-form-item>
-      <el-form-item label="维修完成时间：" class="el-col el-col-11 el-col-offset-1">
+      <el-form-item :label="$t('repairDet_RepaiCompTime')" class="el-col el-col-11 el-col-offset-1">
         <p>{{ repairForm.finishTime }}</p>
       </el-form-item>
     </el-form>
     <div class="mes-table">
       <div class="mes-table-content">
         <el-table :data="tableData" border size="mini">
-          <el-table-column type="index" label="序号" align="center" :index="indexMethod"></el-table-column>
-          <el-table-column prop="materialNo" sortable label="零件料号" align="center"></el-table-column>
-          <el-table-column prop="oldSn" sortable label="旧零件SN" align="center"></el-table-column>
-          <el-table-column prop="newSn" sortable label="新零件SN" align="center"></el-table-column>
-          <el-table-column prop="action" sortable label="维修动作" align="center"></el-table-column>
-          <el-table-column prop="defectCode" sortable label="原因代码" align="center"></el-table-column>
-          <el-table-column prop="remark" sortable label="备注" align="center"></el-table-column>
-          <el-table-column prop="creator" sortable label="维修人" align="center"></el-table-column>
-          <el-table-column prop="createdDt" sortable label="维修时间" align="center"></el-table-column>
+          <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod"></el-table-column>
+          <el-table-column prop="materialNo" sortable :label="$t('common_PartNo')" align="center"></el-table-column>
+          <el-table-column prop="oldSn" sortable :label="$t('repairDet_OldPart')" align="center"></el-table-column>
+          <el-table-column prop="newSn" sortable :label="$t('repairDet_NewPart')" align="center"></el-table-column>
+          <el-table-column prop="action" sortable :label="$t('repairDet_MaintActi')" align="center"></el-table-column>
+          <el-table-column prop="defectCode" sortable :label="$t('repairDet_ReasoCode')" align="center"></el-table-column>
+          <el-table-column prop="remark" sortable :label="$t('common_remarks')" align="center"></el-table-column>
+          <el-table-column prop="creator" sortable :label="$t('repairDet_Repai')" align="center"></el-table-column>
+          <el-table-column prop="createdDt" sortable :label="$t('repairDet_MaintTime')" align="center"></el-table-column>
         </el-table>
         <el-row style="text-align:center;margin-top:1vh;">
           <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"

@@ -1,9 +1,9 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">库存报表查询</h3>
+    <h3 class="mes-main-title">{{$t('stock_InvenRepoQuer')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-        <el-select size="mini" v-model="searchForm.mWmsWarehouseId" placeholder="请选择仓库" @change="selectChange" clearable style="width:40%">
+        <el-select size="mini" v-model="searchForm.mWmsWarehouseId" :placeholder="$t('common_PleasSeleWare')" @change="selectChange" clearable style="width:40%">
           <el-option v-for="(option,i) in warehouseTypeList" :key="i" :label="option.mWmsWarehouseCode" :value="option.mWmsWarehouseId"></el-option>
         </el-select>
       </el-col>
@@ -11,12 +11,12 @@
         <el-button size="mini" style="float:right;margin-left:10px"  @click="showMoreDetail = ! showMoreDetail">
           <i class="fa fa-filter"></i>
         </el-button>
-        <el-input size="mini" v-model.trim="searchForm.materialNo" placeholder="请输入料号" style="width:40%;float:right" @change="selectChange"></el-input>
+        <el-input size="mini" v-model.trim="searchForm.materialNo" :placeholder="$t('common_PleasEnteItemNu')" style="width:40%;float:right" @change="selectChange"></el-input>
       </el-col>
       <el-col :span="24" style="padding-top:1vh;" v-show="showMoreDetail">
         <el-form class="el-row mes-search-form" :model="searchForm" label-width="30%" label-position="left">
-          <el-form-item label="储位：" class="el-col el-col-11">
-            <el-input v-model="searchForm.mWmsWarehouseBinCode" @change="selectChange" placeholder="请输入储位编码"></el-input>
+          <el-form-item :label="$t('stock_StoraLoca')" class="el-col el-col-11">
+            <el-input v-model="searchForm.mWmsWarehouseBinCode" @change="selectChange" :placeholder="$t('stock_inputStorCode')"></el-input>
           </el-form-item>
         </el-form>
       </el-col>
@@ -24,9 +24,9 @@
     <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="12">
-           <el-button icon="el-icon-search" size="mini" @click="getStockRemaining">查询</el-button>
+           <el-button icon="el-icon-search" size="mini" @click="getStockRemaining">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button icon="el-icon-refresh-right" size="mini" @click="resetForm">刷新</el-button>
+          <el-button icon="el-icon-refresh-right" size="mini" @click="resetForm">{{$t('common_Refresh')}}</el-button>
         </el-col>
         <el-col :span="12">
           <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -37,20 +37,20 @@
       </el-row>
       <div class="mes-table-content" >
         <el-table :data="tableData" border highlight-current-row  size="mini" @cell-click="cellClick">
-          <el-table-column type="index" label="序号" align="center" :index="indexMethod"></el-table-column>
-          <el-table-column prop="materialNo"  sortable label="料号" align="center"></el-table-column>
-          <el-table-column prop="materialName"  sortable label="物料名称" align="center"></el-table-column>
-          <el-table-column prop="mWmsWarehouseCode"  sortable label="仓库" align="center"></el-table-column>
-          <el-table-column prop="mWmsWarehouseBinCode"  sortable label="储位" align="center"></el-table-column>
-          <el-table-column prop="mWmsStockQty"  sortable label="库存数量" align="center"></el-table-column>
-          <el-table-column prop="mWmsStockHoldqty"  sortable label="冻结数量" align="center"></el-table-column>
-          <el-table-column prop="mWmsStockRestqty"  sortable label="可用数量" align="center"></el-table-column>
+          <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod"></el-table-column>
+          <el-table-column prop="materialNo"  sortable :label="$t('common_PorN')" align="center"></el-table-column>
+          <el-table-column prop="materialName"  sortable :label="$t('common_MaterialName')" align="center"></el-table-column>
+          <el-table-column prop="mWmsWarehouseCode"  sortable :label="$t('common_Wareh')" align="center"></el-table-column>
+          <el-table-column prop="mWmsWarehouseBinCode"  sortable :label="$t('common_StoraLoca')" align="center"></el-table-column>
+          <el-table-column prop="mWmsStockQty"  sortable :label="$t('stock_InvenQuan')" align="center"></el-table-column>
+          <el-table-column prop="mWmsStockHoldqty"  sortable :label="$t('stock_FrozeQuan')" align="center"></el-table-column>
+          <el-table-column prop="mWmsStockRestqty"  sortable :label="$t('stock_AvailQuan')" align="center"></el-table-column>
         </el-table>
       </div>
     </div>
     <div class="mes-main-tabs" v-if="showTas">
       <el-tabs v-model="activeName" >
-        <el-tab-pane label="库存明细" name="detail">
+        <el-tab-pane :label="$t('stock_InvenDeta')" name="detail">
           <el-row class="mes-table-handle">
             <el-col :span="24">
               <el-pagination background :page-size="page1.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -60,16 +60,16 @@
             </el-col>
           </el-row>
           <el-table :data="detailList" border highlight-current-row size="mini">
-            <el-table-column type="index" label="序号" align="center" :index="indexMethod1"></el-table-column>
-            <el-table-column prop="materialNo"  sortable label="料号" align="center"></el-table-column>
-            <el-table-column prop="materialName"  sortable label="物料名称" align="center"></el-table-column>
-            <el-table-column prop="mWmsEntrylistNo"  sortable label="入库单号" align="center"></el-table-column>
+            <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod1"></el-table-column>
+            <el-table-column prop="materialNo"  sortable :label="$t('common_PorN')" align="center"></el-table-column>
+            <el-table-column prop="materialName"  sortable :label="$t('common_MaterialName')" align="center"></el-table-column>
+            <el-table-column prop="mWmsEntrylistNo"  sortable :label="$t('common_StockInNo')" align="center"></el-table-column>
             <el-table-column prop="mWmsPkgidPkgid"  sortable label="PIKGID" align="center"></el-table-column>
-            <el-table-column prop="mWmsWarehouseCode"  sortable label="仓库" align="center"></el-table-column>
-            <el-table-column prop="mWmsWarehouseBinCode"  sortable label="储位" align="center"></el-table-column>
-            <el-table-column prop="mWmsStockDetailQty"  sortable label="库存数量" align="center"></el-table-column>
-            <el-table-column prop="mWmsWarehouseBinStatus"  sortable label="冻结状态" align="center" :formatter="formatterData"></el-table-column>
-            <el-table-column prop="mWmsStockDetailEntrylisttime" width="150"  sortable label="入库时间" align="center"></el-table-column>
+            <el-table-column prop="mWmsWarehouseCode"  sortable :label="$t('common_Wareh')" align="center"></el-table-column>
+            <el-table-column prop="mWmsWarehouseBinCode"  sortable :label="$t('common_StoraLoca')" align="center"></el-table-column>
+            <el-table-column prop="mWmsStockDetailQty"  sortable :label="$t('stock_InvenQuan')" align="center"></el-table-column>
+            <el-table-column prop="mWmsWarehouseBinStatus"  sortable :label="$t('stock_FrozeStat')" align="center" :formatter="formatterData"></el-table-column>
+            <el-table-column prop="mWmsStockDetailEntrylisttime" width="150"  sortable :label="$t('stock_StoraTime')" align="center"></el-table-column>
           </el-table>
         </el-tab-pane>
       </el-tabs>
@@ -145,7 +145,7 @@ export default {
       return pageSize * (pageIndex - 1) + index + 1
     },
     formatterData (row, column, cellValue, index) {
-      return cellValue === '1' ? '是' : '否'
+      return cellValue === '1' ? this.$t('common_Yes') : this.$t('common_No')
     },
     async getStockRemaining () {
       let { searchForm, page } = this

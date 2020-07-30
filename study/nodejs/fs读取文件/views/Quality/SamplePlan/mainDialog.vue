@@ -1,17 +1,17 @@
 <template>
   <el-form :model="mainForm" :rules="rules" ref="mainForm" label-width="120px" label-position="left" class="mes-form-rule">
-    <el-form-item label="抽样计划" prop="planName">
+    <el-form-item :label="$t('SamplePlan_SamplingPlan')" prop="planName">
       <el-input size="mini" v-model.trim="mainForm.planName"></el-input>
     </el-form-item>
-    <el-form-item label="描述" prop="planDesc">
+    <el-form-item :label="$t('common_Description')" prop="planDesc">
       <el-input size="mini" v-model.trim="mainForm.planDesc"></el-input>
     </el-form-item>
-    <el-form-item label="是否启用" prop="isActive">
+    <el-form-item :label="$t('common_Enable')" prop="isActive">
       <el-checkbox v-model="mainForm.isActive" true-label="true" false-label="false"></el-checkbox>
     </el-form-item>
      <el-form-item label-width="0" class="dialog-footer">
-      <el-button type="primary" size="mini" @click="saveLevel">保存</el-button>
-      <el-button size="mini" @click="$emit('cannel')">取消</el-button>
+      <el-button type="primary" size="mini" @click="saveLevel">{{$t('common_save')}}</el-button>
+      <el-button size="mini" @click="$emit('cannel')">{{$t('common_cancel')}}</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -24,14 +24,18 @@ export default {
         planName: '',
         planDesc: '',
         isActive: true
-      },
-      rules: {
-        planName: [{ required: true, message: '检查水平不能为空' }]
       }
     }
   },
   props: {
     isEdit: Boolean
+  },
+  computed: {
+    rules () {
+      return {
+        planName: [{ required: true, message: this.$t('SamplePlan_CheckLevelCannotBeEmpty') }]
+      }
+    }
   },
   methods: {
     saveLevel () {

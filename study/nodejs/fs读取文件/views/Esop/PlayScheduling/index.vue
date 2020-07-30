@@ -1,23 +1,23 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">ESOP播放排程管理</h3>
+    <h3 class="mes-main-title">{{$t('playSchedu_ESOPPlayScheMana')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-        <el-input style="width:40%" placeholder="请输入料号" v-model="materialNo" @keydown.native.enter="getTableData" clearable></el-input>
+        <el-input style="width:40%" :placeholder="$t('common_PleasEnteItemNu')" v-model="materialNo" @keydown.native.enter="getTableData" clearable></el-input>
       </el-col>
     </el-row>
     <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="12">
-          <el-button  size="mini" icon="el-icon-search" @click="getTableData">查询</el-button>
+          <el-button  size="mini" icon="el-icon-search" @click="getTableData">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button  size="mini" icon="el-icon-plus" @click="handleTable(false)">新增</el-button>
+          <el-button  size="mini" icon="el-icon-plus" @click="handleTable(false)">{{$t('common_Add')}}</el-button>
           <span class="split-line">|</span>
-          <!-- <el-button  size="mini" @click="handleTable(true)">编辑</el-button>
+          <!-- <el-button  size="mini" @click="handleTable(true)">{{$t('common_Edit')}}</el-button>
           <span class="split-line">|</span> -->
-          <el-button  size="mini" icon="el-icon-delete-solid" @click="deleteTable">批量删除</el-button>
+          <el-button  size="mini" icon="el-icon-delete-solid" @click="deleteTable">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">{{$t('common_Refresh')}}</el-button>
         </el-col>
         <el-col :span="12">
           <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -29,11 +29,11 @@
       <div class="mes-table-content">
         <el-table :data="tableData"  border size="mini" @selection-change="selectionChange"  @cell-click="cellClick" highlight-current-row>
           <el-table-column type="selection"></el-table-column>
-          <el-table-column type="index" align="center" label="序号" :index="indexMethod"></el-table-column>
-          <el-table-column prop="materialNo" sortable label="料号" align="center"></el-table-column>
-          <el-table-column prop="lineCode" sortable label="线别" align="center" ></el-table-column>
-          <el-table-column prop="startTime" sortable label="开始时间" align="center" :formatter="dateFormatter"></el-table-column>
-          <el-table-column prop="endTime" sortable label="结束时间" align="center" :formatter="dateFormatter" ></el-table-column>
+          <el-table-column type="index" align="center" :label="$t('common_Number')" :index="indexMethod"></el-table-column>
+          <el-table-column prop="materialNo" sortable :label="$t('common_PorN')" align="center"></el-table-column>
+          <el-table-column prop="lineCode" sortable :label="$t('common_Line')" align="center" ></el-table-column>
+          <el-table-column prop="startTime" sortable :label="$t('common_startTime')" align="center" :formatter="dateFormatter"></el-table-column>
+          <el-table-column prop="endTime" sortable :label="$t('common_endTime')" align="center" :formatter="dateFormatter" ></el-table-column>
           <el-table-column prop="intervals" sortable label="播放间隔/单位：S" align="center" ></el-table-column>
         </el-table>
       </div>
@@ -43,13 +43,13 @@
     </el-dialog>
     <div class="mes-main-tabs" v-if="showTas">
       <el-tabs v-model="activeName">
-        <el-tab-pane label="ESOP物料文档" name="detail">
+        <el-tab-pane :label="$t('playSchedu_MaterDocu')" name="detail">
           <el-table :data="detailList" border highlight-current-row size="mini">
-            <el-table-column type="index" align="center" label="序号" ></el-table-column>
-            <el-table-column prop="docNo" sortable label="文档编号" align="center"></el-table-column>
-            <el-table-column prop="docName" sortable label="文档名称" align="center" ></el-table-column>
-            <el-table-column prop="version" sortable label="版本" align="center" ></el-table-column>
-            <el-table-column prop="segCode" sortable label="制程" align="center" ></el-table-column>
+            <el-table-column type="index" align="center" :label="$t('common_Number')" ></el-table-column>
+            <el-table-column prop="docNo" sortable :label="$t('common_DocumNumb')" align="center"></el-table-column>
+            <el-table-column prop="docName" sortable :label="$t('playSchedu_DocumName')" align="center" ></el-table-column>
+            <el-table-column prop="version" sortable :label="$t('common_editi')" align="center" ></el-table-column>
+            <el-table-column prop="segCode" sortable :label="$t('common_Process')" align="center" ></el-table-column>
           </el-table>
         </el-tab-pane>
       </el-tabs>
@@ -79,7 +79,7 @@ export default {
   },
   computed: {
     dialogTitle () {
-      return this.isEdit ? '编辑ESOP播放排程' : '新增ESOP播放排程'
+      return this.isEdit ? this.$t('playSchedu_EditESLPP') : this.$t('playSchedu_NewESOPP')
     }
   },
   methods: {
@@ -147,7 +147,7 @@ export default {
     },
     async deleteTable () {
       let { selectList } = this
-      const confirm = await this.$myPrompt.confirm('确定删除选中的播放排程信息吗?')
+      const confirm = await this.$myPrompt.confirm(this.$t('playSchedu_AreYouSureScheInfo') + '?')
       if (confirm) {
         let res = await this.$api.delPlaySchedul(selectList)
         this.$myPrompt.handleMsg(res, () => {

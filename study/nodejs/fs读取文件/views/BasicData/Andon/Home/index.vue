@@ -1,16 +1,16 @@
 <template>
    <div class="mes-main mes-work-order">
-    <div class="mes-main-title">安灯主页</div>
+    <div class="mes-main-title">{{$t('andonHome_SafetLampHomePage')}}</div>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
         <cascader-select v-model="searchForm.officeCode" style="width:35%" dataType="1" ></cascader-select>
-        <el-select style="margin-left:10px" size="mini" clearable placeholder="请选择线别"  v-model="searchForm.mPomLineId">
+        <el-select style="margin-left:10px" size="mini" clearable :placeholder="$t('common_PleasSeleLineTy')"  v-model="searchForm.mPomLineId">
           <el-option v-for="(option,i) in lineList" :key="i" :label="option.lineName" :value="option.mPomLineId" @change="getAlarmType"></el-option>
         </el-select>
-        <el-button style="margin-left:10px" size="mini" icon="el-icon-search" @click="getAlarmType">查询</el-button>
+        <el-button style="margin-left:10px" size="mini" icon="el-icon-search" @click="getAlarmType">{{$t('common_Inquire')}}</el-button>
       </el-col>
       <!-- <el-col :span="12">
-        <el-select style="float:right;width:35%" size="mini" clearable placeholder="请选择线别"  v-model="searchForm.mPomLineId">
+        <el-select style="float:right;width:35%" size="mini" clearable :placeholder="$t('common_PleasSeleLineTy')"  v-model="searchForm.mPomLineId">
           <el-option v-for="(option,i) in lineList" :key="i" :label="option.lineName" :value="option.mPomLineId" @change="getAlarmType"></el-option>
         </el-select>
       </el-col> -->
@@ -35,14 +35,14 @@
     </div>
      <div class="mes-table">
       <el-table :data="AlarmTypeList" border highlight-current-row size="mini"  @cell-click="cellClick">
-        <el-table-column type="index" label="序号" align="center" ></el-table-column>
-        <el-table-column prop="typeName" sortable label="报警类型" align="center" show-overflow-tooltip label-class-name="mes-table-label" class-name="mes-table-click"></el-table-column>
-        <el-table-column prop="todayAlarmCount" sortable label="当天报警数量" align="center" show-overflow-tooltip label-class-name="mes-table-label" class-name="mes-table-click"></el-table-column>
-        <el-table-column prop="closedAlarmCount" sortable label="已关闭报警数量" align="center"></el-table-column>
-        <el-table-column prop="pendingAlarmCount" sortable label="待响应报警数量" align="center"></el-table-column>
-        <el-table-column prop="tobeClosedAlarmCount" sortable label="待关闭报警数量" align="center"></el-table-column>
-        <el-table-column prop="pendingOvertimeAlarmCount" sortable label="待响应报警超时" align="center"></el-table-column>
-        <el-table-column prop="finishOvertimeAlarmCount" sortable label="待完成报警超时" align="center"></el-table-column>
+        <el-table-column type="index" :label="$t('common_Number')" align="center" ></el-table-column>
+        <el-table-column prop="typeName" sortable :label="$t('andonHome_AlarmType')" align="center" show-overflow-tooltip label-class-name="mes-table-label" class-name="mes-table-click"></el-table-column>
+        <el-table-column prop="todayAlarmCount" sortable :label="$t('andonHome_NumbeAlarOnDay')" align="center" show-overflow-tooltip label-class-name="mes-table-label" class-name="mes-table-click"></el-table-column>
+        <el-table-column prop="closedAlarmCount" sortable :label="$t('andonHome_NumbeClosAlar')" align="center"></el-table-column>
+        <el-table-column prop="pendingAlarmCount" sortable :label="$t('andonHome_NumbeAlarBeResp')" align="center"></el-table-column>
+        <el-table-column prop="tobeClosedAlarmCount" sortable :label="$t('andonHome_NumbeAlarBeClos')" align="center"></el-table-column>
+        <el-table-column prop="pendingOvertimeAlarmCount" sortable :label="$t('andonHome_WaitiForRespAlarTime')" align="center"></el-table-column>
+        <el-table-column prop="finishOvertimeAlarmCount" sortable :label="$t('andonHome_PendiAlarTime')" align="center"></el-table-column>
       </el-table>
     </div>
     <el-dialog  :visible.sync="dialogVisible" :title="dialogTitle"  width="700px" class="handle-dialog">
@@ -87,10 +87,10 @@ export default {
       return imgList.length > 0 ? this.buttonVisible : false
     },
     dialogTitle () {
-      return '报警'
+      return this.$t('andonHome_callPoli')
     },
     handleDialogTitle () {
-      return this.dialogTitlePart + '报警类型处理'
+      return this.dialogTitlePart + this.$t('andonHome_AlarmTypeProc')
     }
   },
   methods: {
@@ -130,7 +130,7 @@ export default {
           this.AlarmTypeList = []
         }
       } else {
-        this.$message.warning('请先选择线别和工厂')
+        this.$message.warning(this.$t('andonHome_selecLineAndFactFirs'))
       }
     },
     handleClick (option) {
@@ -139,7 +139,7 @@ export default {
         this.handleDialog = true
         this.mAlmTypeId = option.mAlmTypeId
       } else {
-        this.$message.warning('该报警类型没有要处理的异常！')
+        this.$message.warning(this.$t('andonHome_ThisAlarTypeExceHand'))
       }
     },
     cellClick (row, column, cell, event) {
@@ -159,7 +159,7 @@ export default {
       if (to === 'next') {
         this.activeIndex += 1
         if (this.activeIndex * 6 >= len) {
-          len === 6 ? this.$message.warning('当前只有一页') : this.$message.warning('当前是最后一页')
+          len === 6 ? this.$message.warning(this.$t('andonHome_ThereIsCurrOnePage')) : this.$message.warning(this.$t('andonHome_ThisIsLastPage'))
           this.activeIndex = this.activeIndex - 1
         } else {
           this.partList = this.AlarmTypeList.slice(this.activeIndex * 6, (this.activeIndex * 6) + 6)
@@ -168,7 +168,7 @@ export default {
       } else if (to === 'back') {
         this.activeIndex -= 1
         if (this.activeIndex < 0) {
-          len === 6 ? this.$message.warning('当前只有一页') : this.$message.warning('当前是第一页')
+          len === 6 ? this.$message.warning(this.$t('andonHome_ThereIsCurrOnePage')) : this.$message.warning(this.$t('andonHome_ThisIsFirsPage'))
           this.activeIndex = 0
         } else {
           this.partList = this.activeIndex === 0 ? this.AlarmTypeList.slice(0, 6) : this.AlarmTypeList.slice(this.activeIndex * 6, (this.activeIndex * 6) + 6)
@@ -184,17 +184,17 @@ export default {
       let keyList = ['mAlmTypeId', 'notClosedAlarmCount', 'typeName', 'pendingAlarmCount']
       this.partList.forEach(item => {
         obj = this.$global.filterForm(item, keyList)
-        if (obj.typeName === '安全') {
+        if (obj.typeName === this.$t('andonHome_secur')) {
           obj.imgurl = 'andon-security'
-        } else if (obj.typeName === '质量') {
+        } else if (obj.typeName === this.$t('andonHome_quali')) {
           obj.imgurl = 'andon-quality'
-        } else if (obj.typeName === '设备') {
+        } else if (obj.typeName === this.$t('andonHome_equip')) {
           obj.imgurl = 'andon-equipment'
-        } else if (obj.typeName === '工艺') {
+        } else if (obj.typeName === this.$t('andonHome_techn')) {
           obj.imgurl = 'andon-craft'
-        } else if (obj.typeName === '技术') {
+        } else if (obj.typeName === this.$t('andonHome_gtech')) {
           obj.imgurl = 'andon-technology'
-        } else if (obj.typeName === '物料') {
+        } else if (obj.typeName === this.$t('common_Material')) {
           obj.imgurl = 'andon-material'
         } else {
           obj.imgurl = 'andon-alarmDefault'

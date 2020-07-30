@@ -1,6 +1,6 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">最终检验</h3>
+    <h3 class="mes-main-title">{{$t('fqcCheck_FinalInsp')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
         <dict-select  v-model="searchForm.docStatus" dictType="QMS_CHECK_NO_STATUS"  style="width:35%" selectKey="dictCode" @change="findFqcList"></dict-select>
@@ -9,19 +9,19 @@
         <el-button size="mini" style="float:right;margin-left:10px;" @click="showMoreConditon = !showMoreConditon">
             <i class="fa fa-filter"></i>
         </el-button>
-        <el-input size="mini" placeholder="请输入关键字" v-model="searchForm.keywords" style="width:40%;float:right;" @keydown.enter.native="findFqcList">
+        <el-input size="mini" :placeholder="$t('common_PleasEnteKeyw')" v-model="searchForm.keywords" style="width:40%;float:right;" @keydown.enter.native="findFqcList">
           <i slot="suffix" class="el-input__icon el-icon-search" @click="findFqcList"></i>
         </el-input>
       </el-col>
       <el-col :span="24"   style="padding-top:1vh;">
         <el-form class="el-row mes-search-form" :model="searchForm" label-width="30%" label-position="left" v-show="showMoreConditon">
-          <el-form-item label="检验日期：" class="el-col el-col-11">
-            <el-date-picker style="width:100%" v-model="timeValue"  type="daterange" align="right" unlink-panels  range-separator="至"  start-placeholder="开始日期"  end-placeholder="结束日期" :picker-options="pickerOptions" clearable></el-date-picker>
+          <el-form-item :label="$t('fqcCheck_InspeDate')" class="el-col el-col-11">
+            <el-date-picker style="width:100%" v-model="timeValue"  type="daterange" align="right" unlink-panels  range-separator="至"  start-:placeholder="$t('common_StartDate')"  end-:placeholder="$t('common_EndDate')" :picker-options="pickerOptions" clearable></el-date-picker>
           </el-form-item>
-            <el-form-item label="入库单号" class="el-col el-col-11  el-col-offset-1">
-            <el-input  v-model="searchForm.stockInNo"  placeholder="请输入入库单号" clearable></el-input>
+            <el-form-item :label="$t('common_StockInNo')" class="el-col el-col-11  el-col-offset-1">
+            <el-input  v-model="searchForm.stockInNo"  :placeholder="$t('common_PleasInpuStocIn')" clearable></el-input>
           </el-form-item>
-          <el-form-item label="料号" class="el-col el-col-11">
+          <el-form-item :label="$t('common_PorN')" class="el-col el-col-11">
             <el-input v-model="searchForm.materialNo" size="mini" clearable></el-input>
           </el-form-item>
         </el-form>
@@ -30,13 +30,13 @@
       <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="12">
-          <el-button size="mini" icon="el-icon-search" @click="findFqcList">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="findFqcList">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-plus" @click="handleCheck('')">新增</el-button>
+          <el-button size="mini" icon="el-icon-plus" @click="handleCheck('')">{{$t('common_Add')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-delete-solid" @click="deletetableData('')">批量删除</el-button>
+          <el-button size="mini" icon="el-icon-delete-solid" @click="deletetableData('')">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">{{$t('common_Refresh')}}</el-button>
         </el-col>
         <el-col :span="12">
           <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -48,17 +48,17 @@
       <div class="mes-table-content">
         <el-table :data="tableData" highlight-current-row border size="mini"  @selection-change="selectionChange">
           <el-table-column type="selection" width="50" fixed="left"></el-table-column>
-          <el-table-column type="index" label="序号" align="center" :index="indexMethod" fixed="left"></el-table-column>
-          <el-table-column prop="batchNo" label="检验单号" align="center" sortable></el-table-column>
-          <el-table-column prop="stockInNo" label="入库单号" align="center" sortable></el-table-column>
-          <el-table-column prop="materialNo" label="料号" align="center" sortable></el-table-column>
-          <el-table-column prop="customer" label="客户" align="center" sortable></el-table-column>
-          <el-table-column prop="inspectDate" label="日期" align="center" sortable></el-table-column>
-          <el-table-column prop="docStatusName" label="状态" align="center" sortable></el-table-column>
-          <el-table-column label="操作" align="center" width="120" fixed="right">
+          <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod" fixed="left"></el-table-column>
+          <el-table-column prop="batchNo" :label="$t('common_InspeOrdeNo')" align="center" sortable></el-table-column>
+          <el-table-column prop="stockInNo" :label="$t('common_StockInNo')" align="center" sortable></el-table-column>
+          <el-table-column prop="materialNo" :label="$t('common_PorN')" align="center" sortable></el-table-column>
+          <el-table-column prop="customer" :label="$t('common_custo')" align="center" sortable></el-table-column>
+          <el-table-column prop="inspectDate" :label="$t('common_Date')" align="center" sortable></el-table-column>
+          <el-table-column prop="docStatusName" :label="$t('common_Status')" align="center" sortable></el-table-column>
+          <el-table-column :label="$t('common_Operate')" align="center" width="120" fixed="right">
             <template slot-scope="scope">
-              <handle-button @click="handleCheck(scope.row)" iconClass="el-icon-edit-outline" tipText="编辑"></handle-button>
-              <handle-button @click="deletetableData(scope.row.tQomFqcMainId)" iconClass="el-icon-delete" tipText="删除" iconColor='#f56c6c'></handle-button>
+              <handle-button @click="handleCheck(scope.row)" iconClass="el-icon-edit-outline" :placeholder="$t('common_Edit')"></handle-button>
+              <handle-button @click="deletetableData(scope.row.tQomFqcMainId)" iconClass="el-icon-delete" :placeholder="$t('common_Del')" iconColor='#f56c6c'></handle-button>
             </template>
           </el-table-column>
         </el-table>
@@ -73,7 +73,7 @@ export default {
     return {
       pickerOptions: {
         shortcuts: [{
-          text: '最近一周',
+          text: this.$t('fqcCheck_LastWeek'),
           onClick (picker) {
             const end = new Date()
             const start = new Date()
@@ -81,7 +81,7 @@ export default {
             picker.$emit('pick', [start, end])
           }
         }, {
-          text: '最近一个月',
+          text: this.$t('fqcCheck_LastMont'),
           onClick (picker) {
             const end = new Date()
             const start = new Date()
@@ -89,7 +89,7 @@ export default {
             picker.$emit('pick', [start, end])
           }
         }, {
-          text: '最近三个月',
+          text: this.$t('fqcCheck_LastThreMont'),
           onClick (picker) {
             const end = new Date()
             const start = new Date()
@@ -177,7 +177,7 @@ export default {
       const ids = id ? [id] : selectList
       const len = ids.length
       if (len > 0) {
-        let confirm = await this.$myPrompt.confirm('确定删除选中的最终检查信息吗？')
+        let confirm = await this.$myPrompt.confirm(this.$t('fqcCheck_AreYouSureChecInfo'))
         if (confirm) {
           let res = await this.$api.deleteFqcById(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -188,7 +188,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请选择要删除的最终检查信息')
+        this.$message.warning(this.$t('fqcCheck_selecFinaChecInfoDele'))
       }
     },
     refreshPage () {

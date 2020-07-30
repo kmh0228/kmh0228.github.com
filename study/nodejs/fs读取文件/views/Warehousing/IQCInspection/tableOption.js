@@ -6,102 +6,102 @@ export let tableOption = (This) => {
     highlightCurrentRow: true,
     tableTitle: [
       {
-        title: 'IQC检验单号',
+        title: 'IQCInspection_IQCInspectionOrderNo',
         prop: 'iqcNo',
         width: '180px'
       },
       {
-        title: '入库单号',
+        title: 'common_StockInNo',
         prop: 'entrylistNo',
         width: '180px'
       },
       {
-        title: '入库单行',
+        title: 'IQCInspection_StockInLine',
         prop: 'entrylistDetailItem',
         width: '150px'
       },
       {
-        title: '料号',
+        title: 'common_PorN',
         prop: 'materialNo',
         width: '150px'
       },
       {
-        title: '供应商代码',
+        title: 'common_SupplCode',
         prop: 'vendorCode',
         width: '150px'
       },
       {
-        title: '采购订单',
+        title: 'IQCInspection_PurchaseOrder',
         prop: 'poNo',
         width: '150px'
       },
       {
-        title: '来料批次',
+        title: 'IQCInspection_IncomingBatch',
         prop: 'lotCode',
         width: '150px'
       },
       {
-        title: '生产批次',
+        title: 'common_ProduBatc',
         prop: 'produceLotCode',
         width: '150px'
       },
       {
-        title: '生产日期',
+        title: 'common_dateManu',
         prop: 'produceDate',
         width: '180px'
       },
       {
-        title: '收货日期',
+        title: 'IQCInspection_ReceivingDate',
         prop: 'receiveDate',
         width: '180px'
       },
       {
-        title: '检验数量',
+        title: 'IQCInspection_InspectionQuantity',
         prop: 'checkQty',
         width: '150px'
       },
       {
-        title: '检验状态',
+        title: 'IQCInspection_InspectionStatus',
         prop: 'checkStatus',
         width: '180px',
         replaceFun: (row) => {
           return {
-            '0': '未检验',
-            '1': '已检验'
+            '0': This.$t('IQCInspection_NotInspected'),
+            '1': This.$t('IQCInspection_Inspected')
           }[row.checkStatus]
         }
       },
       {
-        title: '检验结果',
+        title: 'common_TestResu',
         prop: 'checkResult',
         width: '150px',
         replaceFun: (row) => {
           return {
-            '1': '合格',
-            '2': '不合格'
+            '1': This.$t('common_quali'),
+            '2': This.$t('IQCInspection_Unqualified')
           }[row.checkResult]
         }
       },
       {
-        title: '合格数量',
+        title: 'IQCInspection_QualifiedQuantity',
         prop: 'acceptQty',
         width: '150px'
       },
       {
-        title: '不合格数',
+        title: 'IQCInspection_UnqualifiedQuantity',
         prop: 'rejectQty',
         width: '150px'
       },
       {
-        title: '处理结果',
+        title: 'IQCInspection_ProcessingResult',
         prop: 'handleResult',
         width: '150px',
         replaceFun: (row) => {
           return {
-            '0': '特采',
-            '1': '挑选',
-            '2': '报废',
-            '3': '退货'
+            '0': This.$t('common_SpeciColl'),
+            '1': This.$t('common_choos'),
+            '2': This.$t('IQCInspection_Scrap'),
+            '3': This.$t('IQCInspection_Return')
           }[row.handleResult]
         }
       }

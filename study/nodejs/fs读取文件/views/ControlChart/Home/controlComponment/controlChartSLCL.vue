@@ -1,6 +1,6 @@
 <template>
   <el-form :model="controlChartFromSC" ref="controlChartFromSC" label-position="left"  label-width="120px" class="el-row mes-form-rule" :rules="rules" size="mini">
-    <span>规格线</span>
+    <span>{{$t('conChartHome_GaugeLine')}}</span>
     <el-form-item label-width="0"  class="el-col el-col-24">
       <el-divider></el-divider>
     </el-form-item>
@@ -13,7 +13,7 @@
     <el-form-item label="LSL" class="el-col el-col-7 el-col-offset-1">
       <el-input  v-model="controlChartFromSC.lsl" style="width:100%"  disabled></el-input>
     </el-form-item>
-    <span style="margin-top:15px" class="el-col el-col-24">控制线</span>
+    <span style="margin-top:15px" class="el-col el-col-24">{{$t('conChartHome_ContrLine')}}</span>
     <el-form-item label-width="0" class="el-col el-col-24">
       <el-divider></el-divider>
     </el-form-item>

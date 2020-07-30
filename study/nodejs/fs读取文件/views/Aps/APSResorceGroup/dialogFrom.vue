@@ -1,26 +1,26 @@
 <template>
 <el-form :model="dialogForm" ref="dialogForm" label-position="left"  label-width="120px" class="el-row mes-form-rule" :rules="rules">
-  <el-form-item label="一 . 基本信息" class="el-col el-col-24"></el-form-item>
-  <el-form-item  prop="resourceGroupCode" label="资源组代码:" class="el-col el-col-11">
+  <el-form-item label-width="220px" :label="$t('APSResorce_One') + ' . ' + $t('common_essenInfo')" class="el-col el-col-24"></el-form-item>
+  <el-form-item  prop="resourceGroupCode" :label="$t('apsResGroup_ResouGrouCode') + ':'" class="el-col el-col-11">
     <el-input :disabled="isEdit"  v-model="dialogForm.resourceGroupCode"></el-input>
   </el-form-item>
-  <el-form-item label="是否启用:" class="el-col el-col-11 el-col-offset-1">
+  <el-form-item :label="$t('common_Enable') + ':'" class="el-col el-col-11 el-col-offset-1">
      <el-checkbox v-model="dialogForm.invalid"></el-checkbox>
   </el-form-item>
-  <el-form-item label="描述" class="el-col el-col-23">
-    <el-input v-model="dialogForm.resourceGroupDesc"  type="textarea" :rows="2" placeholder="请输入内容"  ></el-input>
+  <el-form-item :label="$t('common_Description')" class="el-col el-col-23">
+    <el-input v-model="dialogForm.resourceGroupDesc"  type="textarea" :rows="2" :placeholder="$t('common_PleasEnteCont')"  ></el-input>
   </el-form-item>
-  <el-form-item label="二 . 资源列表" class="el-col el-col-23"></el-form-item>
+  <el-form-item label-width="220px" :label="$t('apsResGroup_Two') + ' . ' + $t('apsResGroup_resouList')" class="el-col el-col-23"></el-form-item>
   <div class="special_table">
      <el-form-item  class="el-col el-col-8" label-width="0">
         <el-card class="mes-table" shadow="never">
             <div slot="header">
-                <span>所有资源</span>
+                <span>{{$t('apsResGroup_AllReso')}}</span>
             </div>
             <el-scrollbar style="height:18vh;">
             <el-table :data="allResourceData" size="mini"  highlight-current-row broder @cell-click="cellClick">
-              <el-table-column type="index" label="序号" width="50" align="center"></el-table-column>
-              <el-table-column prop="resourceCode" label="排产资源代码" align="center" ></el-table-column>
+              <el-table-column type="index" :label="$t('common_Number')" width="50" align="center"></el-table-column>
+              <el-table-column prop="resourceCode" :label="$t('apsResGroup_SchedResoCode')" align="center" ></el-table-column>
             </el-table>
             </el-scrollbar>
         </el-card>
@@ -32,18 +32,18 @@
       <el-form-item class="el-col el-col-13">
         <el-card class="mes-table" shadow="never">
           <div slot="header">
-              <span>选中资源</span>
+              <span>{{$t('apsResGroup_SelecReso')}}</span>
           </div>
           <el-table :data="allResourceDataDetail" size="mini"  highlight-current-row broder  @cell-click="cellClick2" doLayout>
-            <el-table-column type="index" label="序号" width="50" align="center"></el-table-column>
-            <el-table-column prop="resourceCode" label="排产资源代码" align="center" ></el-table-column>
-            <el-table-column type="index" label="优先级" width="80" align="center"></el-table-column>
-            <el-table-column label="调整优先级" align="center">
+            <el-table-column type="index" :label="$t('common_Number')" width="50" align="center"></el-table-column>
+            <el-table-column prop="resourceCode" :label="$t('apsResGroup_SchedResoCode')" align="center" ></el-table-column>
+            <el-table-column type="index" :label="$t('apsResGroup_prior')" width="80" align="center"></el-table-column>
+            <el-table-column :label="$t('apsResGroup_AdjusPrio')" align="center">
               <template slot-scope="scope" >
-                  <el-button type="text" @click="moveTop(scope.$index)" :disabled="disabeldTop(scope.$index)">置顶</el-button>
-                  <el-button type="text" @click="moveUp(scope.$index)"  :disabled="disabeldUp(scope.$index)">上移</el-button>
-                  <el-button type="text" @click="moveDown(scope.$index)"  :disabled="disabeldDown(scope.$index)">下移</el-button>
-                  <el-button type="text" @click="moveBottom(scope.$index)"  :disabled="disabeldBottom(scope.$index)">置底</el-button>
+                  <el-button type="text" @click="moveTop(scope.$index)" :disabled="disabeldTop(scope.$index)">{{$t('apsResGroup_Toppi')}}</el-button>
+                  <el-button type="text" @click="moveUp(scope.$index)"  :disabled="disabeldUp(scope.$index)">{{$t('apsResGroup_MoveUp')}}</el-button>
+                  <el-button type="text" @click="moveDown(scope.$index)"  :disabled="disabeldDown(scope.$index)">{{$t('apsResGroup_MoveDown')}}</el-button>
+                  <el-button type="text" @click="moveBottom(scope.$index)"  :disabled="disabeldBottom(scope.$index)">{{$t('apsResGroup_SetBott')}}</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -51,8 +51,8 @@
       </el-form-item>
   </div>
   <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-    <el-button type="primary" size="mini" @click="saveForm">保存</el-button>
-    <el-button size="mini" @click="$emit('cannel')">取消</el-button>
+    <el-button type="primary" size="mini" @click="saveForm">{{$t('common_save')}}</el-button>
+    <el-button size="mini" @click="$emit('cannel')">{{$t('common_cancel')}}</el-button>
   </el-form-item>
 </el-form>
 </template>
@@ -69,10 +69,6 @@ export default {
       },
       allResourceData: [],
       allResourceDataDetail: [],
-      rules: {
-        resourceGroupCode: [{ required: true, message: '请输入资源组' }]
-
-      },
       addDisabeld: true,
       deleteDisabeld: true,
       addList: '',
@@ -84,6 +80,13 @@ export default {
     getResourceGroupList: Function,
     mPsmResourceGroupId: String,
     isEdit: Boolean
+  },
+  computed: {
+    rules () {
+      return {
+        resourceGroupCode: [{ required: true, message: this.$t('apsResGroup_enterResoGrou') }]
+      }
+    }
   },
   methods: {
     disabeldTop (i) {
@@ -139,7 +142,7 @@ export default {
       if (res === -1) {
         this.allResourceDataDetail.push(this.addList)
       } else {
-        this.$message.warning('请勿重复添加！！')
+        this.$message.warning(this.$t('apsResGroup_doNotAddItAgai'))
       }
     },
     deleteResource () {

@@ -1,22 +1,22 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">客户管理</h3>
+    <h3 class="mes-main-title">{{$t('customer_custoMana')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-         <el-input placeholder="客户代码" v-model.trim="mWmsCustomerCode" size="mini" style="width:35%;" @keydown.enter.native="getCustomer">
+         <el-input :placeholder="$t('common_CustoCode')" v-model.trim="mWmsCustomerCode" size="mini" style="width:35%;" @keydown.enter.native="getCustomer">
         </el-input>
       </el-col>
     </el-row>
     <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="12">
-          <el-button size="mini" icon="el-icon-search" @click="getCustomer">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="getCustomer">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-plus"  @click="handTable('')">新增</el-button>
+          <el-button size="mini" icon="el-icon-plus"  @click="handTable('')">{{$t('common_Add')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteCustomer('')">批量删除</el-button>
+          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteCustomer('')">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh"  @click="refreshData">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh"  @click="refreshData">{{$t('common_Refresh')}}</el-button>
         </el-col>
         <el-col :span="12">
           <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -28,24 +28,24 @@
       <div class="mes-table-content" >
         <el-table :data="tableData" border @selection-change="tableSelectionChange">
           <el-table-column type="selection" width="50" align="center" ></el-table-column>
-          <el-table-column type="index" label="序号" align="center" :index="indexMethod" fixed></el-table-column>
-          <el-table-column prop="mWmsCustomerCode" sortable label="客户代码" align="center" min-width="120"></el-table-column>
-          <el-table-column prop="mWmsCustomerName" sortable label="客户名称" align="center" min-width="120"></el-table-column>
-          <el-table-column prop="mWmsCustomerAddress" sortable label="公司地址" align="center" min-width="120"></el-table-column>
-          <el-table-column prop="mWmsCustomerCity" sortable label="城市" align="center"></el-table-column>
-          <el-table-column prop="mWmsCustomerProvince" sortable label="省州" align="center"></el-table-column>
-          <el-table-column prop="mWmsCustomerCountry" sortable label="国家" align="center"></el-table-column>
-          <el-table-column prop="mWmsCustomerUser" sortable label="联系人" align="center" min-width="100"></el-table-column>
-          <el-table-column prop="mWmsCustomerPhone" sortable label="电话" align="center"></el-table-column>
-          <el-table-column prop="mWmsCustomerPostcode" sortable label="邮编" align="center"></el-table-column>
-          <el-table-column prop="mWmsCustomerFax" sortable label="传真" align="center"></el-table-column>
+          <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod" fixed></el-table-column>
+          <el-table-column prop="mWmsCustomerCode" sortable :label="$t('common_CustoCode')" align="center" min-width="120"></el-table-column>
+          <el-table-column prop="mWmsCustomerName" sortable :label="$t('customer_CustoName')" align="center" min-width="120"></el-table-column>
+          <el-table-column prop="mWmsCustomerAddress" sortable :label="$t('customer_CompaAddr')" align="center" min-width="120"></el-table-column>
+          <el-table-column prop="mWmsCustomerCity" sortable :label="$t('common_city')" align="center"></el-table-column>
+          <el-table-column prop="mWmsCustomerProvince" sortable :label="$t('common_ProviAndStat')" align="center"></el-table-column>
+          <el-table-column prop="mWmsCustomerCountry" sortable :label="$t('common_count')" align="center"></el-table-column>
+          <el-table-column prop="mWmsCustomerUser" sortable :label="$t('common_conta')" align="center" min-width="100"></el-table-column>
+          <el-table-column prop="mWmsCustomerPhone" sortable :label="$t('customer_Telep')" align="center"></el-table-column>
+          <el-table-column prop="mWmsCustomerPostcode" sortable :label="$t('customer_Postc')" align="center"></el-table-column>
+          <el-table-column prop="mWmsCustomerFax" sortable :label="$t('customer_Fax')" align="center"></el-table-column>
           <!-- <el-table-column prop="isInvalid" label="是否启用" align="center"></el-table-column> -->
           <!-- <el-table-column prop="creator" sortable label="创建人" align="center" ></el-table-column>
           <el-table-column prop="createdDt" sortable label="创建时间" align="center" width="180px"></el-table-column> -->
-          <el-table-column label="操作" align="center" width="120" fixed="right">
+          <el-table-column :label="$t('common_Operate')" align="center" width="120" fixed="right">
             <template slot-scope="scope">
-              <handle-button @click="handTable(scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-              <handle-button @click="deleteCustomer(scope.row.mWmsCustomerId)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+              <handle-button @click="handTable(scope.row)" iconClass='el-icon-edit-outline' :tipText="$t('common_Edit')"></handle-button>
+              <handle-button @click="deleteCustomer(scope.row.mWmsCustomerId)" iconClass='el-icon-delete' :tipText="$t('common_Del')" iconColor='#f56c6c'></handle-button>
             </template>
           </el-table-column>
         </el-table>
@@ -77,7 +77,7 @@ export default {
   },
   computed: {
     dialogTitle () {
-      return this.isEdit ? '编辑客户表格' : '新建客户表格'
+      return this.isEdit ? this.$t('customer_EditCustForm') : this.$t('customer_NewCustForm')
     },
     editTable () {
       let { selectList } = this
@@ -140,7 +140,7 @@ export default {
       let ids = id ? [id] : this.selectList
       let len = ids.length
       if (len > 0) {
-        let confirmRes = await this.$myPrompt.confirm('确定删除当前选中的客户信息吗?')
+        let confirmRes = await this.$myPrompt.confirm(this.$t('customer_AreYouSureDeleC'))
         if (confirmRes) {
           let res = await this.$api.updateBasicCustomerBatch(ids)
           let { msg, code } = res
@@ -152,7 +152,7 @@ export default {
           }
         }
       } else {
-        this.$message.warning('请选择要删除的客户信息')
+        this.$message.warning(this.$t('customer_PleasSeleCustIn'))
       }
     }
   },

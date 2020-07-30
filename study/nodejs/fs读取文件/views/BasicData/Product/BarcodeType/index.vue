@@ -1,21 +1,21 @@
 <template>
   <div class="mes-main mes-work-order mes-material">
-    <h3 class="mes-main-title">条码类型设置</h3>
+    <h3 class="mes-main-title">{{$t('barcodeType_BarcoTypeSett')}}</h3>
     <el-form label-position="left" class="el-row">
-      <el-form-item label="条码名称" label-width="80px" class="el-col el-col-24">
+      <el-form-item :label="$t('barcodeType_BarcoName')" label-width="80px" class="el-col el-col-24">
         <el-input v-model="keyWord" size="mini" style="width:12vw;" @keydown.enter="getBarCodeTypeList">
         </el-input>
       </el-form-item>
     </el-form>
     <div class="mes-material-handle mes-table-handle">
       <div class="mes-btn-group">
-        <el-button size="mini" icon="el-icon-search" @click="getBarCodeTypeList">查询</el-button>
+        <el-button size="mini" icon="el-icon-search" @click="getBarCodeTypeList">{{$t('common_Inquire')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-plus"  @click="handleCurrentRows('')">新增</el-button>
+        <el-button size="mini" icon="el-icon-plus"  @click="handleCurrentRows('')">{{$t('common_Add')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-delete-solid" @click="deleteRows('')">批量删除</el-button>
+        <el-button size="mini" icon="el-icon-delete-solid" @click="deleteRows('')">{{$t('common_Delete')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-refresh"  @click="getBarCodeTypeList">刷新</el-button>
+        <el-button size="mini" icon="el-icon-refresh"  @click="getBarCodeTypeList">{{$t('common_Refresh')}}</el-button>
       </div>
       <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
         layout="total,sizes, prev, pager, next, jumper, ->" :total="total"
@@ -25,66 +25,66 @@
     <div class="mes-table">
       <el-table :data="barcodeTable" border highlight-current-row size="mini" @selection-change="selectBarcode" @current-change="tableCurrentChange">
         <el-table-column type="selection" width="50" align="center"></el-table-column>
-        <el-table-column type="index" label="序号" align="center" :index="indexMethod"></el-table-column>
-        <el-table-column label="条码名称" align="center" prop="fileName"  sortable></el-table-column>
-        <el-table-column label="打印模块路径" align="center" prop="filePath"  sortable></el-table-column>
-        <el-table-column label="模版类型" align="center" prop="fileTypeName"  sortable></el-table-column>
-        <el-table-column label="默认数量" align="center" prop="printCopies"  sortable></el-table-column>
-        <el-table-column label="操作" align="center"  sortable>
+        <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod"></el-table-column>
+        <el-table-column :label="$t('barcodeType_BarcoName')" align="center" prop="fileName"  sortable></el-table-column>
+        <el-table-column :label="$t('barcodeType_PrintModuPath')" align="center" prop="filePath"  sortable></el-table-column>
+        <el-table-column :label="$t('barcodeType_TemplType')" align="center" prop="fileTypeName"  sortable></el-table-column>
+        <el-table-column :label="$t('barcodeType_DefauQuan')" align="center" prop="printCopies"  sortable></el-table-column>
+        <el-table-column :label="$t('common_Operate')" align="center"  sortable>
           <template slot-scope="scope" width="120">
-            <handle-button @click="handleCurrentRows(scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-            <handle-button  @click="deleteRows(scope.row.mPomWorkMasPrintTmplId,scope.$index)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+            <handle-button @click="handleCurrentRows(scope.row)" iconClass='el-icon-edit-outline' :tipText="$t('common_Edit')"></handle-button>
+            <handle-button  @click="deleteRows(scope.row.mPomWorkMasPrintTmplId,scope.$index)" iconClass='el-icon-delete' :tipText="$t('common_Del')" iconColor='#f56c6c'></handle-button>
           </template>
         </el-table-column>
       </el-table>
     </div>
     <div class="mes-main-tabs mes-table">
       <el-tabs v-model="activeName">
-        <el-tab-pane label="条码详情" name="info">
+        <el-tab-pane :label="$t('barcodeType_BarCodeDeta')" name="info">
           <el-table :data="codeInfo" border size="mini">
-            <el-table-column label="序号" align="center" width="60">
+            <el-table-column :label="$t('common_Number')" align="center" width="60">
               <template slot-scope="scope">
                 <p>{{ scope.$index + 1 }}</p>
               </template>
             </el-table-column>
-            <el-table-column label="打印项目" align="center">
+            <el-table-column :label="$t('barcodeType_PrintProj')" align="center">
               <template slot-scope="scope">
                 <el-input v-if="isEdit" v-model="scope.row.paramName" size="mini"></el-input>
                 <p v-else>{{ scope.row.paramName }}</p>
               </template>
             </el-table-column>
-            <el-table-column label="打印参数" align="center">
+            <el-table-column :label="$t('barcodeType_PrintPara')" align="center">
               <template slot-scope="scope">
                 <el-input v-if="isEdit" v-model="scope.row.paramValue" size="mini"></el-input>
                 <p v-else>{{ scope.row.paramValue }}</p>
               </template>
             </el-table-column>
-            <el-table-column label="描述" align="center">
+            <el-table-column :label="$t('common_Description')" align="center">
               <template slot-scope="scope">
                 <el-input v-if="isEdit" v-model="scope.row.paramDesc" size="mini"></el-input>
                 <p v-else>{{ scope.row.paramDesc }}</p>
               </template>
             </el-table-column>
-            <el-table-column label="操作" align="center" width="120" v-if="isEdit">
+            <el-table-column :label="$t('common_Operate')" align="center" width="120" v-if="isEdit">
               <template slot-scope="scope">
                 <!-- <el-button type="text" @click="scope.row.isEdit=true" size="mini">编辑</el-button> -->
-                <el-button type="text" style="color:#F56C6C" size="mini" @click="deleteInfoRows(scope.$index)">删除</el-button>
+                <el-button type="text" style="color:#F56C6C" size="mini" @click="deleteInfoRows(scope.$index)">{{$t('common_Del')}}</el-button>
               </template>
             </el-table-column>
           </el-table>
           <div style="margin-top:1.5vh;">
-            <el-button type="primary" v-if="!isEdit" plain size="mini" @click="handleInfo">{{ codeInfo.length>0?'修改':'新增' }}</el-button>
-            <el-button type="primary" v-if="isEdit" plain size="mini" @click="addInfoRows">添加</el-button>
-            <el-button type="success" v-if="isEdit" plain size="mini" :disabled="codeInfo.length===0" @click="addCodeInfo">保存</el-button>
+            <el-button type="primary" v-if="!isEdit" plain size="mini" @click="handleInfo">{{ codeInfo.length>0?$t('barcodeType_modif'):$t('common_Add') }}</el-button>
+            <el-button type="primary" v-if="isEdit" plain size="mini" @click="addInfoRows">{{$t('common_add')}}</el-button>
+            <el-button type="success" v-if="isEdit" plain size="mini" :disabled="codeInfo.length===0" @click="addCodeInfo">{{$t('common_save')}}</el-button>
           </div>
         </el-tab-pane>
       </el-tabs>
     </div>
-    <el-dialog :title="handleType+'条码类型'" :visible.sync="dialogVisible" top="20vh" width="600px">
+    <el-dialog :title="handleType+$t('barcodeType_BarcoType')" :visible.sync="dialogVisible" top="20vh" width="600px">
       <dialog-form v-if="dialogVisible" :formData="barCodeForm"  @close-dialog="closeDialog" :handleType="handleType" ref="dialogForm"></dialog-form>
       <div slot="footer" style="text-align:center;">
-        <el-button type="primary" @click="handleBarCodeType">确定</el-button>
-        <el-button @click="dialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="handleBarCodeType">{{$t('common_ok')}}</el-button>
+        <el-button @click="dialogVisible = false">{{$t('common_cancel')}}</el-button>
       </div>
     </el-dialog>
   </div>
@@ -127,7 +127,7 @@ export default {
     },
     barCodeForm: {
       handler (val) {
-        this.handleType = val.mPomWorkMasPrintTmplId ? '编辑' : '新增'
+        this.handleType = val.mPomWorkMasPrintTmplId ? this.$t('common_Edit') : this.$t('common_Add')
       },
       deep: true
     }
@@ -197,7 +197,7 @@ export default {
     async deleteRows (id) {
       let ids = id ? [id] : this.selectedList
       if (ids.length > 0) {
-        let result = await this.$myPrompt.confirm('确定删除当前选择的条码类型吗？')
+        let result = await this.$myPrompt.confirm(this.$t('barcodeType_AreYouSureDeleC'))
         if (result) {
           let res = await this.$api.deleteBarCodeType(ids)
           let { code, msg } = res
@@ -209,7 +209,7 @@ export default {
           }
         }
       } else {
-        this.$message.warning('请选择需要删除的条码类型！')
+        this.$message.warning(this.$t('barcodeType_PleasSeleBarcTy'))
       }
     },
     // 条码详情添加行
@@ -248,7 +248,7 @@ export default {
       if (mPomWorkMasPrintTmplId) {
         this.isEdit = true
       } else {
-        this.$message.warning('请先选择打印项目名称！')
+        this.$message.warning(this.$t('barcodeType_PleasSelePrinPr'))
       }
     },
     async addCodeInfo () {
@@ -265,7 +265,7 @@ export default {
           this.$message.error(msg)
         }
       } else {
-        this.$message.warning('打印项目名称存在未填项或重复项，请核对后保存！')
+        this.$message.warning(this.$t('barcodeType_ThereAreNoFillI'))
       }
     }
   },
@@ -274,7 +274,7 @@ export default {
   },
   async beforeRouteLeave (to, from, next) {
     if (this.isEdit) {
-      let res = await this.$myPrompt.confirm('当前存在未保存的条码详情，是否确定保存？')
+      let res = await this.$myPrompt.confirm(this.$t('barcodeType_ThereAreCurrUns'))
       if (res) {
         return this.addCodeInfo()
       } else {

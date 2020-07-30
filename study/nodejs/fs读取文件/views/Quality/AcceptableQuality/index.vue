@@ -1,9 +1,9 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">合格质量水平管理</h3>
+    <h3 class="mes-main-title">{{$t('AcceptableQuality_QualifiedQualityLevelManagement')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-         <el-input placeholder="合格质量水平" v-model.trim="aqlLevelCode" size="mini" style="width:35%;" @keydown.enter.native="getAqlLevels">
+         <el-input :placeholder="$t('AcceptableQuality_QualifiedQualityLevel')" v-model.trim="aqlLevelCode" size="mini" style="width:35%;" @keydown.enter.native="getAqlLevels">
           <i slot="suffix" class="el-input__icon el-icon-search" @click="getAqlLevels"></i>
         </el-input>
       </el-col>
@@ -12,53 +12,53 @@
       <el-col :span="8">
         <el-card class="mes-table">
           <div slot="header">
-            <span>合格质量水平</span>
+            <span>{{$t('AcceptableQuality_QualifiedQualityLevel')}}</span>
             <div style="float: right;">
-              <el-tooltip effect="dark" content="复制" placement="top" :hide-after="1000">
+              <el-tooltip effect="dark" :content="$t('AcceptableQuality_Copy')" placement="top" :hide-after="1000">
                 <el-button type="text" style="font-size:1vw;" icon="el-icon-document-copy" :disabled="levelEditBtn" @click="handleAqlLevel('mainDialog','level',true,true)"></el-button>
               </el-tooltip>
-              <el-tooltip effect="dark" content="新增" placement="top" :hide-after="1000">
+              <el-tooltip effect="dark" :content="$t('common_Add')" placement="top" :hide-after="1000">
                 <el-button type="text" style="font-size:1vw;" icon="el-icon-circle-plus" @click="handleAqlLevel('mainDialog','level',false)"></el-button>
               </el-tooltip>
-              <el-tooltip effect="dark" content="编辑" placement="top" :hide-after="1000">
+              <el-tooltip effect="dark" :content="$t('common_Edit')" placement="top" :hide-after="1000">
                 <el-button type="text" style="font-size:1vw;" icon="el-icon-edit" :disabled="levelEditBtn" @click="handleAqlLevel('mainDialog','level',true)"></el-button>
               </el-tooltip>
-              <el-tooltip effect="dark" content="删除" placement="top" :hide-after="1000">
+              <el-tooltip effect="dark" :content="$t('common_Del')" placement="top" :hide-after="1000">
                 <el-button type="text" style="font-size:1vw;" icon="el-icon-delete" @click="deleteAqlLevels"></el-button>
               </el-tooltip>
             </div>
           </div>
           <el-table :data="aqlLevelData" border highlight-current-row @current-change="tableCurrentChange" @selection-change="aqlSelectionChange">
             <el-table-column type="selection" width="50" align="center"></el-table-column>
-            <el-table-column type="index" label="序号" width="50" align="center"></el-table-column>
-            <el-table-column label="检查水平" prop="levelCode" align="center"></el-table-column>
-            <el-table-column label="合格质量水平" prop="aqlLevelCode" align="center"></el-table-column>
+            <el-table-column type="index" :label="$t('common_Number')" width="50" align="center"></el-table-column>
+            <el-table-column :label="$t('common_InspeLeve')" prop="levelCode" align="center"></el-table-column>
+            <el-table-column :label="$t('AcceptableQuality_QualifiedQualityLevel')" prop="aqlLevelCode" align="center"></el-table-column>
           </el-table>
         </el-card>
       </el-col>
       <el-col :span="16">
          <el-card class="mes-table">
           <div slot="header">
-            <span>合格质量水平详情</span>
+            <span>{{$t('AcceptableQuality_QualifiedQualityLevelDetails')}}</span>
             <div style="float: right;">
-              <el-tooltip effect="dark" content="新增" placement="top" :hide-after="1000">
+              <el-tooltip effect="dark" :content="$t('common_Add')" placement="top" :hide-after="1000">
                 <el-button type="text" style="font-size:1vw;" icon="el-icon-circle-plus" :disabled="!isSelect" @click="handleAqlLevel('infoDialog','info',false)"></el-button>
               </el-tooltip>
-              <el-tooltip effect="dark" content="编辑" placement="top" :hide-after="1000">
+              <el-tooltip effect="dark" :content="$t('common_Edit')" placement="top" :hide-after="1000">
                 <el-button type="text" style="font-size:1vw;" icon="el-icon-edit" :disabled="infoEditBtn" @click="handleAqlLevel('infoDialog','info',true)"></el-button>
               </el-tooltip>
-              <el-tooltip effect="dark" content="删除" placement="top" :hide-after="1000">
+              <el-tooltip effect="dark" :content="$t('common_Del')" placement="top" :hide-after="1000">
                 <el-button type="text" style="font-size:1vw;" icon="el-icon-delete" @click="deleteAqlInfos"></el-button>
               </el-tooltip>
             </div>
           </div>
           <div v-if="!isSelect">
-            <p style="padding:10px; border-left:3px solid #ddd;">点击合格质量水平列表查看详情</p>
+            <p style="padding:10px; border-left:3px solid #ddd;">{{$t('AcceptableQuality_ClickQualifiedQualityLevelListToViewDetails')}}</p>
           </div>
           <el-table :data="aqlLevelInfo" v-else border @selection-change="infoSelectionChange">
             <el-table-column type="selection" width="50" align="center"></el-table-column>
-            <el-table-column label="样本代码" prop="sampleCode" align="center"></el-table-column>
-            <el-table-column label="样本数量" prop="sampleSize" align="center"></el-table-column>
+            <el-table-column :label="$t('AcceptableQuality_SampleCode')" prop="sampleCode" align="center"></el-table-column>
+            <el-table-column :label="$t('AcceptableQuality_SampleQuantity')" prop="sampleSize" align="center"></el-table-column>
             <el-table-column label="AC(Accept)" prop="acceptance" align="center"></el-table-column>
             <el-table-column label="RE(Reject)" prop="rejection" align="center"></el-table-column>
           </el-table>
@@ -97,8 +97,8 @@ export default {
   },
   computed: {
     dialogTitle () {
-      let handleName = this.isCopy ? '复制' : this.isEdit ? '编辑' : '新增'
-      let typeName = this.dialogType === 'level' ? '合格质量水平' : '合格质量水平详情'
+      let handleName = this.isCopy ? this.$t('AcceptableQuality_Copy') : this.isEdit ? this.$t('common_Edit') : this.$t('common_Add')
+      let typeName = this.dialogType === 'level' ? this.$t('AcceptableQuality_QualifiedQualityLevel') : this.$t('AcceptableQuality_QualifiedQualityLevelDetails')
       return `${handleName}${typeName}`
     },
     levelEditBtn () {
@@ -182,13 +182,13 @@ export default {
     async deleteAqlLevels () {
       const { aqlSelects } = this
       if (aqlSelects.length > 0) {
-        const isConfirm = await this.$myPrompt.confirm('确定删除当前选中的合格质量水平吗？')
+        const isConfirm = await this.$myPrompt.confirm(this.$t('AcceptableQuality_Tips1'))
         if (isConfirm) {
           const res = await this.$api.deleteAqlLevels(aqlSelects)
           this.$myPrompt.handleMsg(res, this.getAqlLevels)
         }
       } else {
-        this.$message.warning('请选择需要删除的合格质量水平！')
+        this.$message.warning(this.$t('AcceptableQuality_PleaseSelectTheQualifiedQualityLevelToBeDeleted'))
       }
     },
     async getAqlLevelDetails (mQomAqlLevelMainId) {
@@ -209,7 +209,7 @@ export default {
     async deleteAqlInfos () {
       const { infoSelects, mQomAqlLevelMainId } = this
       if (infoSelects.length > 0) {
-        const isConfirm = await this.$myPrompt.confirm('确定删除当前选中的合格质量水平详情吗？')
+        const isConfirm = await this.$myPrompt.confirm(this.$t('AcceptableQuality_Tips2'))
         if (isConfirm) {
           const res = await this.$api.delAqlLevelDetails(infoSelects)
           this.$myPrompt.handleMsg(res, () => {
@@ -217,7 +217,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请选择需要删除的合格质量水平详情！')
+        this.$message.warning(this.$t('AcceptableQuality_Tips3'))
       }
     }
   },

@@ -1,17 +1,17 @@
 <template>
   <el-form :model="infoForm" :rules="rules" ref="infoForm" label-width="120px" label-position="left" class="mes-form-rule">
-    <el-form-item label="检查水平" prop="levelCode">
+    <el-form-item :label="$t('common_InspeLeve')" prop="levelCode">
       <el-select v-model="infoForm.mQomAqlLevelMainId" size="mini" style="width:100%;" disabled>
         <el-option v-for="(level,i) in aqlLevelList" :key="i" :label="level.aqlLevelCode" :value="level.mQomAqlLevelMainId"></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="样本代码" prop="sampleCode">
+    <el-form-item :label="$t('AcceptableQuality_SampleCode')" prop="sampleCode">
       <!-- <el-input size="mini" v-model.trim="infoForm.sampleCode"></el-input> -->
       <el-select size="mini" v-model.trim="infoForm.sampleCode" style="width:100%">
         <el-option v-for="(option,i) in codeList" :key="i" :label="option" :value="option"></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="样本数量" prop="sampleSize">
+    <el-form-item :label="$t('AcceptableQuality_SampleQuantity')" prop="sampleSize">
       <el-input size="mini" v-model.trim="infoForm.sampleSize" ></el-input>
     </el-form-item>
     <el-form-item label="AC(Accept)" prop="acceptance">
@@ -21,8 +21,8 @@
       <el-input size="mini" v-model.trim="infoForm.rejection"></el-input>
     </el-form-item>
     <el-form-item label-width="0" class="dialog-footer">
-      <el-button type="primary" size="mini" @click="saveAqlLevelInfo">保存</el-button>
-      <el-button size="mini" @click="$emit('cannel')">取消</el-button>
+      <el-button type="primary" size="mini" @click="saveAqlLevelInfo">{{$t('common_save')}}</el-button>
+      <el-button size="mini" @click="$emit('cannel')">{{$t('common_cancel')}}</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -38,10 +38,6 @@ export default {
         acceptance: '',
         rejection: ''
       },
-      rules: {
-        sampleCode: [{ required: true, message: '样本代码不能为空' }],
-        sampleSize: [{ required: true, message: '样本数量不能为空' }]
-      },
       codeList: []
     }
   },
@@ -50,6 +46,14 @@ export default {
     mQomInspectionLevelId: String,
     aqlLevelList: Array,
     isEdit: Boolean
+  },
+  computed: {
+    rules () {
+      return {
+        sampleCode: [{ required: true, message: this.$t('AcceptableQuality_SampleCodeCannotBeEmpty') }],
+        sampleSize: [{ required: true, message: this.$t('AcceptableQuality_SampleQuantityCannotBeEmpty') }]
+      }
+    }
   },
   methods: {
     saveAqlLevelInfo () {

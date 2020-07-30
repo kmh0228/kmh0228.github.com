@@ -1,16 +1,16 @@
 <template>
   <el-tabs v-model="activeName">
-    <el-tab-pane label="判定" name="determine">
-      <el-radio v-model="inspectResult" label="ACCEPT">合格</el-radio>
-      <el-radio v-model="inspectResult" label="REJECT">拒收</el-radio>
-      <el-radio v-model="inspectResult" label="AOD">特采</el-radio>
-      <el-radio v-model="inspectResult" label="PICK">挑选</el-radio>
+    <el-tab-pane :label="$t('fqcCheck_deter')" name="determine">
+      <el-radio v-model="inspectResult" label="ACCEPT">{{$t('common_quali')}}</el-radio>
+      <el-radio v-model="inspectResult" label="REJECT">{{$t('fqcCheck_rejec')}}</el-radio>
+      <el-radio v-model="inspectResult" label="AOD">{{$t('common_SpeciColl')}}</el-radio>
+      <el-radio v-model="inspectResult" label="PICK">{{$t('common_choos')}}</el-radio>
       <el-form :model="decideForm" label-width="180px" label-position="left" class="el-row mes-form-rule"  style="padding-top:1.5vh"  ref="decideForm" >
         <!-- <div v-if="isError">
-          <el-form-item label="特采单号" class="el-col el-col-11">
+          <el-form-item :label="$t('fqcCheck_SpeciPurcOrdeNo')" class="el-col el-col-11">
             <el-input v-model="decideForm.aod" size="mini" :disabled="isAod"></el-input>
           </el-form-item>
-          <el-form-item label="供应商异常联络单" class="el-col el-col-11 el-col-offset-1">
+          <el-form-item :label="$t('fqcCheck_SupplAbnoContList')" class="el-col el-col-11 el-col-offset-1">
             <el-input v-model="decideForm.vdcs" size="mini" :disabled="isReject"></el-input>
           </el-form-item>
           <el-form-item label="SQE" class="el-col el-col-11">
@@ -22,7 +22,7 @@
             <el-input  v-model="decideForm.sqeMailbox" size="mini" readonly></el-input>
           </el-form-item>
         </div> -->
-        <el-form-item label="备注" class="el-col el-col-11">
+        <el-form-item :label="$t('common_remarks')" class="el-col el-col-11">
           <el-input v-model="decideForm.remark" type="textarea" :rows="2" size="mini"></el-input>
         </el-form-item>
       </el-form>
@@ -61,7 +61,7 @@ export default {
     async getUsers () {
       const data = {
         keywords: '',
-        employeePost: '检验',
+        employeePost: this.$t('fqcCheck_test'),
         pageIndex: 1,
         pageSize: 1000
       }

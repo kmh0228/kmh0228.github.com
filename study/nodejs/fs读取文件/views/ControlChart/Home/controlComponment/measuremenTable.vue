@@ -2,14 +2,14 @@
 <div class="mes-table-content" >
   <!-- <table style="border:1px solid " cellpadding="10" cellspacing="0" class="table-cc">
   <tr>
-    <th colspan="2">子组编号</th>
+    <th colspan="2">{{$t('conChartHome_SubgrNumb')}}</th>
     <td>1</td>
     <td>2</td>
     <td>3</td>
     <td>4</td>
   </tr>
   <tr>
-    <th align="center"  colspan="1" rowspan="5">样本值</th>
+    <th align="center"  colspan="1" rowspan="5">{{$t('conChartHome_SamplValu')}}</th>
   </tr>
    <tr>
     <th colspan="1">1</th>
@@ -57,12 +57,12 @@
 
 <!-- <div class="control-table">
   <div class="control-table-tr" >
-    <div class="control-table-th"  colspan="2">子组编号</div>
+    <div class="control-table-th"  colspan="2">{{$t('conChartHome_SubgrNumb')}}</div>
     <div class="control-table-td" >1</div>
     <div class="control-table-td" >2</div>
   </div>
   <div class="control-table-tr">
-    <div class="control-table-th"  rowspan="5" colspan="2">样本值</div>
+    <div class="control-table-th"  rowspan="5" colspan="2">{{$t('conChartHome_SamplValu')}}</div>
   </div>
   <div class="control-table-tr" >
     <div class="control-table-th" >1</div>
@@ -71,8 +71,8 @@
   </div>
 </div> -->
 <el-table :data="tableData" border highlight-current-row size="mini">
-  <el-table-column type="index" label="序号" align="center" ></el-table-column>
-  <el-table-column label="样本值" align="center">
+  <el-table-column type="index" :label="$t('common_Number')" align="center" ></el-table-column>
+  <el-table-column :label="$t('conChartHome_SamplValu')" align="center">
     <el-table-column v-for="(option,i) in sampleList" :key="i" :label="option" :prop="option" align="center"></el-table-column>
   </el-table-column>
   <el-table-column  v-for="(option,i) in typeList" :key="i" :label="option" :prop="option" align="center"></el-table-column>

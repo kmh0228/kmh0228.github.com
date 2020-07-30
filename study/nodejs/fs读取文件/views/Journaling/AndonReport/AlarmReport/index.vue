@@ -1,6 +1,6 @@
 <template>
   <div class="mes-main mes-work-order">
-    <div class="mes-main-title">报警上报记录查询</div>
+    <div class="mes-main-title">{{$t('alarmReport_AlarmRepoRecoQuer')}}</div>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
         <cascader-select v-model="searchForm.factoryCode" style="width:35%"></cascader-select>
@@ -9,14 +9,14 @@
         <el-button size="mini" style="float:right;margin-left:10px;" @click="showMore = !showMore">
           <i class="fa fa-filter"></i>
         </el-button>
-        <el-input placeholder="报警单号" v-model="searchForm.alarmNumber" style="width:40%;float:right;" @keydown.enter.native="getAndonAlarmReportRecord">
+        <el-input :placeholder="$t('alarmReport_AlarmNumb')" v-model="searchForm.alarmNumber" style="width:40%;float:right;" @keydown.enter.native="getAndonAlarmReportRecord">
           <!-- <i slot="suffix" class="el-input__icon el-icon-search" @click="getAndonAlarmReportRecord"></i> -->
         </el-input>
       </el-col>
       <el-col :span="24" style="padding-top:1vh;" v-show="showMore">
         <el-form class="el-row mes-search-form" :model="searchForm" ref="searchForm" label-width="30%" label-position="left">
-          <el-form-item label="线别" prop="resourceName" class="el-col el-col-11">
-            <el-select v-model="searchForm.mPomLineId " placeholder="请选择线别" filterable clearable size="mini" class="mes-form-item">
+          <el-form-item :label="$t('common_Line')" prop="resourceName" class="el-col el-col-11">
+            <el-select v-model="searchForm.mPomLineId " :placeholder="$t('common_PleasSeleLineTy')" filterable clearable size="mini" class="mes-form-item">
               <el-option v-for="(list,i) in lineList" :key="i" :label="list.lineName" :value="list.mPomLineId"></el-option>
             </el-select>
           </el-form-item>
@@ -26,11 +26,11 @@
     <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="11">
-          <el-button size="mini" icon="el-icon-search" @click="getAndonAlarmReportRecord">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="getAndonAlarmReportRecord">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteAndonAlarmReportRecord('')">批量删除</el-button>
+          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteAndonAlarmReportRecord('')">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">{{$t('common_Refresh')}}</el-button>
         </el-col>
         <el-col :span="13">
           <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -41,29 +41,29 @@
       </el-row>
       <el-table :data="tableData" border size="mini" @selection-change="tableSelectionChange">
         <el-table-column type="selection" fixed="left" width="50" align="center"></el-table-column>
-        <el-table-column type="index" sortable fixed="left" label="序号" align="center" :index="indexMethod"></el-table-column>
-        <el-table-column prop="officeName" sortable label="工厂" align="center"></el-table-column>
-        <el-table-column prop="lineName" sortable label="线别" align="center"></el-table-column>
-        <el-table-column prop="alarmTime" sortable label="报警时间" align="center" width="140"></el-table-column>
-        <el-table-column prop="alarmNumber" sortable label="报警单号" align="center" width="100"></el-table-column>
-        <el-table-column prop="alarmType" sortable label="上报类型" align="center" width="100">
+        <el-table-column type="index" sortable fixed="left" :label="$t('common_Number')" align="center" :index="indexMethod"></el-table-column>
+        <el-table-column prop="officeName" sortable :label="$t('common_Factory')" align="center"></el-table-column>
+        <el-table-column prop="lineName" sortable :label="$t('common_Line')" align="center"></el-table-column>
+        <el-table-column prop="alarmTime" sortable :label="$t('alarmReport_AlarmTime')" align="center" width="140"></el-table-column>
+        <el-table-column prop="alarmNumber" sortable :label="$t('alarmReport_AlarmNumb')" align="center" width="100"></el-table-column>
+        <el-table-column prop="alarmType" sortable :label="$t('alarmReport_ReporType')" align="center" width="100">
           <!-- <template slot-scope="scope">
             <p>{{ getAlarmType(scope.row.alarmType) }}</p>
           </template> -->
         </el-table-column>
-        <el-table-column prop="alarmReceiver" sortable label="上报接收人" align="center" width="110"></el-table-column>
-        <el-table-column prop="messageTitle" sortable label="信息标题" align="center" width="100"></el-table-column>
-        <el-table-column prop="messageContent" sortable label="信息内容" align="center" width="100" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="pushSuccess" sortable label="是否推送成功" align="center" width="120">
+        <el-table-column prop="alarmReceiver" sortable :label="$t('alarmReport_ReporRece')" align="center" width="110"></el-table-column>
+        <el-table-column prop="messageTitle" sortable :label="$t('alarmReport_messaHead')" align="center" width="100"></el-table-column>
+        <el-table-column prop="messageContent" sortable :label="$t('alarmReport_inforCont')" align="center" width="100" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="pushSuccess" sortable :label="$t('alarmReport_IsPushSucc')" align="center" width="120">
           <template slot-scope="scope">
             <el-tag :type="scope.row.pushSuccess?'':'danger'" size="mini">{{scope.row.pushSuccess | formaterInvalid}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="pushTime" sortable label="发送时间" align="center" width="140"></el-table-column>
-        <el-table-column prop="pushFailLog" sortable label="发送失败日志" align="center" width="120"></el-table-column>
-        <el-table-column label="操作" align="center" width="100" fixed="right">
+        <el-table-column prop="pushTime" sortable :label="$t('alarmReport_SendiTime')" align="center" width="140"></el-table-column>
+        <el-table-column prop="pushFailLog" sortable :label="$t('alarmReport_SendFailLog')" align="center" width="120"></el-table-column>
+        <el-table-column :label="$t('common_Operate')" align="center" width="100" fixed="right">
           <template slot-scope="scope">
-            <handle-button @click="deleteAndonAlarmReportRecord(scope.row.mAlmRerortId)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+            <handle-button @click="deleteAndonAlarmReportRecord(scope.row.mAlmRerortId)" iconClass='el-icon-delete' :placeholder="$t('common_Del')" iconColor='#f56c6c'></handle-button>
           </template>
         </el-table-column>
       </el-table>
@@ -171,7 +171,7 @@ export default {
     async deleteAndonAlarmReportRecord (id) {
       const ids = id ? [id] : this.selectList
       if (ids.length > 0) {
-        const confirm = await this.$myPrompt.confirm('确定删除当前选中的报警上传记录吗？')
+        const confirm = await this.$myPrompt.confirm(this.$t('alarmReport_AreYouSureUploReco'))
         if (confirm) {
           const res = await this.$api.deleteAndonAlarmReportRecord(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -179,7 +179,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请先选择需要删除的报警上传记录！')
+        this.$message.warning(this.$t('alarmReport_selecAlarUploDeleFirs'))
       }
     }
   },

@@ -1,49 +1,49 @@
 <template>
   <div class="mes-main mes-work-order">
-    <div class="mes-main-title">单据类型</div>
+    <div class="mes-main-title">{{$t('documentType_DocumType')}}</div>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-        <el-input placeholder="编码" v-model.trim="code" size="mini" style="width:40%" @keydown.enter.native="$refs.tableList.queryList(true)"></el-input>
-        <el-input placeholder="名称" v-model.trim="name" size="mini" style="width:40%" @keydown.enter.native="$refs.tableList.queryList(true)"></el-input>
+        <el-input :placeholder="$t('common_code')" v-model.trim="code" size="mini" style="width:40%" @keydown.enter.native="$refs.tableList.queryList(true)"></el-input>
+        <el-input :placeholder="$t('common_Name')" v-model.trim="name" size="mini" style="width:40%" @keydown.enter.native="$refs.tableList.queryList(true)"></el-input>
       </el-col>
     </el-row>
     <div>
       <table-list ref="tableList" :tableData="tableData" :tableOption="option"  :queryListApi="getBillManageCategoryList" :total="total">
         <div slot="buttonBox">
-          <el-button size="mini" icon="el-icon-search" @click="$refs.tableList.queryList(true)">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="$refs.tableList.queryList(true)">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">{{$t('common_Refresh')}}</el-button>
         </div>
       </table-list>
     </div>
     <div class="mes-main-tabs" v-if="showTabs">
       <el-tabs v-model="activeName">
-        <el-tab-pane label="单据小类" name="category">
+        <el-tab-pane :label="$t('documentType_DocumCate')" name="category">
           <div class="mes-table">
             <el-row class="mes-table-handle">
               <el-col :span="12">
-                <el-button size="mini" icon="el-icon-plus" @click="showPop">选择</el-button>
+                <el-button size="mini" icon="el-icon-plus" @click="showPop">{{$t('documentType_choic')}}</el-button>
                 <span class="split-line">|</span>
-                <el-button size="mini" icon="el-icon-delete-solid" :loading="deleteLoading" @click="deleteFun">删除</el-button>
+                <el-button size="mini" icon="el-icon-delete-solid" :loading="deleteLoading" @click="deleteFun">{{$t('common_Del')}}</el-button>
                 <span class="split-line">|</span>
-                <el-button size="mini" icon="el-icon-setting" :loading="setLoading" @click="setUpDefault">设置默认</el-button>
+                <el-button size="mini" icon="el-icon-setting" :loading="setLoading" @click="setUpDefault">{{$t('documentType_setDefa')}}</el-button>
               </el-col>
             </el-row>
             <div class="mes-table-content">
               <el-table :data="childData" border highlight-current-row size="mini" @selection-change="tableSelectionChange">
                 <el-table-column type="selection" width="50" align="center" ></el-table-column>
-                <el-table-column prop="code" label="编码" align="center" ></el-table-column>
-                <el-table-column prop="name" label="名称" align="center" ></el-table-column>
-                <el-table-column prop="description" label="描述" align="center" ></el-table-column>
-                <el-table-column prop="isInvalid" label="状态" align="center" >
+                <el-table-column prop="code" :label="$t('common_code')" align="center" ></el-table-column>
+                <el-table-column prop="name" :label="$t('common_Name')" align="center" ></el-table-column>
+                <el-table-column prop="description" :label="$t('common_Description')" align="center" ></el-table-column>
+                <el-table-column prop="isInvalid" :label="$t('common_Status')" align="center" >
                   <template slot-scope="scope">
-                    <div>{{scope.row.isInvalid === '1' ? '可用' : '不可用'}} </div>
+                    <div>{{scope.row.isInvalid === '1' ? $t('documentType_avail') : $t('documentType_NotAvai')}} </div>
                   </template>
                 </el-table-column>
-                <el-table-column prop="functionType" label="分类" align="center" ></el-table-column>
-                <el-table-column prop="isDefault" label="是否默认" align="center" >
+                <el-table-column prop="functionType" :label="$t('documentType_class')" align="center" ></el-table-column>
+                <el-table-column prop="isDefault" :label="$t('documentType_Defau')" align="center" >
                   <template slot-scope="scope">
-                    <div>{{scope.row.isDefault === '1' ? '是' : '否'}} </div>
+                    <div>{{scope.row.isDefault === '1' ? $t('common_Yes') : $t('common_No')}} </div>
                   </template>
                 </el-table-column>
               </el-table>
@@ -53,26 +53,26 @@
       </el-tabs>
     </div>
      <el-dialog
-      title="选择单据小类"
+      :title="$t('documentType_SelecDocuCate')"
       :visible.sync="addVisible"
       width="1100px">
       <div class="mes-table">
         <el-table :data="popTableData" border highlight-current-row size="mini" max-height="400px" ref="popTable" @selection-change="popTableSelectionChange">
           <el-table-column type="selection" width="50" align="center" ></el-table-column>
-          <el-table-column prop="code" label="编码" align="center" ></el-table-column>
-          <el-table-column prop="name" label="名称" align="center" ></el-table-column>
-          <el-table-column prop="description" label="描述" align="center" ></el-table-column>
-          <el-table-column prop="isInvalid" label="状态" align="center" >
+          <el-table-column prop="code" :label="$t('common_code')" align="center" ></el-table-column>
+          <el-table-column prop="name" :label="$t('common_Name')" align="center" ></el-table-column>
+          <el-table-column prop="description" :label="$t('common_Description')" align="center" ></el-table-column>
+          <el-table-column prop="isInvalid" :label="$t('common_Status')" align="center" >
             <template slot-scope="scope">
-              <div>{{scope.row.isInvalid === '1' ? '可用' : '不可用'}} </div>
+              <div>{{scope.row.isInvalid === '1' ? $t('documentType_avail') : $t('documentType_NotAvai')}} </div>
             </template>
           </el-table-column>
-          <el-table-column prop="functionType" label="分类" align="center" ></el-table-column>
+          <el-table-column prop="functionType" :label="$t('documentType_class')" align="center" ></el-table-column>
         </el-table>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="addVisible = false">取 消</el-button>
-        <el-button type="primary" @click="saveBillManageBillRelation" :loading="saveLoading">确 定</el-button>
+        <el-button @click="addVisible = false">{{$t('common_cancel')}}</el-button>
+        <el-button type="primary" @click="saveBillManageBillRelation" :loading="saveLoading">{{$t('common_ok')}}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -128,7 +128,7 @@ export default {
     },
     async deleteFun () {
       if (!this.selectList.length) {
-        this.$message.warning('请选择需要删除的单据小类')
+        this.$message.warning(this.$t('documentType_PleasSeleDocuCa'))
         return false
       }
       let selectIds = this.selectList.map(item => item.mWmsBillSubcategoryId)
@@ -162,7 +162,7 @@ export default {
           this.selectBillManageByKey(this.mWmsBillCategoryId)
         }
       } else {
-        this.$message.warning('请选择一条需要设置为默认小类')
+        this.$message.warning(this.$t('documentType_PleasSeleOneBeS'))
       }
     },
     async getSubCategory () {
@@ -217,7 +217,7 @@ export default {
           this.selectBillManageByKey(this.mWmsBillCategoryId)
         }
       } else {
-        this.$message.warning('请选择需要设置的数据')
+        this.$message.warning(this.$t('documentType_PleasSeleDataBe'))
       }
     }
   },

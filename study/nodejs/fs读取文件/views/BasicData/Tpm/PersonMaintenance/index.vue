@@ -1,6 +1,6 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">层级对应人员维护</h3>
+    <h3 class="mes-main-title">{{$t('personMainten_LevelCorrPersMain')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
         <cascader-select v-model="officeCode" style="width:40%" dataType="1"></cascader-select>
@@ -9,7 +9,7 @@
         <el-button size="mini" style="float:right;margin-left:10px;">
           <i class="fa fa-filter"></i>
         </el-button>
-        <el-input placeholder="责任层级名称" v-model.trim="hierarchyName" size="mini" style="width:40%;float:right;" @keydown.native.enter="getHierarchyUserList" clearable>
+        <el-input :placeholder="$t('personMainten_RespoLeveName')" v-model.trim="hierarchyName" size="mini" style="width:40%;float:right;" @keydown.native.enter="getHierarchyUserList" clearable>
           <i slot="suffix" class="el-input__icon" @click="getHierarchyUserList"></i>
         </el-input>
       </el-col>
@@ -17,13 +17,13 @@
     <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="11">
-          <el-button size="mini" icon="el-icon-search" @click="getHierarchyUserList">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="getHierarchyUserList">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-plus" @click="handleHierarchyUser('')">新增</el-button>
+          <el-button size="mini" icon="el-icon-plus" @click="handleHierarchyUser('')">{{$t('common_Add')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteHierarchyUser('')">批量删除</el-button>
+          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteHierarchyUser('')">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh" @click="getHierarchyUserList">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh" @click="getHierarchyUserList">{{$t('common_Refresh')}}</el-button>
         </el-col>
         <el-col :span="13">
           <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -36,18 +36,18 @@
       <div class="mes-table-content">
         <el-table :data="tableData" border highlight-current-row size="mini" @selection-change="tableSelectionChange">
           <el-table-column type="selection" width="50" align="center"></el-table-column>
-          <el-table-column type="index" label="序号" align="center" :index="indexMethod"></el-table-column>
-          <el-table-column prop="officeName" sortable label="工厂" align="center"></el-table-column>
-          <el-table-column prop="hierarchyName" sortable label="责任层级名称" align="center"></el-table-column>
-          <el-table-column prop="workKind" sortable label="工种" align="center"></el-table-column>
-          <el-table-column prop="workNo" sortable label="工号" align="center"></el-table-column>
-          <el-table-column prop="username" sortable label="姓名" align="center"></el-table-column>
-          <el-table-column prop="creator" sortable label="创建人" align="center"></el-table-column>
-          <el-table-column prop="createTime" sortable label="创建时间" align="center"></el-table-column>
-          <el-table-column label="操作" width="120" align="center">
+          <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod"></el-table-column>
+          <el-table-column prop="officeName" sortable :label="$t('common_Factory')" align="center"></el-table-column>
+          <el-table-column prop="hierarchyName" sortable :label="$t('personMainten_RespoLeveName')" align="center"></el-table-column>
+          <el-table-column prop="workKind" sortable :label="$t('common_TypeWork')" align="center"></el-table-column>
+          <el-table-column prop="workNo" sortable :label="$t('personMainten_JobNumb')" align="center"></el-table-column>
+          <el-table-column prop="username" sortable :label="$t('common_fullName')" align="center"></el-table-column>
+          <el-table-column prop="creator" sortable :label="$t('common_Creator')" align="center"></el-table-column>
+          <el-table-column prop="createTime" sortable :label="$t('common_CreateTime')" align="center"></el-table-column>
+          <el-table-column :label="$t('common_Operate')" width="120" align="center">
             <template slot-scope="scope">
-              <handle-button iconClass='el-icon-edit-outline' tipText="编辑" @click="handleHierarchyUser(scope.row)"></handle-button>
-              <handle-button iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c' @click="deleteHierarchyUser(scope.row.hierarchyUserId)"></handle-button>
+              <handle-button iconClass='el-icon-edit-outline' :placeholder="$t('common_Edit')" @click="handleHierarchyUser(scope.row)"></handle-button>
+              <handle-button iconClass='el-icon-delete' :placeholder="$t('common_Del')" iconColor='#f56c6c' @click="deleteHierarchyUser(scope.row.hierarchyUserId)"></handle-button>
             </template>
           </el-table-column>
         </el-table>
@@ -83,7 +83,7 @@ export default {
   },
   computed: {
     dialogTitle () {
-      return this.isEdit ? '编辑层级对应人员' : '新增层级对应人员'
+      return this.isEdit ? this.$t('personMainten_CorrePersEditLeve') : this.$t('personMainten_NewLeveCorrPers')
     }
   },
   methods: {
@@ -152,7 +152,7 @@ export default {
     async deleteHierarchyUser (id) {
       const ids = id ? [id] : this.selectList
       if (ids.length > 0) {
-        const confirm = await this.$myPrompt.confirm('确定删除当前选中的层级对应人员吗？')
+        const confirm = await this.$myPrompt.confirm(this.$t('personMainten_AreYouSureCorrPers'))
         if (confirm) {
           const res = await this.$api.deleteHierarchyUser(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -160,7 +160,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请先选择需要删除的层级对应人员！')
+        this.$message.warning(this.$t('personMainten_selecLeveCorrDeleFirs'))
       }
     }
   },

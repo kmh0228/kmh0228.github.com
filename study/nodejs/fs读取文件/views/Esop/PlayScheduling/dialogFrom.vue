@@ -1,25 +1,25 @@
 <template>
   <el-form :model="dialogForm"  ref="dialogForm" label-position="left" label-width="130px" class="el-row mes-form-rule" :rules="rules" size="mini">
-   <el-form-item label="料号" prop="mcomMaterialId" class="el-col el-col-24">
+   <el-form-item :label="$t('common_PorN')" prop="mcomMaterialId" class="el-col el-col-24">
      <dialogTableSelect ref="dialogTableSelect" v-model="dialogForm.mcomMaterialId" :contentValue="materialNoVersion" selectId="mComMaterialId" searchPlaceholder="请选择料号" :searchForm="materialSearch" searchKey="materialNo" :showKey="['materialNo','version']" :tableColumns="materialColumns" getDataFunction="getMaterialMasters"></dialogTableSelect>
    </el-form-item>
-   <el-form-item label="线别" prop="mpomLineId" class="el-col el-col-24">
+   <el-form-item :label="$t('common_Line')" prop="mpomLineId" class="el-col el-col-24">
      <el-select v-model="dialogForm.mpomLineId" style="width:100%">
        <el-option v-for="(option,i) in lineList" :key="i" :label="option.lineName" :value="option.mPomLineId"></el-option>
      </el-select>
    </el-form-item>
-   <el-form-item label="开始时间" prop="startTime" class="el-col el-col-24">
-      <el-date-picker v-model="dialogForm.startTime"  type="datetime"  placeholder="选择开始日期" :picker-options="pickerOptions" style="width:100%" value-format="yyyy-MM-dd HH:mm:ss" ></el-date-picker>
+   <el-form-item :label="$t('common_startTime')" prop="startTime" class="el-col el-col-24">
+      <el-date-picker v-model="dialogForm.startTime"  type="datetime"  :placeholder="$t('playSchedu_SelecStarDate')" :picker-options="pickerOptions" style="width:100%" value-format="yyyy-MM-dd HH:mm:ss" ></el-date-picker>
    </el-form-item>
-   <el-form-item label="结束时间" prop="endTime" class="el-col el-col-24">
-      <el-date-picker v-model="dialogForm.endTime"  type="datetime"  placeholder="选择开始日期" :picker-options="pickerOptions" style="width:100%" value-format="yyyy-MM-dd HH:mm:ss" @change="compareDate"></el-date-picker>
+   <el-form-item :label="$t('common_endTime')" prop="endTime" class="el-col el-col-24">
+      <el-date-picker v-model="dialogForm.endTime"  type="datetime"  :placeholder="$t('playSchedu_SelecStarDate')" :picker-options="pickerOptions" style="width:100%" value-format="yyyy-MM-dd HH:mm:ss" @change="compareDate"></el-date-picker>
    </el-form-item>
-   <el-form-item label="播放间隔/单位：S" prop="intervals" class="el-col el-col-24">
-     <el-input  v-model="dialogForm.intervals" placeholder="请输入大于0的数字"></el-input>
+   <el-form-item :label="$t('playSchedu_PlaybInte') + '/'+$t('common_Unit')+'：S'" prop="intervals" class="el-col el-col-24">
+     <el-input  v-model="dialogForm.intervals" :placeholder="$t('playSchedu_enterGreaThan10')"></el-input>
    </el-form-item>
   <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-      <el-button type="primary" size="mini" @click="saveForm">保存</el-button>
-        <el-button size="mini" @click="$emit('cancel')">取消</el-button>
+      <el-button type="primary" size="mini" @click="saveForm">{{$t('common_save')}}</el-button>
+        <el-button size="mini" @click="$emit('cancel')">{{$t('common_cancel')}}</el-button>
   </el-form-item>
   </el-form>
 </template>
@@ -48,7 +48,7 @@ export default {
       materialNo: '',
       processModuleList: [],
       rules: {
-        mcomMaterialId: [{ required: true, message: '料号不能为空' }]
+        mcomMaterialId: [{ required: true, message: this.$t('common_ItemNoCannBeEm') }]
       },
       materialSearch: {
         materialNo: '',
@@ -56,16 +56,16 @@ export default {
       },
       materialColumns: [{
         key: 'materialNo',
-        label: '料号'
+        label: this.$t('common_PorN')
       }, {
         key: 'materialName',
-        label: '物料名称'
+        label: this.$t('common_MaterialName')
       }, {
         key: 'version',
-        label: '版次'
+        label: this.$t('common_Edition')
       }, {
         key: 'mComMaterialtypeCode',
-        label: '物料类型'
+        label: this.$t('common_MaterialType')
       }],
       lineList: []
     }
@@ -111,7 +111,7 @@ export default {
       let { startTime, endTime } = this.dialogForm
       let res = this.$dayjs(endTime).isAfter(this.$dayjs(startTime))
       if (!res) {
-        this.$message.warning('结束时间要大于开始时间   请重新选择！！！')
+        this.$message.warning(this.$t('playSchedu_endTimeShouStarTime') + '   ' + this.$t('playSchedu_choosAgai'))
         this.dialogForm.endTime = ''
       }
     }

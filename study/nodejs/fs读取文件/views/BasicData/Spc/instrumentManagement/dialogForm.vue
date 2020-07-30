@@ -1,28 +1,28 @@
 <template>
   <el-form :model="dialogForm" ref="dialogForm" label-position="left" label-width="120px" class="el-row mes-form-rule" :rules="rules">
-    <el-form-item label="部门" prop="officeCode" class="el-col el-col-24">
-      <cascader-select v-model="dialogForm.officeCode" type="2" placeholder="请选择部门" :disabled="isEdit" style="width:100%;"></cascader-select>
+    <el-form-item :label="$t('common_Department')" prop="officeCode" class="el-col el-col-24">
+      <cascader-select v-model="dialogForm.officeCode" type="2" :placeholder="$t('common_PleasSeleDepa')" :disabled="isEdit" style="width:100%;"></cascader-select>
     </el-form-item>
-    <el-form-item label="量测站/实验室" prop="mSpcMeasurementStationId" class="el-col el-col-24">
-      <el-select v-model="dialogForm.mSpcMeasurementStationId" size="mini" style="width:100%;" :disabled="isEdit" placeholder="请选择量测站/实验室">
+    <el-form-item :label="$t('common_MeasuStat')+'/'+$t('common_labor')" prop="mSpcMeasurementStationId" class="el-col el-col-24">
+      <el-select v-model="dialogForm.mSpcMeasurementStationId" size="mini" style="width:100%;" :disabled="isEdit" :placeholder="$t('instrumentM_selecMeasStat')+'/'+$t('common_labor')">
         <el-option v-for="option in measurementStationList" :key="option.mSpcMeasurementStationId" :label="option.stationCode" :value="option.mSpcMeasurementStationId"></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="测量仪器" prop="instrumentName" class="el-col el-col-24">
-      <el-input v-model.trim="dialogForm.instrumentName" style="width:100%" :disabled="isEdit" placeholder="请输入测量仪器名称"></el-input>
+    <el-form-item :label="$t('common_MeasuInst')" prop="instrumentName" class="el-col el-col-24">
+      <el-input v-model.trim="dialogForm.instrumentName" style="width:100%" :disabled="isEdit" :placeholder="$t('instrumentM_inputNameMeasInst')"></el-input>
     </el-form-item>
-    <el-form-item label="仪器精度" prop="precision" class="el-col el-col-24">
-      <el-input v-model.trim="dialogForm.precision" style="width:100%" placeholder="请输入仪器精度"></el-input>
+    <el-form-item :label="$t('instrumentM_InstrAccu')" prop="precision" class="el-col el-col-24">
+      <el-input v-model.trim="dialogForm.precision" style="width:100%" :placeholder="$t('instrumentM_inputInstPrec')"></el-input>
     </el-form-item>
-    <el-form-item label="测量单位" prop="uom" class="el-col el-col-24">
-      <el-input v-model.trim="dialogForm.uom" style="width:100%" placeholder="请输入测量单位"></el-input>
+    <el-form-item :label="$t('instrumentM_UnitMeas')" prop="uom" class="el-col el-col-24">
+      <el-input v-model.trim="dialogForm.uom" style="width:100%" :placeholder="$t('instrumentM_enterMeasUnit')"></el-input>
     </el-form-item>
-    <el-form-item label="描述" prop="instrumentDesc" class="el-col el-col-24">
-      <el-input type="textarea" v-model.trim="dialogForm.instrumentDesc" style="width:100%" placeholder="请输入描述"></el-input>
+    <el-form-item :label="$t('common_Description')" prop="instrumentDesc" class="el-col el-col-24">
+      <el-input type="textarea" v-model.trim="dialogForm.instrumentDesc" style="width:100%" :placeholder="$t('instrumentM_enterADesc')"></el-input>
     </el-form-item>
     <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-      <el-button type="primary" size="mini" @click="saveInstrument">保存</el-button>
-      <el-button size="mini" @click="$emit('cannel')">取消</el-button>
+      <el-button type="primary" size="mini" @click="saveInstrument">{{$t('common_save')}}</el-button>
+      <el-button size="mini" @click="$emit('cannel')">{{$t('common_cancel')}}</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -38,11 +38,15 @@ export default {
         precision: '',
         uom: '',
         instrumentDesc: ''
-      },
-      rules: {
-        officeCode: [{ required: true, message: '请选择部门' }],
-        mSpcMeasurementStationId: [{ required: true, message: '请选择量测站/实验室' }],
-        instrumentName: [{ required: true, message: '请输入测量仪器名称' }]
+      }
+    }
+  },
+  computed: {
+    rules () {
+      return {
+        officeCode: [{ required: true, message: this.$t('common_PleasSeleDepa') }],
+        mSpcMeasurementStationId: [{ required: true, message: this.$t('instrumentM_selecMeasStat') + '/' + this.$t('common_labor') }],
+        instrumentName: [{ required: true, message: this.$t('instrumentM_inputNameMeasInst') }]
       }
     }
   },

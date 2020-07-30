@@ -1,6 +1,6 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">出货检验项目维护</h3>
+    <h3 class="mes-main-title">{{$t('inspection_MaintDeliInspItem')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
         <dict-select style="width:35%;"  v-model="searchForm.itemType" dictType="OQC_TYPE" selectKey="dictCode" clearable @change="initData"></dict-select>
@@ -9,13 +9,13 @@
         <el-button size="mini" style="float:right;margin-left:10px;" @click="showMoreConditon = !showMoreConditon">
           <i class="fa fa-filter"></i>
         </el-button>
-        <el-input placeholder="请输入" v-model.trim="searchForm.keywords" size="mini" style="width:40%;float:right;" @keydown.enter.native="initData">
+        <el-input :placeholder="$t('common_PleasEnte')" v-model.trim="searchForm.keywords" size="mini" style="width:40%;float:right;" @keydown.enter.native="initData">
         </el-input>
       </el-col>
       <el-col :span="24" style="padding-top:1vh;">
         <el-form class="el-row mes-search-form" :model="searchForm" label-width="30%" label-position="left" v-show="showMoreConditon">
-          <el-form-item label="客户" class="el-col el-col-11">
-            <el-input v-model="searchForm.customerCode" size="mini" placeholder="请输入关键词"></el-input>
+          <el-form-item :label="$t('common_custo')" class="el-col el-col-11">
+            <el-input v-model="searchForm.customerCode" size="mini" :placeholder="$t('common_PleasEnteKeyWor')"></el-input>
           </el-form-item>
         </el-form>
       </el-col>
@@ -23,15 +23,15 @@
     <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="11">
-          <el-button size="mini" icon="el-icon-search" @click="initData">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="initData">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-plus"  @click="handleCheckItem('')">新增</el-button>
+          <el-button size="mini" icon="el-icon-plus"  @click="handleCheckItem('')">{{$t('common_Add')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteQmsCheckItem('')">批量删除</el-button>
+          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteQmsCheckItem('')">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh"  @click="refreshData">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh"  @click="refreshData">{{$t('common_Refresh')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-upload2 " @click="importDialog = true">导出</el-button>
+          <el-button size="mini" icon="el-icon-upload2 " @click="importDialog = true">{{$t('common_Export')}}</el-button>
           </el-col>
         <el-col :span="13">
           <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -43,21 +43,21 @@
       <div class="mes-table-content">
         <el-table :data="tableData" border size="mini" @selection-change="selectChange">
           <el-table-column type="selection" width="50" align="center"></el-table-column>
-          <el-table-column type="index" label="序号" width="50" align="center" :index="indexMethod"></el-table-column>
-           <el-table-column prop="inspectItem" label="检验项目" align="center" sortable></el-table-column>
-          <el-table-column prop="itemTypeDictName" label="类型" align="center" sortable></el-table-column>
-          <el-table-column prop="customerCode" label="客户代码" align="center" sortable></el-table-column>
-          <el-table-column prop="inspectContent" label="检验内容" align="center" sortable></el-table-column>
-          <el-table-column prop="lastEditor" label="最后维护人" align="center" sortable></el-table-column>
-          <el-table-column prop="lastEditedDt" label="最后维护时间" align="center" sortable>
+          <el-table-column type="index" :label="$t('common_Number')" width="50" align="center" :index="indexMethod"></el-table-column>
+           <el-table-column prop="inspectItem" :label="$t('common_InspeItem')" align="center" sortable></el-table-column>
+          <el-table-column prop="itemTypeDictName" :label="$t('common_type')" align="center" sortable></el-table-column>
+          <el-table-column prop="customerCode" :label="$t('common_CustoCode')" align="center" sortable></el-table-column>
+          <el-table-column prop="inspectContent" :label="$t('common_InspeCont')" align="center" sortable></el-table-column>
+          <el-table-column prop="lastEditor" :label="$t('inspection_LastMain')" align="center" sortable></el-table-column>
+          <el-table-column prop="lastEditedDt" :label="$t('inspection_LastMainTime')" align="center" sortable>
             <template slot-scope="scope">
               {{ scope.row.lastEditedDt | formatDateTime }}
             </template>
           </el-table-column>
-          <el-table-column label="操作" align="center" width="120" >
+          <el-table-column :label="$t('common_Operate')" align="center" width="120" >
             <template slot-scope="scope">
-              <handle-button @click="handleCheckItem(scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-              <handle-button @click="deleteQmsCheckItem(scope.row.mQomOqcCheckitemId)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+              <handle-button @click="handleCheckItem(scope.row)" iconClass='el-icon-edit-outline' :placeholder="$t('common_Edit')"></handle-button>
+              <handle-button @click="deleteQmsCheckItem(scope.row.mQomOqcCheckitemId)" iconClass='el-icon-delete' :placeholder="$t('common_Del')" iconColor='#f56c6c'></handle-button>
             </template>
           </el-table-column>
         </el-table>
@@ -67,19 +67,19 @@
       <dialog-form v-if="dialogVisible" ref="dialogForm" @cannel="dialogVisible=false" :isEdit="isEdit" :initData="initData"></dialog-form>
     </el-dialog>
     <!-- 导入文件 -->
-    <el-dialog title="请选择需要导入的出货检验项目" :visible.sync="importDialog" width="600px" @close="closeUploadDialog" class="handle-dialog">
+    <el-dialog :title="$t('inspection_selecDeliInspBeImpo')" :visible.sync="importDialog" width="600px" @close="closeUploadDialog" class="handle-dialog">
       <el-upload action="" drag style="text-align:center;" :before-upload="beforeUpload">
         <mes-icon icon="excel-icon" size="67px" style="display:inline-block;margin:40px 0 16px;" v-if="fileName"></mes-icon>
         <i class="el-icon-upload" v-else></i>
         <p v-if="fileName">{{ fileName }}</p>
         <div class="el-upload__text" v-else>
-          拖动文件至此处，<em>点击上传</em> 或
-          <em><a href="static/download/checkItem.xlsx" style="color:#3B6F9A;text-decoration:none;" download="出货检验项目.xlsx" @click="downloadTemplate">模版下载</a></em>
+          {{$t('common_DragFileHere')}}<em>{{$t('common_ClickUplo')}}</em> {{$t('common_or')}}
+          <em><a href="static/download/checkItem.xlsx" style="color:#3B6F9A;text-decoration:none;" :download="$t('inspection_DelivInspItem') + '.xlsx'" @click="downloadTemplate">{{$t('common_TemplDown')}}</a></em>
         </div>
       </el-upload>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="importQmsCheckItem">确 定</el-button>
-        <el-button @click="closeUploadDialog">取 消</el-button>
+        <el-button type="primary" @click="importQmsCheckItem">{{$t('common_ok')}}</el-button>
+        <el-button @click="closeUploadDialog">{{$t('common_cancel')}}</el-button>
       </div>
     </el-dialog>
   </div>
@@ -119,7 +119,7 @@ export default {
       return this.selectList.length === 0
     },
     dialogTitle () {
-      return this.isEdit ? '编辑出货检验项目' : '新增出货检验项目'
+      return this.isEdit ? this.$t('inspection_EditShipInspItem') : this.$t('inspection_NewDeliInspItem')
     }
   },
   methods: {
@@ -164,7 +164,7 @@ export default {
       let ids = id ? [id] : this.selectList
       const len = ids.length
       if (len > 0) {
-        let confirmRes = await this.$myPrompt.confirm(`确定删除选择的出货检验项目吗？`)
+        let confirmRes = await this.$myPrompt.confirm(this.$t('inspection_AreYouSureInspItem'))
         if (confirmRes) {
           let res = await this.$api.deleteQmsCheckItem(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -175,7 +175,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请选择需要删除的出货检验项目！')
+        this.$message.warning(this.$t('inspection_selecDeliInspBeDele'))
       }
     },
     handleCheckItem (row) {
@@ -206,7 +206,7 @@ export default {
         this.fileName = fileName
         this.file = file
       } else {
-        this.$message.warning('文件类型必须是excel格式!')
+        this.$message.warning(this.$t('inspection_FileTypeMustBeExcel'))
       }
       return false
     },
@@ -220,7 +220,7 @@ export default {
           this.initData()
         })
       } else {
-        this.$message.warning('请先上传需要导入的出货检验项目！')
+        this.$message.warning(this.$t('inspection_uploaDeliInspImpoFirs'))
       }
     }
   },

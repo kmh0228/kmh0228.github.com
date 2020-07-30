@@ -65,7 +65,7 @@
         <p v-if="isRead">{{ attributeForm.standardTime }}</p>
         <el-input  v-else  v-model="attributeForm.standardTime" filterable clearable style="width:100%"></el-input>
       </el-form-item>
-      <el-form-item :label="工时单位" prop="timeUnitName" class="el-col el-col-11 el-col-offset-1">
+      <el-form-item :label="$t('material_workHours')" prop="timeUnitName" class="el-col el-col-11 el-col-offset-1">
         <p v-if="isRead">{{ attributeForm.timeUnitName }}</p>
         <el-input  v-else  v-model="attributeForm.timeUnitName" filterable clearable style="width:100%"></el-input>
       </el-form-item>

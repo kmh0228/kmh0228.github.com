@@ -1,22 +1,22 @@
 <template>
 <div class="mes-main mes-work-order">
-  <h3 class="mes-main-title">料号储位关系管理</h3>
+  <h3 class="mes-main-title">{{$t('materialbin_MaterNumbStorLo')}}</h3>
   <el-row :gutter="20" class="mes-main-filte">
     <el-col :span="12">
-      <el-input placeholder="请输入料号" v-model.trim="keywords" size="mini" style="width:35%" @keydown.enter.native="getMaterialBin">
+      <el-input :placeholder="$t('common_PleasEnteItemNu')" v-model.trim="keywords" size="mini" style="width:35%" @keydown.enter.native="getMaterialBin">
       </el-input>
     </el-col>
   </el-row>
   <div class="mes-table">
     <el-row class="mes-table-handle">
       <el-col :span="12">
-        <el-button size="mini" icon="el-icon-search" @click="getMaterialBin">查询</el-button>
+        <el-button size="mini" icon="el-icon-search" @click="getMaterialBin">{{$t('common_Inquire')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-plus"  @click="handleMateriaBin('')">新增</el-button>
+        <el-button size="mini" icon="el-icon-plus"  @click="handleMateriaBin('')">{{$t('common_Add')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-delete-solid" @click="deleteMateria('')">批量删除</el-button>
+        <el-button size="mini" icon="el-icon-delete-solid" @click="deleteMateria('')">{{$t('common_Delete')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-refresh"  @click="refreshData">刷新</el-button>
+        <el-button size="mini" icon="el-icon-refresh"  @click="refreshData">{{$t('common_Refresh')}}</el-button>
       </el-col>
       <el-col :span="12">
         <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :page-count="5"
@@ -28,18 +28,18 @@
     <div class="mes-table-content">
       <el-table :data="tableData" border highlight-current-row @selection-change="tableSelectionChange">
         <el-table-column type="selection" width="50" align="center"></el-table-column>
-        <el-table-column type="index" label="序号" align="center" :index="indexMethod"></el-table-column>
-        <el-table-column prop="materialNo" sortable label="料号" align="center"></el-table-column>
-        <el-table-column prop="materialName" sortable label="名称" align="center"></el-table-column>
-        <el-table-column prop="version" sortable label="版次" align="center"></el-table-column>
-        <el-table-column prop="mWmsWarehouseCode" sortable label="库房" align="center"></el-table-column>
-        <el-table-column prop="mWmsWarehouseBinCode" sortable label="储位" align="center"></el-table-column>
-        <el-table-column prop="materialType" sortable label="物料类型" align="center"></el-table-column>
-        <el-table-column prop="materialDesc" sortable label="描述" align="center"></el-table-column>
-        <el-table-column label="操作" align="center" width="120">
+        <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod"></el-table-column>
+        <el-table-column prop="materialNo" sortable :label="$t('common_PorN')" align="center"></el-table-column>
+        <el-table-column prop="materialName" sortable :label="$t('common_Name')" align="center"></el-table-column>
+        <el-table-column prop="version" sortable :label="$t('common_Edition')" align="center"></el-table-column>
+        <el-table-column prop="mWmsWarehouseCode" sortable :label="$t('materialbin_StoraRoom')" align="center"></el-table-column>
+        <el-table-column prop="mWmsWarehouseBinCode" sortable :label="$t('common_StoraLoca')" align="center"></el-table-column>
+        <el-table-column prop="materialType" sortable :label="$t('common_MaterialType')" align="center"></el-table-column>
+        <el-table-column prop="materialDesc" sortable :label="$t('common_Description')" align="center"></el-table-column>
+        <el-table-column :label="$t('common_Operate')" align="center" width="120">
             <template slot-scope="scope">
-              <handle-button @click="handleMateriaBin(scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-              <handle-button @click="deleteMateria(scope.row.mWmsMaterialbinId)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+              <handle-button @click="handleMateriaBin(scope.row)" iconClass='el-icon-edit-outline' :tipText="$t('common_Edit')"></handle-button>
+              <handle-button @click="deleteMateria(scope.row.mWmsMaterialbinId)" iconClass='el-icon-delete' :tipText="$t('common_Del')" iconColor='#f56c6c'></handle-button>
             </template>
           </el-table-column>
       </el-table>
@@ -72,7 +72,7 @@ export default {
   },
   computed: {
     dialogTitle () {
-      return this.isEdit ? '编辑料号储位关系' : '新建料号储位关系'
+      return this.isEdit ? this.$t('materialbin_EditItemNumbSto') : this.$t('materialbin_NewItemNumbStor')
     },
     etidtable () {
       let { selectList } = this
@@ -135,7 +135,7 @@ export default {
       let ids = id ? [id] : this.selectList
       let len = ids.length
       if (len > 0) {
-        let confirmRes = await this.$myPrompt.confirm('确定删除当前选中的料号储位关系信息吗?')
+        let confirmRes = await this.$myPrompt.confirm(this.$t('materialbin_AreYouSureDeleC'))
         if (confirmRes) {
           let res = await this.$api.deleteMaterialBin(ids)
           let { code, msg } = res
@@ -147,7 +147,7 @@ export default {
           }
         }
       } else {
-        this.$message.warning('请选择要删除的客户信息')
+        this.$message.warning(this.$t('materialbin_PleasSeleCustIn'))
       }
     }
   },

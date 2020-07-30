@@ -1,24 +1,24 @@
 <template>
    <el-form :model="dialogForm" :rules="rules" ref="dialogForm" label-width="120px" label-position="left" class="el-row mes-form-rule">
-  <el-form-item label="料号" prop="mWmsMaterialbinMaterialid" class="el-col el-col-24">
+  <el-form-item :label="$t('common_PorN')" prop="mWmsMaterialbinMaterialid" class="el-col el-col-24">
     <!-- <el-select v-model="dialogForm.mWmsMaterialbinMaterialid" filterable clearable style="width:100%"  placeholder="请选择料号">
       <el-option v-for="(option,i) in materalTypeList" :key="i" :label="option.mComMaterialtypeCode" :value="option.mComMaterialId"></el-option>
     </el-select> -->
-    <dialogTableSelect ref="dialogTableSelect" style="width:100%" class="mes-form-item" :contentValue="materialNoVersion"  v-model="dialogForm.mWmsMaterialbinMaterialid" selectId="mComMaterialId" searchPlaceholder="请选择料号" :searchForm="materialSearch" searchKey="materialNo" :showKey="['materialNo','version']" :tableColumns="materialColumns" getDataFunction="getMaterialMasters"></dialogTableSelect>
+    <dialogTableSelect ref="dialogTableSelect" style="width:100%" class="mes-form-item" :contentValue="materialNoVersion"  v-model="dialogForm.mWmsMaterialbinMaterialid" selectId="mComMaterialId" :searchPlaceholder="$t('common_PleaseSelectPN')" :searchForm="materialSearch" searchKey="materialNo" :showKey="['materialNo','version']" :tableColumns="materialColumns" getDataFunction="getMaterialMasters"></dialogTableSelect>
   </el-form-item>
-  <el-form-item label="库房" prop="mWmsMaterialbinWarehouseid" class="el-col el-col-24">
-    <el-select v-model="dialogForm.mWmsMaterialbinWarehouseid" style="width:100%" filterable placeholder="请选择库房" @change="getBinByMaterialId">
+  <el-form-item :label="$t('materialbin_StoraRoom')" prop="mWmsMaterialbinWarehouseid" class="el-col el-col-24">
+    <el-select v-model="dialogForm.mWmsMaterialbinWarehouseid" style="width:100%" filterable :placeholder="$t('materialbin_PleasSeleWare')" @change="getBinByMaterialId">
       <el-option v-for="(option,i) in warehouseTypeList" :key="i" :label="option.mWmsWarehouseCode" :value="option.mWmsWarehouseId"></el-option>
     </el-select>
   </el-form-item>
-   <el-form-item label="储位" prop="mWmsMaterialbinBinid" class="el-col el-col-24">
-    <el-select v-model="dialogForm.mWmsMaterialbinBinid" style="width:100%" filterable placeholder="请先选择库房在选择储位">
+   <el-form-item :label="$t('common_StoraLoca')" prop="mWmsMaterialbinBinid" class="el-col el-col-24">
+    <el-select v-model="dialogForm.mWmsMaterialbinBinid" style="width:100%" filterable :placeholder="$t('materialbin_PleasSeleWareFi')">
       <el-option v-for="(option,i) in binTypeList" :key="i" :label="option.mWmsWarehouseBinCode" :value="option.mWmsMaterialbinBinid"></el-option>
     </el-select>
   </el-form-item>
   <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-      <el-button type="primary" size="mini" @click="saveMateria">保存</el-button>
-      <el-button size="mini" @click="$emit('cannel')">取消</el-button>
+      <el-button type="primary" size="mini" @click="saveMateria">{{$t('common_save')}}</el-button>
+      <el-button size="mini" @click="$emit('cannel')">{{$t('common_cancel')}}</el-button>
   </el-form-item>
  </el-form>
 </template>
@@ -37,9 +37,9 @@ export default {
         mWmsMaterialbinBinid: ''
       },
       rules: {
-        mWmsMaterialbinMaterialid: [{ required: true, message: '料号不能为空' }],
-        mWmsMaterialbinWarehouseid: [{ required: true, message: '库房不能为空' }],
-        mWmsMaterialbinBinid: [{ required: true, message: '储位不能为空' }]
+        mWmsMaterialbinMaterialid: [{ required: true, message: this.$t('common_ItemNoCannBeEm') }],
+        mWmsMaterialbinWarehouseid: [{ required: true, message: this.$t('materialbin_WarehCannBeEmpt') }],
+        mWmsMaterialbinBinid: [{ required: true, message: this.$t('materialbin_StoraLocaCannBe') }]
 
       },
       materalTypeList: [],
@@ -53,16 +53,16 @@ export default {
       },
       materialColumns: [{
         key: 'materialNo',
-        label: '料号'
+        label: 'common_PorN'
       }, {
         key: 'materialName',
-        label: '物料名称'
+        label: 'common_MaterialName'
       }, {
         key: 'version',
-        label: '版次'
+        label: 'common_Edition'
       }, {
         key: 'mComMaterialtypeCode',
-        label: '物料类型'
+        label: 'common_MaterialType'
       }],
       materialSearch: {
         materialNo: '',

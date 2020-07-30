@@ -1,42 +1,42 @@
 <template>
   <el-form :model="dialogForm"  ref="dialogForm" label-position="left" label-width="140px" class="el-row mes-form-rule" :rules="rules" size="mini">
-    <el-form-item label="工厂" prop="officeCode" class="el-col el-col-11" size="mini">
+    <el-form-item :label="$t('common_Factory')" prop="officeCode" class="el-col el-col-11" size="mini">
       <cascader-select v-model="dialogForm.officeCode" style="width:100%" dataType="1"></cascader-select>
     </el-form-item>
-    <el-form-item label="工种" prop="workKind" class="el-col el-col-11 el-col-offset-1" size="mini">
+    <el-form-item :label="$t('common_TypeWork')" prop="workKind" class="el-col el-col-11 el-col-offset-1" size="mini">
       <dict-select v-model="dialogForm.workKind" dictType="WORK_KIND" style="width:100%;" selectKey="dictCode"></dict-select>
     </el-form-item>
-    <el-form-item label="设备类别名称" prop="mMomResourceTypeId" class="el-col el-col-11">
-      <el-select  placeholder="请选择设备类别名称" v-model.trim="dialogForm.mMomResourceTypeId" size="mini" style="width:100%" >
+    <el-form-item :label="$t('common_EquipCateName')" prop="mMomResourceTypeId" class="el-col el-col-11">
+      <el-select  :placeholder="$t('inspecItem_selecDeviCateName')" v-model.trim="dialogForm.mMomResourceTypeId" size="mini" style="width:100%" >
         <el-option v-for="(option,i) in equipmentCategoryList" :key="i"  :label="option.typeName" :value="option.mMomResourceTypeId"></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="点检频率" prop="frequency" class="el-col el-col-11  el-col-offset-1" size="mini">
-      <el-select v-model="dialogForm.frequency" placeholder="请选择点检频率" style="width:100%" >
+    <el-form-item :label="$t('common_SpotChecFreq')" prop="frequency" class="el-col el-col-11  el-col-offset-1" size="mini">
+      <el-select v-model="dialogForm.frequency" :placeholder="$t('inspecItem_selecSpotChecFreq')" style="width:100%" >
         <el-option v-for="(option,i) in frequencyList" :key="i" :label="option.label" :value="option.value" @click.native="changeTime(option.value)"></el-option>
       </el-select>
     </el-form-item>
-     <el-form-item label="点检日期" prop="date" class="el-col el-col-11" size="mini">
+     <el-form-item :label="$t('inspecItem_SpotChecDate')" prop="date" class="el-col el-col-11" size="mini">
        <el-select v-model="dialogForm.date" :placeholder="placeholderDate" :disabled="dateDisabeld" v-if="isSelectDateType" style="width:100%">
          <el-option v-for="(option,i) in dateList" :key="i" :label="option.label" :value="option.value"></el-option>
        </el-select>
-      <el-date-picker v-else  v-model="dialogForm.date"  type="date" placeholder="选择日期" style="width:100%" value-format="yyyy-MM-dd"></el-date-picker>
+      <el-date-picker v-else  v-model="dialogForm.date"  type="date" :placeholder="$t('common_SelecDate')" style="width:100%" value-format="yyyy-MM-dd"></el-date-picker>
     </el-form-item>
-    <el-form-item label="点检时间" prop="time" class="el-col el-col-11  el-col-offset-1" size="mini">
-       <el-input v-model="dialogForm.time"  placeholder="请输入正确格式（如 09:00 多个时间请；隔开）" :disabled="standardTimeDisabeld" @blur="checkdate"></el-input>
+    <el-form-item :label="$t('inspecItem_SpotChecTime')" prop="time" class="el-col el-col-11  el-col-offset-1" size="mini">
+       <el-input v-model="dialogForm.time"  :placeholder="$t('inspecItem_corFormat')" :disabled="standardTimeDisabeld" @blur="checkdate"></el-input>
     </el-form-item>
-    <el-form-item label="标准点检时长" prop="standardTime" class="el-col el-col-11" size="mini">
-      <el-input v-model="dialogForm.standardTime" placeholder="请输入标准点检时长" @blur="checkTime"></el-input>
+    <el-form-item :label="$t('inspecItem_StandSpotChecDura')" prop="standardTime" class="el-col el-col-11" size="mini">
+      <el-input v-model="dialogForm.standardTime" :placeholder="$t('inspecItem_inputStanSpotChecDura')" @blur="checkTime"></el-input>
     </el-form-item>
-     <el-form-item label="是否自动生成点检单" prop="isautogenerate" class="el-col el-col-11  el-col-offset-1" size="mini">
+     <el-form-item :label="$t('inspecItem_WhethGeneADocuAuto')" prop="isautogenerate" class="el-col el-col-11  el-col-offset-1" size="mini">
       <el-checkbox v-model="dialogForm.isautogenerate"></el-checkbox>
     </el-form-item>
-    <el-form-item label="备注" prop="remark" class="el-col el-col-23" size="mini">
-      <el-input v-model="dialogForm.remark" type="textarea"  placeholder="请输入故障描述" ></el-input>
+    <el-form-item :label="$t('common_remarks')" prop="remark" class="el-col el-col-23" size="mini">
+      <el-input v-model="dialogForm.remark" type="textarea"  :placeholder="$t('inspecItem_enterFaulDesc')" ></el-input>
     </el-form-item>
     <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-    <el-button type="primary" size="mini" @click="saveInsecptionList">保存</el-button>
-      <el-button size="mini" @click="$emit('cannel')">取消</el-button>
+    <el-button type="primary" size="mini" @click="saveInsecptionList">{{$t('common_save')}}</el-button>
+      <el-button size="mini" @click="$emit('cannel')">{{$t('common_cancel')}}</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -58,65 +58,65 @@ export default {
       },
       checked: '',
       rules: {
-        mMomResourceTypeId: [{ required: true, message: '请选择设备类别' }],
-        frequency: [{ required: true, message: '请输入点检频率' }],
-        time: [{ required: true, message: '请输入点检时间' }],
-        date: [{ required: true, message: '请输入点检日期' }],
-        standardTime: [{ required: true, message: '请输入标准点检时长' }],
-        isautogenerate: [{ required: true, message: '请选择是否自动生成点检单' }]
+        mMomResourceTypeId: [{ required: true, message: this.$t('inspecItem_selecDeviCate') }],
+        frequency: [{ required: true, message: this.$t('inspecItem_inputSpotChecFreq') }],
+        time: [{ required: true, message: this.$t('inspecItem_inputSpotChecTime') }],
+        date: [{ required: true, message: this.$t('inspecItem_enterSpotChecDate') }],
+        standardTime: [{ required: true, message: this.$t('inspecItem_inputStanSpotChecDura') }],
+        isautogenerate: [{ required: true, message: this.$t('inspecItem_selecWhetGeneListAuto') }]
 
       },
       equipmentCategoryList: [],
       frequencyList: [
         {
-          label: '月/点检',
+          label: this.$t('common_month') + '/' + this.$t('inspecItem_SpotChec'),
           value: '3'
         },
         {
-          label: '周/点检',
+          label: this.$t('common_week') + '/' + this.$t('inspecItem_SpotChec'),
           value: '2'
         },
         {
-          label: '日/点检',
+          label: this.$t('common_day') + '/' + this.$t('inspecItem_SpotChec'),
           value: '1'
         }
       ],
       statusList: [
         {
-          label: '已发布',
+          label: this.$t('inspecItem_Publi'),
           value: '1'
         },
         {
-          label: '未发布',
+          label: this.$t('inspecItem_Unpub'),
           value: '0'
         }
       ],
       dateList: [
         {
-          label: '星期一',
+          label: this.$t('inspecItem_Monda'),
           value: 'Mon'
         },
         {
-          label: '星期二',
+          label: this.$t('inspecItem_Tuesd'),
           value: 'Tue'
         },
         {
-          label: '星期三',
+          label: this.$t('inspecItem_Wedne'),
           value: 'Wed'
         },
         {
-          label: '星期四',
+          label: this.$t('inspecItem_Thurs'),
           value: 'Thu'
         },
         {
-          label: '星期五',
+          label: this.$t('inspecItem_Frida'),
           value: 'Fri'
         },
         {
-          label: '星期六',
+          label: this.$t('inspecItem_Satur'),
           value: 'Sat'
         }, {
-          label: '星期天',
+          label: this.$t('inspecItem_Sunda'),
           value: 'Sun'
         }
       ],
@@ -127,7 +127,7 @@ export default {
   },
   computed: {
     placeholderDate () {
-      return this.dateDisabeld ? '默认为每天' : '选择日期'
+      return this.dateDisabeld ? this.$t('inspecItem_defauIsEverDay') : this.$t('common_SelecDate')
     }
   },
   props: {
@@ -166,7 +166,7 @@ export default {
     changeTime (type) {
       if (type === '1') {
         this.dialogForm.time = ''
-        this.dialogForm.date = '每天'
+        this.dialogForm.date = this.$t('inspecItem_EveryDay')
         this.dateDisabeld = true
         this.isSelectDateType = true
         this.standardTimeDisabeld = false
@@ -188,7 +188,7 @@ export default {
       if (arr > 0) {
 
       } else {
-        this.$message.warning('请输入大于0的数字')
+        this.$message.warning(this.$t('inspecItem_enterGreaThan0'))
         // this.dialogForm.standardTime = ''
       }
     },
@@ -199,7 +199,7 @@ export default {
         for (let i in timeArray) {
           let tPattern = /^([0-1]{1}\d|2[0-3]):([0-5]\d)$/
           if (!tPattern.test(timeArray[i])) {
-            this.$message.warning('请输入正确的时间格式')
+            this.$message.warning(this.$t('inspecItem_enterCorrTimeForm'))
             // this.dialogForm.time = ''
             break
           }

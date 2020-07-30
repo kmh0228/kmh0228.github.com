@@ -1,22 +1,22 @@
 <template>
-<el-form :model="dispatchForm" ref="dispatchForm" :rules="rules"  label-width="120px" label-position="left" class="el-row mes-form-rule">
-  <el-form-item label="部门" class="el-col el-col-11">
-    <el-select style="width:100%" placeholder="请选择部门" v-model="dispatchForm.departMent" clearable @change="getUsers">
+<el-form :model="dispatchForm" ref="dispatchForm" :rules="rules"  label-width="140px" label-position="left" class="el-row mes-form-rule">
+  <el-form-item :label="$t('common_Departmt')" class="el-col el-col-11">
+    <el-select style="width:100%" :placeholder="$t('common_PleasSeleDepa')" v-model="dispatchForm.departMent" clearable @change="getUsers">
       <el-option v-for="(option,i) in departList" :key="i" :label="option.fullName" :value="option.department"></el-option>
     </el-select>
   </el-form-item>
-  <el-form-item label="姓名" class="el-col el-col-11 el-col-offset-2">
-    <el-input v-model="dispatchForm.keywords"  placeholder="请输入员工工号" @keydown.enter.native="getUsers">
+  <el-form-item :label="$t('common_fullName')" class="el-col el-col-11 el-col-offset-2">
+    <el-input v-model="dispatchForm.keywords"  :placeholder="$t('IqcRegister_PleaseEnterEmployeeJobNo')" @keydown.enter.native="getUsers">
        <i slot="suffix" class="el-input__icon el-icon-search" @click="getUsers"></i>
     </el-input>
   </el-form-item>
   <el-form-item class="el-col el-col-24" label-width="0" style="margin-top:20px">
     <el-table :data="userList" border @selection-change="selectionChange" ref="selectRef"  @select="selectRow">
       <el-table-column type="selection" ></el-table-column>
-      <el-table-column prop="employeeName" label="姓名" align="center"></el-table-column>
-      <el-table-column prop="employeeCardId" label="账号" align="center"></el-table-column>
-      <el-table-column prop="department" label="部门" align="center"></el-table-column>
-      <el-table-column label="邮箱" align="center"></el-table-column>
+      <el-table-column prop="employeeName" :label="$t('common_fullName')" align="center"></el-table-column>
+      <el-table-column prop="employeeCardId" :label="$t('IqcRegister_AccountNo')" align="center"></el-table-column>
+      <el-table-column prop="department" :label="$t('common_Departmt')" align="center"></el-table-column>
+      <el-table-column :label="$t('common_mailb')" align="center"></el-table-column>
     </el-table>
   </el-form-item>
   <el-form-item>
@@ -29,8 +29,8 @@
     </el-row>
   </el-form-item>
   <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-    <el-button type="primary" size="mini" @click="dispatchData">派工</el-button>
-    <el-button size="mini" @click="$emit('cannelDispatch')">取消</el-button>
+    <el-button type="primary" size="mini" @click="dispatchData">{{$t('IqcRegister_Dispatch')}}</el-button>
+    <el-button size="mini" @click="$emit('cannelDispatch')">{{$t('common_cancel')}}</el-button>
   </el-form-item>
 </el-form>
 

@@ -1,38 +1,38 @@
 <template>
   <el-form :model="dialogForm"  ref="dialogForm" label-position="left" label-width="120px" class="el-row mes-form-rule" :rules="rules" size="mini">
-    <!-- <el-form-item label="工厂" prop="officeCode" class="el-col el-col-11">
+    <!-- <el-form-item :label="$t('common_Factory')" prop="officeCode" class="el-col el-col-11">
       <cascader-select v-model="dialogForm.officeCode" style="width:100%" size="mini" dataType="1"></cascader-select>
     </el-form-item> -->
-    <el-form-item label="部门" prop="officeCode" class="el-col el-col-11">
-      <cascader-select v-model="dialogForm.officeCode" type="2" style="width:100%" size="mini" placeholder="请选择部门"></cascader-select>
+    <el-form-item :label="$t('common_Department')" prop="officeCode" class="el-col el-col-11">
+      <cascader-select v-model="dialogForm.officeCode" type="2" style="width:100%" size="mini" :placeholder="$t('common_PleasSeleDepa')"></cascader-select>
     </el-form-item>
-     <el-form-item label="责任层级" prop="mMomHierarchyId" class="el-col el-col-11  el-col-offset-1">
-      <el-select style="width:100%" size="mini" clearable placeholder="请选择责任层级"  v-model="dialogForm.mMomHierarchyId" >
+     <el-form-item :label="$t('common_RespoLeve')" prop="mMomHierarchyId" class="el-col el-col-11  el-col-offset-1">
+      <el-select style="width:100%" size="mini" clearable :placeholder="$t('equipment_selecRespLeve')"  v-model="dialogForm.mMomHierarchyId" >
         <el-option v-for="(option,i) in hierarchyList" :key="i" :label="option.hierarchyCode" :value="option.mMomHierarchyId"></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="设备代码" prop="resourceCode" class="el-col el-col-11">
-      <el-input v-model="dialogForm.resourceCode" placeholder="请输入设备代码" size="mini"></el-input>
+    <el-form-item :label="$t('common_EquipCode')" prop="resourceCode" class="el-col el-col-11">
+      <el-input v-model="dialogForm.resourceCode" :placeholder="$t('equipment_enterDeviCode')" size="mini"></el-input>
     </el-form-item>
-     <el-form-item label="设备名称" prop="resourceName" class="el-col el-col-11  el-col-offset-1">
-      <el-input v-model="dialogForm.resourceName" placeholder="请输入设备名称" size="mini"></el-input>
+     <el-form-item :label="$t('common_EquipName')" prop="resourceName" class="el-col el-col-11  el-col-offset-1">
+      <el-input v-model="dialogForm.resourceName" :placeholder="$t('equipment_enterDeviName')" size="mini"></el-input>
     </el-form-item>
-     <el-form-item label="设备类别名称" prop="mMomResourceTypeId" class="el-col el-col-11 ">
-      <el-select  placeholder="请选择设备类别名称" v-model.trim="dialogForm.mMomResourceTypeId" size="mini" style="width:100%" >
+     <el-form-item :label="$t('common_EquipCateName')" prop="mMomResourceTypeId" class="el-col el-col-11 ">
+      <el-select  :placeholder="$t('equipment_selecDeviCateName')" v-model.trim="dialogForm.mMomResourceTypeId" size="mini" style="width:100%" >
         <el-option v-for="(option,i) in equipmentCategoryList" :key="i"  :label="option.typeName" :value="option.mMomResourceTypeId"></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="线别" prop="lineId" class="el-col el-col-11 el-col-offset-1">
-      <el-select style="width:100%" size="mini" clearable placeholder="请选择线别"  v-model="dialogForm.lineId" >
+    <el-form-item :label="$t('common_Line')" prop="lineId" class="el-col el-col-11 el-col-offset-1">
+      <el-select style="width:100%" size="mini" clearable :placeholder="$t('common_PleasSeleLineTy')"  v-model="dialogForm.lineId" >
         <el-option v-for="(option,i) in lineList" :key="i" :label="option.lineName" :value="option.mPomLineId"></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="设备状态" prop="status" class="el-col el-col-11" size="mini">
+    <el-form-item :label="$t('equipment_EquipStat')" prop="status" class="el-col el-col-11" size="mini">
       <dict-select v-model="dialogForm.status" dictType="RESOURCE_STATUS" selectKey="dictCode"></dict-select>
     </el-form-item>
     <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-    <el-button type="primary" size="mini" @click="saveDeliveryList">保存</el-button>
-      <el-button size="mini" @click="$emit('cannel')">取消</el-button>
+    <el-button type="primary" size="mini" @click="saveDeliveryList">{{$t('common_save')}}</el-button>
+      <el-button size="mini" @click="$emit('cannel')">{{$t('common_cancel')}}</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -51,12 +51,12 @@ export default {
         status: ''
       },
       rules: {
-        officeCode: [{ required: true, message: '请选择部门' }],
-        mMomHierarchyId: [{ required: true, message: '请选择责任层级' }],
-        resourceCode: [{ required: true, message: '请输入设备代码' }],
-        resourceName: [{ required: true, message: '请输入设备名称' }],
-        mMomResourceTypeId: [{ required: true, message: '请选择设备类别名称' }],
-        status: [{ required: true, message: '请选择设备状态' }]
+        officeCode: [{ required: true, message: this.$t('common_PleasSeleDepa') }],
+        mMomHierarchyId: [{ required: true, message: this.$t('equipment_selecRespLeve') }],
+        resourceCode: [{ required: true, message: this.$t('equipment_enterDeviCode') }],
+        resourceName: [{ required: true, message: this.$t('equipment_enterDeviName') }],
+        mMomResourceTypeId: [{ required: true, message: this.$t('equipment_selecDeviCateName') }],
+        status: [{ required: true, message: this.$t('equipment_selecDeviStat') }]
       },
       lineList: [],
       hierarchyList: [],

@@ -1,14 +1,14 @@
 <template>
   <el-form :model="dialogForm"  ref="dialogForm" label-position="left" label-width="120px" class="el-row mes-form-rule" :rules="rules" size="mini">
-    <el-form-item label="人员" prop="uCode" class="el-col el-col-24">
-      <el-select v-model="dialogForm.uCode" size="mini" style="width:100%;" placeholder="请选择人员">
+    <el-form-item :label="$t('alarmGroup_perso')" prop="uCode" class="el-col el-col-24">
+      <el-select v-model="dialogForm.uCode" size="mini" style="width:100%;" :placeholder="$t('alarmGroup_selecAPers')">
         <el-option v-for="option in personList" :key="option.userCode" :label="option.userName" :value="option.userCode"></el-option>
         <!-- <el-option v-for="(option,i) in userList" :key="i" :label="option.employeeName" :value="option.employeeCardId"></el-option> -->
       </el-select>
     </el-form-item>
     <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-      <el-button type="primary" size="mini" @click="saveAlrmGroupUser">保存</el-button>
-      <el-button size="mini" @click="$emit('cannel')">取消</el-button>
+      <el-button type="primary" size="mini" @click="saveAlrmGroupUser">{{$t('common_save')}}</el-button>
+      <el-button size="mini" @click="$emit('cannel')">{{$t('common_cancel')}}</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -21,7 +21,7 @@ export default {
         uCode: ''
       },
       rules: {
-        uCode: [{ required: true, message: '请选择人员' }]
+        uCode: [{ required: true, message: this.$t('alarmGroup_selecAPers') }]
       },
       personList: []
     }

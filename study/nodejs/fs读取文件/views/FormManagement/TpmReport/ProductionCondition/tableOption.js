@@ -1,67 +1,77 @@
-export let tableOption = (This) => {
+export let tableOption = This => {
   return {
     style: {
       width: '100%'
     },
     tableTitle: [
       {
-        title: '工厂',
+        title: 'common_Factory',
         prop: 'shortName',
         width: '120px'
       },
       {
-        title: '部门',
+        title: 'common_Department',
         prop: 'officeName',
         width: '120px'
       },
       {
-        title: '产品系列',
+        title: 'common_ProduSeries',
         prop: 'productSeries',
         width: '120px'
       },
       {
-        title: '产品料号',
+        title: 'common_ProduPartNumb',
         prop: 'productNumber',
         width: '120px'
       },
       {
-        title: '设备名称',
+        title: 'common_EquipName',
         prop: 'eqpName',
         width: '120px'
       },
       {
-        title: '记录时间',
+        title: 'productCondit_RecorTime',
         prop: 'createdDt',
         width: '180px',
-        replaceFun: (row) => {
-          return row.createdDt ? This.$dayjs(row.createdDt).format('YYYY-MM-DD HH:mm:ss') : ''
+        replaceFun: row => {
+          return row.createdDt
+            ? This.$dayjs(row.createdDt).format('YYYY-MM-DD HH:mm:ss')
+            : ''
         }
       },
       {
-        title: '作业人',
+        title: 'common_opera',
         prop: 'lastEditor',
         width: '120px'
       },
       {
-        title: '确认人',
+        title: 'productCondit_Confi',
         prop: 'confirmer',
         width: '120px'
       },
       {
-        title: '确认时间',
+        title: 'productCondit_ConfiTime',
         prop: 'confirmDt',
         width: '180px',
-        replaceFun: (row) => {
-          return row.confirmDt ? This.$dayjs(row.confirmDt).format('YYYY-MM-DD HH:mm:ss') : ''
+        replaceFun: row => {
+          return row.confirmDt
+            ? This.$dayjs(row.confirmDt).format('YYYY-MM-DD HH:mm:ss')
+            : ''
         }
       },
       {
-        title: '确认状态',
+        title: 'productCondit_ConfiStat',
         prop: 'status',
         width: '120px',
-        replaceFun: (row) => {
+        replaceFun: row => {
           let status = ''
-          status = { 0: '未提交', 1: '已提交', 2: '待确认', 3: '已确认', 4: '退回' }[row.status]
+          status = {
+            0: '未提交',
+            1: '已提交',
+            2: '待确认',
+            3: '已确认',
+            4: '退回'
+          }[row.status]
           return status
         }
       }

@@ -6,50 +6,46 @@ export let tableOption = (This) => {
     highlightCurrentRow: true,
     tableTitle: [
       {
-        title: '采购订单号',
+        title: 'OrderManagement_PurchaseOrderNumber',
         prop: 'mwmsPoNo'
       },
-      // {
-      //   title: '上一级条码',
-      //   prop: 'name'
-      // },
       {
-        title: '订单类型',
+        title: 'OrderManagement_OrderType',
         prop: 'billType'
       },
       {
-        title: '订单状态',
+        title: 'OrderManagement_OrderStatus',
         prop: 'orderState',
         replaceFun: (row) => {
-          return { '0': '开立', '1': '取消', '2': '收货中', '3': '完成' }[row.orderState]
+          return { '0': This.$t('common_open'), '1': This.$t('common_cancel'), '2': This.$t('OrderManagement_Receiving'), '3': This.$t('common_compl') }[row.orderState]
         }
       },
       {
-        title: '制单日期',
+        title: 'OrderManagement_PreparationDate',
         prop: 'orderDate',
         replaceFun: (row) => {
           return row.orderDate ? This.$dayjs(row.orderDate).format('YYYY-MM-DD HH:mm:ss') : ''
         }
       },
       {
-        title: '制单人',
+        title: 'OrderManagement_Creator',
         prop: 'contacts',
         width: '150px'
       },
       {
-        title: '供应商编码',
+        title: 'OrderManagement_SupplierCode',
         prop: 'vendorCode'
       },
       {
-        title: '供应商名称',
+        title: 'common_SupplName',
         prop: 'vendorName'
       },
       {
-        title: '来源',
+        title: 'OrderManagement_Source',
         prop: 'orderBy'
       },
       {
-        title: '操作',
+        title: 'common_Operate',
         prop: 'operation',
         fixed: 'right',
         width: '120',
@@ -57,7 +53,7 @@ export let tableOption = (This) => {
         buttonArr: [
           {
             iconClass: 'el-icon-edit-outline',
-            text: '编辑',
+            text: 'common_Edit',
             operationClick (row) {
               This.addForm = {
                 ...row
@@ -68,7 +64,7 @@ export let tableOption = (This) => {
           {
             iconClass: 'el-icon-delete',
             iconColor: '#f56c6c',
-            text: '删除',
+            text: 'common_Del',
             operationClick (row) {
               This.deletetableData([row.mwmsPoId])
             }

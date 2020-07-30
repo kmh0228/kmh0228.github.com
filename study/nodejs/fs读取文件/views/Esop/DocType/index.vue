@@ -1,21 +1,21 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">文档类型管理</h3>
+    <h3 class="mes-main-title">{{$t('docType_DocumTypeMana')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-        <el-input style="width:40%" placeholder="请输入文档类型" v-model="docType" @keydown.native.enter="getTableData" clearable></el-input>
+        <el-input style="width:40%" :placeholder="$t('docType_enterDocuType')" v-model="docType" @keydown.native.enter="getTableData" clearable></el-input>
       </el-col>
     </el-row>
     <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="12">
-          <el-button  size="mini" icon="el-icon-search" @click="getTableData">查询</el-button>
+          <el-button  size="mini" icon="el-icon-search" @click="getTableData">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button  size="mini" icon="el-icon-plus" @click="handleTable('')">新增</el-button>
+          <el-button  size="mini" icon="el-icon-plus" @click="handleTable('')">{{$t('common_Add')}}</el-button>
           <span class="split-line">|</span>
-          <el-button  size="mini" icon="el-icon-delete-solid" @click="deleteTable('')">批量删除</el-button>
+          <el-button  size="mini" icon="el-icon-delete-solid" @click="deleteTable('')">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">{{$t('common_Refresh')}}</el-button>
         </el-col>
         <el-col :span="12">
           <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -27,16 +27,16 @@
       <div class="mes-table-content">
         <el-table :data="tableData"  border size="mini" @selection-change="selectionChange">
           <el-table-column type="selection" width="50" fixed="left"></el-table-column>
-          <el-table-column type="index" align="center" label="序号" :index="indexMethod" fixed="left"></el-table-column>
-          <el-table-column prop="docType" sortable label="文档类型" align="center"></el-table-column>
-          <el-table-column prop="typeDesc" sortable label="描述" align="center" ></el-table-column>
-          <el-table-column prop="suffix" sortable label="文档后缀" align="center" ></el-table-column>
-          <el-table-column prop="mSeqId" sortable label="文档编号规则" align="center" ></el-table-column>
-          <el-table-column prop="browseTool" sortable label="浏览工具" align="center" ></el-table-column>
-          <el-table-column label="操作" align="center" width="120" fixed="right">
+          <el-table-column type="index" align="center" :label="$t('common_Number')" :index="indexMethod" fixed="left"></el-table-column>
+          <el-table-column prop="docType" sortable :label="$t('docType_DocumType')" align="center"></el-table-column>
+          <el-table-column prop="typeDesc" sortable :label="$t('common_Description')" align="center" ></el-table-column>
+          <el-table-column prop="suffix" sortable :label="$t('docType_DocumSuff')" align="center" ></el-table-column>
+          <el-table-column prop="mSeqId" sortable :label="$t('docType_DocumNumbRule')" align="center" ></el-table-column>
+          <el-table-column prop="browseTool" sortable :label="$t('docType_BrowsTool')" align="center" ></el-table-column>
+          <el-table-column :label="$t('common_Operate')" align="center" width="120" fixed="right">
             <template slot-scope="scope">
-              <handle-button @click="handleTable(scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-              <handle-button @click="deleteTable(scope.row.mComDoctypeId)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+              <handle-button @click="handleTable(scope.row)" iconClass='el-icon-edit-outline' :placeholder="$t('common_Edit')"></handle-button>
+              <handle-button @click="deleteTable(scope.row.mComDoctypeId)" iconClass='el-icon-delete' :placeholder="$t('common_Del')" iconColor='#f56c6c'></handle-button>
             </template>
           </el-table-column>
         </el-table>
@@ -67,7 +67,7 @@ export default {
   },
   computed: {
     dialogTitle () {
-      return this.isEdit ? '编辑文档类型' : '新增文档类型'
+      return this.isEdit ? this.$t('docType_EditDocuType') : this.$t('docType_NewDocuType')
     }
   },
   methods: {
@@ -116,7 +116,7 @@ export default {
     async deleteTable (id) {
       const ids = id ? [id] : this.selectList
       if (ids.length > 0) {
-        const confirm = await this.$myPrompt.confirm('确定删除选中的信息吗?')
+        const confirm = await this.$myPrompt.confirm(this.$t('docType_AreYouSureSeleInfo') + '?')
         if (confirm) {
           let res = await this.$api.deleteById(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -124,7 +124,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请选择要删除的信息?')
+        this.$message.warning(this.$t('common_PleasSeleInfoDe') + '?')
       }
     },
     refreshPage () {

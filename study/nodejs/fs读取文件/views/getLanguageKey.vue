@@ -3,7 +3,7 @@
   <div>
     <el-row style="margin-top:20px;">
       <el-col :span="8" :offset="8">
-        <el-input label="请输入名词" v-model="name" @focus="focus"></el-input>
+        <el-input label="请输入名词" v-model="name" @focus="focus"></el-input><br>{{msg}}
       </el-col>
     </el-row>
     <el-row>
@@ -28,13 +28,20 @@ export default {
   data () {
     return {
       name: '',
-      list: []
+      list: [],
+      msg: ''
     }
   },
   computed: {
     mlist () {
       return this.list.filter(item => typeof item.zhcn === 'string' && item.zhcn.indexOf(this.name) > -1)
-        .sort((a, b) => a.zhcn.length > b.zhcn.length).slice(0, 10)
+        .sort((a, b) => {
+          let lengtha = a.zhcn.length
+          let lengthb = b.zhcn.length
+          if (lengtha > lengthb) { return 1 }
+          if (lengtha < lengthb) { return -1 }
+          return 0
+        }).slice(0, 10)
     }
   },
   methods: {
@@ -56,6 +63,7 @@ export default {
   mounted () {
     let mes = i18n.messages
     let keys = Object.keys(mes['zh-CN'])
+    this.msg = keys.length
     let lang = []
     keys.forEach(key => {
       lang.push({

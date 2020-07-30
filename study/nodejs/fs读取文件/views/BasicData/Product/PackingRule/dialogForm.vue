@@ -1,17 +1,17 @@
 <template>
 <el-form :model="dialogForm" :rules="rules" ref="dialogForm" label-width="120px" label-position="left" class="el-row mes-form-rule">
-    <el-form-item label="包装规则代码" prop="ruleName" class="el-col el-col-24">
+    <el-form-item :label="$t('packingRule_PackiRuleCode')" prop="ruleName" class="el-col el-col-24">
       <el-input v-model.trim="dialogForm.ruleName" size="mini"></el-input>
     </el-form-item>
-    <el-form-item label="是否启用" prop="isInvalid" class="el-col el-col-24">
+    <el-form-item :label="$t('common_Enable')" prop="isInvalid" class="el-col el-col-24">
       <el-checkbox v-model="dialogForm.isInvalid"></el-checkbox>
     </el-form-item>
-    <el-form-item label="包装规则描述" prop="ruleDesc" class="el-col el-col-24">
+    <el-form-item :label="$t('packingRule_DescrPackRule')" prop="ruleDesc" class="el-col el-col-24">
       <el-input type="textarea" v-model.trim="dialogForm.ruleDesc" size="mini"></el-input>
     </el-form-item>
     <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-      <el-button type="primary" size="mini" @click="saveFrom">保存</el-button>
-        <el-button size="mini" @click="$emit('cannel')">取消</el-button>
+      <el-button type="primary" size="mini" @click="saveFrom">{{$t('common_save')}}</el-button>
+        <el-button size="mini" @click="$emit('cannel')">{{$t('common_cancel')}}</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -24,9 +24,13 @@ export default {
         ruleName: '',
         isInvalid: true,
         ruleDesc: ''
-      },
-      rules: {
-        ruleName: [{ required: true, message: '包装规则代码不能为空' }]
+      }
+    }
+  },
+  computed: {
+    rules () {
+      return {
+        ruleName: [{ required: true, message: this.$t('packingRule_PackiRuleCodeCa') }]
       }
     }
   },

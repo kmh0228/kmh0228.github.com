@@ -1,33 +1,33 @@
 <template>
   <div class="mes-table-content" >
       <el-table :data="templateData" size="mini" border>
-        <el-table-column type="index" label="序号" align="center" ></el-table-column>
-        <el-table-column prop=""  align="center" label="时间类型">
+        <el-table-column type="index" :label="$t('common_Number')" align="center" ></el-table-column>
+        <el-table-column prop=""  align="center" :label="$t('calendar_TimeType')">
           <template slot-scope="scope">
             <el-select v-model="scope.row.workTimeType">
               <el-option v-for="(option,i) in workTimeTypeList" :key="i" :label="option.dictCode" :value="option.mDataDictId" @click.native="addisProduction(scope.$index,option.isProductionTime)"></el-option>
             </el-select>
           </template>
         </el-table-column>
-        <el-table-column  align="center" label="开始时间" width="250">
+        <el-table-column  align="center" :label="$t('common_startTime')" width="250">
             <template slot-scope="scope">
-              <el-time-select v-model="scope.row.beginTime"  :picker-options="{ start: startTime(scope.$index),  step: '00:30',  end: '24:00'}" placeholder="选择时间" ></el-time-select>
+              <el-time-select v-model="scope.row.beginTime"  :picker-options="{ start: startTime(scope.$index),  step: '00:30',  end: '24:00'}" :placeholder="$t('calendar_SelecTime')" ></el-time-select>
             </template>
         </el-table-column>
-        <el-table-column  align="center" label="时长">
+        <el-table-column  align="center" :label="$t('calendar_Durat')">
           <template slot-scope="scope">
             <el-input v-model="scope.row.timeLength" @blur="checkNumber(scope.row.timeLength)"></el-input>
           </template>
         </el-table-column>
-        <el-table-column  align="center" label="操作">
+        <el-table-column  align="center" :label="$t('common_Operate')">
           <template slot-scope="scope">
             <i class="el-icon-delete" style="color:#f56c6c;font-size:20px" @click="deleteMachine(scope.$index)"></i>
           </template>
         </el-table-column>
       </el-table>
-      <el-button style="margin-top:0.5vh" @click="addTableColumn">添加</el-button>
-      <span style="float:right;line-height:3;margin:0 1vw">非工作时长 <span style="color:#F56C6C">{{noWorkTime}}</span> H</span>
-      <span style="float:right;line-height:3">工作时长 <span style="color:aqua">{{workTime}}</span> H</span>
+      <el-button style="margin-top:0.5vh" @click="addTableColumn">{{$t('common_add')}}</el-button>
+      <span style="float:right;line-height:3;margin:0 1vw">{{$t('calendar_NonWorkHour')}} <span style="color:#F56C6C">{{noWorkTime}}</span> H</span>
+      <span style="float:right;line-height:3">{{$t('calendar_WorkiHour')}} <span style="color:aqua">{{workTime}}</span> H</span>
 
     </div>
 </template>
@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     async deleteMachine (index) {
-      let confirm = await this.$myPrompt.confirm('删除后是否自动调整时间')
+      let confirm = await this.$myPrompt.confirm(this.$t('calendar_AutoAdjuTimeAfteDele'))
       if (confirm) {
         if (index === this.templateData.length - 1) {
           this.templateData.splice(index, 1)
@@ -97,7 +97,7 @@ export default {
           this.isNumber = true
         } else {
           this.isNumber = false
-          this.$message.warning('请重新输入非负数  且保留两位小数')
+          this.$message.warning(this.$t('calendar_reentANonNegaNumb') + '  ' + this.$t('calendar_AndKeepTwoDeciPlac'))
         }
       }
     },
@@ -110,7 +110,7 @@ export default {
           workTimeType: ''
         })
       } else {
-        this.$message.warning('请处理错误时间')
+        this.$message.warning(this.$t('calendar_handlErroTime'))
       }
     },
     async getDefaultTimeList () {

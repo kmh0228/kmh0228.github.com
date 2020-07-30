@@ -1,28 +1,28 @@
 <template>
 <div>
     <div class="main-common-head" v-if="type!== 'details'">
-      <el-button type="primary" plain size="mini" :loading="saveLoading" @click="saveData('DRAFT')">保存</el-button>
-      <el-button type="primary" plain size="mini" :loading="saveLoading" @click="saveData('SUBMITTED')">提交</el-button>
-      <el-button type="primary" plain size="mini" @click="closePage">关闭</el-button>
-      <span class="status_class">{{vdcsNo ? '单号:'+ vdcsNo : ''}}</span>
-       <span class="status_class">状态：{{ status === 'DRAFT' ? '未提交' : '已提交' }}</span>
+      <el-button type="primary" plain size="mini" :loading="saveLoading" @click="saveData('DRAFT')">{{$t('common_save')}}</el-button>
+      <el-button type="primary" plain size="mini" :loading="saveLoading" @click="saveData('SUBMITTED')">{{$t('common_Submit')}}</el-button>
+      <el-button type="primary" plain size="mini" @click="closePage">{{$t('common_close')}}</el-button>
+      <span class="status_class">{{vdcsNo ? $t('common_OddNumb')+':'+ vdcsNo : ''}}</span>
+       <span class="status_class">{{$t('common_Status')}}：{{ status === 'DRAFT' ? $t('common_NotSubm') : $t('common_Submitted') }}</span>
     </div>
      <el-card class="box-card"  shadow="never" >
        <div slot="header" class="clearfix">
-        <span>基本资料</span>
+        <span>{{$t('common_BasicInfo')}}</span>
       </div>
       <base-info ref="baseInfo"  :isEdit="type!== 'details'" :formData="data" :userList="userList"></base-info>
    </el-card>
    <div v-show="type!== 'add'">
     <el-card class="box-card"  shadow="never" style="margin-top:1.6vh">
       <div slot="header" class="clearfix">
-        <span>供应商</span>
+        <span>{{$t('common_suppl')}}</span>
       </div>
       <supplier ref="supplier" :isEdit="type!== 'details'" :formData="data" :userList="userList"></supplier>
     </el-card>
     <el-card class="box-card"  shadow="never" style="margin-top:1.6vh">
       <div slot="header" class="clearfix">
-        <span>效果追踪</span>
+        <span>{{$t('VDCS_EffectTracking')}}</span>
       </div>
       <effect-ttracking ref="effectTtracking" :isEdit="type!== 'details'" :formData="data" :userList="userList"></effect-ttracking>
     </el-card>
@@ -68,11 +68,11 @@ export default {
     ...mapActions(['changeQmsStatus', 'closeCurrentPage']),
     async saveData (status) {
       if (this.type === 'add' && !this.$refs.baseInfo.checkData()) {
-        this.$message.warning('请完善表单')
+        this.$message.warning(this.$t('VDCS_PleaseCompleteTheForm'))
         return false
       }
       if (this.type === 'update' && (!this.$refs.baseInfo.checkData() || !this.$refs.supplier.checkData() || !this.$refs.effectTtracking.checkData())) {
-        this.$message.warning('请完善表单')
+        this.$message.warning(this.$t('VDCS_PleaseCompleteTheForm'))
         return false
       }
       this.saveLoading = true
@@ -96,7 +96,7 @@ export default {
       let res = this.vdcsId ? await this.$api.saveVdcsAndFiles(updateData) : await this.$api.saveVdcs(data)
       if (res.code === '200') {
         this.saveLoading = false
-        this.$message.success('保存成功')
+        this.$message.success(this.$t('common_SavedSuccessfully'))
         this.$router.push('/Quality/VDCS')
       }
     },

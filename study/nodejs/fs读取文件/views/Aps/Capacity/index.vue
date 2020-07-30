@@ -1,22 +1,22 @@
 <template>
   <div class="mes-main mes-work-order ">
-    <h3 class="mes-main-title">产能管理</h3>
+    <h3 class="mes-main-title">{{$t('capacity_CapacMana')}}</h3>
       <el-row :gutter="20" class="mes-main-filte">
         <el-col :span="12">
-          <el-input placeholder="请输入查询内容" v-model="keyWord" style="width:40%" @keydown.enter.native="getResourceCapacityMainList">
+          <el-input :placeholder="$t('common_PleasEnteQuerCo')" v-model="keyWord" style="width:40%" @keydown.enter.native="getResourceCapacityMainList">
           </el-input>
         </el-col>
       </el-row>
       <div class="mes-table">
         <el-row class="mes-table-handle">
           <el-col :span="12">
-            <el-button size="mini" icon="el-icon-search" @click="getResourceCapacityMainList">查询</el-button>
+            <el-button size="mini" icon="el-icon-search" @click="getResourceCapacityMainList">{{$t('common_Inquire')}}</el-button>
             <span class="split-line">|</span>
-            <el-button  size="mini" icon="el-icon-plus" @click="handleCapacity('')">新增</el-button>
+            <el-button  size="mini" icon="el-icon-plus" @click="handleCapacity('')">{{$t('common_Add')}}</el-button>
             <span class="split-line">|</span>
-            <el-button size="mini" icon="el-icon-delete-solid" @click="deleteCapacityBatchByMain('')" >批量删除</el-button>
+            <el-button size="mini" icon="el-icon-delete-solid" @click="deleteCapacityBatchByMain('')" >{{$t('common_Delete')}}</el-button>
             <span class="split-line">|</span>
-            <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">刷新</el-button>
+            <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">{{$t('common_Refresh')}}</el-button>
           </el-col>
           <el-col :span="12">
             <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -28,16 +28,16 @@
         <div class="mes-table-content" >
           <el-table :data="tableData" size="mini" border highlight-current-row @cell-click="cellClick" @selection-change="selectionChange">
             <el-table-column type="selection" ></el-table-column>
-            <el-table-column type="index" label="序号" align="center" :index="indexMethod"></el-table-column>
-            <el-table-column prop="materialNo" sortable align="center" label="料号"></el-table-column>
-            <el-table-column prop="resourceGroupCode" sortable align="center" label="资源组" ></el-table-column>
-            <!-- <el-table-column prop="capacityUtilization" sortable align="center" label="是否启用" ></el-table-column>
-            <el-table-column prop="lastEditor" sortable align="center" label="创建人"></el-table-column>
-            <el-table-column prop="lastEditedDt" sortable align="center" label="创建时间"></el-table-column> -->
-            <el-table-column label="操作" align="center" width="120" >
+            <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod"></el-table-column>
+            <el-table-column prop="materialNo" sortable align="center" :label="$t('common_PorN')"></el-table-column>
+            <el-table-column prop="resourceGroupCode" sortable align="center" :label="$t('capacity_ResouGrou')" ></el-table-column>
+            <!-- <el-table-column prop="capacityUtilization" sortable align="center" :label="$t('common_Enable')" ></el-table-column>
+            <el-table-column prop="lastEditor" sortable align="center" :label="$t('common_Creator')"></el-table-column>
+            <el-table-column prop="lastEditedDt" sortable align="center" :label="$t('common_CreateTime')"></el-table-column> -->
+            <el-table-column :label="$t('common_Operate')" align="center" width="120" >
               <template slot-scope="scope">
-                <handle-button @click="handleCapacity(scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-                <handle-button @click="deleteCapacityBatchByMain(scope.row)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+                <handle-button @click="handleCapacity(scope.row)" iconClass='el-icon-edit-outline' :placeholder="$t('common_Edit')"></handle-button>
+                <handle-button @click="deleteCapacityBatchByMain(scope.row)" iconClass='el-icon-delete' :placeholder="$t('common_Del')" iconColor='#f56c6c'></handle-button>
               </template>
             </el-table-column>
           </el-table>
@@ -45,17 +45,17 @@
       </div>
        <div class="mes-main-tabs" v-if="apsDetail">
         <el-tabs v-model="activeName" >
-        <el-tab-pane label="资源产能" name="capacityDetail">
+        <el-tab-pane :label="$t('capacity_ResouCapa')" name="capacityDetail">
            <div class="mes-table-content" >
             <el-table :data="detailData" size="mini" border highlight-current-row>
-              <el-table-column type="index" label="序号" align="center"></el-table-column>
-              <el-table-column prop="resourceCode" sortable align="center" label="排产资源代码"></el-table-column>
-              <el-table-column prop="resourcePriority" sortable align="center" label="优先级" ></el-table-column>
-              <el-table-column prop="capacityType" sortable align="center" label="产能类型" ></el-table-column>
-              <el-table-column prop="capacity" sortable align="center" label="产能"></el-table-column>
-              <el-table-column prop="capacityUom" sortable align="center" label="产能单位"></el-table-column>
-              <el-table-column prop="leadTime" sortable align="center" label="前设置时间"></el-table-column>
-              <el-table-column prop="leadTimeUom" sortable align="center" label="前设置时间单位"></el-table-column>
+              <el-table-column type="index" :label="$t('common_Number')" align="center"></el-table-column>
+              <el-table-column prop="resourceCode" sortable align="center" :label="$t('capacity_SchedResoCode')"></el-table-column>
+              <el-table-column prop="resourcePriority" sortable align="center" :label="$t('capacity_prior')" ></el-table-column>
+              <el-table-column prop="capacityType" sortable align="center" :label="$t('capacity_CapacType')" ></el-table-column>
+              <el-table-column prop="capacity" sortable align="center" :label="$t('capacity_capac')"></el-table-column>
+              <el-table-column prop="capacityUom" sortable align="center" :label="$t('capacity_CapacUnit')"></el-table-column>
+              <el-table-column prop="leadTime" sortable align="center" :label="$t('capacity_BeforSettTime')"></el-table-column>
+              <el-table-column prop="leadTimeUom" sortable align="center" :label="$t('capacity_SetTimeUnitBefo')"></el-table-column>
             </el-table>
           </div>
         </el-tab-pane>
@@ -96,7 +96,7 @@ export default {
       return this.selectList.length !== 1
     },
     dialogTitle () {
-      return this.isEdit ? '编辑产能' : '新增产能'
+      return this.isEdit ? this.$t('capacity_EditCapa') : this.$t('capacity_NewCapa')
     }
   },
   methods: {
@@ -179,7 +179,7 @@ export default {
       }
       let len = ids.length
       if (len > 0) {
-        let confirm = await this.$myPrompt.confirm('确定删除选中的信息吗')
+        let confirm = await this.$myPrompt.confirm(this.$t('capacity_AreYouSureSeleInfo'))
         if (confirm) {
           let res = await this.$api.deleteCapacityBatchByMain(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -187,7 +187,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请选择要删除的信息')
+        this.$message.warning(this.$t('common_PleasSeleInfoDe'))
       }
     },
     cannelDetail () {

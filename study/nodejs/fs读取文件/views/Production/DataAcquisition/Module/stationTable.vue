@@ -5,8 +5,8 @@
         <el-checkbox v-model="scope.row.isChecked" @change="checkedCurrentRow(scope.row)"></el-checkbox>
       </template>
     </el-table-column>
-    <el-table-column type="index" label="序号" align="center" width="60" :index="indexMethod"></el-table-column>
-    <el-table-column v-for="(col,i) in tableLabel" :key="i" :prop="col.key" :label="col.label" align="center"></el-table-column>
+    <el-table-column type="index" :label="$t('common_Number')" align="center" width="60" :index="indexMethod"></el-table-column>
+    <el-table-column v-for="(col,i) in tableLabel" :key="i" :prop="col.key" :label="$t(col.label)" align="center"></el-table-column>
   </el-table>
 </template>
 

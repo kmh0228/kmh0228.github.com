@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     option () {
-      const seriesDataName = this.id === 'alarmQuestionTop' ? '报警问题' : '报警时间处理'
+      const seriesDataName = this.id === 'alarmQuestionTop' ? this.$t('common_AlarmProb') : this.$t('processTime_AlarmTimeProc')
       let xData = []
       let seriesData = []
       this.barData.forEach(item => {

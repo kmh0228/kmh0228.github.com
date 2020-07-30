@@ -39,7 +39,7 @@ export default {
         },
         series: [
           {
-            name: '点检达成率分析',
+            name: this.$t('achievemRate_AnalySpotInspAchiRate'),
             type: 'pie',
             radius: '55%',
             center: ['50%', '60%'],
@@ -49,7 +49,7 @@ export default {
             data: this.seriesData,
             itemStyle: {
               color: params => {
-                return params.name === '已达成数量' ? '#37A2DA' : '#FF4040'
+                return params.name === this.$t('achievemRate_QuantAchi') ? '#37A2DA' : '#FF4040'
               },
               emphasis: {
                 shadowBlur: 10,

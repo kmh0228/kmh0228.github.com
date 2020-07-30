@@ -6,7 +6,7 @@
       </div>
       <span>视频介绍</span>
     </div> -->
-    <div style="position:absolute; top:25px; right:25px;">
+    <div style="position:absolute; top:5vh; right:5vw;">
       <language :showLabel="true" :icon="'earth'"></language>
     </div>
     <ul class="affix-group">

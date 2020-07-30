@@ -1,41 +1,41 @@
 <template>
   <div class="mes-main">
      <div style="background-color:#F0F5F9;padding:15px 0 15px 15px;">
-      <el-button type="primary" plain="" size="mini" @click="printBarCodes">打印</el-button>
+      <el-button type="primary" plain="" size="mini" @click="printBarCodes">{{$t('common_Print')}}</el-button>
     </div>
     <el-row :gutter="30" class="barcode-info" style="padding:15px;">
       <el-col :span="8" class="el-row" v-for="(item,i) in infoLabel" :key="i" style="margin-bottom:1.5vh;font-size:0.8vw;">
-        <p class="el-col el-col-8">{{ item.label }}：</p>
+        <p class="el-col el-col-8">{{ $t(item.label) }}</p>
         <p class="el-col el-col-16"></p>
       </el-col>
     </el-row>
     <el-form :model="printFrom" ref="printFrom" class="el-row mes-form-rule" :rules="rule" label-width="10vw" label-position="left" style="padding-top:15px;margin:0 15px;border-top:1px solid #d4d4d4;">
-      <el-form-item label="SN/箱号/栈板号" prop="sn" class="el-col el-col-11">
-        <el-input v-model.trim="printFrom.sn" placeholder="请输入SN/箱号/栈板号" size="mini"></el-input>
+      <el-form-item :label="$t('printBarCode_SNCasePa')" prop="sn" class="el-col el-col-11">
+        <el-input v-model.trim="printFrom.sn" :placeholder="$t('printBarCode_inputSNCasePa')" size="mini"></el-input>
       </el-form-item>
-      <el-form-item label="条码名称" prop="mPomWorkMasPrintTmplId" class="el-col el-col-11 el-col-offset-1">
+      <el-form-item :label="$t('printBarCode_BarcoName')" prop="mPomWorkMasPrintTmplId" class="el-col el-col-11 el-col-offset-1">
         <el-select v-model="printFrom.mPomWorkMasPrintTmplId" style="width:100%" clearable>
           <el-option v-for="(option,i) in barCodeList" :key="i" :label="option.fileName" :value="option.mPomWorkMasPrintTmplId" @click.native="setPrintNumber(option.printCopies)"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="打印机" prop="mPomLineStationPrinterId" class="el-col el-col-11">
-        <el-select v-model="printFrom.mPomLineStationPrinterId" placeholder="请选择" style="width:100%" size="mini" filterable clearable>
+      <el-form-item :label="$t('printBarCode_print')" prop="mPomLineStationPrinterId" class="el-col el-col-11">
+        <el-select v-model="printFrom.mPomLineStationPrinterId" :placeholder="$t('common_PleasSele')" style="width:100%" size="mini" filterable clearable>
           <el-option v-for="(option,i) in printerList" :key="i" :label="option.printerName" :value="option.mComPrinterId"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="打印数量" prop="printCopies" class="el-col el-col-11 el-col-offset-1">
-        <el-input v-model.trim="printFrom.printCopies" placeholder="请输入打印数量" size="mini"></el-input>
+      <el-form-item :label="$t('printBarCode_PrintQuan')" prop="printCopies" class="el-col el-col-11 el-col-offset-1">
+        <el-input v-model.trim="printFrom.printCopies" :placeholder="$t('printBarCode_inputPrinQuan')" size="mini"></el-input>
       </el-form-item>
     </el-form>
     <div class="mes-main-tabs" style="padding:15px;">
       <el-tabs v-model="activeName">
-        <el-tab-pane label="打印记录" name="record">
+        <el-tab-pane :label="$t('printBarCode_PrintReco')" name="record">
           <el-table :data="recordList" border size="mini">
-            <el-table-column label="SN/箱号/栈板号" align="center"></el-table-column>
-            <el-table-column label="条码类型" align="center"></el-table-column>
-            <el-table-column label="打印机" align="center"></el-table-column>
-            <el-table-column label="打印数量" align="center"></el-table-column>
-            <el-table-column label="打印时间" align="center"></el-table-column>
+            <el-table-column :label="$t('printBarCode_SNCasePa')" align="center"></el-table-column>
+            <el-table-column :label="$t('printBarCode_BarcoType')" align="center"></el-table-column>
+            <el-table-column :label="$t('printBarCode_print')" align="center"></el-table-column>
+            <el-table-column :label="$t('printBarCode_PrintQuan')" align="center"></el-table-column>
+            <el-table-column :label="$t('printBarCode_PrintTime')" align="center"></el-table-column>
           </el-table>
         </el-tab-pane>
       </el-tabs>
@@ -46,32 +46,21 @@
 <script>
 export default {
   data () {
-    const printCopiesRule = (rule, value, callback) => {
-      if (!value) {
-        callback(new Error('请输入打印数量'))
-      } else {
-        if (/^[1-9][0-9]*$/.test(value)) {
-          callback()
-        } else {
-          callback(new Error('打印数量必须为正整数'))
-        }
-      }
-    }
     return {
       infoLabel: [{
-        label: '产品系列',
+        label: 'common_ProduSeries',
         key: ''
       }, {
-        label: '成品料号',
+        label: 'common_FinisProdNo',
         key: ''
       }, {
-        label: '工单号',
+        label: 'common_WorkOrdeNo',
         key: ''
       }, {
-        label: '线别',
+        label: 'common_Line',
         key: ''
       }, {
-        label: '当前工站',
+        label: 'printBarCode_CurreWorkStat',
         key: ''
       }],
       infoValue: {},
@@ -81,16 +70,31 @@ export default {
         mPomLineStationPrinterId: '',
         printCopies: 1
       },
-      rule: {
-        sn: [{ required: true, message: '请输入SN/箱号/栈板号' }],
-        mPomWorkMasPrintTmplId: [{ required: true, message: '请选择条码名称' }],
-        mPomLineStationPrinterId: [{ required: true, message: '请选择打印机' }],
-        printCopies: [{ required: true, validator: printCopiesRule }]
-      },
       printerList: [],
       barCodeList: [],
       activeName: 'record',
       recordList: []
+    }
+  },
+  computed: {
+    rule () {
+      const printCopiesRule = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error(this.$t('printBarCode_inputPrinQuan')))
+        } else {
+          if (/^[1-9][0-9]*$/.test(value)) {
+            callback()
+          } else {
+            callback(new Error(this.$t('printBarCode_PrintQuanMustPosiInte')))
+          }
+        }
+      }
+      return {
+        sn: [{ required: true, message: this.$t('printBarCode_inputSNCasePa') }],
+        mPomWorkMasPrintTmplId: [{ required: true, message: this.$t('printBarCode_selecBarcName') }],
+        mPomLineStationPrinterId: [{ required: true, message: this.$t('printBarCode_selecAPrin') }],
+        printCopies: [{ required: true, validator: printCopiesRule }]
+      }
     }
   },
   methods: {

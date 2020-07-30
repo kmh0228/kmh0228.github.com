@@ -1,42 +1,42 @@
 <template>
   <el-tabs v-model="activeName" >
-    <el-tab-pane label="基本资料" name="info">
+    <el-tab-pane :label="$t('common_BasicInfo')" name="info">
       <el-form v-model="iqcInfo"  label-width="90px" label-position="left" class="el-row mes-form-rule" :rules="rules">
-        <el-form-item label="入库单号" class="el-col el-col-7">
+        <el-form-item :label="$t('common_StockInNo')" class="el-col el-col-7">
           <el-input size="mini" v-model="iqcInfo.batchNo" :disabled="userType !== 1"></el-input>
         </el-form-item>
-        <el-form-item label="批号" class="el-col el-col-7 el-col-offset-1">
+        <el-form-item :label="$t('common_BatchNumb')" class="el-col el-col-7 el-col-offset-1">
           <el-input size="mini" v-model="iqcInfo.lotNo" ></el-input>
         </el-form-item>
-        <el-form-item label="料号" class="el-col el-col-7 el-col-offset-1">
+        <el-form-item :label="$t('common_PorN')" class="el-col el-col-7 el-col-offset-1">
            <material-select v-model="iqcInfo.materialNo" @change="handleData" v-if="userType === 1" style="width:100%"></material-select>
-           <el-input disabled v-else v-model="iqcInfo.materialNo" placeholder="请输入数字"></el-input>
+           <el-input disabled v-else v-model="iqcInfo.materialNo" :placeholder="$t('common_pleasEnteANumb')"></el-input>
         </el-form-item>
-          <el-form-item label="入库数量" class="el-col el-col-7">
+          <el-form-item :label="$t('fqcCheck_StoraQuan')" class="el-col el-col-7">
           <el-input size="mini" v-model.number="iqcInfo.stockInQty" style="width:60%" ></el-input>
           <el-input style="width:35%;float:right" v-model="iqcInfo.qtyUom" size="mini"></el-input>
         </el-form-item>
-        <el-form-item label="客户" class="el-col el-col-7 el-col-offset-1">
+        <el-form-item :label="$t('common_custo')" class="el-col el-col-7 el-col-offset-1">
           <el-input size="mini" v-model="iqcInfo.customer" ></el-input>
         </el-form-item>
-          <el-form-item label="客户料号" class="el-col el-col-7 el-col-offset-1">
+          <el-form-item :label="$t('fqcCheck_CustoItemNo')" class="el-col el-col-7 el-col-offset-1">
           <el-input size="mini" v-model="iqcInfo.custMaterialNo" ></el-input>
         </el-form-item>
-        <el-form-item label="生产线别" class="el-col el-col-7">
-           <el-select style="width:100%" size="mini" clearable placeholder="请选择线别"  v-model="infoData.mPomLineId">
+        <el-form-item :label="$t('fqcCheck_ProduLine')" class="el-col el-col-7">
+           <el-select style="width:100%" size="mini" clearable :placeholder="$t('common_PleasSeleLineTy')"  v-model="infoData.mPomLineId">
             <el-option v-for="(option,i) in lineList" :key="i" :label="option.lineName" :value="option.mPomLineId"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="地点" class="el-col el-col-7 el-col-offset-1">
+        <el-form-item :label="$t('fqcCheck_place')" class="el-col el-col-7 el-col-offset-1">
           <el-input size="mini" v-model="iqcInfo.location" ></el-input>
         </el-form-item>
-        <el-form-item label="入库日期" class="el-col e l-col-7 el-col-offset-1">
-          <el-date-picker  v-model="iqcInfo.stockInDate" type="date"  placeholder="选择日期" style="width:100%"></el-date-picker>
+        <el-form-item :label="$t('fqcCheck_WarehDate')" class="el-col e l-col-7 el-col-offset-1">
+          <el-date-picker  v-model="iqcInfo.stockInDate" type="date"  :placeholder="$t('common_SelecDate')" style="width:100%"></el-date-picker>
         </el-form-item>
-        <el-form-item label="检验日期" class="el-col el-col-7">
-          <el-date-picker  v-model="iqcInfo.inspectDate"  type="date"  placeholder="选择日期" style="width:100%"> </el-date-picker>
+        <el-form-item :label="$t('common_InspeDate')" class="el-col el-col-7">
+          <el-date-picker  v-model="iqcInfo.inspectDate"  type="date"  :placeholder="$t('common_SelecDate')" style="width:100%"> </el-date-picker>
         </el-form-item>
-        <el-form-item label="检验员" class="el-col el-col-7 el-col-offset-1">
+        <el-form-item :label="$t('common_examiCler')" class="el-col el-col-7 el-col-offset-1">
            <el-select  v-model="iqcInfo.inspector" style="width:100%">
             <el-option v-for="(option,i) in userList" :key="i" :label="option.employeeName" :value="option.mComEmployeeId"></el-option>
           </el-select>
@@ -66,15 +66,19 @@ export default {
         inspectDate: '',
         inspector: ''
       },
-      rules: {
-        batchNo: [{ required: true, message: '请输入入库单号' }],
-        materialNo: [{ required: true, message: '请选择料号' }],
-        stockInQty: [{ required: true, message: '请输入入库数量' }],
-        mPomLineId: [{ required: true, message: '请选择生产线别' }],
-        inspectDate: [{ required: true, message: '请输入检验日期' }]
-      },
       lineList: [],
       userList: []
+    }
+  },
+  computed: {
+    rules () {
+      return {
+        batchNo: [{ required: true, message: this.$t('common_PleasInpuStocIn') }],
+        materialNo: [{ required: true, message: this.$t('common_PleaseSelectPN') }],
+        stockInQty: [{ required: true, message: this.$t('fqcCheck_enterStocInQuan') }],
+        mPomLineId: [{ required: true, message: this.$t('fqcCheck_selecProdLine') }],
+        inspectDate: [{ required: true, message: this.$t('fqcCheck_enterInspDate') }]
+      }
     }
   },
   props: {

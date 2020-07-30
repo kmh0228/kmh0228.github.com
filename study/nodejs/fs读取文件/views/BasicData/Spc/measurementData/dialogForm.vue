@@ -1,36 +1,36 @@
 <template>
   <el-form :model="dialogForm" :rules="rules" ref="dialogForm" label-width="120px" label-position="left" class="el-row mes-form-rule" :isEdit="isEdit">
-  <el-form-item label="部门" prop="officeName" class="el-col el-col-11">
+  <el-form-item :label="$t('common_Department')" prop="officeName" class="el-col el-col-11">
     <el-input v-model.trim="dialogForm.officeName" :disabled="true" size="mini"></el-input>
   </el-form-item>
-  <el-form-item label="控制图" prop="controlChartType" class="el-col el-col-11 el-col-offset-1">
+  <el-form-item :label="$t('common_ContrChar')" prop="controlChartType" class="el-col el-col-11 el-col-offset-1">
     <el-input v-model.trim="dialogForm.controlChartType" :disabled="true" size="mini"></el-input>
   </el-form-item>
-  <el-form-item label="控制项名称" prop="itemCode" class="el-col el-col-11">
+  <el-form-item :label="$t('common_ContrName')" prop="itemCode" class="el-col el-col-11">
     <el-input v-model.trim="dialogForm.itemCode" :disabled="true" size="mini"></el-input>
   </el-form-item>
-  <el-form-item label="控制阶段" prop="itemStatus" class="el-col el-col-11 el-col-offset-1">
+  <el-form-item :label="$t('measureMD_ContrPhas')" prop="itemStatus" class="el-col el-col-11 el-col-offset-1">
     <el-input v-model.trim="dialogForm.itemStatus" :disabled="true" size="mini"></el-input>
   </el-form-item>
-  <el-form-item label="控制项描述" prop="stationCode" class="el-col el-col-11">
+  <el-form-item :label="$t('common_ContrDesc')" prop="stationCode" class="el-col el-col-11">
     <el-input v-model.trim="dialogForm.stationCode" :disabled="true" size="mini"></el-input>
   </el-form-item>
-  <el-form-item label="子组容器" prop="subgroupSize" class="el-col el-col-11 el-col-offset-1">
+  <el-form-item :label="$t('measureMD_SubgrCont')" prop="subgroupSize" class="el-col el-col-11 el-col-offset-1">
     <el-input v-model.trim="dialogForm.subgroupSize" :disabled="true" size="mini"></el-input>
   </el-form-item>
-  <el-form-item label="料号" prop="materialNo" class="el-col el-col-11">
+  <el-form-item :label="$t('common_PorN')" prop="materialNo" class="el-col el-col-11">
     <el-input v-model.trim="dialogForm.materialNo" :disabled="true" size="mini"></el-input>
   </el-form-item>
-  <el-form-item label="子组个数" prop="subgroupCount" class="el-col el-col-11 el-col-offset-1">
+  <el-form-item :label="$t('measureMD_NumbeSubg')" prop="subgroupCount" class="el-col el-col-11 el-col-offset-1">
     <el-input v-model.trim="dialogForm.subgroupSize" :disabled="true" size="mini"></el-input>
   </el-form-item>
-  <el-form-item label="料号版次" prop="materialRev" class="el-col el-col-11">
+  <el-form-item :label="$t('common_ItemNoRev')" prop="materialRev" class="el-col el-col-11">
     <el-input v-model.trim="dialogForm.materialRev" :disabled="true" size="mini"></el-input>
   </el-form-item>
   <el-form-item label="Cpk目标值" prop="cpkTarget" class="el-col el-col-11 el-col-offset-1">
     <el-input v-model.trim="dialogForm.cpkTarget" :disabled="true" size="mini"></el-input>
   </el-form-item>
-  <el-form-item label="产品系列" prop="materialfamilyCode" class="el-col el-col-11">
+  <el-form-item :label="$t('common_ProduSeries')" prop="materialfamilyCode" class="el-col el-col-11">
     <el-input v-model.trim="dialogForm.materialfamilyCode" :disabled="true" size="mini"></el-input>
   </el-form-item>
   <el-form-item label="USL" prop="usl" class="el-col el-col-11 el-col-offset-1">
@@ -42,28 +42,28 @@
   <el-form-item label="SL" prop="sl" class="el-col el-col-11 el-col-offset-1">
     <el-input v-model.trim="dialogForm.sl" :disabled="true" size="mini"></el-input>
   </el-form-item>
-  <el-form-item label="测量仪器" prop="instrumentName" class="el-col el-col-11">
+  <el-form-item :label="$t('common_MeasuInst')" prop="instrumentName" class="el-col el-col-11">
     <el-input v-model.trim="dialogForm.instrumentName" :disabled="true" size="mini"></el-input>
   </el-form-item>
    <el-form-item label="LSL" prop="lsl" class="el-col el-col-11 el-col-offset-1">
     <el-input v-model.trim="dialogForm.lsl" :disabled="true" size="mini"></el-input>
   </el-form-item>
-  <el-form-item label="线别" prop="lineCode" class="el-col el-col-11">
+  <el-form-item :label="$t('common_Line')" prop="lineCode" class="el-col el-col-11">
     <el-input v-model.trim="dialogForm.lineCode" :disabled="true" size="mini"></el-input>
   </el-form-item>
-  <el-form-item label="模穴号/零件位置" prop="moldCavityNo" class="el-col el-col-11 el-col-offset-1">
+  <el-form-item :label="$t('common_MouldHoleNumb')" prop="moldCavityNo" class="el-col el-col-11 el-col-offset-1">
     <el-input v-model.trim="dialogForm.moldCavityNo" :disabled="true" size="mini"></el-input>
   </el-form-item>
 
-  <el-form-item label="数据录入" prop="stationCode" class="el-col el-col-24">
+  <el-form-item :label="$t('measureMD_DataEntr')" prop="stationCode" class="el-col el-col-24">
   </el-form-item>
-  <el-form-item label="测量日期" prop="measurementDt" class="el-col el-col-11">
-   <el-date-picker  v-model.trim="dialogForm.measurementDt" type="datetime"  placeholder="选择日期" style="width:100%" value-format="yyyy-MM-dd HH:mm:ss"> </el-date-picker>
+  <el-form-item :label="$t('measureMD_DateMeas')" prop="measurementDt" class="el-col el-col-11">
+   <el-date-picker  v-model.trim="dialogForm.measurementDt" type="datetime"  :placeholder="$t('common_SelecDate')" style="width:100%" value-format="yyyy-MM-dd HH:mm:ss"> </el-date-picker>
   </el-form-item>
   <div class="mes-table-content">
         <el-table :data="enterData" border size="mini" highlight-current-row>
-          <el-table-column type="index" label="样本编号" align="center"></el-table-column>
-          <el-table-column prop="value" label="样本值" align="center">
+          <el-table-column type="index" :label="$t('measureMD_SamplNumb')" align="center"></el-table-column>
+          <el-table-column prop="value" :label="$t('measureMD_SamplValu')" align="center">
             <template slot-scope="scope">
               <el-input type="number" v-model="scope.row.value" size="mini"></el-input>
             </template>
@@ -71,9 +71,9 @@
         </el-table>
    </div>
   <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-      <el-button type="primary" size="mini" @click="$emit('confirm')">保 存</el-button>
-      <el-button size="mini" @click="$emit('confirmAndClear')">保存并继续录入下一组</el-button>
-      <el-button size="mini" @click="$emit('cannel')">取 消</el-button>
+      <el-button type="primary" size="mini" @click="$emit('confirm')">{{$t('common_save')}}</el-button>
+      <el-button size="mini" @click="$emit('confirmAndClear')">{{$t('measureMD_SaveAndContNextGrou')}}</el-button>
+      <el-button size="mini" @click="$emit('cannel')">{{$t('common_cancel')}}</el-button>
   </el-form-item>
   </el-form>
 </template>
@@ -101,9 +101,6 @@ export default {
         lsl: '',
         subgroupSize: '',
         measurementDt: ''
-      },
-      rules: {
-        measurementDt: [{ required: true, message: '测量日期不能为空' }]
       }
     }
   },
@@ -116,6 +113,11 @@ export default {
     }
   },
   computed: {
+    rules () {
+      return {
+        measurementDt: [{ required: true, message: this.$t('measureMD_MeasuDateCannBeEmpt') }]
+      }
+    },
     enterData () {
       let data = []
       for (let i = 1; i <= this.dialogForm.subgroupSize; i++) {

@@ -2,9 +2,9 @@
   <div class="mes-main mes-home-page">
     <div class="mes-custom-tabs">
       <ul>
-        <li :class="activeName==='seedy'?'mes-tabs-active':''" @click="tabsClick('seedy')">快捷方式</li>
-        <li :class="activeName==='pandect'?'mes-tabs-active':''" @click="tabsClick('pandect')">总览</li>
-        <li :class="activeName==='backlog'?'mes-tabs-active':''" @click="tabsClick('backlog')">我的待办</li>
+        <li :class="activeName==='seedy'?'mes-tabs-active':''" @click="tabsClick('seedy')">{{$t('home_Short')}}</li>
+        <li :class="activeName==='pandect'?'mes-tabs-active':''" @click="tabsClick('pandect')">{{$t('home_Overv')}}</li>
+        <li :class="activeName==='backlog'?'mes-tabs-active':''" @click="tabsClick('backlog')">{{$t('home_MyDo')}}</li>
       </ul>
     </div>
     <div class="mes-home-ceontent">
@@ -16,7 +16,7 @@
                 <mes-icon icon="seedy-order" size="4vw" suffix="svg" @click.native="toPage('/Production/WorkOrder')"></mes-icon>
                 <span class="seedy-badge" v-if="orderBadge && orderBadge !== 0">{{  orderBadge }}</span>
               </div>
-              <p>工单管理</p>
+              <p>{{$t('home_WorkOrdeMana')}}</p>
             </div>
           </el-col>
           <el-col :span="3">
@@ -25,7 +25,7 @@
                 <mes-icon icon="seedy-data" size="4vw" suffix="svg" @click.native="toPage('/WorkStation/Login')"></mes-icon>
                 <span class="seedy-badge" v-if="dataBadge && dataBadge !== 0">{{  dataBadge }}</span>
               </div>
-              <p>数据采集</p>
+              <p>{{$t('home_dataAcqu')}}</p>
             </div>
           </el-col>
           <el-col :span="3">
@@ -34,7 +34,7 @@
                 <mes-icon icon="seedy-barcode" size="4vw" suffix="svg" @click.native="toPage('')"></mes-icon>
                 <span class="seedy-badge" v-if="barcodeBadge && barcodeBadge !== 0">{{  barcodeBadge }}</span>
               </div>
-              <p>条码管理</p>
+              <p>{{$t('home_BarcoMana')}}</p>
             </div>
           </el-col>
           <el-col :span="3">
@@ -43,7 +43,7 @@
                 <mes-icon icon="seedy-pack" size="4vw" suffix="svg" @click.native="toPage('')"></mes-icon>
                 <span class="seedy-badge" v-if="packBadge && packBadge !== 0">{{  packBadge }}</span>
               </div>
-              <p>包装管理</p>
+              <p>{{$t('home_PackaMana')}}</p>
             </div>
           </el-col>
           <el-col :span="3">
@@ -52,7 +52,7 @@
                 <mes-icon icon="seedy-task" size="4vw" suffix="svg" @click.native="toPage('')"></mes-icon>
                 <span class="seedy-badge" v-if="taskBadge && taskBadge !== 0">{{  taskBadge }}</span>
               </div>
-              <p>任务指派</p>
+              <p>{{$t('home_TaskAssi')}}</p>
             </div>
           </el-col>
           <el-col :span="3">
@@ -61,27 +61,27 @@
                 <mes-icon icon="seedy-complete" size="4vw" suffix="svg" @click.native="toPage('')"></mes-icon>
                 <span class="seedy-badge" v-if="completeBadge && completeBadge !== 0">{{  completeBadge }}</span>
               </div>
-              <p>完工确认</p>
+              <p>{{$t('home_ComplConf')}}</p>
             </div>
           </el-col>
         </el-row>
-        <p style="padding:1vh 0;font-size:0.7vw;">总览</p>
+        <p style="padding:1vh 0;font-size:0.7vw;">{{$t('home_Overv')}}</p>
         <el-row class="home-tabs-pandect" ref="pandect" :gutter="15">
           <el-col :span="5">
             <div class="pandect-wrap">
-              <p class="pandect-title">当天工单完成率</p>
+              <p class="pandect-title">{{$t('home_WorkOrdeCompRateDay')}}</p>
               <div class="pandect-charts" style="height:20vh">
                 <half-donut id="chart1" :rate="0.867"></half-donut>
               </div>
             </div>
             <div class="pandect-wrap">
-              <p class="pandect-title">当天工单总数量</p>
+              <p class="pandect-title">{{$t('home_TotalNumbWorkOrdeDay')}}</p>
               <p class="pandect-wrap-content">1000</p>
             </div>
           </el-col>
           <el-col :span="5">
             <div class="pandect-wrap">
-              <p class="pandect-title">当天关键指标</p>
+              <p class="pandect-title">{{$t('home_KeyIndiDay')}}</p>
               <div class="pandect-charts" style="height:26vh">
                 <kpi-bar id="chart2"></kpi-bar>
               </div>
@@ -89,7 +89,7 @@
           </el-col>
           <el-col :span="5">
             <div class="pandect-wrap">
-              <p class="pandect-title">当天不良类别TOP5</p>
+              <p class="pandect-title">{{$t('home_DefecCateDay')}} TOP5</p>
               <div class="pandect-charts" style="height:32vh">
                 <top-pie id="chart3"></top-pie>
               </div>
@@ -97,7 +97,7 @@
           </el-col>
           <el-col :span="5">
             <div class="pandect-wrap">
-              <p class="pandect-title">库存水位预警</p>
+              <p class="pandect-title">{{$t('home_EarlyWarnInveWateLeve')}}</p>
               <div class="pandect-charts" style="height:32vh">
                 <water-line id="chart4"></water-line>
               </div>
@@ -135,7 +135,7 @@ export default {
       if (url) {
         this.$router.push(url)
       } else {
-        this.$message.warning('功能开发中')
+        this.$message.warning(this.$t('home_FunctDeve'))
       }
     }
   }

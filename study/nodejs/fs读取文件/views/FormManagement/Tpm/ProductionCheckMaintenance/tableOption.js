@@ -1,4 +1,4 @@
-export let tableOption = (This) => {
+export let tableOption = This => {
   return {
     style: {
       width: '100%'
@@ -6,60 +6,60 @@ export let tableOption = (This) => {
     highlightCurrentRow: true,
     tableTitle: [
       {
-        title: '工厂',
+        title: 'common_Factory',
         prop: 'factoryName',
         width: '150'
       },
       {
-        title: '部门',
+        title: 'common_Department',
         prop: 'officeName',
         width: '150'
       },
       {
-        title: '产品系列',
+        title: 'common_ProduSeries',
         prop: 'productSeriesName',
         width: '150'
       },
       {
-        title: '产品料号',
+        title: 'common_ProduPartNumb',
         prop: 'productNumberName',
         width: '150'
       },
       {
-        title: '线别名称',
+        title: 'common_LineName',
         prop: 'lineCode',
         width: '150'
       },
       {
-        title: '是否自动生产',
+        title: 'productCheckM_AutomProd',
         prop: 'isAutoCreate',
         width: '150',
-        replaceFun: (row) => {
+        replaceFun: row => {
           return row.isAutoCreate ? `是` : `否`
         }
       },
       {
-        title: '频率',
+        title: 'productCheckM_frequ',
         prop: 'frequency',
         width: '150'
       },
       {
-        title: '检查时间',
+        title: 'productCheckM_InspeTime',
         prop: 'checkTime',
         width: '180'
       },
       {
-        title: '最后编辑时间',
+        title: 'common_Lastedittime',
         prop: 'lastEditedDt',
         width: '180'
       },
       {
-        title: '最后编辑人',
+        title: 'common_Lasteditor',
         prop: 'lastEditorName',
         width: '150'
       },
       {
-        title: '操作',
+        title: 'common_Operate',
         prop: 'operation',
         fixed: 'right',
         width: '120',
@@ -67,7 +67,7 @@ export let tableOption = (This) => {
         buttonArr: [
           {
             iconClass: 'el-icon-edit-outline',
-            text: '编辑',
+            text: 'common_Edit',
             operationClick (row) {
               This.addForm = {
                 autonomyCheckId: row.autonomyCheckId,
@@ -92,7 +92,7 @@ export let tableOption = (This) => {
           {
             iconClass: 'el-icon-delete',
             iconColor: '#f56c6c',
-            text: '删除',
+            text: 'common_Del',
             operationClick (row) {
               This.deletetableData([row.autonomyCheckId])
             }

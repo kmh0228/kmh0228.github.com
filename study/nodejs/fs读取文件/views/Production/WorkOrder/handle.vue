@@ -4,8 +4,8 @@
     <div class="mes-handle-content">
       <el-row :gutter="15">
         <el-col :span="24">
-          <el-button type="primary" plain size="mini" @click="saveWorkOrder">保存</el-button>
-          <el-button type="primary" plain size="mini" @click="closeCurrentPage">关闭</el-button>
+          <el-button type="primary" plain size="mini" @click="saveWorkOrder">{{$t('common_save')}}</el-button>
+          <el-button type="primary" plain size="mini" @click="closeCurrentPage">{{$t('common_close')}}</el-button>
           <!-- <el-button type="primary" plain size="mini" @click="refreshWorkOrder">刷新</el-button>
           <el-button type="primary" plain size="mini" :disabled="worderOrderState === '已上线'">上线</el-button> -->
         </el-col>
@@ -58,9 +58,9 @@ export default {
     async closeCurrentPage () {
       let { isChange } = this.$refs.tabs
       if (isChange) {
-        this.$confirm('当前页面信息发生变更, 是否保存?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm(this.$t('Inventory_ Tips'), this.$t('common_tips'), {
+          confirmButtonText: this.$t('common_ok'),
+          cancelButtonText: this.$t('common_cancel'),
           type: 'warning'
         }).then(() => {
           this.saveWorkOrder()

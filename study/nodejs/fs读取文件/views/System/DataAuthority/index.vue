@@ -2,10 +2,10 @@
   <div class="mes-main mes-work-order">
     <div class="mes-main-tabs">
       <el-tabs v-model="tabAciveName">
-        <el-tab-pane label="数据同步" name="dataAsync">
+        <el-tab-pane :label="$t('dataAuthority_dataSync')" name="dataAsync">
           <data-async />
         </el-tab-pane>
-        <el-tab-pane label="权限配置" name="authority">
+        <el-tab-pane :label="$t('dataAuthority_permission')" name="authority">
           <authority />
         </el-tab-pane>
       </el-tabs>

@@ -1,22 +1,22 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">供应商管理</h3>
+    <h3 class="mes-main-title">{{$t('vendor_SupplMana')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-         <el-input placeholder="供应商代码" v-model.trim="mWmsVendorCode" size="mini" style="width:35%;" @keydown.enter.native="getVendors">
+         <el-input :placeholder="$t('common_SupplCode')" v-model.trim="mWmsVendorCode" size="mini" style="width:35%;" @keydown.enter.native="getVendors">
         </el-input>
       </el-col>
     </el-row>
     <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="12">
-          <el-button size="mini" icon="el-icon-search" @click="getVendors">查询</el-button>
+          <el-button size="mini" icon="el-icon-search" @click="getVendors">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-plus"  @click="handleVendor('')">新增</el-button>
+          <el-button size="mini" icon="el-icon-plus"  @click="handleVendor('')">{{$t('common_Add')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteVendor('')">批量删除</el-button>
+          <el-button size="mini" icon="el-icon-delete-solid" @click="deleteVendor('')">{{$t('common_Delete')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh"  @click="refreshData">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh"  @click="refreshData">{{$t('common_Refresh')}}</el-button>
         </el-col>
         <el-col :span="12">
           <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -28,24 +28,24 @@
       <div class="mes-table-content">
         <el-table :data="tableData" border @selection-change="tableSelectionChange">
           <el-table-column type="selection" width="50" align="center" fixed></el-table-column>
-          <el-table-column type="index" label="序号" align="center" :index="indexMethod"></el-table-column>
-          <el-table-column prop="mWmsVendorCode" label="供应商代码" sortable align="center" width="120"></el-table-column>
-          <el-table-column prop="mWmsVendorName" label="供应商名称" sortable align="center" width="120"></el-table-column>
-          <el-table-column prop="mWmsVendorAddress" label="公司地址" sortable align="center" width="100"></el-table-column>
-          <el-table-column prop="mWmsVendorCity" label="城市" sortable align="center"></el-table-column>
-          <el-table-column prop="mWmsVendorProvince" label="省州" sortable align="center"></el-table-column>
-          <el-table-column prop="mWmsVendorCountry" label="国家" sortable width="80" align="center"></el-table-column>
-          <el-table-column prop="mWmsVendorUser" label="联系人" sortable width="100" align="center"></el-table-column>
-          <el-table-column prop="mWmsVendorPhone" label="电话" sortable align="center"></el-table-column>
-          <el-table-column prop="mWmsVendorPostcode" label="邮编" sortable align="center"></el-table-column>
-          <el-table-column prop="mWmsVendorFax" label="传真" sortable align="center"></el-table-column>
+          <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod"></el-table-column>
+          <el-table-column prop="mWmsVendorCode" :label="$t('common_SupplCode')" sortable align="center" width="120"></el-table-column>
+          <el-table-column prop="mWmsVendorName" :label="$t('common_SupplName')" sortable align="center" width="120"></el-table-column>
+          <el-table-column prop="mWmsVendorAddress" :label="$t('vendor_CompaAddr')" sortable align="center" width="100"></el-table-column>
+          <el-table-column prop="mWmsVendorCity" :label="$t('common_city')" sortable align="center"></el-table-column>
+          <el-table-column prop="mWmsVendorProvince" :label="$t('common_ProviAndStat')" sortable align="center"></el-table-column>
+          <el-table-column prop="mWmsVendorCountry" :label="$t('common_count')" sortable width="80" align="center"></el-table-column>
+          <el-table-column prop="mWmsVendorUser" :label="$t('common_conta')" sortable width="100" align="center"></el-table-column>
+          <el-table-column prop="mWmsVendorPhone" :label="$t('vendor_Telep')" sortable align="center"></el-table-column>
+          <el-table-column prop="mWmsVendorPostcode" :label="$t('vendor_Postc')" sortable align="center"></el-table-column>
+          <el-table-column prop="mWmsVendorFax" :label="$t('vendor_Fax')" sortable align="center"></el-table-column>
           <!-- <el-table-column prop="isInvalid" label="是否启用" width="80" align="center"></el-table-column> -->
           <!-- <el-table-column prop="creator" label="创建人" sortable align="center"></el-table-column>
           <el-table-column prop="createdDt" label="创建时间" sortable align="center"></el-table-column> -->
-          <el-table-column label="操作" align="center" width="120" fixed="right">
+          <el-table-column :label="$t('common_Operate')" align="center" width="120" fixed="right">
             <template slot-scope="scope">
-              <handle-button @click="handleVendor(scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-              <handle-button @click="deleteVendor(scope.row.mWmsVendorId)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+              <handle-button @click="handleVendor(scope.row)" iconClass='el-icon-edit-outline' :tipText="$t('common_Edit')"></handle-button>
+              <handle-button @click="deleteVendor(scope.row.mWmsVendorId)" iconClass='el-icon-delete' :tipText="$t('common_Del')" iconColor='#f56c6c'></handle-button>
             </template>
           </el-table-column>
         </el-table>
@@ -77,7 +77,7 @@ export default {
   computed: {
     dialogTitle () {
       let { isEdit } = this
-      return isEdit ? '编辑供应商' : '新增供应商'
+      return isEdit ? this.$t('vendor_EditSupp') : this.$t('vendor_NewSupp')
     }
 
   },
@@ -138,7 +138,7 @@ export default {
       let ids = id ? [id] : this.selectList
       let len = ids.length
       if (len > 0) {
-        let confirmRes = await this.$myPrompt.confirm('确定删除当前选中的供应商信息吗？')
+        let confirmRes = await this.$myPrompt.confirm(this.$t('vendor_AreYouSureDeleC'))
         if (confirmRes) {
           let res = await this.$api.deleteVendor(ids)
           let { code, msg } = res
@@ -150,7 +150,7 @@ export default {
           }
         }
       } else {
-        this.$message.warning('请选择需要删除的供应商信息！')
+        this.$message.warning(this.$t('vendor_PleasSeleSuppIn'))
       }
     },
     cannel () {

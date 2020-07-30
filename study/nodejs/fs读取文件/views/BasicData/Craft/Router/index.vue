@@ -1,9 +1,9 @@
 <template>
   <div style="height:100%;overflow:hidden" class="mes-main mes-work-order mes-material">
-    <h3 class="mes-main-title">生产路由管理</h3>
+    <h3 class="mes-main-title">{{$t('router_ProduRoutMana')}}</h3>
     <el-form label-position="left" style="border-bottom:1px solid #d4d4d4;">
       <el-form-item >
-        <el-input v-model="workflowName" placeholder="请输入生产路由名称" size="mini" style="width:12vw;" @keydown.enter.native="getRouterList">
+        <el-input v-model="workflowName" :placeholder="$t('router_PleasEnteProdRo')" size="mini" style="width:12vw;" @keydown.enter.native="getRouterList">
            <i slot="suffix" class="el-input__icon el-icon-search" @click="getRouterList"></i>
         </el-input>
       </el-form-item>
@@ -12,15 +12,15 @@
        <el-col :span="5">
          <el-card class="mes-table" style="height:100%;">
           <div slot="header">
-            <span>生产路由列表</span>
+            <span>{{$t('router_ProduRoutList')}}</span>
             <div style="float: right;">
-              <el-tooltip effect="dark" content="新增" placement="top" :hide-after="1000">
+              <el-tooltip effect="dark" :content="$t('common_Add')" placement="top" :hide-after="1000">
                 <el-button type="text" style="font-size:1vw;" @click="addRouter" icon="el-icon-circle-plus"></el-button>
               </el-tooltip>
-              <el-tooltip effect="dark" content="编辑" placement="top" :hide-after="1000">
+              <el-tooltip effect="dark" :content="$t('common_Edit')" placement="top" :hide-after="1000">
                 <el-button type="text" style="font-size:1vw;" icon="el-icon-edit" @click="editRouter"></el-button>
               </el-tooltip>
-              <el-tooltip effect="dark" content="删除" placement="top" :hide-after="1000">
+              <el-tooltip effect="dark" :content="$t('common_Del')" placement="top" :hide-after="1000">
                 <el-button type="text" style="font-size:1vw;" icon="el-icon-delete" @click="deleteRoute"></el-button>
               </el-tooltip>
             </div>
@@ -28,8 +28,8 @@
           <el-scrollbar style="width:100%;height:100%;padding:0 0 10px 0;">
             <el-table :data="routerList" border highlight-current-row @current-change="tableCurrentChange" @selection-change="tableSelectionChange" size="mini">
               <el-table-column type="selection" width="50" align="center"></el-table-column>
-              <el-table-column prop="officeName" label="工厂"  align="center"></el-table-column>
-              <el-table-column label="路由名称" prop="workflowName" align="center"></el-table-column>
+              <el-table-column prop="officeName" :label="$t('common_Factory')"  align="center"></el-table-column>
+              <el-table-column :label="$t('router_RouteName')" prop="workflowName" align="center"></el-table-column>
             </el-table>
           </el-scrollbar>
         </el-card>
@@ -37,9 +37,9 @@
        <el-col :span="19">
          <el-card>
           <div slot="header">
-            <span>生产路由详情</span>
+            <span>{{$t('router_ProduRoutDeta')}}</span>
             <div style="float: right;">
-              <el-button size="mini" type="primary" @click="saveFlow">保存</el-button>
+              <el-button size="mini" type="primary" @click="saveFlow">{{$t('common_save')}}</el-button>
             </div>
           </div>
           <base-flow ref="baseFlow" :saveFlowData="saveFlowData" :data="data" :workflowObj="workflowObj" @set-router="setRouter"></base-flow>
@@ -165,10 +165,10 @@ export default {
             this.$message.error(msg)
           }
         } else {
-          this.$message.warning('请先配置路由节点！')
+          this.$message.warning(this.$t('router_PleasConfRoutNo'))
         }
       } else {
-        this.$message.warning('请先选择路由！')
+        this.$message.warning(this.$t('router_PleasSeleRoutFi'))
       }
     },
     // 获取所有路由
@@ -179,11 +179,11 @@ export default {
     },
     // 添加路由
     addRouter () {
-      this.$prompt('路由名称', '新增路由', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$prompt(this.$t('router_RouteName'), this.$t('router_NewRout'), {
+        confirmButtonText: this.$t('common_ok'),
+        cancelButtonText: this.$t('common_cancel'),
         inputPattern: /^\S+/,
-        inputErrorMessage: '路由名称不能为空'
+        inputErrorMessage: this.$t('router_RouteNameCannBe')
       }).then(async ({ value }) => {
         if (!value) {
           return false
@@ -220,12 +220,12 @@ export default {
       const len = tableSelectList.length
       if (len === 1) {
         let { mWorkflowSpecId, workflowName } = tableSelectList[0]
-        this.$prompt('路由名称', '编辑路由', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$prompt(this.$t('router_RouteName'), this.$t('router_EditRout'), {
+          confirmButtonText: this.$t('common_ok'),
+          cancelButtonText: this.$t('common_cancel'),
           inputPattern: /^\S+/,
           inputValue: workflowName,
-          inputErrorMessage: '路由名称不能为空'
+          inputErrorMessage: this.$t('router_RouteNameCannBe')
         }).then(async ({ value }) => {
           if (!value) {
             return false
@@ -246,7 +246,7 @@ export default {
           return false
         })
       } else {
-        this.$message.warning('请选择一条需要编辑的路由！')
+        this.$message.warning(this.$t('router_PleasSeleARoutE'))
       }
     },
     // 删除路由
@@ -254,7 +254,7 @@ export default {
       const { tableSelectList } = this
       const len = tableSelectList.length
       if (len > 0) {
-        let confrim = await this.$myPrompt.confirm('确定删除当前路由吗？')
+        let confrim = await this.$myPrompt.confirm(this.$t('router_AreYouSureDeleC'))
         if (confrim) {
           let ids = []
           tableSelectList.map(item => {
@@ -270,7 +270,7 @@ export default {
           }
         }
       } else {
-        this.$message.warning('请选择需要删除的路由！')
+        this.$message.warning(this.$t('router_PleasSeleRoutBe'))
       }
     }
   },

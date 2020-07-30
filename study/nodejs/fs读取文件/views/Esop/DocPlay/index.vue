@@ -1,14 +1,14 @@
 <template>
   <div class="mes-main mes-work-order">
-    <h3 class="mes-main-title">ESOP播放管理</h3>
+    <h3 class="mes-main-title">{{$t('docPlay_ESOPPlayMana')}}</h3>
     <el-row :gutter="20" class="mes-main-filte">
       <el-col :span="12">
-        <el-select v-model="search.mPomLineId" size="mini" clearable placeholder="请选择线别" style="width:35%;">
+        <el-select v-model="search.mPomLineId" size="mini" clearable :placeholder="$t('common_PleasSeleLineTy')" style="width:35%;">
           <el-option v-for="(option,i) in lineList" :key="i" :value="option.mPomLineId" :label="option.lineName"></el-option>
         </el-select>
       </el-col>
       <el-col :span="12">
-        <el-select v-model="search.mComProcessSegId" size="mini" clearable placeholder="请选择制程" style="width:35%;float:right;">
+        <el-select v-model="search.mComProcessSegId" size="mini" clearable :placeholder="$t('docPlay_selecProc')" style="width:35%;float:right;">
           <el-option v-for="(option,i) in segList" :key="i" :value="option.mComProcessSegId" :label="option.segCode"> </el-option>
         </el-select>
       </el-col>
@@ -16,11 +16,11 @@
     <div class="mes-table">
       <el-row class="mes-table-handle">
         <el-col :span="11">
-          <el-button  size="mini" icon="el-icon-search" @click="getEsopDocPlayList">查询</el-button>
+          <el-button  size="mini" icon="el-icon-search" @click="getEsopDocPlayList">{{$t('common_Inquire')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-video-play" @click="playFile">开始播放</el-button>
+          <el-button size="mini" icon="el-icon-video-play" @click="playFile">{{$t('docPlay_StartPlay')}}</el-button>
           <span class="split-line">|</span>
-          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">刷新</el-button>
+          <el-button size="mini" icon="el-icon-refresh" @click="refreshPage">{{$t('common_Refresh')}}</el-button>
         </el-col>
         <el-col :span="13">
           <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :page-count="5"
@@ -29,11 +29,11 @@
         </el-col>
       </el-row>
       <el-table :data="tableData" size="mini" border>
-        <el-table-column type="index" label="序号" align="center" :index="indexMethod" fixed="left"></el-table-column>
-        <el-table-column label="文档编号" prop="docNo" align="center"></el-table-column>
-        <el-table-column label="文档名称" prop="docName" align="center"></el-table-column>
-        <el-table-column label="版本" prop="version" align="center"></el-table-column>
-        <el-table-column label="制程" prop="segCode" align="center"></el-table-column>
+        <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod" fixed="left"></el-table-column>
+        <el-table-column :label="$t('common_DocumNumb')" prop="docNo" align="center"></el-table-column>
+        <el-table-column :label="$t('docPlay_DocumName')" prop="docName" align="center"></el-table-column>
+        <el-table-column :label="$t('common_editi')" prop="version" align="center"></el-table-column>
+        <el-table-column :label="$t('common_Process')" prop="segCode" align="center"></el-table-column>
       </el-table>
     </div>
      <!-- 文件播放 -->
@@ -41,30 +41,30 @@
       <div class="pdf-preview-wrap" ref="pdfPreview">
         <div class="pdf-preview-toolbar el-row">
           <div class="el-col-8">
-            <el-tooltip placement="top" content="上一页">
+            <el-tooltip placement="top" :content="$t('docPlay_previPage')">
               <span class="el-icon-back" @click="pdfPageHandle(false,true)"></span>
             </el-tooltip>
-            <el-tooltip placement="top" content="下一页">
+            <el-tooltip placement="top" :content="$t('docPlay_nextPage')">
               <span class="el-icon-right" @click="pdfPageHandle(true,true)"></span>
             </el-tooltip>
-            <el-tooltip placement="top" content="放大">
+            <el-tooltip placement="top" :content="$t('docPlay_enlar')">
               <span class="el-icon-zoom-in" @click="zoomIn"></span>
             </el-tooltip>
-            <el-tooltip placement="top" content="缩小">
+            <el-tooltip placement="top" :content="$t('docPlay_narro')">
               <span class="el-icon-zoom-out" @click="zoomOut"></span>
             </el-tooltip>
-            <el-tooltip placement="top" content="向左旋转">
+            <el-tooltip placement="top" :content="$t('docPlay_RotatLeft')">
               <span class="el-icon-refresh-left" @click="pdfRotate += 90"></span>
             </el-tooltip>
-            <el-tooltip placement="top" content="向右旋转">
+            <el-tooltip placement="top" :content="$t('docPlay_TurnRigh')">
               <span class="el-icon-refresh-right" @click="pdfRotate -= 90"></span>
             </el-tooltip>
-            <el-tooltip placement="top" content="全屏">
+            <el-tooltip placement="top" :content="$t('docPlay_FullScre')">
               <span class="el-icon-full-screen" @click="fullScreenHandle"></span>
             </el-tooltip>
           </div>
           <div class="el-col-8">
-            <p>共{{ pdfPage }}/{{ pdfTotal }}页</p>
+            <p>{{$t('docPlay_total')}}{{ pdfPage }}/{{ pdfTotal }}{{$t('docPlay_page')}}</p>
           </div>
         </div>
         <div class="pdf-preview-ceontent" @click="playHandle">
@@ -200,7 +200,7 @@ export default {
     async playFile () {
       const { tableData, fileIndex } = this
       if (tableData.length > 0) {
-        const confirm = await this.$myPrompt.confirm('当前仅支持PDF文件播放，系统将自动过滤掉非PDF文件进行播放，确定继续吗？')
+        const confirm = await this.$myPrompt.confirm(this.$t('docPlay_onlyPDFPlay'))
         if (confirm) {
           this.playFileList = []
           tableData.forEach(item => {
@@ -216,11 +216,11 @@ export default {
             }, 5000)
             this.showFile = true
           } else {
-            this.$message.warning('当前暂无符合播放的文件，请检查文件格式是否正确！')
+            this.$message.warning(this.$t('docPlay_CurreTherIsIsCorr'))
           }
         }
       } else {
-        this.$message.warning('当前播放列表暂无数据！')
+        this.$message.warning(this.$t('docPlay_ThereIsNoPlayList'))
       }
     },
     pdfPageHandle (isNext = true, isManual = false) {
@@ -289,14 +289,14 @@ export default {
       if (this.pdfWidth < 100) {
         this.pdfWidth += 10
       } else {
-        this.$message.warning('文件已放大至最大宽度！')
+        this.$message.warning(this.$t('docPlay_FileEnlaMaxiWidt'))
       }
     },
     zoomOut () {
       if (this.pdfWidth > 30) {
         this.pdfWidth -= 10
       } else {
-        this.$message.warning('文件已缩小至最小宽度！')
+        this.$message.warning(this.$t('docPlay_FileReduMiniWidt'))
       }
     },
     // 开启全屏

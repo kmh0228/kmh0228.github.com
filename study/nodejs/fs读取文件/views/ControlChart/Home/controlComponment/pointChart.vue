@@ -57,7 +57,7 @@ export default {
       maxData = Number(maxData) > Number(ucl) ? maxData : ucl
       return {
         title: {
-          text: chartTitle + '—控制图',
+          text: chartTitle + '—' + this.$t('common_ContrChar'),
           left: '5%'
         },
         tooltip: {
@@ -196,7 +196,7 @@ export default {
       let { hiddenButton } = this
       if (hiddenButton) {
         if (params.color === 'red') {
-          const confirm = await this.$myPrompt.confirm('确定删除当前点中的异常点吗？')
+          const confirm = await this.$myPrompt.confirm(this.$t('conChartHome_AreYouSureCurrPoin'))
           if (confirm) {
             let { pointData } = this
             const pointId = pointData[params.dataIndex].tSpcControlChartDataId
@@ -207,10 +207,10 @@ export default {
             })
           }
         } else {
-          this.$message.warning('该点不是异常点，请勿操作！')
+          this.$message.warning(this.$t('conChartHome_ThisPoinIsNotOper'))
         }
       } else {
-        this.$message.warning('当前页面是对比页面，请勿操作！')
+        this.$message.warning(this.$t('conChartHome_currePageIsNotOper'))
       }
     }
   },

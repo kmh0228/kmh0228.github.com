@@ -1,22 +1,22 @@
 <template>
 <div class="mes-main mes-work-order ">
-  <h3 class="mes-main-title">排产资源组管理</h3>
+  <h3 class="mes-main-title">{{$t('apsResGroup_SchedResoGrouMana')}}</h3>
    <el-row :gutter="20" class="mes-main-filte">
     <el-col >
-      <el-input placeholder="请输入查询内容" style="width:20%;" v-model="keyWord" @keydown.enter.native="getResourceGroupList">
+      <el-input :placeholder="$t('common_PleasEnteQuerCo')" style="width:20%;" v-model="keyWord" @keydown.enter.native="getResourceGroupList">
       </el-input>
     </el-col>
   </el-row>
    <div class="mes-table">
     <el-row class="mes-table-handle">
       <el-col :span="12">
-        <el-button size="mini" icon="el-icon-search" @click="getResourceGroupList">查询</el-button>
+        <el-button size="mini" icon="el-icon-search" @click="getResourceGroupList">{{$t('common_Inquire')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-plus"  @click="handleApsResourceGroup('')">新增</el-button>
+        <el-button size="mini" icon="el-icon-plus"  @click="handleApsResourceGroup('')">{{$t('common_Add')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-delete-solid" @click="deleteResourceGroupBatch('')">批量删除</el-button>
+        <el-button size="mini" icon="el-icon-delete-solid" @click="deleteResourceGroupBatch('')">{{$t('common_Delete')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-refresh"  @click="refreshData">刷新</el-button>
+        <el-button size="mini" icon="el-icon-refresh"  @click="refreshData">{{$t('common_Refresh')}}</el-button>
       </el-col>
       <el-col :span="12">
          <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
@@ -28,19 +28,19 @@
     <div class="mes-table-content" >
       <el-table :data="tableData" size="mini" border highlight-current-row @cell-click="cellClick" @selection-change="selectionChange">
         <el-table-column type="selection" ></el-table-column>
-        <el-table-column type="index" label="序号" align="center" :index="indexMethod"></el-table-column>
-        <el-table-column prop="resourceGroupCode" sortable align="center" label="排产资源代码"></el-table-column>
-        <el-table-column prop="invalid" sortable align="center" label="是否启用"  >
+        <el-table-column type="index" :label="$t('common_Number')" align="center" :index="indexMethod"></el-table-column>
+        <el-table-column prop="resourceGroupCode" sortable align="center" :label="$t('apsResGroup_SchedResoCode')"></el-table-column>
+        <el-table-column prop="invalid" sortable align="center" :label="$t('common_Enable')"  >
           <template slot-scope="scope">
             <el-tag :type="setTagColor(scope.row.invalid)" size="mini">{{scope.row.invalid | formaterInvalid}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="lastEditor" sortable align="center" label="最后修改人"></el-table-column>
-        <el-table-column prop="lastEditedDt" sortable align="center" label="最后修改时间"></el-table-column>
-        <el-table-column label="操作" align="center" width="120" >
+        <el-table-column prop="lastEditor" sortable align="center" :label="$t('apsResGroup_LastModiBy')"></el-table-column>
+        <el-table-column prop="lastEditedDt" sortable align="center" :label="$t('common_LastModiTime')"></el-table-column>
+        <el-table-column :label="$t('common_Operate')" align="center" width="120" >
           <template slot-scope="scope">
-            <handle-button @click="handleApsResourceGroup(scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-            <handle-button @click="deleteResourceGroupBatch(scope.row.mPsmResourceGroupId)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+            <handle-button @click="handleApsResourceGroup(scope.row)" iconClass='el-icon-edit-outline' :placeholder="$t('common_Edit')"></handle-button>
+            <handle-button @click="deleteResourceGroupBatch(scope.row.mPsmResourceGroupId)" iconClass='el-icon-delete' :placeholder="$t('common_Del')" iconColor='#f56c6c'></handle-button>
           </template>
         </el-table-column>
       </el-table>
@@ -48,44 +48,44 @@
   </div>
      <div class="mes-main-tabs" v-if="apsDetail">
         <el-tabs v-model="activeName" >
-        <el-tab-pane label="排产资源详情" name="apsGroupDetail">
+        <el-tab-pane :label="$t('apsResGroup_SchedResoDeta')" name="apsGroupDetail">
           <el-card class="box-card" shadow="never">
             <div slot="header" class="clearfix">
-              <span>基本资料</span>
+              <span>{{$t('common_BasicInfo')}}</span>
             </div>
             <el-form :model="infoForm" label-position="left"  label-width="120px" class="el-row mes-form-rule aps-from" style="font-size:18px">
-              <el-form-item label="排产资源码 :" class="el-col el-col-11">
+              <el-form-item :label="$t('apsResGroup_SchedResoCode') + ' :'" class="el-col el-col-11">
                 {{infoForm.resourceGroupCode}}
               </el-form-item>
-              <el-form-item label="描述 :" class="el-col el-col-11 el-col-offset-1">
+              <el-form-item :label="$t('common_Description') + ' :'" class="el-col el-col-11 el-col-offset-1">
                 {{infoForm.resourceGroupDesc}}
               </el-form-item>
-               <el-form-item label="创建人 :" class="el-col el-col-11">
+               <el-form-item :label="$t('common_Creator') + ' :'" class="el-col el-col-11">
                 {{infoForm.creator}}
               </el-form-item>
-              <el-form-item label="创建时间 :" class="el-col el-col-11 el-col-offset-1">
+              <el-form-item :label="$t('common_CreateTime') + ' :'" class="el-col el-col-11 el-col-offset-1">
                 {{infoForm.createdDt}}
               </el-form-item>
-               <el-form-item label="最后修改人 :" class="el-col el-col-11">
+               <el-form-item :label="$t('apsResGroup_LastModiBy') + ' :'" class="el-col el-col-11">
                 {{infoForm.lastEditor}}
               </el-form-item>
-              <el-form-item label="最后修改时间 :" class="el-col el-col-11 el-col-offset-1">
+              <el-form-item :label="$t('common_LastModiTime') + ' :'" class="el-col el-col-11 el-col-offset-1">
                 {{infoForm.lastEditedDt}}
               </el-form-item>
-              <el-form-item label="是否启用 :" class="el-col el-col-11">
+              <el-form-item :label="$t('common_Enable') + ' :'" class="el-col el-col-11">
                 <el-tag :type="tagType"> {{infoForm.invalid | formaterInvalid}}</el-tag>
               </el-form-item>
             </el-form>
           </el-card>
           <el-card class="box-card" shadow="never">
             <div slot="header" class="clearfix">
-              <span>选中的资源列表</span>
+              <span>{{$t('apsResGroup_ListSeleReso')}}</span>
             </div>
              <div class="mes-table-content" >
               <el-table :data="resourceTable" size="mini" border >
-                <el-table-column type="index" label="序号" align="center"></el-table-column>
-                <el-table-column prop="resourceCode"  align="center" label="排产资源代码"></el-table-column>
-                <el-table-column prop="resourcePriority" sortable align="center" label="优先级"></el-table-column>
+                <el-table-column type="index" :label="$t('common_Number')" align="center"></el-table-column>
+                <el-table-column prop="resourceCode"  align="center" :label="$t('apsResGroup_SchedResoCode')"></el-table-column>
+                <el-table-column prop="resourcePriority" sortable align="center" :label="$t('apsResGroup_prior')"></el-table-column>
               </el-table>
             </div>
           </el-card>
@@ -128,7 +128,7 @@ export default {
       return this.infoForm.invalid ? 'success' : 'danger'
     },
     dialogTitle () {
-      return this.isEdit ? '编辑排产资源组' : '新增排产资源组'
+      return this.isEdit ? this.$t('apsResGroup_EditScheResoGrou') : this.$t('apsResGroup_NewScheResoGrou')
     },
     editDisabled () {
       return this.selectList.length !== 1
@@ -160,7 +160,7 @@ export default {
       return value ? 'success' : 'danger'
     },
     formatterValue (row, column, cellValue, index) {
-      return cellValue ? '是' : '否'
+      return cellValue ? this.$t('common_Yes') : this.$t('common_No')
     },
     selectionChange (selection) {
       this.selectList = []
@@ -195,7 +195,7 @@ export default {
       let ids = id ? [id] : this.selectList
       let len = ids.length
       if (len > 0) {
-        const confirm = await this.$myPrompt.confirm('确定删除当前选中的信息吗?')
+        const confirm = await this.$myPrompt.confirm(this.$t('apsResGroup_AreYouSureSeleInfo') + '?')
         if (confirm) {
           let res = await this.$api.deleteResourceGroupBatch(ids)
           this.$myPrompt.handleMsg(res, () => {
@@ -203,7 +203,7 @@ export default {
           })
         }
       } else {
-        this.$message.warning('请选择要删除的信息')
+        this.$message.warning(this.$t('common_PleasSeleInfoDe'))
       }
     },
     handleApsResourceGroup (row) {

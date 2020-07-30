@@ -1,31 +1,31 @@
 <template>
   <div class="mes-main mes-work-order mes-material">
-    <h3 class="mes-main-title">不良代码管理</h3>
+    <h3 class="mes-main-title">{{$t('badCode_BadCodeMana')}}</h3>
     <el-row :gutter="20" style="padding:1vh 0;">
       <el-col :span="12">
         <!-- <el-select style="width:35%;" size="mini" v-model="defectCodeType" filterable placeholder="不良代码类型" @change="getDefectCodes">
           <el-option label="全部" value=""></el-option>
           <el-option v-for="(option,i) in defectCodeTypeList" :key="i" :label="option.DICT_NAME" :value="option.M_DATA_DICT_ID"></el-option>
         </el-select> -->
-       <dict-select style="width:35%;" v-model="defectCodeType" dictType="DEFECT_CODE_TYPE" clearable  placeholder="不良代码类型" @change="getDefectCodes"></dict-select>
+       <dict-select style="width:35%;" v-model="defectCodeType" dictType="DEFECT_CODE_TYPE" clearable  :placeholder="$t('badCode_BadCodeType')" @change="getDefectCodes"></dict-select>
       </el-col>
       <el-col :span="12">
         <el-button size="mini" style="float:right;margin-left:10px;">
           <i class="fa fa-filter"></i>
         </el-button>
-        <el-input placeholder="请输入不良代码" v-model.trim="keywords" size="mini" style="width:40%;float:right;" @keydown.enter.native="getDefectCodes">
+        <el-input :placeholder="$t('badCode_PleasInpuBadCod')" v-model.trim="keywords" size="mini" style="width:40%;float:right;" @keydown.enter.native="getDefectCodes">
         </el-input>
       </el-col>
     </el-row>
     <div class="mes-material-handle mes-table-handle">
       <div class="mes-btn-group">
-        <el-button size="mini" icon="el-icon-search" @click="getDefectCodes">查询</el-button>
+        <el-button size="mini" icon="el-icon-search" @click="getDefectCodes">{{$t('common_Inquire')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-plus"  @click="handleDefectCode('')">新增</el-button>
+        <el-button size="mini" icon="el-icon-plus"  @click="handleDefectCode('')">{{$t('common_Add')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-rank" @click="openMoveDialog">移动</el-button>
+        <el-button size="mini" icon="el-icon-rank" @click="openMoveDialog">{{$t('common_move')}}</el-button>
         <span class="split-line">|</span>
-        <el-button size="mini" icon="el-icon-refresh"  @click="getDefectCodes">刷新</el-button>
+        <el-button size="mini" icon="el-icon-refresh"  @click="getDefectCodes">{{$t('common_Refresh')}}</el-button>
       </div>
       <el-pagination background :page-size="page.pageSize" :page-sizes="[10,20,30,50]" :pager-count="5"
         layout="total,sizes, prev, pager, next, jumper, ->" :total="total"
@@ -34,17 +34,17 @@
     </div>
     <div class="mes-table table-tree">
       <el-table :data="defectCodeList" ref="refTable" @header-click="defectPid='';isLeaf=false" @row-click="rowClick" :row-class-name="rowClassName" :cell-class-name="cellClassName">
-        <el-table-column type="index" label="序号" :index="indexMethod" width="50" align="center"></el-table-column>
+        <el-table-column type="index" :label="$t('common_Number')" :index="indexMethod" width="50" align="center"></el-table-column>
         <el-table-column type="expand" width="50">
           <template slot-scope="props">
             <tableTree v-if="props.row.child && props.row.child.length>0" :treeData="props.row.child" :rowClick="rowClick" :formatter="formatter" :handleRow="handleDefectCode" :deleteRow="delDefectCode" :columnList="columnList" :rowClassName="rowClassName" :cellClassName="cellClassName"></tableTree>
           </template>
         </el-table-column>
-        <el-table-column sortable v-for="(col,i) in columnList" :key="i" :label="col.label" :prop="col.key" :width="col.width?col.width:''"  :formatter="formatter"></el-table-column>
-        <el-table-column label="操作" width="120" align="center">
+        <el-table-column sortable v-for="(col,i) in columnList" :key="i" :label="$t(col.label)" :prop="col.key" :width="col.width?col.width:''"  :formatter="formatter"></el-table-column>
+        <el-table-column l:abel="$t('common_Operate')" width="120" align="center">
           <template slot-scope="scope">
-            <handle-button @click="handleDefectCode(scope.row)" iconClass='el-icon-edit-outline' tipText="编辑"></handle-button>
-            <handle-button @click="delDefectCode(scope.row)" iconClass='el-icon-delete' tipText="删除" iconColor='#f56c6c'></handle-button>
+            <handle-button @click="handleDefectCode(scope.row)" iconClass='el-icon-edit-outline' :tipText="$t('common_Edit')"></handle-button>
+            <handle-button @click="delDefectCode(scope.row)" iconClass='el-icon-delete' :tipText="$t('common_Del')" iconColor='#f56c6c'></handle-button>
           </template>
         </el-table-column>
       </el-table>
@@ -52,12 +52,12 @@
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" class="handle-dialog" width="600px">
       <dialog-form v-if="dialogVisible" ref="dialog" @cannel="cannel" @getDefectCodes="getDefectCodes" :defectCodeOptions="defectCodeOptions" :defectPid="defectPid" :isEdit="isEdit"></dialog-form>
     </el-dialog>
-    <el-dialog title="请选择移动至" :visible.sync="moveDialog" class="handle-dialog" width="500px">
+    <el-dialog :title="$t('process_placeMoveTo')" :visible.sync="moveDialog" class="handle-dialog" width="500px">
       <el-cascader v-model="parentDefectPid" expand-trigger="hover" change-on-select :show-all-levels="false" style="width:100%" size="mini" :options="defectCodeOptions" :props="cascaderProps">
       </el-cascader>
       <div class="dialog-footer">
-        <el-button type="primary" size="mini" @click="moveNode">确定</el-button>
-        <el-button plain size="mini" @click="moveDialog=false">取消</el-button>
+        <el-button type="primary" size="mini" @click="moveNode">{{$t('common_ok')}}</el-button>
+        <el-button plain size="mini" @click="moveDialog=false">{{$t('common_cancel')}}</el-button>
       </div>
     </el-dialog>
   </div>
@@ -76,17 +76,17 @@ export default {
       defectCodeList: [],
       columnList: [
         {
-          label: '不良代码',
+          label: 'badCode_BadCode',
           key: 'defectCode',
           width: '400'
         }, {
-          label: '不良名称',
+          label: 'badCode_BadName',
           key: 'defectName'
         }, {
-          label: '描述',
+          label: 'common_Description',
           key: 'defectDesc'
         }, {
-          label: '是否是叶子节点',
+          label: 'badCode_IsItALeafNode',
           key: 'isLeaf',
           width: '150'
         }
@@ -111,7 +111,7 @@ export default {
   },
   computed: {
     dialogTitle () {
-      return this.isEdit ? '编辑不良代码' : '新增不良代码'
+      return this.isEdit ? this.$t('badCode_EditBadCode') : this.$t('badCode_NewDefeCode')
     },
     defectCodeOptions () {
       let arr = JSON.parse(JSON.stringify(this.defectCodeList))
@@ -142,7 +142,7 @@ export default {
     },
     formatter (row, column, cellValue, index) {
       if (column.property === 'isLeaf') {
-        return cellValue ? '是' : '否'
+        return cellValue ? this.$t('common_Yes') : this.$t('common_No')
       } else {
         return cellValue
       }
@@ -153,7 +153,7 @@ export default {
       if (defectPid) {
         this.moveDialog = true
       } else {
-        this.$message.warning('请先选择需要移动的节点!')
+        this.$message.warning(this.$t('badCode_PleasSeleNodeBe'))
       }
     },
     async moveNode () {
@@ -172,7 +172,7 @@ export default {
           this.$message.error(res.msg)
         }
       } else {
-        this.$message.warning('请勿选择节点自身！')
+        this.$message.warning(this.$t('badCode_DoNotSeleNodeIt'))
       }
     },
     // 获取不良类型列表
@@ -215,7 +215,7 @@ export default {
       }
     },
     async delDefectCode (row) {
-      let confirmRes = await this.$myPrompt.confirm('删除当前不良代码将会连同子节点一并删除，确定删除吗？')
+      let confirmRes = await this.$myPrompt.confirm(this.$t('badCode_DeletCurrBadCod'))
       if (confirmRes) {
         let { mQomDefectId } = row
         let res = await this.$api.deleteDefectCode({ mQomDefectId })

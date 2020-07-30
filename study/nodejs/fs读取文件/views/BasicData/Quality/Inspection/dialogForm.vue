@@ -1,20 +1,20 @@
 <template>
   <el-form :model="form" :rules="rules" ref="form" label-width="120px" label-position="left" class="el-row mes-form-rule">
-    <el-form-item label="检验项目" prop="inspectItem" class="el-col el-col-24">
+    <el-form-item :label="$t('common_InspeItem')" prop="inspectItem" class="el-col el-col-24">
       <el-input v-model.trim="form.inspectItem" size="mini"></el-input>
     </el-form-item>
-    <el-form-item label="检验类型" prop="itemType" selectKey="dictCode" class="el-col el-col-24">
+    <el-form-item :label="$t('inspection_InspeType')" prop="itemType" selectKey="dictCode" class="el-col el-col-24">
       <dict-select v-model="form.itemType" selectKey="dictCode" dictType="OQC_TYPE"></dict-select>
     </el-form-item>
-    <el-form-item label="客户代码" prop="customerCode" class="el-col el-col-24">
+    <el-form-item :label="$t('common_CustoCode')" prop="customerCode" class="el-col el-col-24">
       <el-autocomplete v-model="form.customerCode" :disabled="customerCodeDisabled" :fetch-suggestions="querySearchAsync" value-key="customerCode" style="width:100%;" ></el-autocomplete>
     </el-form-item>
-    <el-form-item label="检验内容" prop="inspectContent" class="el-col el-col-24">
+    <el-form-item :label="$t('common_InspeCont')" prop="inspectContent" class="el-col el-col-24">
       <el-input v-model="form.inspectContent" size="mini"></el-input>
     </el-form-item>
     <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-      <el-button type="primary" size="mini" @click="saveForm">保存</el-button>
-      <el-button size="mini" @click="$emit('cannel')">取消</el-button>
+      <el-button type="primary" size="mini" @click="saveForm">{{$t('common_save')}}</el-button>
+      <el-button size="mini" @click="$emit('cannel')">{{$t('common_cancel')}}</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -41,14 +41,14 @@ export default {
       const { customerCodeDisabled } = this
       if (customerCodeDisabled) {
         return {
-          inspectItem: [{ required: true, message: '检验项目不能为空' }],
-          itemType: [{ required: true, message: '请选择检验类型' }]
+          inspectItem: [{ required: true, message: this.$t('inspection_InspeItemCannBeEmpt') }],
+          itemType: [{ required: true, message: this.$t('inspection_selecInspType') }]
         }
       } else {
         return {
-          inspectItem: [{ required: true, message: '检验项目不能为空' }],
-          itemType: [{ required: true, message: '请选择检验类型' }],
-          customerCode: [{ required: true, message: '客户代码不能为空' }]
+          inspectItem: [{ required: true, message: this.$t('inspection_InspeItemCannBeEmpt') }],
+          itemType: [{ required: true, message: this.$t('inspection_selecInspType') }],
+          customerCode: [{ required: true, message: this.$t('inspection_CustoCodeCannBeEmpt') }]
         }
       }
     }

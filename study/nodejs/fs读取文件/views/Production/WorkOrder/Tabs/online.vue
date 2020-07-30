@@ -1,21 +1,21 @@
 <template>
   <el-form :model="online" ref="onlineForm" :rules="rules" label-width="30%" label-position="left" class="el-row work-order-info">
-    <el-form-item label="路由" prop="WORKFLOW_SPEC_ID" class="el-col el-col-12">
+    <el-form-item :label="$t('WorkOrder_route')" prop="WORKFLOW_SPEC_ID" class="el-col el-col-12">
       <p v-if="useType === 0">{{ online.WORKFLOW_SPEC_NAME }}</p>
-      <el-select v-else v-model="online.WORKFLOW_SPEC_ID" placeholder="请选择路由" filterable clearable size="mini" class="mes-form-item">
+      <el-select v-else v-model="online.WORKFLOW_SPEC_ID" :placeholder="$t('WorkOrder_selecARout')" filterable clearable size="mini" class="mes-form-item">
         <el-option v-for="(list,i) in routeList" :key="i" :label="list.workflowName" :value="list.mWorkflowSpecId"></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="线别" prop="LINE_ID" class="el-col el-col-12">
+    <el-form-item :label="$t('common_Line')" prop="LINE_ID" class="el-col el-col-12">
       <p v-if="useType === 0">{{ online.LINE_NAME }}</p>
       <!-- <mes-select v-else v-model="online.LINE_ID" method="getShipOrder" valueKey="tpomShipOrderId" labelKey="docNo"></mes-select> -->
-      <el-select v-else v-model="online.LINE_ID " placeholder="请选择线别" filterable clearable size="mini" class="mes-form-item">
+      <el-select v-else v-model="online.LINE_ID " :placeholder="$t('common_PleasSeleLineTy')" filterable clearable size="mini" class="mes-form-item">
         <el-option v-for="(list,i) in lineList" :key="i" :label="list.lineName" :value="list.mPomLineId"></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="班别" prop="SHIFT_ID" class="el-col el-col-12">
+    <el-form-item :label="$t('common_Shift')" prop="SHIFT_ID" class="el-col el-col-12">
       <p v-if="useType === 0">{{ online.SHIFT_NAME }}</p>
-      <el-select v-else v-model="online.SHIFT_ID " placeholder="请选择班别" filterable clearable size="mini" class="mes-form-item">
+      <el-select v-else v-model="online.SHIFT_ID " :placeholder="$t('common_PleasSeleClas')" filterable clearable size="mini" class="mes-form-item">
         <el-option v-for="(list,i) in shiftList" :key="i" :label="list.shiftName" :value="list.mPomShiftId"></el-option>
       </el-select>
     </el-form-item>
@@ -45,9 +45,9 @@ export default {
         return {}
       } else {
         return {
-          WORKFLOW_SPEC_ID: [{ required: true, message: '请选择路由', trigger: 'blur' }],
-          LINE_ID: [{ required: true, message: '请选择线别', trigger: 'blur' }],
-          SHIFT_ID: [{ required: true, message: '请选择班别', trigger: 'blur' }]
+          WORKFLOW_SPEC_ID: [{ required: true, message: this.$t('WorkOrder_selecARout'), trigger: 'blur' }],
+          LINE_ID: [{ required: true, message: this.$t('common_PleasSeleLineTy'), trigger: 'blur' }],
+          SHIFT_ID: [{ required: true, message: this.$t('common_PleasSeleClas'), trigger: 'blur' }]
         }
       }
     }
@@ -80,7 +80,7 @@ export default {
     async saveWorkOrder () {
       const vm = this
       if (!vm.online.JOB_ORDER_ID) {
-        return vm.$message.warning('请先保存工单基本信息')
+        return vm.$message.warning(this.$t('WorkOrder_saveBasiInfoOrdeFirs'))
       }
       vm.$refs['onlineForm'].validate(async valid => {
         if (valid) {

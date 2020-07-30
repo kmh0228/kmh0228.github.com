@@ -4,18 +4,18 @@
       <el-col :span="24">
         <el-alert type="warning" :closable="false">
           <div class="workstation-head-progress" :class="changeSize">
-            <p>当前工单上料数量：<span>{{countOrder}}</span></p>
+            <p>{{$t('jobLoading_CurreWorkOrdeFeedQuan')}}<span>{{countOrder}}</span></p>
           </div>
         </el-alert>
       </el-col>
     </el-row>
     <el-row class="mes-workstation-info" :gutter="10" :class="changeSize">
       <el-col v-for="(item,i) in infoLabel" :key="i" :span="12" class="el-row">
-        <p class="el-col el-col-6">{{ item.label }}</p>
+        <p class="el-col el-col-6">{{ $t(item.label) }}:</p>
         <p class="el-col el-col-18">{{ info[item.key] }}</p>
       </el-col>
     </el-row>
-     <station-logs logName="操作日志" recordName="上料记录" :recordTableLabel="recordTableLabel" ref="logs"></station-logs>
+     <station-logs :logName="$t('common_OperaLog')" :recordName="$t('jobLoading_LoadiReco')" :recordTableLabel="recordTableLabel" ref="logs"></station-logs>
     <scan-input :scanType="scanType" @scan-code="scanCode"></scan-input>
   </div>
 </template>
@@ -35,35 +35,35 @@ export default {
       },
       infoLabel: [
         {
-          label: '工单号:',
+          label: 'common_WorkOrdeNo',
           key: 'docNo'
         },
         {
-          label: '料号:',
+          label: 'common_PorN',
           key: 'materialNo'
         },
         {
-          label: '线别:',
+          label: 'common_Line',
           key: 'lineCode'
         },
         {
-          label: '班别:',
+          label: 'common_Shift',
           key: 'shiftName'
         }
       ],
       recordTableLabel: [
         {
-          label: '零件物料序列号',
+          label: 'jobLoading_PartMateSeriNumb',
           key: 'partSN'
         }, {
-          label: '零件料号',
+          label: 'common_PartNo',
           key: 'partNo'
         }, {
-          label: '扫描时间',
+          label: 'jobLoading_ScanTime',
           key: 'scanTime'
         }
       ],
-      scanType: '工单号',
+      scanType: this.$t('common_WorkOrdeNo'),
       snId: '',
       sn: '',
       countOrder: 0
@@ -96,7 +96,7 @@ export default {
   methods: {
     scanCode (code) {
       let { scanType } = this
-      if (scanType === '工单号') {
+      if (scanType === this.$t('common_WorkOrdeNo')) {
         this.scanOrder(code)
       } else if (scanType === '物料SN') {
         this.scanPart(code)
@@ -129,7 +129,7 @@ export default {
     //     if (res.code === '200') {
     //       this.sn = sn
     //       this.snId = res.data
-    //       const nextStep = '料号'
+    //       const nextStep = this.$t('common_PorN')
     //       this.scanType = nextStep
     //       this.$refs.logs.createLogsInfo(sn, 1, `请扫描${nextStep}`)
     //     } else {
@@ -171,7 +171,7 @@ export default {
         shiftName: ''
       }
       this.$refs.logs.recordList = []
-      this.scanType = '工单号'
+      this.scanType = this.$t('common_WorkOrdeNo')
     }
   },
   components: {

@@ -1,49 +1,49 @@
 <template>
   <el-form :model="dialogForm" ref="dialogForm" :rules="rules" label-width="8vw" label-position="left" class="el-row mes-form-rule">
-    <el-form-item label="设备代码" prop="eqpCode" class="el-col el-col-11">
+    <el-form-item :label="$t('Device_deviceCode')" prop="eqpCode" class="el-col el-col-11">
       <el-input v-model.trim="dialogForm.eqpCode" size="mini"></el-input>
     </el-form-item>
-    <el-form-item label="设备名称" prop="eqpName" class="el-col el-col-11 el-col-offset-1">
+    <el-form-item :label="$t('Device_deviceName')" prop="eqpName" class="el-col el-col-11 el-col-offset-1">
       <el-input v-model.trim="dialogForm.eqpName" size="mini"></el-input>
     </el-form-item>
-    <el-form-item label="线别" prop="mPomLineId" class="el-col el-col-11">
+    <el-form-item :label="$t('common_Line')" prop="mPomLineId" class="el-col el-col-11">
       <mes-select v-model="dialogForm.mPomLineId" method="getLineList" labelKey="lineName" valueKey="mPomLineId"></mes-select>
     </el-form-item>
-    <el-form-item label="制程" prop="mComProcessSegId" class="el-col el-col-11 el-col-offset-1">
+    <el-form-item :label="$t('common_Process')" prop="mComProcessSegId" class="el-col el-col-11 el-col-offset-1">
       <el-select v-model="dialogForm.mComProcessSegId" clearable size="mini" style="width:100%;">
         <el-option v-for="(process,i) in processList" :key="i" :label="process.segName" :value="process.mComProcessSegId"></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="设备管理人员" prop="mComPersonEqpOwnerId" class="el-col el-col-11">
+    <el-form-item :label="$t('Device_Custodian')" prop="mComPersonEqpOwnerId" class="el-col el-col-11">
       <el-select v-model="dialogForm.mComPersonEqpOwnerId" clearable size="mini" style="width:100%;">
         <el-option v-for="(user,i) in userList" :key="i" :label="user.employeeName" :value="user.mComEmployeeId"></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="默认点检人员" prop="repairUserCid" class="el-col el-col-11 el-col-offset-1">
+    <el-form-item :label="$t('Device_Inspector')" prop="repairUserCid" class="el-col el-col-11 el-col-offset-1">
       <el-select v-model="dialogForm.repairUserCid" clearable size="mini" style="width:100%;">
         <el-option v-for="(user,i) in userList" :key="i" :label="user.employeeName" :value="user.mComEmployeeId"></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="MAC地址" prop="eqpMac" class="el-col el-col-11">
+    <el-form-item :label="$t('Device_MAC')" prop="eqpMac" class="el-col el-col-11">
       <el-input v-model.trim="dialogForm.eqpMac" size="mini"></el-input>
     </el-form-item>
-     <el-form-item label="IP地址" prop="eqpIp" class="el-col el-col-11 el-col-offset-1">
+     <el-form-item :label="$t('Device_IP')" prop="eqpIp" class="el-col el-col-11 el-col-offset-1">
       <el-input v-model.trim="dialogForm.eqpIp" size="mini"></el-input>
     </el-form-item>
     <el-form-item prop="documentAuthority" class="el-col el-col-11">
       <div slot="label">
-        <span>文档浏览权限</span>
-        <help-tips content="用于操作终端设备（电脑和手机）播放或者浏览ESOP文件的权限校验" />
+        <span>{{$t('Device_Document')}}</span>
+        <help-tips :content="$t('Device_checking')" />
       </div>
       <el-checkbox v-model="dialogForm.documentAuthority"></el-checkbox>
 
     </el-form-item>
-    <el-form-item label="描述" prop="eqpDesc" class="el-col el-col-11 el-col-offset-1">
+    <el-form-item :label="$t('common_Description')" prop="eqpDesc" class="el-col el-col-11 el-col-offset-1">
       <el-input v-model="dialogForm.eqpDesc" type="textarea"></el-input>
     </el-form-item>
     <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-      <el-button type="primary" size="mini" @click="saveUser">保存</el-button>
-      <el-button size="mini" @click="$emit('cannel')">取消</el-button>
+      <el-button type="primary" size="mini" @click="saveUser">{{$t('common_save')}}</el-button>
+      <el-button size="mini" @click="$emit('cannel')">{{$t('common_cancel')}}</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -65,10 +65,10 @@ export default {
         eqpDesc: ''
       },
       rules: {
-        eqpCode: [{ required: true, message: '设备代码不能为空' }],
-        eqpName: [{ required: true, message: '设备名称不能为空' }],
-        eqpMac: [{ required: true, message: 'MAC地址不能为空' }],
-        eqpIp: [{ required: true, message: 'IP地址不能为空' }]
+        eqpCode: [{ required: true, message: this.$t('Device_codeEmpty') }],
+        eqpName: [{ required: true, message: this.$t('Device_nameEmpty') }],
+        eqpMac: [{ required: true, message: this.$t('Device_MACEmpty') }],
+        eqpIp: [{ required: true, message: this.$t('Device_IPEmpty') }]
       }
     }
   },

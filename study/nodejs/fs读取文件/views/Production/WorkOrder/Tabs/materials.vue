@@ -1,38 +1,38 @@
 <template>
   <el-table :data="materialsList" border size="mini">
-    <el-table-column type="index" label="序号"  :index="indexMethod" align="center"></el-table-column>
-    <el-table-column label="料号">
+    <el-table-column type="index" :label="$t('common_Number')"  :index="indexMethod" align="center"></el-table-column>
+    <el-table-column :label="$t('common_PorN')">
       <template slot-scope="scope">
         <span v-if="useType===0">{{ scope.row.materialNo }}:{{ scope.row.version }}</span>
-        <dialogTableSelect v-else v-model="scope.row.mComMaterialId" :contentValue="getMaterialNoVersion(scope.row.materialNo,scope.row.version)" selectId="mComMaterialId" searchPlaceholder="请选择料号" :searchForm="materialSearch" searchKey="materialNo" :showKey="['materialNo','version']"  :tableColumns="materialColumns" getDataFunction="getMaterialMasters"></dialogTableSelect>
+        <dialogTableSelect v-else v-model="scope.row.mComMaterialId" :contentValue="getMaterialNoVersion(scope.row.materialNo,scope.row.version)" selectId="mComMaterialId" :searchPlaceholder="$t('common_PleaseSelectPN')" :searchForm="materialSearch" searchKey="materialNo" :showKey="['materialNo','version']"  :tableColumns="materialColumns" getDataFunction="getMaterialMasters"></dialogTableSelect>
       </template>
     </el-table-column>
-    <el-table-column align="center" prop="isKeypart" label="是否为关键物料" width="150">
+    <el-table-column align="center" prop="isKeypart" :label="$t('WorkOrder_keyMaterial')" width="150">
       <template slot-scope="scope">
         <el-checkbox v-model="scope.row.isKeypart" :disabled="useType===0" :true-label="1" :false-label="0"></el-checkbox>
       </template>
     </el-table-column>
-    <el-table-column prop="requestQty" label="需求数量" width="150">
+    <el-table-column prop="requestQty" :label="$t('common_DemanQuan')" width="150">
       <template slot-scope="scope">
         <span v-if="useType===0">{{ scope.row.requestQty }}</span>
         <el-input v-else v-model.trim="scope.row.requestQty" size="mini">
         </el-input>
       </template>
     </el-table-column>
-    <el-table-column prop="usedQty" label="已使用数量" width="150">
+    <el-table-column prop="usedQty" :label="$t('WorkOrder_QuantityUsed')" width="150">
       <template slot-scope="scope">
         <span v-if="useType===0">{{ scope.row.usedQty }}</span>
         <el-input v-else v-model.trim="scope.row.usedQty" disabled size="mini"></el-input>
       </template>
     </el-table-column>
-    <el-table-column prop="baseQty" label="基本用量" width="150">
+    <el-table-column prop="baseQty" :label="$t('WorkOrder_BasicDosage')" width="150">
       <template slot-scope="scope">
         <span v-if="useType===0">{{ scope.row.baseQty }}</span>
         <el-input v-else v-model.trim="scope.row.baseQty" size="mini">
         </el-input>
       </template>
     </el-table-column>
-    <el-table-column prop="mComUomId" label="用量单位">
+    <el-table-column prop="mComUomId" :label="$t('WorkOrder_UnitCons')">
       <template slot-scope="scope">
         <span v-if="useType===0">{{ scope.row.mComUomId }}</span>
         <el-select v-else v-model="scope.row.mComUomId" style="width:100%;" size="mini">
@@ -43,14 +43,14 @@
         </el-select>
       </template>
     </el-table-column>
-    <el-table-column prop="altGroup" label="替代料群组">
+    <el-table-column prop="altGroup" :label="$t('WorkOrder_SubstGrou')">
       <template slot-scope="scope">
         <span v-if="useType===0">{{ scope.row.altGroup }}</span>
         <el-input v-else v-model.trim="scope.row.altGroup" size="mini">
         </el-input>
       </template>
     </el-table-column>
-    <el-table-column label="操作" v-if="useType!==0" width="80" align="center">
+    <el-table-column :label="$t('common_Operate')" v-if="useType!==0" width="80" align="center">
       <template slot-scope="scope">
         <el-button type="danger" icon="el-icon-delete" @click="delCurrentRow(scope.$index)"></el-button>
       </template>
@@ -67,16 +67,16 @@ export default {
       uomList: [],
       materialColumns: [{
         key: 'materialNo',
-        label: '料号'
+        label: 'common_PorN'
       }, {
         key: 'materialName',
-        label: '物料名称'
+        label: 'common_MaterialName'
       }, {
         key: 'version',
-        label: '版次'
+        label: 'common_Edition'
       }, {
         key: 'mComMaterialtypeCode',
-        label: '物料类型'
+        label: 'common_MaterialType'
       }],
       materialSearch: {
         materialNo: '',
@@ -118,7 +118,7 @@ export default {
     async saveWorkOrder () {
       let { jobOrderId } = this.materialsObj
       if (!jobOrderId) {
-        return this.$message.warning('请先保存工单基本信息')
+        return this.$message.warning(this.$t('WorkOrder_saveBasiInfoOrdeFirs'))
       }
       let len = this.materialsList.length
       if (len > 0) {
@@ -129,7 +129,7 @@ export default {
           this.$message.error(res.msg)
         }
       } else {
-        this.$message.warning('请先添加物料清单！')
+        this.$message.warning(this.$t('WorkOrder_addBOMFirs'))
       }
     },
     refresWorkOrder () {

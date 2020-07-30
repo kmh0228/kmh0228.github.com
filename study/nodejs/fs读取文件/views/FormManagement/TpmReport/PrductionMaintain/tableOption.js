@@ -1,69 +1,71 @@
-export let tableOption = (This) => {
+export let tableOption = This => {
   return {
     style: {
       width: '100%'
     },
     tableTitle: [
       {
-        title: '工厂',
+        title: 'common_Factory',
         prop: 'factoryName',
         width: '120px'
       },
       {
-        title: '部门',
+        title: 'common_Department',
         prop: 'officeName',
         width: '120px'
       },
       {
-        title: '点检单号',
+        title: 'prductMaint_SpotChecNo',
         prop: 'docNo',
         width: '120px'
       },
       {
-        title: '线别名称',
+        title: 'common_LineName',
         prop: 'lineName',
         width: '120px'
       },
       {
-        title: '设备代码',
+        title: 'common_EquipCode',
         prop: 'resourceCode',
         width: '120px'
       },
       {
-        title: '设备名称',
+        title: 'common_EquipName',
         prop: 'resourceName',
         width: '120px'
       },
       {
-        title: '月份',
+        title: 'prductMaint_month',
         prop: 'month',
         width: '120px'
       },
       {
-        title: '周期',
+        title: 'prductMaint_cycle',
         prop: 'frequency',
         width: '120px',
-        replaceFun: (row) => {
+        replaceFun: row => {
           let frequency = ''
           frequency = { 1: '日', 2: '周', 3: '月' }[row.frequency]
           return frequency
         }
       },
       {
-        title: '作业日期',
+        title: 'prductMaint_OperaDate',
         prop: 'endTime',
         width: '180px',
-        replaceFun: (row) => {
-          return row.createdDt ? This.$dayjs(row.createdDt).format('YYYY-MM-DD HH:mm:ss') : ''
+        replaceFun: row => {
+          return row.createdDt
+            ? This.$dayjs(row.createdDt).format('YYYY-MM-DD HH:mm:ss')
+            : ''
         }
       },
       {
-        title: '作业人',
+        title: 'common_opera',
         prop: 'operator',
         width: '120px'
       },
       {
-        title: '确认人',
+        title: 'prductMaint_Confi',
         prop: 'confirmer',
         width: '120px'
       }

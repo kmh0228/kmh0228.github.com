@@ -1,4 +1,4 @@
-export let tableOption = (This) => {
+export let tableOption = This => {
   return {
     style: {
       width: '100%'
@@ -6,30 +6,30 @@ export let tableOption = (This) => {
     highlightCurrentRow: true,
     tableTitle: [
       {
-        title: '物料编码',
+        title: 'IQCInspecExp_MaterCodeCannBe',
         prop: 'materialNo'
       },
       {
-        title: '物料名称',
+        title: 'common_MaterialName',
         prop: 'materialName'
       },
       {
-        title: '供应商编码',
+        title: 'IQCInspecExp_SupplCode',
         prop: 'mwmsVendorCode'
       },
       {
-        title: '供应商名称',
+        title: 'common_SupplName',
         prop: 'mwmsVendorName'
       },
       {
-        title: '操作',
+        title: 'common_Operate',
         prop: 'operation',
         fixed: 'right',
         operation: true,
         buttonArr: [
           {
             iconClass: 'el-icon-edit-outline',
-            text: '编辑',
+            text: 'common_Edit',
             operationClick (row) {
               This.addForm = {
                 ...row
@@ -40,7 +40,7 @@ export let tableOption = (This) => {
           {
             iconClass: 'el-icon-delete',
             iconColor: '#f56c6c',
-            text: '删除',
+            text: 'common_Del',
             operationClick (row) {
               This.deletetableData([row.mwmsIqcExtId])
             }

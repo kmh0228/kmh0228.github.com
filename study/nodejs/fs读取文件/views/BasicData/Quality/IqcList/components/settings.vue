@@ -1,14 +1,14 @@
 <template>
    <el-tabs v-model="activeName" >
-    <el-tab-pane  label="抽样设置" name="settings">
-      <el-radio v-model="inspectCategory" label="inspection">全检</el-radio>
-      <el-radio v-model="inspectCategory" label="noInspection">抽样</el-radio>
-      <el-radio v-model="inspectCategory" label="sample">免检</el-radio>
+    <el-tab-pane  :label="$t('IqcList_SamplingSetting')" name="settings">
+      <el-radio v-model="inspectCategory" label="inspection">{{$t('IqcList_FullInspection')}}</el-radio>
+      <el-radio v-model="inspectCategory" label="noInspection">{{$t('IqcList_Sampling')}}</el-radio>
+      <el-radio v-model="inspectCategory" label="sample">{{$t('IqcList_InspectionExemption')}}</el-radio>
       <div v-if="showRadio" style="margin-top:1.5vh">
         <mes-select v-model="aqlStandard" labelKey="levelName" valueKey="mQomInspectionLevelId" method="getInspectLevels" style="margin-right:1vw;width:15%" @change="goSimpleSize(aqlStandard)"></mes-select>
-        <el-radio v-if="isStatusType" v-model="inspectionLevel" label="N-1">减量</el-radio>
-        <el-radio v-if="isStatusType" v-model="inspectionLevel" label="N-2">一般</el-radio>
-        <el-radio v-if="isStatusType" v-model="inspectionLevel" label="N-3">加严</el-radio>
+        <el-radio v-if="isStatusType" v-model="inspectionLevel" label="N-1">{{$t('IqcList_Decrement')}}</el-radio>
+        <el-radio v-if="isStatusType" v-model="inspectionLevel" label="N-2">{{$t('IqcList_General')}}</el-radio>
+        <el-radio v-if="isStatusType" v-model="inspectionLevel" label="N-3">{{$t('IqcList_Strict')}}</el-radio>
       </div>
       <div  v-if="samplingType" >
       <el-form :model="samplingForm"  label-width="90px" label-position="left" class="el-row mes-form-rule" style="margin-top:1.5vh">
@@ -17,13 +17,13 @@
             <el-option v-for="(option,i) in aqlList" :key="i" :label="option.aqlLevelCode" :value="option.mQomAqlLevelMainId"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="抽样数" class="el-col el-col-5 el-col-offset-1">
+        <el-form-item :label="$t('IqcList_SamplingNumber')" class="el-col el-col-5 el-col-offset-1">
           <el-input size="mini" :disabled="sampleQtyDisabled" v-model.trim="samplingForm.sampleQty" ></el-input>
         </el-form-item>
-          <el-form-item label="不良数" class="el-col el-col-5 el-col-offset-1">
+          <el-form-item :label="$t('common_NumbeDefe')" class="el-col el-col-5 el-col-offset-1">
           <el-input size="mini" v-model.number="samplingForm.defectQty"> </el-input>
         </el-form-item>
-          <el-form-item label="不良率" class="el-col el-col-5 el-col-offset-1">
+          <el-form-item :label="$t('IqcList_DefectRate')" class="el-col el-col-5 el-col-offset-1">
           <el-input size="mini" v-model.trim="defectRate" disabled></el-input>
         </el-form-item>
       </el-form>
@@ -69,7 +69,7 @@ export default {
         if (this.stockInQty) {
           this.showRadio = true
         } else {
-          this.$message.warning('请先填写入库数量')
+          this.$message.warning(this.$t('IqcList_PleaseFillInTheWarehousingQuantityFirst'))
           this.inspectCategory = oldVal
         }
       } else {

@@ -1,75 +1,75 @@
 <template>
   <el-form :model="dialogFrom" ref="dialogFrom" label-position="left"  label-width="130px" class="el-row mes-form-rule" :rules="rules">
-    <el-form-item label="一 . 基本信息" class="el-col el-col-24"></el-form-item>
-    <el-form-item label="料号:" prop="mComMaterialId" class="el-col el-col-11">
+    <el-form-item label-width="220px" :label="$t('capacity_One') + ' . ' + $t('common_essenInfo')" class="el-col el-col-24"></el-form-item>
+    <el-form-item :label="$t('common_PorN') + ':'" prop="mComMaterialId" class="el-col el-col-11">
       <!-- <material-select v-model="dialogFrom.mComMaterialId"></material-select> -->
       <el-input v-model="materialNoVersion" v-if="isEdit" :disabled="isEdit"></el-input>
-      <dialogTableSelect v-else ref="dialogTableSelect" v-model="dialogFrom.mComMaterialId" :contentValue="materialNoVersion" selectId="mComMaterialId" searchPlaceholder="请选择料号" :searchForm="materialSearch" searchKey="materialNo" :showKey="['materialNo','version']" :tableColumns="materialColumns" getDataFunction="getMaterialMasters"></dialogTableSelect>
+      <dialogTableSelect v-else ref="dialogTableSelect" v-model="dialogFrom.mComMaterialId" :contentValue="materialNoVersion" selectId="mComMaterialId" :searchPlaceholder="$t('common_PleaseSelectPN')" :searchForm="materialSearch" searchKey="materialNo" :showKey="['materialNo','version']" :tableColumns="materialColumns" getDataFunction="getMaterialMasters"></dialogTableSelect>
 
     </el-form-item>
-    <el-form-item label="二 . 资源产能" class="el-col el-col-24"></el-form-item>
-    <el-form-item  prop="mPsmResourceGroupId"   label="资源组" class="el-col el-col-11">
+    <el-form-item label-width="220px" :label="$t('capacity_Two') + ' . ' + $t('capacity_ResouCapa')" class="el-col el-col-24"></el-form-item>
+    <el-form-item  prop="mPsmResourceGroupId"   :label="$t('capacity_ResouGrou')" class="el-col el-col-11">
       <el-select :disabled="isEdit" v-model="dialogFrom.mPsmResourceGroupId" style="width:100%"  @change="getResource">
         <el-option v-for="(option,i) in resourceGroupList" :key="i" :label="option.resourceGroupCode" :value="option.mPsmResourceGroupId"></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="所有资源产能相同"  class="el-col el-col-23">
+    <el-form-item :label="$t('capacity_AllResoHaveSameCapa')"  class="el-col el-col-23">
       <el-checkbox v-model="isIdentical"></el-checkbox>
     </el-form-item>
     <div v-if="isIdentical">
-      <el-form-item label="产能" class="el-col el-col-11">
+      <el-form-item :label="$t('capacity_capac')" class="el-col el-col-11">
         <el-input v-model="capacity" style="width:50%"></el-input>
         <el-select v-model="capacityType"  style="width:40%;float:right">
           <el-option v-for="(option,i) in capacityTypeList" :key="i" :label="option" :value="option"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="产能单位" class="el-col el-col-11 el-col-offset-1">
+      <el-form-item :label="$t('capacity_CapacUnit')" class="el-col el-col-11 el-col-offset-1">
         <el-select v-model="capacityUom" style="width:100%">
            <el-option v-for="(option,i) in capacityUnit" :key="i"  :label="option" :value="option"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="前置时间" class="el-col el-col-11">
+      <el-form-item :label="$t('capacity_LeadTime')" class="el-col el-col-11">
         <el-input v-model="leadTime"></el-input>
       </el-form-item>
-      <el-form-item label="前置时间单位" class="el-col el-col-11 el-col-offset-1">
+      <el-form-item :label="$t('capacity_LeadTimeUnit')" class="el-col el-col-11 el-col-offset-1">
         <el-select  v-model="leadTimeUom" style="width:100%">
            <el-option v-for="(option,i) in beforeTimeUnit" :key="i" :label="option" :value="option"></el-option>
         </el-select>
       </el-form-item>
       </div>
       <el-table :data="recourceTable"  size="mini" border  class="el-col el-col-23">
-        <el-table-column type="index" label="序号" align="center"></el-table-column>
-        <el-table-column prop="resourceCode" sortable align="center" label="排产资源代码"></el-table-column>
-        <el-table-column prop="resourcePriority" sortable align="center" label="优先级" >
+        <el-table-column type="index" :label="$t('common_Number')" align="center"></el-table-column>
+        <el-table-column prop="resourceCode" sortable align="center" :label="$t('capacity_SchedResoCode')"></el-table-column>
+        <el-table-column prop="resourcePriority" sortable align="center" :label="$t('capacity_prior')" >
           <template slot-scope="scope">
             <el-input v-model.trim="scope.row.resourcePriority" ></el-input>
           </template>
         </el-table-column>
-        <el-table-column prop="capacityType" sortable align="center" label="产能类型" >
+        <el-table-column prop="capacityType" sortable align="center" :label="$t('capacity_CapacType')" >
           <template slot-scope="scope">
           <el-select  v-model="scope.row.capacityType" :disabled="isIdentical">
              <el-option v-for="(option,i) in capacityTypeList" :key="i" :label="option" :value="option"></el-option>
           </el-select>
           </template>
         </el-table-column>
-        <el-table-column prop="capacity"  align="center" label="产能">
+        <el-table-column prop="capacity"  align="center" :label="$t('capacity_capac')">
           <template slot-scope="scope">
             <el-input v-model.trim="scope.row.capacity" :disabled="isIdentical"></el-input>
           </template>
         </el-table-column>
-        <el-table-column prop="capacityUom"  align="center" label="产能单位">
+        <el-table-column prop="capacityUom"  align="center" :label="$t('capacity_CapacUnit')">
           <template slot-scope="scope">
             <el-select v-model="scope.row.capacityUom" style="width:100%" :disabled="isIdentical">
               <el-option v-for="(option,i) in capacityUnit" :key="i" :label="option" :value="option"></el-option>
             </el-select>
           </template>
         </el-table-column>
-        <el-table-column prop="leadTime"  align="center" label="前设置时间">
+        <el-table-column prop="leadTime"  align="center" :label="$t('capacity_BeforSettTime')">
           <template slot-scope="scope">
             <el-input v-model.trim="scope.row.leadTime" :disabled="isIdentical"></el-input>
           </template>
         </el-table-column>
-        <el-table-column prop="leadTimeUom"  align="center" label="前设置时间单位">
+        <el-table-column prop="leadTimeUom"  align="center" :label="$t('capacity_SetTimeUnitBefo')">
           <template slot-scope="scope">
            <el-select  v-model="scope.row.leadTimeUom" style="width:100%" :disabled="isIdentical">
               <el-option v-for="(option,i) in beforeTimeUnit" :key="i" :label="option" :value="option"></el-option>
@@ -78,8 +78,8 @@
         </el-table-column>
       </el-table>
     <el-form-item label-width="0" class="el-col el-col-24 dialog-footer">
-      <el-button type="primary" size="mini" @click="saveData">保存</el-button>
-      <el-button size="mini" @click="$emit('cannel')">取消</el-button>
+      <el-button type="primary" size="mini" @click="saveData">{{$t('common_save')}}</el-button>
+      <el-button size="mini" @click="$emit('cannel')">{{$t('common_cancel')}}</el-button>
     </el-form-item>
 </el-form>
 </template>
@@ -101,13 +101,8 @@ export default {
       capacityUom: '',
       leadTime: '',
       leadTimeUom: '',
-      rules: {
-        mComMaterialId: [{ required: true, message: '请选择料号' }]
-        // mPsmResourceGroupId: [{ required: true, message: '请选择资源组' }]
-      },
       capacityTypeList: ['M', 'KG', 'PCS'],
-      capacityUnit: ['件/小时', '小时/件'],
-      beforeTimeUnit: ['小时'],
+      beforeTimeUnit: [this.$t('capacity_hour')],
       recourceTable: [],
       isIdentical: false,
       materialSearch: {
@@ -116,16 +111,16 @@ export default {
       },
       materialColumns: [{
         key: 'materialNo',
-        label: '料号'
+        label: this.$t('common_PorN')
       }, {
         key: 'materialName',
-        label: '物料名称'
+        label: this.$t('common_MaterialName')
       }, {
         key: 'version',
-        label: '版次'
+        label: this.$t('common_Edition')
       }, {
         key: 'mComMaterialtypeCode',
-        label: '物料类型'
+        label: this.$t('common_MaterialType')
       }],
       resourceGroupList: []
     }
@@ -170,7 +165,15 @@ export default {
       const materialNo = this.materialNo ? this.materialNo + ':' : ''
       const version = this.version ? this.version : ''
       return `${materialNo}${version}`
-    }
+    },
+    rules () {
+      return {
+        mComMaterialId: [{ required: true, message: this.$t('common_PleaseSelectPN') }]
+        // mPsmResourceGroupId: [{ required: true, message: '请选择资源组' }]
+      }
+    },
+    capacityUnit () { return [this.$t('capacity_piece') + '/' + this.$t('capacity_hour'), this.$t('capacity_hour') + '/' + this.$t('capacity_piece')] }
+
   },
   props: {
     isEdit: Boolean,

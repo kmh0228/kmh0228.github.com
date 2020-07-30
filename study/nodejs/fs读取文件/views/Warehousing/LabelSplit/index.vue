@@ -1,56 +1,56 @@
 <template>
   <div class="mes-main mes-work-order">
-    <div class="mes-main-title">标签拆分</div>
+    <div class="mes-main-title">{{$t('LabelManagement_LabelSplit')}}</div>
     <div class="main-common-head mes-main-filte">
-      <el-button type="primary" plain size="mini" @click="closeCurrentPage">取消</el-button>
-      <el-button type="primary" plain size="mini" :loading="saveLoading" @click="labelSplit">保存</el-button>
-      <el-button type="primary" plain size="mini">打印</el-button>
+      <el-button type="primary" plain size="mini" @click="closeCurrentPage">{{$t('common_cancel')}}</el-button>
+      <el-button type="primary" plain size="mini" :loading="saveLoading" @click="labelSplit">{{$t('common_save')}}</el-button>
+      <el-button type="primary" plain size="mini">{{$t('LabelManagement_Print')}}</el-button>
     </div>
     <div>
       <div class="scan_box el-row">
         <el-col :span="23">
-          <el-input size="medium" ref="scanInput" style="font-size: 1vw;" v-model.trim="pkgCode" placeholder="扫描标签条码" clearable @keydown.enter.native="scanFun"></el-input>
+          <el-input size="medium" ref="scanInput" style="font-size: 1vw;" v-model.trim="pkgCode" :placeholder="$t('LabelManagement_ScanLabelBarCode')" clearable @keydown.enter.native="scanFun"></el-input>
         </el-col>
       </div>
       <el-form class="el-row mes-search-form" style="margin-top: 20px;" :model="splitForm" label-width="30%" label-position="left">
-        <el-form-item label="标签号" class="el-col el-col-11 ">
+        <el-form-item :label="$t('LabelManagement_TagNumber')" class="el-col el-col-11 ">
           <el-input v-model="splitForm.pkgCode" disabled></el-input>
         </el-form-item>
-        <el-form-item label="料号" class="el-col el-col-11 el-col-offset-1">
+        <el-form-item :label="$t('common_PorN')" class="el-col el-col-11 el-col-offset-1">
           <el-input v-model="splitForm.materialCode" disabled></el-input>
         </el-form-item>
-        <el-form-item label="物料名称" class="el-col el-col-11 ">
+        <el-form-item :label="$t('common_MaterialName')" class="el-col el-col-11 ">
           <el-input v-model="splitForm.materialName" disabled></el-input>
         </el-form-item>
-        <el-form-item label="批次号" class="el-col el-col-11 el-col-offset-1">
+        <el-form-item :label="$t('LabelManagement_BatchNumber')" class="el-col el-col-11 el-col-offset-1">
           <el-input v-model="splitForm.materialLot" disabled></el-input>
         </el-form-item>
-        <el-form-item label="数量" class="el-col el-col-11 ">
+        <el-form-item :label="$t('LabelManagement_Num')" class="el-col el-col-11 ">
           <el-input v-model="splitForm.qty" disabled></el-input>
         </el-form-item>
-        <el-form-item label="剩余可拆数量" class="el-col el-col-11 el-col-offset-1">
+        <el-form-item :label="$t('LabelManagement_Remaining')" class="el-col el-col-11 el-col-offset-1">
           <el-input v-model="surplusQty" disabled></el-input>
         </el-form-item>
-        <el-form-item label="拆分数量" class="el-col el-col-11 ">
+        <el-form-item :label="$t('LabelManagement_SplitQuantity')" class="el-col el-col-11 ">
           <el-input v-model.trim="sQty" @change="changeSQty"></el-input>
         </el-form-item>
         <el-form-item label="" class="el-col el-col-11 " label-width="10px">
-          <el-button type="primary" @click="splitFun" :loading="splitLoading">拆分</el-button>
+          <el-button type="primary" @click="splitFun" :loading="splitLoading">{{$t('LabelManagement_split')}}</el-button>
         </el-form-item>
       </el-form>
     </div>
     <div class="mes-main-tabs mes-table" style="margin-top:10px">
         <el-tabs v-model="activeName">
-          <el-tab-pane label="拆分信息" name="splitInfo">
-            <el-button size="mini" icon="el-icon-delete-solid" @click="deleteData">删除</el-button>
+          <el-tab-pane :label="$t('LabelManagement_SplitInformation')" name="splitInfo">
+            <el-button size="mini" icon="el-icon-delete-solid" @click="deleteData">{{$t('common_Del')}}</el-button>
             <el-table :data="splitData" @selection-change="selectionChange" border size="mini" style="margin-top:10px">
               <el-table-column type="selection" align="center" fixed="left" width="80"></el-table-column>
-              <el-table-column type="index" label="序号" align="center" fixed="left" width="80" :index="1"></el-table-column>
-              <el-table-column prop="pkgCode" sortable label="新条码号" align="center"></el-table-column>
-              <el-table-column prop="qty" sortable label="数量" align="center"></el-table-column>
-              <el-table-column prop="materialCode" sortable label="物料编码" align="center"></el-table-column>
-              <el-table-column prop="materialName" sortable label="物料名称"  align="center"></el-table-column>
-              <el-table-column prop="pPkgCode" sortable label="父条码"  align="center"></el-table-column>
+              <el-table-column type="index" :label="$t('common_Number')" align="center" fixed="left" width="80" :index="1"></el-table-column>
+              <el-table-column prop="pkgCode" sortable :label="$t('LabelManagement_NewBarcodeNumber')" align="center"></el-table-column>
+              <el-table-column prop="qty" sortable :label="$t('LabelManagement_Num')" align="center"></el-table-column>
+              <el-table-column prop="materialCode" sortable :label="$t('LabelManagement_MaterialCode')" align="center"></el-table-column>
+              <el-table-column prop="materialName" sortable :label="$t('common_MaterialName')"  align="center"></el-table-column>
+              <el-table-column prop="pPkgCode" sortable :label="$t('LabelManagement_ParentBarcode')"  align="center"></el-table-column>
             </el-table>
           </el-tab-pane>
         </el-tabs>
@@ -104,17 +104,17 @@ export default {
     changeSQty () {
       let reg = /^\d+(\.\d+)?$/
       if (this.sQty && !reg.test(this.sQty)) {
-        this.$message.warning('拆分数量只能是数字')
+        this.$message.warning(this.$t('LabelManagement_SplitQuantityRequired'))
         this.sQty = ''
         return false
       }
       if (!this.surplusQty) {
-        this.$message.warning('剩余可拆数量不能为0')
+        this.$message.warning(this.$t('LabelManagement_TheRemainingRequired'))
         this.sQty = ''
         return false
       }
       if (parseFloat(this.sQty) > parseFloat(this.surplusQty)) {
-        this.$message.warning('拆分数量不能大于剩余可拆数量')
+        this.$message.warning(this.$t('LabelManagement_splitQuantityRequired1'))
         this.sQty = ''
         return false
       }
@@ -138,11 +138,11 @@ export default {
     async splitFun () {
       let { materialId } = this.splitForm
       if (!materialId) {
-        this.$message.warning('请扫描条码号')
+        this.$message.warning(this.$t('LabelManagement_PleaseScan'))
         return false
       }
       if (!this.sQty) {
-        this.$message.warning('拆分数量不能为空')
+        this.$message.warning(this.$t('LabelManagement_SplitQuantityRequired2'))
         return false
       }
       this.splitLoading = true
@@ -164,11 +164,11 @@ export default {
     },
     async labelSplit () {
       if (this.splitFlag) {
-        this.$message.warning('不能重复拆分，请重新扫描')
+        this.$message.warning(this.$t('LabelManagement_CannotSplit'))
         return false
       }
       if (!this.splitData.length) {
-        this.$message.warning('拆分信息不能为空')
+        this.$message.warning(this.$t('LabelManagement_SplitInformationRequired'))
         return false
       }
       this.saveLoading = true
@@ -184,16 +184,16 @@ export default {
       if (res.code === '200') {
         this.splitFlag = true
         this.saveLoading = false
-        this.$message.success('拆分成功')
+        this.$message.success(this.$t('LabelManagement_SplitSuccess'))
       }
     },
     async deleteData () {
       let ids = this.multipleSelection.map(item => item.rowId)
       if (!ids.length) {
-        this.$message.warning('请选择需要删除的拆分数据')
+        this.$message.warning(this.$t('LabelManagement_PleaseSelect1'))
         return false
       }
-      const confirm = await this.$myPrompt.confirm('确定删除当前选中的拆分数据吗?')
+      const confirm = await this.$myPrompt.confirm(this.$t('LabelManagement_DeleteInfo'))
       if (confirm) {
         this.splitData = this.splitData.filter(item => ids.indexOf(item.rowId) === -1)
       }

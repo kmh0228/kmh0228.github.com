@@ -1,4 +1,4 @@
-export let tableOption = (This) => {
+export let tableOption = This => {
   return {
     style: {
       width: '100%'
@@ -6,56 +6,60 @@ export let tableOption = (This) => {
     highlightCurrentRow: true,
     tableTitle: [
       {
-        title: '编码',
+        title: 'common_code',
         prop: 'code',
         width: '120px'
       },
       {
-        title: '名称',
+        title: 'common_Name',
         prop: 'name',
         width: '120px'
       },
       {
-        title: '批次编码规则',
+        title: 'materialBathS_BatchCodiRule',
         prop: 'batchCodeType',
         width: '150px'
       },
       {
-        title: '是否有效',
+        title: 'materialBathS_IsItEffe',
         prop: 'isInvalid',
         width: '120px',
-        replaceFun: (row) => {
+        replaceFun: row => {
           return row.isInvalid ? '有效' : '无效'
         }
       },
       {
-        title: '创建人',
+        title: 'common_Creator',
         prop: 'creatorName',
         width: '120px'
       },
       {
-        title: '创建时间',
+        title: 'common_CreateTime',
         prop: 'createdDt',
         width: '180px',
-        replaceFun: (row) => {
-          return row.createdDt ? This.$dayjs(row.createdDt).format('YYYY-MM-DD HH:mm:ss') : ''
+        replaceFun: row => {
+          return row.createdDt
+            ? This.$dayjs(row.createdDt).format('YYYY-MM-DD HH:mm:ss')
+            : ''
         }
       },
       {
-        title: '修改人',
+        title: 'common_ModifBy',
         prop: 'lastEditorName',
         width: '120px'
       },
       {
-        title: '最后修改时间',
+        title: 'common_LastModiTime',
         prop: 'lastEditedDt',
         width: '180px',
-        replaceFun: (row) => {
-          return row.lastEditedDt ? This.$dayjs(row.lastEditedDt).format('YYYY-MM-DD HH:mm:ss') : ''
+        replaceFun: row => {
+          return row.lastEditedDt
+            ? This.$dayjs(row.lastEditedDt).format('YYYY-MM-DD HH:mm:ss')
+            : ''
         }
       },
       {
-        title: '操作',
+        title: 'common_Operate',
         prop: 'operation',
         fixed: 'right',
         width: '120',
@@ -63,7 +67,7 @@ export let tableOption = (This) => {
         buttonArr: [
           {
             iconClass: 'el-icon-edit-outline',
-            text: '编辑',
+            text: 'common_Edit',
             operationClick (row) {
               This.popType = 'update'
               This.addForm = {
@@ -79,7 +83,7 @@ export let tableOption = (This) => {
           {
             iconClass: 'el-icon-delete',
             iconColor: '#f56c6c',
-            text: '删除',
+            text: 'common_Del',
             operationClick (row) {
               This.deleteBatchProgram([row.mwmsMaterialBatchProgramId])
             }
